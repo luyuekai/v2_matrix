@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The prototype website of web framework">
+  <meta name="author" content="LY">
+  <title>天玑大数据分析系统</title>
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
+
+
+  <!-- reference CSS-->
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
+
+  <!-- self-owned CSS-->
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/style.css">
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/themes/flat-blue.css">
+
+
+
+</head>
+
+<body class="flat-blue">
+  <div class="app-container">
+    <div class="row content-container">
+
+      <!-- 应用顶部NAV导航，在prototype.js初始化时加载，默认为assets/html/header.html-->
+      <div id="navDIV"></div>
+      <!-- 应用左侧NAV导航，可以应用与assist，帮助，过滤等辅助组件，默认自动收缩扩展，支持悬停（点击右上角按钮切换）-->
+      <div id="assistDIV"></div>
+
+      <div class="container-fluid">
+        <div class="side-body padding-top">
+
+          <!-- 应用具体内容DIV-->
+          <div id="contentDIV">
+            <div class="row">
+
+              <!-- 筛选文件区域 -->
+              <div class="col-xs-12">
+                <div class="card card-info">
+                  <div class="card-header">
+                    <div class="card-title">
+                      <div class="title"><i class="fa fa-files-o"></i> 筛选文件列表</div>
+                    </div>
+                    <div class="pull-right card-action">
+                      <div class="btn-group" role="group" aria-label="..." id="hideFilesDIV">
+                        <button type="button" class="btn btn-link" title="隐藏" onclick="$('#filesContentDIV').css('display', 'none'),$('#displayFilesDIV').css('display', ''),$('#hideFilesDIV').css('display', 'none')">
+                          <div class="title"><i class="fa fa-sort-up fa-2x"></i></div>
+                        </button>
+                      </div>
+                      <div class="btn-group" role="group" aria-label="..." id="displayFilesDIV" style="display:none">
+                        <button type="button" class="btn btn-link" title="显示" onclick="$('#filesContentDIV').css('display', ''),$('#hideFilesDIV').css('display', ''),$('#displayFilesDIV').css('display', 'none')">
+                          <div class="title"><i class="fa fa-sort-down fa-2x"></i></div>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card profile" id="filesContentDIV">
+                    <div class="card-body">
+                      <div class="name"></div>
+                      <div class="description">
+
+
+                        <div data-bind="foreach:viewData">
+                          <button type="button" class="btn btn-default btn-xs" data-bind="visible:isChecked,click:function(){$parent.checkListener($data)}">
+                            <span class="fa fa-close" aria-hidden="true"></span>
+                            <span data-bind="text:data.name"></span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-footer">
+                      <i class="fa fa-files-o"></i> &nbsp;文件总数量:
+                      <strong data-bind="text: totalSelected()"></strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 文件列表区域 -->
+              <div class="col-xs-12">
+                <div class="card card-success">
+                  <div class="card-header">
+                    <div class="card-title">
+                      <div class="title"><i class="fa fa-table"></i> Table dynamic load data example
+                        <small>(<strong data-bind="text:totalCounts()"></strong>)</small>
+                      </div>
+                    </div>
+                    <div class="pull-right card-action">
+                      <div class="btn-group" role="group">
+                        <button onclick="sortBySubmitColumn()" type="button" class="btn btn-link" title="Sort ">
+                          <div class="title"><i class="fa fa-refresh fa-2x"></i></div>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <form class="navbar-form navbar-right" role="search">
+                      <div class="form-group">
+                        <input data-bind="value:searchKeyword" class="form-control" placeholder="输入关键字" type="text">
+                      </div>
+                      <button data-bind="click:function(){buildView()}" type="submit" class="btn btn-success">搜索</button>
+
+                    </form>
+                    <table class="table table-striped sortable" cellspacing="0" width="100%">
+                      <thead>
+                        <tr>
+                          <th>
+                            <input type="checkbox" data-bind="checked:isSelectCurrentPage" />本页
+                            <input type="checkbox" data-bind="checked:isSelectAllPage" />全选
+                          </th>
+                          <th>file name</th>
+                          <th id="submit_th_id">submit</th>
+                        </tr>
+                      </thead>
+                      <!-- Todo: Generate table body -->
+                      <tbody data-bind="foreach: viewData">
+                        <tr data-bind="visible:isDisplay">
+                          <td>
+                            <input type="checkbox" data-bind="checked: isChecked" />
+                          </td>
+                          <td data-bind="text: data.name">
+                          </td>
+                          <td data-bind="text: data.submit">
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div id="pagingDIV">
+                      <nav>
+                        <ul class="pager">
+                          <span class="pull-right"><select class="form-control" style="width:88px" data-bind="options:pagingSizeArray,value:pageMaxSize"></select></span>
+                          <li><a data-bind="click:function(){toPage(1)}" href="#">首页</a></li>
+                          <li><a data-bind="click:function(){toPage(currentPageNumber()-1)}" href="#">前翻</a></li>
+                          <li>
+                            <input data-bind="value:currentPageNumber" style="width:38px" ;type="text" class="text-center">
+                          </li>
+                          <li><a data-bind="click:function(){toPage(currentPageNumber()+1)}" href="#">后翻</a></li>
+                          <li><a data-bind="click:function(){toPage(totalPage())}" href="#">末页</a></li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+  <!-- Javascript -->
+  <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+  <script src="assets/reference/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/reference/sorttable.js/sorttable.js"></script>
+
+  <script src="assets/self-owned/js/prototype.js"></script>
+  <script src="assets/self-owned/js/self-talbe.js"></script>
+  <script src="assets/reference/knockout.js/knockout-3.3.0.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('#assistDIV').load($.getRootPath() + '/assets/self-owned/html/assist/assist_sample.html');
+    });
+  </script>
+  <!-- Using knockout for MVVM injection-->
+  <script>
+    var serverData = [{
+      name: "yangliu_hdfs_file_1",
+      submit:"4/21/2016, 2:47:57 AM"
+    }, {
+      name: "yangliu_hdfs_file_2",
+      submit:"4/21/2016, 6:13:19 AM"
+    }, {
+      name: "yangliu_hdfs_file_3",
+      submit:"4/20/2016, 11:36:39 PM"
+    }, {
+      name: "yangliu_hdfs_file_4",
+      submit:"4/21/2016, 5:17:27 AM"
+    }, {
+      name: "yangliu_hdfs_file_5",
+      submit:"4/21/2016, 1:24:12 AM"
+    }, {
+      name: "yangliu_hdfs_file_6",
+      submit:"4/21/2016, 4:01:36 AM"
+    }, {
+      name: "yangliu_hdfs_file_7",
+      submit:"4/21/2016, 2:47:57 AM"
+    }, {
+      name: "yangliu_hdfs_file_8",
+      submit:"4/21/2016, 2:47:57 AM"
+    }, {
+      name: "yangliu_hdfs_file_9",
+      submit:"4/21/2016, 2:47:57 AM"
+    }, {
+      name: "yangliu_hdfs_file_10",
+      submit:"4/21/2016, 2:47:57 AM"
+    }, {
+      name: "yangliu_hdfs_file_11",
+      submit:"4/21/2016, 2:47:57 AM"
+    }, {
+      name: "yangliu_hdfs_file_12",
+      submit:"4/21/2016, 2:47:57 AM"
+    }, {
+      name: "yangliu_hdfs_file_13",
+      submit:"4/21/2016, 2:47:57 AM"
+    }, {
+      name: "yangliu_hdfs_file_14",
+      submit:"4/21/2016, 2:47:57 AM"
+    }, {
+      name: "yangliu_hdfs_file_15",
+      submit:"4/21/2016, 2:47:57 AM"
+    }, {
+      name: "yangliu_hdfs_file_16",
+      submit:"4/21/2016, 2:47:57 AM"
+    }];
+    var viewModel = new ListViewModel();
+    ko.applyBindings(viewModel, document.getElementById('contentDIV'));
+    viewModel.buildData(serverData);
+    viewModel.buildView();
+
+
+    var sortBySubmitColumn = function(){
+      sorttable.innerSortFunction.apply(document.getElementById('submit_th_id'), []);
+    }
+
+    //refrence http://www.kryogenix.org/code/browser/sorttable/
+  </script>
+
+</body>
+
+</html>

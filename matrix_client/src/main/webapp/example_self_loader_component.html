@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The prototype website of web framework">
+  <meta name="author" content="LY">
+  <title>天玑大数据分析系统</title>
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
+
+
+  <!-- reference CSS-->
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
+
+  <!-- self-owned CSS-->
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/style.css">
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/themes/flat-blue.css">
+
+
+
+</head>
+
+<body class="flat-blue">
+  <div class="app-container">
+    <div class="row content-container">
+
+      <!-- 应用顶部NAV导航，在prototype.js初始化时加载，默认为assets/html/header.html-->
+      <div id="navDIV"></div>
+      <!-- 应用左侧NAV导航，可以应用与assist，帮助，过滤等辅助组件，默认自动收缩扩展，支持悬停（点击右上角按钮切换）-->
+      <div id="assistDIV"></div>
+
+      <div class="container-fluid">
+        <div class="side-body padding-top">
+
+          <!-- 应用具体内容DIV-->
+          <div id="contentDIV">
+            <h1>
+              <strong>Loader Component</strong>
+
+            </h1>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card profile loader">
+                  <div class="loader-container text-center color-white">
+                    <div><i class="fa fa-spinner fa-pulse fa-3x"></i></div>
+                    <div>Loading</div>
+                  </div>
+                  <div class="card-body">
+                    <div class="name"></div>
+                    <div class="description">
+                      Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <i class="fa fa-users"></i> 10 Friends
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div id="testDIV" class="card profile">
+                  <div class="card-body">
+                    <div class="name"></div>
+                    <div class="description">
+                      Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <i class="fa fa-users"></i> 10 Friends
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-md-6">
+                    <button onclick="LoaderUtil.addMask('testDIV')" type="button" class=" btn btn-default btn-md" style="border-color:#fff">
+                      <span class="glyphicon glyphicon-eye-close" aria-hidden="true" title="Download">&nbsp;Add Mask</span>
+                    </button>
+                  </div>
+                  <div class="col-md-6">
+                    <button onclick="LoaderUtil.addLoader('testDIV')" type="button" class=" btn btn-default btn-md" style="border-color:#fff">
+                      <span class="fa fa-spinner" aria-hidden="true" title="Download">&nbsp;Add Loader</span>
+                    </button>
+                  </div>
+                  <div class="col-md-6">
+                    <button onclick="LoaderUtil.removeMask('testDIV')" type="button" class=" btn btn-default btn-md" style="border-color:#fff">
+                      <span class="glyphicon glyphicon-eye-open" aria-hidden="true" title="Download">&nbsp;Remove Mask</span>
+                    </button>
+                  </div>
+                  <div class="col-md-6">
+                    <button onclick="LoaderUtil.removeLoader('testDIV')" type="button" class=" btn btn-default btn-md" style="border-color:#fff">
+                      <span class="fa fa-spinner" aria-hidden="true" title="Download">&nbsp;Remove Loader</span>
+                    </button>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-md-6">
+                    <button onclick="LoaderUtil.add('testDIV')" type="button" class=" btn btn-default btn-md" style="border-color:#fff">
+                      <span class="fa fa-spinner" aria-hidden="true" title="Download">&nbsp;ADD</span>
+                    </button>
+                  </div>
+                  <div class="col-md-6">
+                    <button onclick="LoaderUtil.remove('testDIV')" type="button" class=" btn btn-default btn-md" style="border-color:#fff">
+                      <span class="fa fa-spinner" aria-hidden="true" title="Download">&nbsp;REMOVE</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+  <!-- Javascript -->
+  <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+  <script src="assets/reference/bootstrap/js/bootstrap.min.js"></script>
+
+
+  <script src="assets/self-owned/js/prototype.js"></script>
+  <script src="assets/self-owned/js/self-csv.js"></script>
+  <script src="assets/reference/knockout.js/knockout-3.3.0.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('#assistDIV').load($.getRootPath() + '/assets/self-owned/html/assist/assist_sample.html');
+    });
+  </script>
+
+</body>
+
+</html>

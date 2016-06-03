@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The prototype website of web framework">
+  <meta name="author" content="LY">
+  <title>Prototype</title>
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
+
+  <!-- reference CSS-->
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
+
+  <!-- self-owned CSS-->
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/style.css">
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/themes/flat-blue.css">
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/quickstart.css">
+
+  <!-- reference JS-->
+  <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+  <script src="assets/reference/TweenMax/TweenMax.min.js"></script>
+  <script src="assets/reference/jquery-ui/jquery-ui.js"></script>
+  <script src="assets/reference/jquery/jquery.scrollmagic.js"></script>
+  <script src="assets/reference/jquery/jquery.nicescroll.js"></script>
+  <script src="assets/reference/bootstrap/js/bootstrap.min.js"></script>
+
+  <!-- self-owned JS-->
+  <script src="assets/self-owned/js/prototype.js"></script>
+
+</head>
+
+<body class="flat-blue">
+
+
+
+  <div id="navDIV"></div>
+
+
+
+
+
+  <div class="card" style="margin-top:60px">
+    <div class="card-header" style="height:120px;background-color: #ffb400;">
+      <div class="card-title">
+        <div class="title " style="color:#FFF"><i class="fa fa-book"></i> Quick Start Guide</div>
+      </div>
+      <div class="container text-center">
+        <div class='row' style="margin-top:18px">
+          <div class="col-xd-4 col-md-1 col-md-offset-4"> <a href="#" onclick="location.href=$.getRootPath() + '/quickStart.html'" style="color:#fff"><i class="icon fa fa-dashboard fa-4x"></i><div style="font-size:28px">统计</div></a></div>
+          <div class="col-xd-4 col-md-1 " style="margin-top:38px"> <a href="#" onclick="location.href=$.getRootPath() + '/quickStart_notebook.html'" style="color:#fff"><i class="icon fa fa-filter fa-2x"></i><div style="font-size:12px">分析</div></a></div>
+          <div class="col-xd-4 col-md-1 " style="margin-top:38px"><a href="#" onclick="location.href=$.getRootPath() + '/quickStart_datamgmt.html'" style="color:#fff"><i class="icon fa fa-file-o fa-2x"></i><div style="font-size:12px">管理</div></a></div>
+        </div>
+      </div>
+
+      <div class="clear-both"></div>
+    </div>
+    <div class="card-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="card">
+              <div class="card-header" style="background-color: #ffb400;">
+                <div class="card-title">
+                  <div class="title" style="color:#FFF">基于数据透视图的专业大数据统计分析平台</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="step">
+                  <ul class="nav nav-tabs nav-justified" role="tablist">
+                    <li role="step" class="active">
+                      <a href="#step1" id="step1-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+                        <div class="icon fa fa-dashboard"></div>
+                        <div class="step-title">
+                          <div class="title">灵活的数据透视图</div>
+                          <div class="description">通过多纬度联动动态生成</div>
+                        </div>
+                      </a>
+                    </li>
+                    <li role="step">
+                      <a href="#step2" role="tab" id="step2-tab" data-toggle="tab" aria-controls="profile">
+                        <div class="icon fa fa-cogs"></div>
+                        <div class="step-title">
+                          <div class="title">数据透视细节</div>
+                          <div class="description">精炼后的数据文件详情</div>
+                        </div>
+                      </a>
+                    </li>
+                    <li role="step">
+                      <a href="#step3" role="tab" id="step3-tab" data-toggle="tab" aria-controls="profile">
+                        <div class="icon fa fa-fighter-jet"></div>
+                        <div class="step-title">
+                          <div class="title">数据进阶分析与处理</div>
+                          <div class="description"></div>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="tab-content text-left">
+                    <div role="tabpanel" class="tab-pane fade in active" id="step1" aria-labelledby="home-tab">
+                      <blockquote>
+                        基于集群中的大数据结果集，系统定制的
+                          <strong>统计业务模块</strong>，会展示出基于
+                          <code>时间维度</code>和
+                          <code>业务维度</code>的一套整体统计结果。
+                          <ul>
+                            <li>大数据统计模块的使用人群为
+                              数据工程师、分析师和<code>决策者</code>。</li>
+                            <li>大数据统计模块提供了一个基于时间维度和业务维度的灵活的数据透视图。</li>
+                            <li>通过条件过滤和组合搭配，决策者可以看到其想获取的粗粒度或者细粒度的业务统计数据，比如：
+                              <footer>
+                                查看2015年三大运营商全国的数据统计和对比
+                                <strong>[粗粒度]</strong>
+                              </footer>
+                              <footer>
+                                查看某一运营商的某一接口类型在某一省某一天的数据统计
+                                <strong>[细粒度]</strong>
+                              </footer>
+                            </li>
+                          </ul>
+                          通过灵活的组合，帮助使用者行之有效的获取想要了解的信息，对其更加快捷迅速的做出决策提供辅助作用。
+                      </blockquote>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="step2" aria-labelledby="profile-tab">
+                      <blockquote>
+                        在使用者通过数据透视图获取到想要了解的统计信息后，我们可以更进一步的分析，进入
+                          <strong>数据透视细节</strong>。
+                          <ul>
+                            <li>数据透视细节显示精炼后的数据文件详情。</li>
+                            <li>对当前的筛选条件显示汇总统计数据。</li>
+                            <li>可以查看数据文件的相关元数据信息。</li>
+                            <li>可以查看数据文件的相关内容信息。</li>
+                          </ul>
+                          当能够看到想看到的数据透视细节时，我们可以更近一步，对其数据进行进阶分析和处理 <span class="icon fa fa-fighter-jet"></span>
+
+                      </blockquote>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="step3" aria-labelledby="dropdown1-tab">
+                      <blockquote>
+                        在使用者通过数据透视图获取到想要了解的统计信息后，我们可以更进一步,比如：
+                          <ul>
+                            <li>选择需要分析的数据文件，使用诸如 <code>pig</code>、<code>hive</code>、<code>spark SQL</code>等工具进行大数据分析。</li>
+                            <li>选择需要构建例表的数据文件，将其进行导库操作，逐渐形成一个庞大有意义的大数据智能分析库。</li>
+                          </ul>
+
+                      </blockquote>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center" style="margin: 0 auto;overflow:hidden;height:1080px;background-color: #fffdd4;width:1024px">
+      <div style="position:relative;margin-bottom:20px;">
+        <div style="position:absolute;top:0px;left:0px;z-index:10;">
+          <p style="z-index:1; position:absolute;margin-left:50px;text-align:left;float:left;width:450px;top:180px;left:470px;font-weight: normal;
+          font-size: 22px;">
+            专业的大数据统计分析平台
+            <a style="color: #4d97ce;font-weight: normal;font-size: 22px;  text-decoration: none;" href="#" onclick="location.href=$.getRootPath() + '/dashboard.html'">开始旅程</a>
+          </p>
+          <img src="assets/self-owned/img/quickstart/Performance_bars.png" style="position: relative; top:20px;left:90px">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+</body>
+
+</html>

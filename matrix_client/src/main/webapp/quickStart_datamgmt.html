@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The prototype website of web framework">
+  <meta name="author" content="LY">
+  <title>Prototype</title>
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
+
+  <!-- reference CSS-->
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
+
+  <!-- self-owned CSS-->
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/style.css">
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/themes/flat-blue.css">
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/quickstart.css">
+
+  <!-- reference JS-->
+  <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+  <script src="assets/reference/TweenMax/TweenMax.min.js"></script>
+  <script src="assets/reference/jquery-ui/jquery-ui.js"></script>
+  <script src="assets/reference/jquery/jquery.scrollmagic.js"></script>
+  <script src="assets/reference/jquery/jquery.nicescroll.js"></script>
+  <script src="assets/reference/bootstrap/js/bootstrap.min.js"></script>
+
+  <!-- self-owned JS-->
+  <script src="assets/self-owned/js/prototype.js"></script>
+
+</head>
+
+<body class="flat-blue">
+  <!--  ==========================navigator========================  -->
+
+
+  <div id="navDIV"></div>
+
+
+  <div class="card card-info" style="margin-top:60px">
+    <div class="card-header" style="height:120px">
+      <div class="card-title">
+        <div class="title "><i class="fa fa-book"></i> Quick Start Guide</div>
+      </div>
+      <div class="container text-center">
+        <div class='row' style="margin-top:18px">
+          <div class="col-xd-4 col-md-1 col-md-offset-4" style="margin-top:38px"> <a href="#" onclick="location.href=$.getRootPath() + '/quickStart.html'" style="color:#fff"><i class="icon fa fa-dashboard fa-2x"></i><div style="font-size:12px">统计</div></a></div>
+          <div class="col-xd-4 col-md-1 " style="margin-top:38px"> <a href="#" onclick="location.href=$.getRootPath() + '/quickStart_notebook.html'" style="color:#fff"><i class="icon fa fa-filter fa-2x"></i><div style="font-size:12px">分析</div></a></div>
+          <div class="col-xd-4 col-md-1 " ><a href="#" onclick="location.href=$.getRootPath() + '/quickStart_datamgmt.html'" style="color:#fff"><i class="icon fa fa-file-o fa-4x"></i><div style="font-size:28px">管理</div></a></div>
+        </div>
+      </div>
+
+      <div class="clear-both"></div>
+    </div>
+    <div class="card-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <div class="title">集中的数据管理仓库</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="step">
+                  <ul class="nav nav-tabs nav-justified" role="tablist">
+                    <li role="step" class="active">
+                      <a href="#step1" id="step1-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+                        <div class="icon fa fa-file-archive-o"></div>
+                        <div class="step-title">
+                          <div class="title">HDFS文件</div>
+                          <div class="description">可视化文件资源管理器</div>
+                        </div>
+                      </a>
+                    </li>
+                    <li role="step">
+                      <a href="#step2" role="tab" id="step2-tab" data-toggle="tab" aria-controls="profile">
+                        <div class="icon fa fa-database"></div>
+                        <div class="step-title">
+                          <div class="title">数据</div>
+                          <div class="description">元数据、例表的集中管理与维护</div>
+                        </div>
+                      </a>
+                    </li>
+                    <li role="step">
+                      <a href="#step3" role="tab" id="step3-tab" data-toggle="tab" aria-controls="profile">
+                        <div class="icon fa fa-fire-extinguisher"></div>
+                        <div class="step-title">
+                          <div class="title">作业</div>
+                          <div class="description">Job的历史、监测与追踪</div>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="tab-content text-left">
+                    <div role="tabpanel" class="tab-pane fade in active" id="step1" aria-labelledby="home-tab">
+                      <blockquote>
+                        HDFS文件资源管理器给使用者提供浏览和操作Hadoop Distributed File System (HDFS)中文件和目录的便捷能力，它可以帮助你：
+                        <ul>
+                          <li>对其关心的大数据分析文件进行管理和查看。</li>
+                          <li>无须复杂的命令行交互，使用它就如同像童年时使用windows资源管理器一样简单。</li>
+                        </ul>
+                        除此之外，我们还提供了很多额外的功能与特性，比如：
+                        <ul>
+                          <li>下载、重命名、移动、复制、删除...</li>
+                          <li>迭代更改权限。</li>
+                          <li>迭代更改Ownership。</li>
+                          <li>灵活的属性排序(基于文件名、文件大小、修改日期...)。</li>
+                          <li>查看gzip/gz文件的内容。</li>
+                          <li>查看大文件内容。</li>
+                          <li>基于权限的文件上传管理。</li>
+                          <li>大文件的格式验证。</li>
+                        </ul>
+                        尝试着使用它，并依赖上它，是我们的目标与改进方向
+                      </blockquote>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="step2" aria-labelledby="profile-tab">
+                      <blockquote>
+                        元数据管理器和数据资源管理器给使用者浏览和管理不同database的能力，比如：
+                        <ul>
+                          <li>浏览Hive数据库中的table、partitions、buckets，创建表，并管理它...</li>
+                          <li>对RDMS型数据库中的table视图化管理</li>
+                          <li>定制化元数据，使其满足用户统计功能等使用</li>
+                        </ul>
+                      </blockquote>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="step3" aria-labelledby="dropdown1-tab">
+                      <blockquote>
+                        Job管理器给与使用者检查运行在Hadoop集群上面的Mapreduce jobs的能力，对其job和task进行监测。
+                        <ul>
+                          <li>首先看到的是处于最外层/顶端的job列表</li>
+                          <li>对于关心的job，可以下探/查看它关联的task列表</li>
+                          <li>对于关心的task，可以查看它关联的attempts和其每个attempt的属性，比如状态、起止时间、输出大小</li>
+                          <li>对于失败的job，可以进行troubleshoot</li>
+                        </ul>
+                      </blockquote>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <!--scroll wall begin-->
+    <div id="scroll-wrapper" >
+      <div class="scrollContent" style="background-color: #ffffff;border:1px solid white">
+        <section id="startPage" style="height:0px">
+
+          <script>
+            var controller;
+            var nice = false;
+            $(document).ready(function($) {
+              $('.toggle').on('toggle',
+                function(e, active) {
+                  modifyQuickStart(active);
+                }
+              );
+              $("#data-policy").click(function() {
+                var checked = $(this).prop("checked");
+                modifyQuickStart(checked);
+              });
+              // init nice scroll controller to limit mouse wheel scroll distance.
+              nice = $("html").niceScroll({
+                mousescrollstep: 30
+              });
+              // init controller
+              controller = new ScrollMagic();
+              (new TimelineMax())
+              .fromTo($('#recimg'), .8, {
+                  opacity: 0
+                }, {
+                  opacity: 1,
+                  ease: Quad.easeInOut
+                })
+                .from($('#activeItem'), .4, {
+                  opacity: 0,
+                  top: '120px'
+                });
+            });
+          </script>
+        </section>
+
+
+        <section id="scene4">
+          <div id="scene4A" class="analyzeBgColor2" style="overflow:hidden;position:relative;height:1100px;width:1024px;margin:0 auto">
+
+            <div id="trigger5" class="spacer s03"></div>
+
+            <img id="wfchart" class="relimg" src="./assets/self-owned/img/quickstart/waterfall_chart.png" style="top: 1100px; left: 330px;">
+            <img id="numbersblurry" class="relimg" src="./assets/self-owned/img/quickstart/waterfall_numbers_blurry.png" style="top:130px;left:620px">
+            <img id="numbersclear" class="relimg" src="./assets/self-owned/img/quickstart/waterfall_numbers.png" style="top: 1100px; left: 200px;">
+
+            <div style="position:relative; top: 140px; width: 100%; margin-left:52px;">
+              <div class="btn-right-trend" onclick="fn_vidyard_Cap$rVnL0JZatYd1zr06Vg();" style="display: inline-block;float: left;">&nbsp; 查看视频教程</div>
+            </div>
+            <span class="sectionHeader" align="left" style="position:absolute;top:20px;margin-left:50px;width:505px">Dive into our data storage</span>
+            <p class="sectionInfo" style="position:absolute;text-align:left;width:450px;top:220px;left:50px">对大数据的基础数据进行精细化的管理</p>
+            <div id="trigger6" class="spacer s03"></div>
+
+          </div>
+
+          <script>
+            $(document).ready(function($) {
+              /*   build scene*/
+              var $chartnumbers = ['#wfchart', '#numbersclear'];
+
+              var timeline1 = new TimelineMax()
+                .add(TweenMax.staggerFrom($chartnumbers, 1, {
+                  top: 1100,
+                  ease: Expo.easeOut
+                }, .5));
+
+              var scene = new ScrollScene({
+                triggerElement: "#trigger5"
+              }).setTween(timeline1).addTo(controller);
+
+              /*show indicators (requires debug extension)*/
+              //scene.addIndicators();
+
+              var tween = TweenMax.to("#numbersblurry", 6, {
+                top: 1100,
+                ease: Expo.easeOut
+              });
+
+              var scene2 = new ScrollScene({
+                triggerElement: "#trigger6"
+              }).setTween(tween).addTo(controller);
+              //scene2.addIndicators();
+            });
+          </script>
+          <div class="spacer s0"></div>
+        </section>
+      </div>
+    </div>
+    <!--scroll wall end-->
+  </div>
+
+  <!-- Javascript -->
+
+
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<div id="response_modal_DIV">
+  <div class="card card-success">
+    <div class="card profile">
+      <div class="card-body">
+        <div>
+
+          <div class="alert fresh-color" data-bind="css: styleClass">
+            <strong>
+              <span data-bind="text:resultTitle"></span>
+            </strong>
+            <span data-bind="text:resultSubTitle"></span>
+            <div data-bind="text:resultContent"></div>
+          </div>
+          <form class="form-horizontal">
+            <div class="form-group pull-right">
+              <a href="#" class="btn btn-primary" role="button" data-bind="click: mockResponse">Mock Response</a>
+              <a href="#" class="btn btn-primary" role="button" onclick="modal_close()">Close</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function ResponseModalViewModel() {
+    var self = this;
+    self.styleClass = ko.observable("alert-success");
+    self.resultTitle = ko.observable("Successed");
+    self.resultSubTitle = ko.observable("[General Search]");
+    self.resultContent = ko.observable("This is the result content...");
+
+    self.mockResponse = function() {
+      var successFlag = new Date() % 2 == false;
+      if (successFlag) {
+        self.styleClass("alert-success");
+        self.resultTitle("Successed");
+        self.resultSubTitle("[General Search]");
+        self.resultContent("This is the result content...");
+      } else {
+        self.styleClass("alert-danger");
+        self.resultTitle("Failed");
+        self.resultSubTitle("[General Search]");
+        self.resultContent("This is the result content for failed message...");
+      }
+
+    }
+  }
+
+  var responseModalViewModel = new ResponseModalViewModel();
+  ko.applyBindings(responseModalViewModel, document.getElementById('response_modal_DIV'));
+  responseModalViewModel.mockResponse();
+</script>

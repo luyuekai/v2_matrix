@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The prototype website of web framework">
+  <meta name="author" content="LY">
+  <title>Prototype</title>
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
+
+  <!-- reference CSS-->
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
+
+  <!-- self-owned CSS-->
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/style.css">
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/themes/flat-blue.css">
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/quickstart.css">
+
+  <!-- reference JS-->
+  <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+  <script src="assets/reference/TweenMax/TweenMax.min.js"></script>
+  <script src="assets/reference/jquery-ui/jquery-ui.js"></script>
+  <script src="assets/reference/jquery/jquery.scrollmagic.js"></script>
+  <script src="assets/reference/jquery/jquery.nicescroll.js"></script>
+  <script src="assets/reference/bootstrap/js/bootstrap.min.js"></script>
+
+  <!-- self-owned JS-->
+  <script src="assets/self-owned/js/prototype.js"></script>
+
+</head>
+
+<body class="flat-blue">
+
+
+
+  <div id="navDIV"></div>
+
+
+
+
+
+  <div class="card card-success" style="margin-top:60px">
+    <div class="card-header" style="height:120px">
+      <div class="card-title">
+        <div class="title "><i class="fa fa-book"></i> Quick Start Guide</div>
+      </div>
+      <div class="container text-center">
+        <div class='row' style="margin-top:18px">
+          <div class="col-xd-4 col-md-1 col-md-offset-4" style="margin-top:38px"> <a href="#" onclick="location.href=$.getRootPath() + '/quickStart.html'" style="color:#fff"><i class="icon fa fa-dashboard fa-2x"></i><div style="font-size:12px">统计</div></a></div>
+          <div class="col-xd-4 col-md-1 "> <a href="#" onclick="location.href=$.getRootPath() + '/quickStart_notebook.html'" style="color:#fff"><i class="icon fa fa-filter fa-4x"></i><div style="font-size:28px">分析</div></a></div>
+          <div class="col-xd-4 col-md-1 " style="margin-top:38px"><a href="#" onclick="location.href=$.getRootPath() + '/quickStart_datamgmt.html'" style="color:#fff"><i class="icon fa fa-file-o fa-2x"></i><div style="font-size:12px">管理</div></a></div>
+        </div>
+      </div>
+
+      <div class="clear-both"></div>
+    </div>
+    <div class="card-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <div class="title">可以并行计算的大数据可视化分析工具</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="step">
+                  <ul class="nav nav-tabs nav-justified" role="tablist">
+                    <li role="step" class="active">
+                      <a href="#step1" id="step1-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+                        <div class="icon fa fa-filter"></div>
+                        <div class="step-title">
+                          <div class="title">安全的并行处理多语言分析工具</div>
+                          <div class="description">有效处理高延迟大数据任务</div>
+                        </div>
+                      </a>
+                    </li>
+                    <li role="step">
+                      <a href="#step2" role="tab" id="step2-tab" data-toggle="tab" aria-controls="profile">
+                        <div class="icon fa fa-bar-chart"></div>
+                        <div class="step-title">
+                          <div class="title">分析结果多维度展示</div>
+                          <div class="description">图、表、文件等形式</div>
+                        </div>
+                      </a>
+                    </li>
+                    <li role="step">
+                      <a href="#step3" role="tab" id="step3-tab" data-toggle="tab" aria-controls="profile">
+                        <div class="icon fa fa-save"></div>
+                        <div class="step-title">
+                          <div class="title">进阶的大数据分析库</div>
+                          <div class="description">例程、例表的积累、更新与使用</div>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="tab-content text-left">
+                    <div role="tabpanel" class="tab-pane fade in active" id="step1" aria-labelledby="home-tab">
+                      <blockquote>
+                        大数据的分析是高门槛、低安全性、结果高延迟、高复杂度的，这意味着：
+                        <ul>
+                          <li>往往需要数据处理专家或程序员编写专门的程序去集群上跑作业；</li>
+                          <li>连接到集群主机意味着严重的安全隐患；</li>
+                          <li>作业的执行时间取决于复杂程度，高延迟的结果返回会降低效率；</li>
+                        </ul>
+                        Notebook分析工具提供了一套行之有效的解决方案：
+                        <ul>
+                          <li>交互指导式的多分析语言(<code>Hive、Pig、Spark SQL</code>)在线编写执行；</li>
+                          <li>多权限控制安全，拒绝后门访问；</li>
+                          <li>多任务并行执行模式，有效提高分析效率；</li>
+                        </ul>
+                        Notebook分析工具面向的使用人群：程序员、数据处理专家、数据分析师、研究人员
+                      </blockquote>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="step2" aria-labelledby="profile-tab">
+                      <blockquote>
+                        Notebook分析工具可以对分析结果进行二次提炼和加工，以最适合用户使用的方式呈现出来
+                        <ul>
+                          <li>当结果数据可以图形化展示时，系统会对分析结果进行提炼，并以柱状图、线性图等方式展示</li>
+                          <li>结果数据的标准表格化展现</li>
+                          <li>结果数据的系统外格式化导出扩展</li>
+                        </ul>
+                      </blockquote>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="step3" aria-labelledby="dropdown1-tab">
+                      <blockquote>
+                        Notebook分析工具通过对分析结果和分析程序的建立、保存和积累，逐渐形成一套完善大数据智能分析库：
+                        <ul>
+                          <li>分析程序、分析结果可以保存，达到积累知识财富、提高分析效率的目的</li>
+                          <li>分析程序、分析结果可以分享，交流与再次分析</li>
+                        </ul>
+                      </blockquote>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!--scroll wall begin-->
+    <div id="scroll-wrapper" >
+      <div class="scrollContent" style="background-color: #ffffff;border:1px solid white">
+        <section id="startPage" style="height:0px">
+
+          <script>
+            var controller;
+            var nice = false;
+            $(document).ready(function($) {
+              $('.toggle').on('toggle',
+                function(e, active) {
+                  modifyQuickStart(active);
+                }
+              );
+              $("#data-policy").click(function() {
+                var checked = $(this).prop("checked");
+                modifyQuickStart(checked);
+              });
+              // init nice scroll controller to limit mouse wheel scroll distance.
+              nice = $("html").niceScroll({
+                mousescrollstep: 30
+              });
+              // init controller
+              controller = new ScrollMagic();
+              (new TimelineMax())
+              .fromTo($('#recimg'), .8, {
+                  opacity: 0
+                }, {
+                  opacity: 1,
+                  ease: Quad.easeInOut
+                })
+                .from($('#activeItem'), .4, {
+                  opacity: 0,
+                  top: '120px'
+                });
+            });
+          </script>
+        </section>
+
+
+        <section id="scene2">
+          <div id="scene2A" style="overflow:hidden;position:relative;height:1100px;width:1024px;margin:0 auto" class="scene">
+            <div style="position:relative; top: 145px; width: 100%; margin-left:52px;">
+              <div class="btn-right-trend" onclick="" style="z-index: 1000; position: relative; display: inline-block;float: left;">&nbsp; 查看教程视频</div>
+            </div>
+
+            <span class="sectionHeader" align="left" style="z-index:1000;position:relative;padding-top:30px;margin-left:50px">即刻开始我们的大数据分析之旅!</span>
+            <p class="sectionInfo" style="z-index:1000;position:absolute;text-align:left;width:570px;top:930px;left:50px">
+              可以支持并行数据分析处理、支持多种分析语言的大数据分析工具&平台
+            </p>
+
+            <div class="analyzeGridBox" id="gridbg" style="z-index:0; top:0px;left:0px；"></div>
+
+            <img id="scatterchart" class="relimg" src="./assets/self-owned/img/quickstart/Magnify_ScatterChart_small.png" style="top:120px;left:-400px;max-width:none">
+            <div id="trigger2" class="spacer s05"></div>
+            <div id="magnifyerAssembly" style="top:-345px;left:60px;position:relative;" class="relimg">
+              <img class="relimg" style="top:240px;left:340px" src="./assets/self-owned/img/quickstart/Magnify_layerBottom.png">
+              <img class="relimg" style="top:562px;left:661px" src="./assets/self-owned/img/quickstart/maghandleonly.png">
+            </div>
+            <div id="handlemask" style="width:400px;height:400px;top:-100px;left:413px;position:relative" class="handlemask">
+              <div style="z-index:0;width:307px;height:303px;top:50px;left:47px;position:absolute" class="handlemask">
+                <img id="bigchart" class="relimg" style="top:0px;left:0px;max-width:none" src="./assets/self-owned/img/quickstart/Magnify_ScatterChart_bigcr.png">
+              </div>
+              <div>
+                <img class="relimg" style="top:0px;left:0px;max-width:none" src="./assets/self-owned/img/quickstart/magcircleonly.png">
+              </div>
+
+            </div>
+          </div>
+
+          <script>
+            $(document).ready(function($) {
+              /*   build scene*/
+              var $chartsmovers = ['#scatterchart', '#bigchart'];
+              var timeline1 = new TimelineMax()
+                //.add(TweenMax.from($('#gridbg'), .7, {
+                //								left : '-1962px',
+                //								ease : Expo.easeOut
+                //							}))
+                .add(TweenMax.staggerTo($chartsmovers, 4, {
+                  left: '-900px',
+                  ease: Expo.easeOut
+                }));
+              var scene = new ScrollScene({
+                  triggerElement: "#trigger2",
+                  offset: 100
+                })
+                /* .setPin("#scene2A", {pushFollowers: true,duration:600,offset:300})*/
+                .setTween(timeline1).addTo(controller);
+
+              /*show indicators (requires debug extension)*/
+              //scene.addIndicators();
+            });
+          </script>
+          <div class="spacer s0"></div>
+        </section>
+      </div>
+    </div>
+    <!--scroll wall end-->
+  </div>
+
+
+</body>
+
+</html>

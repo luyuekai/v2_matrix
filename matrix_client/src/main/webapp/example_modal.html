@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The prototype website of web framework">
+  <meta name="author" content="LY">
+  <title>天玑大数据分析系统</title>
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
+
+
+  <!-- reference CSS-->
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
+
+  <!-- self-owned CSS-->
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/style.css">
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/themes/flat-blue.css">
+
+
+
+</head>
+
+<body class="flat-blue">
+  <div class="app-container">
+    <div class="row content-container">
+
+      <!-- 应用顶部NAV导航，在prototype.js初始化时加载，默认为assets/html/header.html-->
+      <div id="navDIV"></div>
+
+      <div class="container-fluid">
+        <div class="side-body padding-top">
+
+          <!-- 应用具体内容DIV-->
+          <div id="contentDIV">
+            <h1>
+              <strong>Modal Component</strong>
+            </h1>
+            </div>
+            <div id="response_div">
+              <div class="alert fresh-color" data-bind="css:styleClass,visible:resultVisible">
+                <strong>
+                  <span data-bind="text:resultTitle"></span>
+                </strong>
+                <span data-bind="text:resultSubTitle"></span>
+                <div data-bind="text:resultContent"></div>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <button onclick="popupModal('Modal With Manual Close','/example_modal_content.html')" type="button" class=" btn btn-default btn-md" style="border-color:#fff">
+                  <span class="fa fa-spinner fa-2x" aria-hidden="true" title="">&nbsp;Modal With Manual Close</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade modal-success" id="popupModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="popupModalLabel"></h4>
+        </div>
+        <div class="modal-body">
+          <div id="modalContentDIV"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <!-- Javascript -->
+  <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+  <script src="assets/reference/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/self-owned/js/prototype.js"></script>
+  <script src="assets/reference/knockout.js/knockout-3.3.0.js"></script>
+  <script src="assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+
+  <script>
+    // popup('Add Chart Series Setting', '/assets/self-owned/html/chart/chartSeriesAddDiv.html');
+    var popupModal = function(componentTitle, componentLocation) {
+      $('#popupModal').modal({
+        backdrop: 'static',
+        keyboard: false
+      });
+      $('#popupModalLabel').html(componentTitle);
+      $('#modalContentDIV').load($.getRootPath() + componentLocation);
+
+      reset();
+    }
+
+    // popupModal('Modal With Manual Close', '/example/example_modal_content.html');
+
+
+    var modal_close = function() {
+      $('#popupModal').modal('hide');
+    }
+
+
+
+    // 1 hide the modal
+    // 2 exeute the business logic
+    // 3 show the result to the original page
+    var modal_execute_return = function() {
+      LoaderUtil.add('contentDIV');
+      $('#popupModal').modal('hide');
+      setTimeout(mock_execute_result, 2000);
+    }
+
+    // 1 exeute the business logic
+    // 2 hide the execute modal
+    // 3 show the result in the new popup modal
+    var modal_execute_popup_result = function() {
+      LoaderUtil.add('contentDIV');
+      $('#popupModal').modal('hide');
+      setTimeout(mock_popup_result, 2000);
+    }
+
+    var mock_execute_result = function() {
+      LoaderUtil.remove('contentDIV');
+      responseViewModel.mockResponse();
+    }
+    var mock_popup_result = function() {
+      LoaderUtil.remove('contentDIV');
+      popupModal('Modal With Response Result', '/example_modal_response_content.html');
+    }
+
+  </script>
+  <script>
+    function ResponseViewModel() {
+      var self = this;
+      self.styleClass = ko.observable("alert-success");
+      self.resultVisible = ko.observable(false);
+      self.resultTitle = ko.observable("Successed");
+      self.resultSubTitle = ko.observable("[General Search]");
+      self.resultContent = ko.observable("This is the result content...");
+
+      self.mockResponse = function() {
+        var successFlag = new Date() % 2 == false;
+        if (successFlag) {
+          self.styleClass("alert-success");
+          self.resultTitle("Successed");
+          self.resultSubTitle("[General Search]");
+          self.resultContent("This is the result content...");
+        } else {
+          self.styleClass("alert-danger");
+          self.resultTitle("Failed");
+          self.resultSubTitle("[General Search]");
+          self.resultContent("This is the result content for failed message...");
+        }
+        self.resultVisible(true);
+      }
+    }
+
+    function reset(){
+      responseViewModel && responseViewModel.resultVisible(false);
+    }
+
+    var responseViewModel = new ResponseViewModel();
+    ko.applyBindings(responseViewModel, document.getElementById('response_div'));
+
+  </script>
+</body>
+
+</html>
