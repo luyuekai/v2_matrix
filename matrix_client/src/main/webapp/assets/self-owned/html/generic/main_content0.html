@@ -1,0 +1,156 @@
+<!-- Breadcrum Zone -->
+<ol class="breadcrumb" style="margin-top:-20px;margin-left:-20px">
+  <li><a href="index.html">Home</a></li>
+  <li class="active">Page Matrix</li>
+</ol>
+
+<!-- Content Header  -->
+<h1><i class="fa fa-tasks"></i> Page Matrix <small>(JobRecall Business Example)</small> </h1>
+
+
+<!-- Content Zone -->
+<div class="row">
+  <!-- Left Side Control Panel -->
+  <div class="col-xs-2">
+    <div class="card card-success">
+      <div class="card-header">
+        <div class="card-title">
+          <div class="title"><i class="fa fa-database"></i> RDMS Browser</div>
+        </div>
+      </div>
+      <div class="card profile">
+        <div class="card-body">
+          <div class="name"></div>
+          <div class="description">
+            <!-- Context for the left side control panel -->
+            <div id="left_control_panel_context_div">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Right Side Context Panel -->
+  <div class="col-xs-10">
+    <div class="card card-info">
+      <div class="card-header">
+        <div class="card-title">
+          <div class="title"><i class="fa fa-cogs"></i> Operation Info</div>
+        </div>
+        <div class="pull-right card-action">
+          <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-link" title="查看表结构" onclick="switchDisplay('structureDIV')">
+              <div class="title"><i class="fa fa-list fa-2x"></i></div>
+            </button>
+          </div>
+          <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-link" title="浏览表数据" onclick="switchDisplay('dataDIV')">
+              <div class="title"><i class="fa fa-table fa-2x"></i></div>
+            </button>
+          </div>
+          <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-link" title="查看表属性" onclick="switchDisplay('propertiesDIV')">
+              <div class="title"><i class="fa fa-font fa-2x"></i></div>
+            </button>
+          </div>
+          <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-link" title="创建数据库" onclick="popup('新建数据库','/assets/self-owned/html/createDB_mock.html');">
+              <div class="title"><i class="fa fa-database fa-2x"></i></div>
+            </button>
+          </div>
+          <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-link" title="通过文件创建表" onclick="popup('新建数据表','/assets/self-owned/html/createTable_byFile_mock.html');">
+              <div class="title"><i class="fa fa-copy fa-2x"></i></div>
+            </button>
+          </div>
+          <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-link" title="手动创建表" onclick="popup('新建数据表','/assets/self-owned/html/createTable_byManual_mock.html');">
+              <div class="title"><i class="fa fa-plus fa-2x"></i></div>
+            </button>
+          </div>
+          <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-link" title="导入数据" onclick="popup('导入数据','/assets/self-owned/html/loadData_mock.html');">
+              <div class="title"><i class="fa fa-upload fa-2x"></i></div>
+            </button>
+          </div>
+          <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-link" title="删除所选数据库">
+              <div class="title"><i class="fa fa-flash fa-2x"></i></div>
+            </button>
+          </div>
+          <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-link" title="删除所选表">
+              <div class="title"><i class="fa fa-trash-o fa-2x"></i></div>
+            </button>
+          </div>
+
+
+          <div class="btn-group" role="group" aria-label="..." id="hideFileInfosDIV">
+            <button type="button" class="btn btn-link" title="隐藏" onclick="$('#fileInfoContentDIV').css('display', 'none'),$('#displayFileInfosDIV').css('display', ''),$('#hideFileInfosDIV').css('display', 'none')">
+              <div class="title"><i class="fa fa-sort-up fa-2x"></i></div>
+            </button>
+          </div>
+          <div class="btn-group" role="group" aria-label="..." id="displayFileInfosDIV" style="display:none">
+            <button type="button" class="btn btn-link" title="显示" onclick="$('#fileInfoContentDIV').css('display', ''),$('#hideFileInfosDIV').css('display', ''),$('#displayFileInfosDIV').css('display', 'none')">
+              <div class="title"><i class="fa fa-sort-down fa-2x"></i></div>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="card profile" id="fileInfoContentDIV">
+        <div class="card-body">
+          <div class="name"></div>
+          <div class="description">
+            <div class="row">
+              <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <strong>库名：</strong>
+              </div>
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                default
+              </div>
+              <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <strong>表名: </strong>
+              </div>
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                user-info
+              </div>
+              <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <strong>位置:</strong>
+              </div>
+              <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                / user/ hive/ warehouse/ user_info
+              </div>
+              <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <strong>用户：</strong>
+              </div>
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                zoudan_super
+              </div>
+              <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <strong>组名：</strong>
+              </div>
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                hive
+              </div>
+              <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <strong>时间：</strong>
+              </div>
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                Dec. 28, 2015 7:05 p.m.
+              </div>
+              <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <strong>权限: </strong>
+              </div>
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                drwxrwxrwx
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
