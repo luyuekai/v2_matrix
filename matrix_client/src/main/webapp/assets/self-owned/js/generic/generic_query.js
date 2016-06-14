@@ -30,7 +30,7 @@ ServerPagingQueryPOJO = {
                 // console.log(json);
                 if (json.hasError) {
                     console.log("Request get error: " + json.errorMessage);
-                    $.publish("PAGING_SEARCH_FAILED");
+                    $.publish("PAGING_SEARCH_FAILED",json);
                 } else {
                     $.publish(successListener, json);
                 }
@@ -125,4 +125,39 @@ function ServerPagingViewModel() {
 //        console.log('navigate to the special page success...');
     };
 
+}
+
+
+
+
+function ResponseViewModel() {
+  var self = this;
+  self.styleClass = ko.observable("alert-success");
+  self.resultVisible = ko.observable(false);
+  self.resultTitle = ko.observable("Successed");
+  self.resultSubTitle = ko.observable("[General Search]");
+  self.resultContent = ko.observable("This is the result content...");
+
+  self.errorResponse = function(content) {
+    self.styleClass("alert-danger");
+    self.resultTitle("Error:");
+    self.resultSubTitle("");
+    self.resultContent(content);
+    self.resultVisible(true);
+  };
+
+  self.correctResponse = function(content) {
+    self.styleClass("alert-success");
+    self.resultTitle("Successed:");
+    self.resultSubTitle("");
+    self.resultContent(content);
+    self.resultVisible(true);
+  }
+
+  self.reset = function(){
+    self.resultVisible(false);
+    self.resultTitle(":");
+    self.resultSubTitle("");
+    self.resultContent("");
+  }
 }
