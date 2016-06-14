@@ -58,7 +58,7 @@ function ServerPagingViewModel() {
     self.viewData = ko.observableArray();
     self.columnNames = ko.observableArray();
     self.pagingSizeArray = ko.observableArray([10, 20, 50, 100]);
-
+    self.entityClassName = ko.observable();
     self.pageMaxSize.subscribe(function (newValue) {
         if (self.retrieveData) {
             self.toPage(0);
