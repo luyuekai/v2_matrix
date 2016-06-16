@@ -225,38 +225,47 @@
     ValidationPOJO.validate("Application", genericModalViewModel.businessPOJO().application(), errorMessages, ['KEY_NOT_NULL']);
     ValidationPOJO.validate("Job", genericModalViewModel.businessPOJO().job(), errorMessages, ['KEY_NOT_NULL']);
     ValidationPOJO.validate("Progress", genericModalViewModel.businessPOJO().progress(), errorMessages, ['KEY_NOT_NULL']);
-    ValidationPOJO.validate("Status", genericModalViewModel.businessPOJO().status, errorMessages,['KEY_NOT_NULL']);
+    ValidationPOJO.validate("Status", genericModalViewModel.businessPOJO().status, errorMessages, ['KEY_NOT_NULL']);
 
     return errorMessages;
   }
 
   // *******YOUR SHOULD CODING IN HERE:*******
   var runService = function() {
-    var requestPOJO= {
-        "className": "v2.service.scripter.entity.job.JobRecall",
-        "attributes":{
-          "applicationId":genericModalViewModel.businessPOJO().application(),
-          "jobId":genericModalViewModel.businessPOJO().job(),
-          "progress":genericModalViewModel.businessPOJO().progress(),
-          "status":genericModalViewModel.businessPOJO().status()
-        }
+    var requestPOJO = {
+      "className": "v2.service.scripter.entity.job.JobRecall",
+      "attributes": {
+        "applicationId": genericModalViewModel.businessPOJO().application(),
+        "jobId": genericModalViewModel.businessPOJO().job(),
+        "progress": genericModalViewModel.businessPOJO().progress(),
+        "status": genericModalViewModel.businessPOJO().status()
+      }
     };
-    ServerCUDPOJO.add(requestPOJO, "ADD_SUCCESS_LISTENER");
+    var data = {
+        'queryJson': $.toJSON(requestPOJO)
+    };
+    // ServerCUDPOJO.add(requestPOJO, "ADD_SUCCESS_LISTENER");
+    $.serverRequest($.getServerRoot() + '/service_generic_query/api/cud/add', data, "ADD_SUCCESS_LISTENER", "ADD_FAILED_LISTENER", "ADD_SERVER_FAILED_LISTENER");
   }
   $.subscribe("ADD_SUCCESS_LISTENER", successAddListener);
-  $.subscribe("CUD_ACTION_FAILED", failedAddListener);
+  $.subscribe("ADD_FAILED_LISTENER", failedAddListener);
+  $.subscribe("ADD_SERVER_FAILED_LISTENER", failedServiceListener);
 
   function successAddListener() {
     if (arguments && arguments[1]) {
       // responseViewModel.correctResponse(arguments[1]);
-      genericModalViewModel.response(true,"Add Entity Operation","[Successed]", "Operation Successed, please close the console and reload the data.");
+      genericModalViewModel.response(true, "ADD Entity Operation", "[Successed]", "Operation Successed, please close the console and reload the data.");
     }
   }
 
   function failedAddListener() {
     if (arguments && arguments[1]) {
       var errorMessage = arguments[1].errorMessage;
-      genericModalViewModel.response(false, "Add Entity Operation", "[Failed]", errorMessage);
+      genericModalViewModel.response(false, "ADD Entity Operation", "[Failed]", errorMessage);
     }
+  }
+
+  function failedServiceListener() {
+    genericModalViewModel.response(false, "ADD Entity Operation", "[Failed]", "SERVICE 'GENERIC CUD' FAILED! Please contact with the system admin for more information...");
   }
 </script>

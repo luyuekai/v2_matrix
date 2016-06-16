@@ -249,10 +249,15 @@
           "status":genericModalViewModel.businessPOJO().status()
         }
     };
-    ServerCUDPOJO.update(requestPOJO, "UPDATE_SUCCESS_LISTENER");
+    var data = {
+        'queryJson': $.toJSON(requestPOJO)
+    };
+    // ServerCUDPOJO.update(requestPOJO, "UPDATE_SUCCESS_LISTENER");
+    $.serverRequest($.getServerRoot() + '/service_generic_query/api/cud/update',data, "UPDATE_SUCCESS_LISTENER","UPDATE_FAILED_LISTENER","UPDATE_SERVER_FAILED_LISTENER");
   }
   $.subscribe("UPDATE_SUCCESS_LISTENER", successAddListener);
-  $.subscribe("CUD_ACTION_FAILED", failedAddListener);
+  $.subscribe("UPDATE_FAILED_LISTENER", failedAddListener);
+  $.subscribe("UPDATE_SERVER_FAILED_LISTENER", failedServiceListener);
 
   function successAddListener() {
     if (arguments && arguments[1]) {
@@ -266,5 +271,8 @@
       var errorMessage = arguments[1].errorMessage;
       genericModalViewModel.response(false, "Update Entity Operation", "[Failed]", errorMessage);
     }
+  }
+  function failedServiceListener() {
+    genericModalViewModel.response(false, "Update Entity Operation", "[Failed]", "SERVICE 'GENERIC CUD' FAILED! Please contact with the system admin for more information...");
   }
 </script>

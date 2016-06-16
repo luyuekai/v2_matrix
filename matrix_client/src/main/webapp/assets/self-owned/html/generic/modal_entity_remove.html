@@ -148,22 +148,30 @@
           "status":genericModalViewModel.businessPOJO().status()
         }
     };
-    ServerCUDPOJO.remove(requestPOJO, "REMOVE_SUCCESS_LISTENER");
+    var data = {
+        'queryJson': $.toJSON(requestPOJO)
+    };
+    $.serverRequest($.getServerRoot() + '/service_generic_query/api/cud/remove', data, "REMOVE_SUCCESS_LISTENER", "REMOVE_FAILED_LISTENER", "REMOVE_SERVER_FAILED_LISTENER");
   }
-  $.subscribe("REMOVE_SUCCESS_LISTENER", successAddListener);
-  $.subscribe("CUD_ACTION_FAILED", failedAddListener);
+  $.subscribe("REMOVE_SUCCESS_LISTENER", successREMOVEListener);
+  $.subscribe("REMOVE_FAILED_LISTENER", failedREMOVEListener);
+  $.subscribe("REMOVE_SERVER_FAILED_LISTENER", failedServiceListener);
 
-  function successAddListener() {
+  function successREMOVEListener() {
     if (arguments && arguments[1]) {
       // responseViewModel.correctResponse(arguments[1]);
-      genericModalViewModel.response(true,"Remove Entity Operation","[Successed]", "Operation Successed, please close the console and reload the data.");
+      genericModalViewModel.response(true, "REMOVE Entity Operation", "[Successed]", "Operation Successed, please close the console and reload the data.");
     }
   }
 
-  function failedAddListener() {
+  function failedREMOVEListener() {
     if (arguments && arguments[1]) {
       var errorMessage = arguments[1].errorMessage;
-      genericModalViewModel.response(false, "Remove Entity Operation", "[Failed]", errorMessage);
+      genericModalViewModel.response(false, "REMOVE Entity Operation", "[Failed]", errorMessage);
     }
+  }
+
+  function failedServiceListener() {
+    genericModalViewModel.response(false, "REMOVE Entity Operation", "[Failed]", "SERVICE 'GENERIC CUD' FAILED! Please contact with the system admin for more information...");
   }
 </script>

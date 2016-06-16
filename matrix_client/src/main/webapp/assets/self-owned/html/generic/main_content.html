@@ -134,6 +134,9 @@
               <button type="button" class="btn btn-link" title="Query" onclick="viewModel.retrieveData()">
                 <div class="title"><i class="fa fa-search fa-2x"></i></div>
               </button>
+              <button type="button" onclick="switch_div_display('common_table_div');switch_div_display('special_table_div');" class="btn btn-success">
+                  <div class="title"><i class="fa fa-barcode fa-2x"></i></div>
+              </button>
             </div>
           </div>
 
@@ -149,19 +152,19 @@
                 <div class="row text-center" style="font-size:28px">
                   <div class="col-md-12">
                     <i class="fa fa-bullhorn fa-1x"></i> <span id="infoMessage">Currently the result set is empty...</span>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
-          <div class="card-body" data-bind="visible: hasServerResponse()">
+        </div>
+      </div>
+    </div>
+    <div class="card-body" data-bind="visible: hasServerResponse()">
 
-            <form class="navbar-form navbar-right" role="search">
-              <div class="form-group">
-                <input data-bind="value:searchKeyword" class="form-control" placeholder="search keyword" type="text">
-              </div>
-              <button data-bind="click:function(){searchByKeyword()}" type="submit" class="btn btn-success"><span class="fa fa-search" aria-hidden="true" title=""></button>
-              <button onclick="switch_div_display('common_table_div');switch_div_display('special_table_div')" type="submit" class="btn btn-success"><span class="fa fa-barcode" aria-hidden="true" title=""></button>
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input data-bind="value:searchKeyword" class="form-control" placeholder="search keyword" type="text">
+        </div>
+        <button data-bind="click:function(){searchByKeyword()}" type="submit" class="btn btn-success"><span class="fa fa-search" aria-hidden="true" title=""></button>
+
             </form>
             <div class="row" id='common_table_div' style="display:none">
               <div class="col-md-12" style="overflow: auto">
@@ -171,21 +174,21 @@
                       <!-- ko foreach: columnNames -->
                       <th>
                         <span data-bind="text: $data"></span>
-                </th>
-                <!-- /ko -->
-                </tr>
-                </thead>
-                <tbody data-bind="foreach: viewData">
-                  <tr data-bind="foreach: $data">
-                    <td data-bind="text: $data"></td>
-                  </tr>
-                </tbody>
-                </table>
-          </div>
-        </div>
-        <div class="row" id='special_table_div'>
-          <div class="col-md-12" style="overflow: auto">
-            <!-- <table class="table table-striped" cellspacing="0" width="100%">
+          </th>
+          <!-- /ko -->
+          </tr>
+          </thead>
+          <tbody data-bind="foreach: viewData">
+            <tr data-bind="foreach: $data">
+              <td data-bind="text: $data"></td>
+            </tr>
+          </tbody>
+          </table>
+    </div>
+  </div>
+  <div class="row" id='special_table_div'>
+    <div class="col-md-12" style="overflow: auto">
+      <!-- <table class="table table-striped" cellspacing="0" width="100%">
               <thead>
                 <tr>
                   <th>Name</th>
@@ -209,57 +212,57 @@
                 </tr>
               </tbody>
             </table> -->
-            <table class="table table-striped" cellspacing="0" width="100%">
-              <thead>
-                <tr>
-                  <th>Application</th>
-                  <th>Job</th>
-                  <th>Progress</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody data-bind="foreach: viewData">
-                <tr>
-                  <td data-bind="text:$data[1]"></td>
-                  <td data-bind="text:$data[2]"></td>
-                  <td data-bind="text:$data[5]"></td>
-                  <td data-bind="text:$data[6]"></td>
-                  <td>
-                    <button type="button" class="btn btn-link" title="update" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Update Entity Operation', '/assets/self-owned/html/generic/modal_entity_update.html',$data);})" style="margin:-6px -6px -6px -6px">
-                      <div class="title"><i class="fa fa-edit fa-1x"></i></div>
-                    </button>
-                    <button type="button" class="btn btn-link" title="remove" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Remove Entity Operation', '/assets/self-owned/html/generic/modal_entity_remove.html',$data);})" style="margin:-6px -6px -6px -6px">
-                      <div class="title"><i class="fa fa-trash fa-1x"></i></div>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div id="pagingDIV">
-          <nav>
-            <ul class="pager">
-              <span class="pull-left">Total Size:
-                    <span data-bind="text:totalCounts()"></span>
-              </span>
-              <span class="pull-right">
-                    <select class="form-control" style="width:88px" data-bind="options:pagingSizeArray,value:pageMaxSize"></select>
-                  </span>
-              <li><a data-bind="click:function(){toPage(1)}" href="#">首页</a></li>
-              <li><a data-bind="click:function(){toPage(currentPageNumber()-1)}" href="#">前翻</a></li>
-              <li>
-                <input data-bind="value:currentPageNumber" style="width:38px" ;type="text" class="text-center">
-              </li>
-              <li><a data-bind="click:function(){toPage(currentPageNumber()+1)}" href="#">后翻</a></li>
-              <li><a data-bind="click:function(){toPage(totalPage())}" href="#">末页</a></li>
-            </ul>
-          </nav>
-        </div>
-      </div>
+      <table class="table table-striped" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th>Application</th>
+            <th>Job</th>
+            <th>Progress</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody data-bind="foreach: viewData">
+          <tr>
+            <td data-bind="text:$data[1]"></td>
+            <td data-bind="text:$data[2]"></td>
+            <td data-bind="text:$data[5]"></td>
+            <td data-bind="text:$data[6]"></td>
+            <td>
+              <button type="button" class="btn btn-link" title="update" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Update Entity Operation', '/assets/self-owned/html/generic/modal_entity_update.html',$data);})" style="margin:-6px -6px -6px -6px">
+                <div class="title"><i class="fa fa-edit fa-1x"></i></div>
+              </button>
+              <button type="button" class="btn btn-link" title="remove" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Remove Entity Operation', '/assets/self-owned/html/generic/modal_entity_remove.html',$data);})" style="margin:-6px -6px -6px -6px">
+                <div class="title"><i class="fa fa-trash fa-1x"></i></div>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
+  <div id="pagingDIV">
+    <nav>
+      <ul class="pager">
+        <span class="pull-left">Total Size:
+                    <span data-bind="text:totalCounts()"></span>
+        </span>
+        <span class="pull-right">
+                    <select class="form-control" style="width:88px" data-bind="options:pagingSizeArray,value:pageMaxSize"></select>
+                  </span>
+        <li><a data-bind="click:function(){toPage(1)}" href="#">首页</a></li>
+        <li><a data-bind="click:function(){toPage(currentPageNumber()-1)}" href="#">前翻</a></li>
+        <li>
+          <input data-bind="value:currentPageNumber" style="width:38px" ;type="text" class="text-center">
+        </li>
+        <li><a data-bind="click:function(){toPage(currentPageNumber()+1)}" href="#">后翻</a></li>
+        <li><a data-bind="click:function(){toPage(totalPage())}" href="#">末页</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -282,6 +285,7 @@
 
 <script>
   var retrieveData = function() {
+
     LoaderUtil.add('tableDIV');
     var queryPOJO = ClonePOJO.shallowClone(ServerPagingQueryPOJO.queryPOJO);
     // $(queryPOJO).attr("className", "ZEntity");
@@ -296,7 +300,11 @@
     $(queryPOJO).attr("eqMap", {});
     $(queryPOJO).attr("inMap", {});
 
-    ServerPagingQueryPOJO.search(queryPOJO, "SEARCH_SUCCESS_LISTENER");
+    // ServerPagingQueryPOJO.search(queryPOJO, "SEARCH_SUCCESS_LISTENER");
+    var data = {
+        'queryJson': $.toJSON(queryPOJO)
+    };
+    $.serverRequest($.getServerRoot() + '/service_generic_query/api/query', data, "SEARCH_SUCCESS_LISTENER", "PAGING_SEARCH_FAILED", "SERVICE_GENERIC_QUERY_FAILED");
   }
   $.subscribe("SEARCH_SUCCESS_LISTENER", successListener);
   $.subscribe("PAGING_SEARCH_FAILED", failedListener);
@@ -329,13 +337,12 @@
     LoaderUtil.remove('tableDIV');
   }
 
+  var responseViewModel = new ResponseViewModel();
+  ko.applyBindings(responseViewModel, document.getElementById('response_div'));
 
   var viewModel = new ServerPagingViewModel();
   ko.applyBindings(viewModel, document.getElementById('tableDIV'));
   viewModel.retrieveData = retrieveData;
-
-  var responseViewModel = new ResponseViewModel();
-  ko.applyBindings(responseViewModel, document.getElementById('response_div'));
 
   retrieveData();
 </script>

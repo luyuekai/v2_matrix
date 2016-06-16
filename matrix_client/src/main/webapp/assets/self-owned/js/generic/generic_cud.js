@@ -16,99 +16,30 @@ ServerCUDPOJO = {
         method: 'POST',
         successListener: "CUD_ACTION_SUCCESS"
     },
-    add: function (queryPOJO, successListener) {
-        var Request = ClonePOJO.shallowClone(ServerCUDPOJO.requestPOJO);
-        $(Request).attr("data", {
-            'queryJson': $.toJSON(queryPOJO)
-        });
-        Request.successListener = successListener;
-        var successListener = Request.successListener;
-        $.ajax({
-            url: Request.url,
-            data: Request.data,
-            type: Request.method,
-            contentType: "application/x-www-form-urlencoded;charset=UTF-8",
-            dataType: 'json',
-            success: function (json) {
-                // console.log(json);
-                if (json.hasError) {
-                    console.log("Request get error: " + json.errorMessage);
-                    $.publish("CUD_ACTION_FAILED",json);
-                } else {
-                    $.publish(successListener, json);
-                }
-            },
-            error: function (xhr, status) {
-                console.log('Sorry, there was a problem on CUD Action process!');
-            },
-            complete: function (xhr, status) {
-            }
-        });
-    },
-    update: function (queryPOJO, successListener) {
-        var Request= {
-            url: $.getServerRoot() + '/service_generic_query/api/cud/update',
-            data: {
-                'queryJson': $.toJSON(queryPOJO)
-            },
-            method: 'POST',
-            successListener: "CUD_ACTION_SUCCESS"
-        };
-        Request.successListener = successListener;
-        var successListener = Request.successListener;
-        $.ajax({
-            url: Request.url,
-            data: Request.data,
-            type: Request.method,
-            contentType: "application/x-www-form-urlencoded;charset=UTF-8",
-            dataType: 'json',
-            success: function (json) {
-                // console.log(json);
-                if (json.hasError) {
-                    console.log("Request get error: " + json.errorMessage);
-                    $.publish("CUD_ACTION_FAILED",json);
-                } else {
-                    $.publish(successListener, json);
-                }
-            },
-            error: function (xhr, status) {
-                console.log('Sorry, there was a problem on CUD Action process!');
-            },
-            complete: function (xhr, status) {
-            }
-        });
-    },
-    remove: function (queryPOJO, successListener) {
-        var Request= {
-            url: $.getServerRoot() + '/service_generic_query/api/cud/remove',
-            data: {
-                'queryJson': $.toJSON(queryPOJO)
-            },
-            method: 'POST',
-            successListener: "CUD_ACTION_SUCCESS"
-        };
-        Request.successListener = successListener;
-        var successListener = Request.successListener;
-        $.ajax({
-            url: Request.url,
-            data: Request.data,
-            type: Request.method,
-            contentType: "application/x-www-form-urlencoded;charset=UTF-8",
-            dataType: 'json',
-            success: function (json) {
-                // console.log(json);
-                if (json.hasError) {
-                    console.log("Request get error: " + json.errorMessage);
-                    $.publish("CUD_ACTION_FAILED",json);
-                } else {
-                    $.publish(successListener, json);
-                }
-            },
-            error: function (xhr, status) {
-                console.log('Sorry, there was a problem on CUD Action process!');
-            },
-            complete: function (xhr, status) {
-            }
-        });
+    serverRequest:function(request_url,request_data,listener_response_success,listener_response_error,listener_service_error){
+      listener_response_success = listener_response_success||"SERVER_RESPONSE_SUCCESS";
+      listener_response_error = listener_response_error||"SERVER_RESPONSE_ERROR";
+      listener_service_error = listener_service_error||"SERVER_SERVICE_ERROR";
+      $.ajax({
+          url: request_url,
+          data: request_data,
+          type: 'POST',
+          contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+          dataType: 'json',
+          success: function (json) {
+              if (json.hasError) {
+                  console.log("SERVER_REQUEST_ACTION get error: " + json.errorMessage);
+                  $.publish(listener_response_error,json);
+              } else {
+                  $.publish(listener_response_success, json);
+              }
+          },
+          error: function (xhr, status) {
+              console.log('Sorry, there was a problem on SERVER_REQUEST_ACTION process!');
+              $.publish(listener_service_error);
+          },
+          complete: function (xhr, status) {
+          }
+      });
     }
 }
