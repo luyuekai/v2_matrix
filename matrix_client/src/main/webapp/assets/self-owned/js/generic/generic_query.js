@@ -1,50 +1,50 @@
 var ServerPagingQueryPOJO = ServerPagingQueryPOJO || {};
 ServerPagingQueryPOJO = {
-    queryPOJO: {
-        "className": "",
-        "pageMaxSize": 10,
-        "currentPageNumber": 1
-    },
-    requestPOJO: {
-        url: $.getServerRoot() + '/service_generic_query/api/query',
-        data: {
-            'queryJson': ''
-        },
-        method: 'POST',
-        successListener: "PAGING_SEARCH_SUCCESS"
-    },
-    search: function (queryPOJO, successListener) {
-        var PagingRequest = ClonePOJO.shallowClone(ServerPagingQueryPOJO.requestPOJO);
-        $(PagingRequest).attr("data", {
-            'queryJson': $.toJSON(queryPOJO)
-        });
-        PagingRequest.successListener = successListener;
-        var successListener = PagingRequest.successListener;
-        $.ajax({
-            url: PagingRequest.url,
-            data: PagingRequest.data,
-            type: PagingRequest.method,
-            contentType: "application/x-www-form-urlencoded;charset=UTF-8",
-            dataType: 'json',
-            success: function (json) {
-                // console.log(json);
-                if (json.hasError) {
-                    console.log("Request get error: " + json.errorMessage);
-                    $.publish("PAGING_SEARCH_FAILED",json);
-                } else {
-                    $.publish(successListener, json);
-                }
-            },
-            error: function (xhr, status) {
-                console.log('Sorry, there was a problem on pagingSearch process!');
-                $.publish("SERVICE_GENERIC_QUERY_FAILED");
-            },
-            complete: function (xhr, status) {
-            }
-        });
-    }
+  listener_service_error:"SERVER_PAGING_QUERY_SERVER_FAILED_LISTENER",
+  listener_response_error:"SERVER_PAGING_QUERY_FAILED_LISTENER",
+  listener_response_success:"SERVER_PAGING_QUERY_SUCCESS_LISTENER",
+
+  example_query_entity:{
+    "className": "JobRecall",
+    "aliasMap": {},
+    "pageMaxSize": 10,
+    "currentPageNumber": 1,
+    "likeORMap": {},
+    "eqMap": {},
+    "inMap": {},
+  },
+
+  example_query_action:function(){
+    var data = {
+        'queryJson': $.toJSON(ServerPagingQueryPOJO.example_query_entity)
+    };
+    $.serverRequest($.getServerRoot() + '/service_generic_query/api/query', data, ServerPagingQueryPOJO.listener_response_success, ServerPagingQueryPOJO.listener_response_error, ServerPagingQueryPOJO.listener_service_error);
+  },
 }
 
+$.subscribe(ServerPagingQueryPOJO.listener_response_success, listener_response_success_QUERY);
+$.subscribe(ServerPagingQueryPOJO.listener_response_error, listener_response_error_QUERY);
+$.subscribe(ServerPagingQueryPOJO.listener_service_error, listener_service_error_QUERY);
+
+function listener_response_success_QUERY() {
+  console.log("SERVER QUERY OPERATION SUCCESSED!");
+  if (arguments && arguments[1]) {
+    console.log(arguments[1]);
+  }
+}
+
+function listener_response_error_QUERY() {
+  console.log("SERVER QUERY OPERATION FAILED!");
+  if (arguments && arguments[1]) {
+    console.log(arguments[1]);
+  }
+}
+
+function listener_service_error_QUERY() {
+  console.log("SERVER QUERY OPERATION ERROR [THE SERVICE HAS FATAL ERROR]!");
+  if (arguments && arguments[1]) {
+    console.log(arguments[1]);
+  }}
 
 function ServerPagingViewModel() {
 

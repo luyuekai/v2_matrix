@@ -244,7 +244,6 @@
     var data = {
         'queryJson': $.toJSON(requestPOJO)
     };
-    // ServerCUDPOJO.add(requestPOJO, "ADD_SUCCESS_LISTENER");
     $.serverRequest($.getServerRoot() + '/service_generic_query/api/cud/add', data, "ADD_SUCCESS_LISTENER", "ADD_FAILED_LISTENER", "ADD_SERVER_FAILED_LISTENER");
   }
   $.subscribe("ADD_SUCCESS_LISTENER", successAddListener);

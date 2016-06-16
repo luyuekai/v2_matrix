@@ -188,30 +188,6 @@
         </div>
         <div class="row" id='special_table_div'>
           <div class="col-md-12" style="overflow: auto">
-            <!-- <table class="table table-striped" cellspacing="0" width="100%">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Category</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody data-bind="foreach: viewData">
-                <tr>
-                  <td data-bind="text:$data[2]"></td>
-                  <td data-bind="text:$data[4]"></td>
-                  <td data-bind="text:$data[5]"></td>
-                  <td>
-                    <button type="button" class="btn btn-link" title="update" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Update Entity Operation', '/assets/self-owned/html/generic/modal_entity_update.html',$data);})" style="margin:-6px -6px -6px -6px">
-                      <div class="title"><i class="fa fa-edit fa-1x"></i></div>
-                    </button>
-                    <button type="button" class="btn btn-link" title="remove" onclick="viewModel.retrieveData()" style="margin:-6px -6px -6px -6px">
-                      <div class="title"><i class="fa fa-trash fa-1x"></i></div>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table> -->
             <table class="table table-striped" cellspacing="0" width="100%">
               <thead>
                 <tr>
@@ -287,71 +263,16 @@
 
 <script>
   // *******Server Side Retrieve Data JS Code*******
-  var retrieveData = function() {
-    LoaderUtil.add('tableDIV');
-    var requestPOJO = {
-      "className": "JobRecall",
-      "aliasMap": {},
-      // "orderMap": {"status": true},
-      "pageMaxSize": viewModel.pageMaxSize(),
-      "currentPageNumber": viewModel.currentPageNumber(),
-      "likeORMap": {
-        'jobId': viewModel.searchKeyword()
-      },
-      "eqMap": {},
-      "inMap": {},
-    };
-    var data = {
-      'queryJson': $.toJSON(requestPOJO)
-    };
-    $.serverRequest($.getServerRoot() + '/service_generic_query/api/query', data, "SEARCH_SUCCESS_LISTENER", "PAGING_SEARCH_FAILED", "SERVICE_GENERIC_QUERY_FAILED");
-  }
 </script>
-
-
 
 <script>
   // *******Server Side Retrieve Data Listener JS Code*******
-  $.subscribe("SEARCH_SUCCESS_LISTENER", successListener);
-  $.subscribe("PAGING_SEARCH_FAILED", failedListener);
-  $.subscribe("SERVICE_GENERIC_QUERY_FAILED", failedServiceListener);
-
-  function failedServiceListener() {
-    responseViewModel.errorResponse("SERVICE 'GENERIC QUERY' FAILED! Please contact with the system admin for more information...")
-    setTimeout(removeLoader, 500);
-  }
-
-  function failedListener() {
-    if (arguments && arguments[1]) {
-      var errorMessage = arguments[1].errorMessage;
-      responseViewModel.errorResponse(errorMessage)
-    }
-    setTimeout(removeLoader, 500);
-  }
-
-  function successListener() {
-    if (arguments && arguments[1]) {
-      var headers = AlgorithmPOJO.buildKeys(arguments[1].result);
-      viewModel.buildSearchData(arguments[1]);
-    }
-    setTimeout(removeLoader, 500);
-  }
 </script>
 
 <script>
   // *******Data Bind JS Code*******
-  var responseViewModel = new ResponseViewModel();
-  ko.applyBindings(responseViewModel, document.getElementById('response_div'));
-
-  var viewModel = new ServerPagingViewModel();
-  ko.applyBindings(viewModel, document.getElementById('tableDIV'));
-  viewModel.retrieveData = retrieveData;
 </script>
 
 <script>
   // *******Other JS Code*******
-  function removeLoader() {
-    LoaderUtil.remove('tableDIV');
-  }
-  retrieveData();
 </script>
