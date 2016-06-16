@@ -37,6 +37,7 @@ ServerPagingQueryPOJO = {
             },
             error: function (xhr, status) {
                 console.log('Sorry, there was a problem on pagingSearch process!');
+                $.publish("SERVICE_GENERIC_QUERY_FAILED");
             },
             complete: function (xhr, status) {
             }
@@ -59,6 +60,8 @@ function ServerPagingViewModel() {
     self.columnNames = ko.observableArray();
     self.pagingSizeArray = ko.observableArray([10, 20, 50, 100]);
     self.entityClassName = ko.observable();
+    self.hasServerResponse = ko.observable(false);
+
     self.pageMaxSize.subscribe(function (newValue) {
         if (self.retrieveData) {
             self.toPage(0);
@@ -86,6 +89,7 @@ function ServerPagingViewModel() {
 
     self.buildData = function (serverData) {
         self.serverData = serverData;
+        self.hasServerResponse(true);
         self.viewData(serverData.result);
         self.totalCounts(self.serverData.totalCounts);
         self.pageMaxSize(self.serverData.pageMaxSize);
@@ -96,6 +100,7 @@ function ServerPagingViewModel() {
         var transferData = DataTransferPOJO.serverJsonData2TableData(serverData.result);
 
         self.serverData = serverData;
+        self.hasServerResponse(true);
         self.columnNames(transferData.header);
         self.viewData(transferData.result);
         self.totalCounts(self.serverData.totalCounts);

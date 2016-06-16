@@ -139,7 +139,7 @@
 
 
 
-          <div class="row" data-bind="visible: viewData().length<1">
+          <div class="row" data-bind="visible: !hasServerResponse()">
             <br>
             <div class="col-md-12">
               <div class="card green summary-inline">
@@ -154,7 +154,7 @@
               </div>
             </div>
           </div>
-          <div class="card-body" data-bind="visible: viewData().length>0">
+          <div class="card-body" data-bind="visible: hasServerResponse()">
 
             <form class="navbar-form navbar-right" role="search">
               <div class="form-group">
@@ -163,7 +163,7 @@
               <button data-bind="click:function(){searchByKeyword()}" type="submit" class="btn btn-success"><span class="fa fa-search" aria-hidden="true" title=""></button>
               <button onclick="switch_div_display('common_table_div');switch_div_display('special_table_div')" type="submit" class="btn btn-success"><span class="fa fa-barcode" aria-hidden="true" title=""></button>
             </form>
-            <div class="row" id='common_table_div'>
+            <div class="row" id='common_table_div' style="display:none">
               <div class="col-md-12" style="overflow: auto">
                 <table class="table table-striped" cellspacing="0">
                   <thead>
@@ -183,8 +183,32 @@
                 </table>
           </div>
         </div>
-        <div class="row" id='special_table_div' style="display:none">
+        <div class="row" id='special_table_div'>
           <div class="col-md-12" style="overflow: auto">
+            <!-- <table class="table table-striped" cellspacing="0" width="100%">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody data-bind="foreach: viewData">
+                <tr>
+                  <td data-bind="text:$data[2]"></td>
+                  <td data-bind="text:$data[4]"></td>
+                  <td data-bind="text:$data[5]"></td>
+                  <td>
+                    <button type="button" class="btn btn-link" title="update" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Update Entity Operation', '/assets/self-owned/html/generic/modal_entity_update.html',$data);})" style="margin:-6px -6px -6px -6px">
+                      <div class="title"><i class="fa fa-edit fa-1x"></i></div>
+                    </button>
+                    <button type="button" class="btn btn-link" title="remove" onclick="viewModel.retrieveData()" style="margin:-6px -6px -6px -6px">
+                      <div class="title"><i class="fa fa-trash fa-1x"></i></div>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table> -->
             <table class="table table-striped" cellspacing="0" width="100%">
               <thead>
                 <tr>
@@ -205,7 +229,7 @@
                     <button type="button" class="btn btn-link" title="update" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Update Entity Operation', '/assets/self-owned/html/generic/modal_entity_update.html',$data);})" style="margin:-6px -6px -6px -6px">
                       <div class="title"><i class="fa fa-edit fa-1x"></i></div>
                     </button>
-                    <button type="button" class="btn btn-link" title="remove" onclick="viewModel.retrieveData()" style="margin:-6px -6px -6px -6px">
+                    <button type="button" class="btn btn-link" title="remove" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Remove Entity Operation', '/assets/self-owned/html/generic/modal_entity_remove.html',$data);})" style="margin:-6px -6px -6px -6px">
                       <div class="title"><i class="fa fa-trash fa-1x"></i></div>
                     </button>
                   </td>
@@ -260,9 +284,10 @@
   var retrieveData = function() {
     LoaderUtil.add('tableDIV');
     var queryPOJO = ClonePOJO.shallowClone(ServerPagingQueryPOJO.queryPOJO);
+    // $(queryPOJO).attr("className", "ZEntity");
     $(queryPOJO).attr("className", "JobRecall");
     $(queryPOJO).attr("aliasMap", {});
-    // $(queryPOJO).attr("orderMap", {"startedTime": false,"jobId": true});
+    // $(queryPOJO).attr("orderMap", {"status": true});
     $(queryPOJO).attr("pageMaxSize", viewModel.pageMaxSize());
     $(queryPOJO).attr("currentPageNumber", viewModel.currentPageNumber());
     $(queryPOJO).attr("likeORMap", {
@@ -275,8 +300,14 @@
   }
   $.subscribe("SEARCH_SUCCESS_LISTENER", successListener);
   $.subscribe("PAGING_SEARCH_FAILED", failedListener);
+  $.subscribe("SERVICE_GENERIC_QUERY_FAILED", failedServiceListener);
 
 
+
+  function failedServiceListener() {
+    responseViewModel.errorResponse("SERVICE 'GENERIC QUERY' FAILED! Please contact with the system admin for more information...")
+    setTimeout(removeLoader, 500);
+  }
 
   function failedListener() {
     if (arguments && arguments[1]) {
@@ -305,4 +336,6 @@
 
   var responseViewModel = new ResponseViewModel();
   ko.applyBindings(responseViewModel, document.getElementById('response_div'));
+
+  retrieveData();
 </script>
