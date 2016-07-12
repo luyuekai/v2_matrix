@@ -50,7 +50,7 @@ function ServerPagingViewModel() {
 
     var self = this;
     self.totalCounts = ko.observable();
-    self.pageMaxSize = ko.observable();
+    self.pageMaxSize = ko.observable(10);
     self.currentPageNumber = ko.observable(1);
     self.currentPageSize = ko.observable();
     self.searchKeyword = ko.observable();
