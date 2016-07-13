@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The prototype website of web framework">
+  <meta name="author" content="LY">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="../assets/self-owned/ico/favicon.png">
+
+
+  <!-- reference CSS-->
+  <link rel="stylesheet" type="text/css" href="../assets/reference/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/font-awesome/css/font-awesome.min.css">
+
+  <!-- self-owned CSS-->
+  <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/style.css">
+  <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/themes/flat-blue.css">
+
+
+
+</head>
+
+<body class="flat-blue">
+  <div class="app-container">
+    <div class="row content-container">
+
+      <!-- 应用顶部NAV导航，在prototype.js初始化时加载，默认为assets/html/header.html-->
+      <div id="navDIV"></div>
+
+      <!-- 应用左侧NAV导航，可以应用与assist，帮助，过滤等辅助组件，默认自动收缩扩展，支持悬停（点击右上角按钮切换）-->
+      <div id="assistDIV"></div>
+
+      <div class="container-fluid">
+        <div class="side-body padding-top">
+
+          <!-- 应用具体内容DIV-->
+          <div id="contentDIV">
+
+            <div class="card card-success">
+              <div class="card-header">
+                <div class="card-title">
+                  <div class="title"><i class="fa fa-book"></i> Scripter Data Analyze Process Tutorials
+                    <small>(Base on Hive)</small>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="step tabs-left card-no-padding">
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="step" class="active">
+                      <a href="#stepv1" id="step1-vtab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+                        <div class="icon fa fa-desktop"></div>
+                        <div class="step-title">
+                          <div class="title">Purpose</div>
+                          <div class="description">why use scripter</div>
+                        </div>
+                      </a>
+                    </li>
+                    <li role="step">
+                      <a href="#stepv2" role="tab" id="step2-vtab" data-toggle="tab" aria-controls="profile">
+                        <div class="icon fa fa-camera-retro"></div>
+                        <div class="step-title">
+                          <div class="title">Metadata Editing</div>
+                          <div class="description">Tutorials</div>
+                        </div>
+                      </a>
+                    </li>
+                    <li role="step">
+                      <a href="#stepv3" role="tab" id="step3-vtab" data-toggle="tab" aria-controls="profile">
+                        <div class="icon fa fa-table"></div>
+                        <div class="step-title">
+                          <div class="title">Table Creation</div>
+                          <div class="description">Tutorials</div>
+                        </div>
+                      </a>
+                    </li>
+                    <li role="step">
+                      <a href="#stepv4" role="tab" id="step4-vtab" data-toggle="tab" aria-controls="profile">
+                        <div class="icon fa fa-database"></div>
+                        <div class="step-title">
+                          <div class="title">Data Importing</div>
+                          <div class="description">Tutorials</div>
+                        </div>
+                      </a>
+                    </li>
+                    <li role="step">
+                      <a href="#stepv5" role="tab" id="step5-vtab" data-toggle="tab" aria-controls="profile">
+                        <div class="icon fa fa-forumbee"></div>
+                        <div class="step-title">
+                          <div class="title">Data Analyzing</div>
+                          <div class="description">Tutorials</div>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="tab-content" style="width:100%">
+                    <div role="tabpanel" class="tab-pane fade in active" id="stepv1" aria-labelledby="home-tab">
+
+
+                      <div class="panel fresh-color panel-primary">
+                        <div class="panel-heading">why use scripter to process big data analyzing?</div>
+                        <div class="panel-body">
+
+                          <div class="content-section-a">
+
+                            <div class="container">
+                              <div class="row">
+                                <div class="col-lg-5 col-sm-6">
+                                  <div class="clearfix"></div>
+                                  <h2 class="section-heading">Scripter Data Analyze Process<br><small><strong>Whole lifecycle chain</strong></small></h2>
+                                  <p class="text-muted">Scripter pictured a whole lifecycle chain for big data analyzing. It includes of metadata editing, data preparing, data importing, data analyzing and data outputing.</p>
+                                </div>
+                                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                                  <img class="img-responsive" src="../assets/self-owned/img/data_analyze_lifecycle.png" alt="">
+                                </div>
+                              </div>
+
+                            </div>
+
+                          </div>
+                          <hr>
+                          <div class="content-section-b">
+
+                            <div class="container">
+
+                              <div class="row">
+                                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+
+                                  <div class="clearfix"></div>
+                                  <h2 class="section-heading">Metadata Editing<br><small><strong>Service for data</strong></small></h2>
+                                  <p class="text-muted">
+                                    Scripter Metadata is the pre-condition of the data analyzing, it contains the rules of the game.
+                                  </p>
+                                </div>
+                                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                                  <img class="img-responsive" src="../assets/self-owned/img/metadata_phase.png" alt="">
+                                </div>
+                              </div>
+
+                            </div>
+
+                          </div>
+                          <hr>
+                          <div class="content-section-a" >
+
+                            <div class="container">
+
+                              <div class="row">
+                                <div class="col-lg-5 col-sm-6">
+
+                                  <div class="clearfix"></div>
+                                  <h2 class="section-heading">Table Creation<br><small><strong>Easy way for data storage maintainance</strong></small></h2>
+                                  <p class="text-muted">
+                                    Before analyzing, create the data storage first, using Scripter Table creation tutorials to process step by step.
+                                  </p>
+                                </div>
+                                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                                  <img class="img-responsive" src="../assets/self-owned/img/hive_table_phase.png" alt="">
+                                </div>
+                              </div>
+
+                            </div>
+
+                          </div>
+                          <hr>
+                          <div class="content-section-b">
+
+                            <div class="container">
+
+                              <div class="row">
+                                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+
+                                  <div class="clearfix"></div>
+                                  <h2 class="section-heading">Data Importing<br><small><strong>From HDFS System</strong></small></h2>
+                                  <p class="text-muted">
+                                    The Scripter provide an visualizable HDFS browser which can exploring the files in a fantasy way. And importing the files data into data storage with the HDFS file data importing tutorials.
+                                  </p>
+                                </div>
+                                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                                  <img class="img-responsive" src="../assets/self-owned/img/data_importing_phase.png" alt="">
+                                </div>
+                              </div>
+
+                            </div>
+
+                          </div>
+                          <hr>
+                          <div class="content-section-a" >
+
+                            <div class="container">
+
+                              <div class="row">
+                                <div class="col-lg-5 col-sm-6">
+
+                                  <div class="clearfix"></div>
+                                  <h2 class="section-heading">Data Analyzing and...<br><small><strong>Visualization, Advanced Iteration Analyzing</strong></small></h2>
+                                  <p class="text-muted">
+                                    In analyze notebook, you can edit and submit script for hive, pig, sparksql, impala etc. Sounds great huh? Try it now!
+                                    Now that the analyzing job has done, you can go further with the result in scripter. Visualizing them, Transforming them into other format, all is easy in scripter. Not only the result, but all the structral data in hdfs make sense!
+                                  </p>
+                                </div>
+                                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                                  <img class="img-responsive" src="../assets/self-owned/img/notebook_analyzing_phase.png" alt="">
+                                </div>
+                              </div>
+
+                            </div>
+
+                          </div>
+
+
+                          <section id="products">
+                            <div class="container">
+                              <div class="row">
+                                <div class="col-lg-12 text-center">
+                                  <h2 class="section-heading">Explore Our <strong>PRODUCT</strong></h2>
+
+                                  <hr class="primary">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="container">
+                              <div class="row">
+                                <div class="col-lg-3 col-md-6 text-center">
+                                  <div class="service-box">
+                                    <i class="fa fa-4x fa-forumbee text-primary sr-icons"></i>
+                                    <h3><a href="">Analyze Notebook</a></h3>
+                                    <p class="text-muted">
+                                      Support Hive, Pig, Spark Sql, Impala, Python Spart, Spark R, Spark... you can not only analyze but visualize the result directly in the notebook.
+                                    </p>
+                                  </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 text-center">
+                                  <div class="service-box">
+                                    <i class="fa fa-4x fa-database text-primary sr-icons"></i>
+                                    <h3><a href="">Cluster Browser</a></h3>
+                                    <p class="text-muted">Load your data into hadoop, manage all your data here. hdfs, rdms, hive...</p>
+                                  </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 text-center">
+                                  <div class="service-box">
+                                    <i class="fa fa-4x fa-tasks text-primary sr-icons"></i>
+                                    <h3><a href="">Job Management</a></h3>
+                                    <p class="text-muted">Job overview and job management for cluster</p>
+                                  </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 text-center">
+                                  <div class="service-box">
+                                    <i class="fa fa-4x fa-dashboard text-primary sr-icons"></i>
+                                    <h3><a href="">BI Dashboard</a></h3>
+                                    <p class="text-muted">Multidimensional data statistic, filtering and visualizing for any structured data.</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </section>
+                        </div>
+                      </div>
+
+                      <p>
+
+                      </p>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane fade" id="stepv2" aria-labelledby="profile-tab" style="width:100%">
+                      <div class="panel fresh-color panel-primary" style="width:100%">
+                        <div class="panel-heading">Example Json Row Data</div>
+                        <div class="panel-body">
+                          <p>
+                            [
+                            <br> &nbsp;&nbsp;&nbsp;{id:1,name:'bill',sex:'male',age:32,email:'bill@matrix.com',phone:13912738475},
+                            <br> &nbsp;&nbsp;&nbsp;{id:2,name:'willy',sex:'male',age:38,email:'willy@matrix.com',phone:13912738412},
+                            <br> &nbsp;&nbsp;&nbsp;{id:3,name:'frank',sex:'male',age:35,email:'frank@matrix.com',phone:13912738472},
+                            <br> &nbsp;&nbsp;&nbsp;{id:4,name:'tom',sex:'male',age:22,email:'tom@matrix.com',phone:13312738475},
+                            <br> &nbsp;&nbsp;&nbsp;{id:5,name:'carina',sex:'female',age:30,email:'carina@matrix.com',phone:13922738475},
+                            <br> &nbsp;&nbsp;&nbsp;{id:6,name:'terry',sex:'male',age:12,email:'terry@matrix.com',phone:13912731475},
+                            <br> &nbsp;&nbsp;&nbsp;{id:7,name:'amanda',sex:'female',age:32,email:'amanda@matrix.com',phone:13918738475},
+                            <br> ]
+                          </p>
+                        </div>
+                      </div>
+                      <div class="panel fresh-color panel-success" style="width:100%">
+                        <div class="panel-heading">Transfered Table Data</div>
+                        <div class="panel-body">
+                          <p>
+                            {
+                            <br> &nbsp;&nbsp;&nbsp; "header": ["id", "name", "sex", "age", "email", "phone"],
+                            <br> &nbsp;&nbsp;&nbsp; "result": [
+                            <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1, "bill", "male", 32, "bill@matrix.com", 13912738475],
+                            <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2, "willy", "male", 38, "willy@matrix.com", 13912738412],
+                            <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3, "frank", "male", 35, "frank@matrix.com", 13912738472],
+                            <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4, "tom", "male", 22, "tom@matrix.com", 13312738475],
+                            <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[5, "carina", "female", 30, "carina@matrix.com", 13922738475],
+                            <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6, "terry", "male", 12, "terry@matrix.com", 13912731475],
+                            <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[7, "amanda", "female", 32, "amanda@matrix.com", 13918738475]
+                            <br> &nbsp;&nbsp;&nbsp;&nbsp; ]
+                            <br> }
+                          </p>
+                        </div>
+                      </div>
+                      <div class="panel fresh-color panel-info" style="width:100%">
+                        <div class="panel-heading">How to transfer Data?</div>
+                        <div class="panel-body">
+                          <p>
+                            1， import generic_algorithm.js file
+                            <br> 2， set serverData variable as row data reference
+                            <br> 3， invoke DataTransferPOJO.serverJsonData2TableData(serverData) function
+                            <br> The code frage should be like this:
+                            <br> var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
+                            <br>
+
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="stepv3" aria-labelledby="dropdown1-tab">
+                      <div class="panel fresh-color panel-primary">
+                        <div class="panel-heading">自定义Table使用方法</div>
+                        <div class="panel-body">
+                          <ul>
+                            <li>1 初始化Table组件</li>
+                            <li>2 绑定Table组件与页面DOM元素</li>
+                            <li>3 设置分页值(可选, default value is 10)</li>
+                            <li>4 加载数据</li>
+                            <li>5 构建视图</li>
+                            <li>example:
+                              <ul>
+                                <li>//1 初始化Table组件
+                                  <br> var viewModel = new ListViewModel();</li>
+                                <li>//2 绑定Table组件与页面DOM元素
+                                  <br> ko.applyBindings(viewModel, document.getElementById('contentDIV'));</li>
+                                <li>//3 设置分页值(可选)
+                                  <br> viewModel.pageMaxSize(20);
+                                </li>
+                                <li>//4 加载数据
+                                  <br> var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
+                                  <br> viewModel.buildData(tableData.result);
+                                  <br> viewModel.columnNames(tableData.header);
+                                  <br>
+                                </li>
+                                <li>//5 构建视图
+                                  <br> viewModel.buildView();
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+
+
+
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="stepv4" aria-labelledby="dropdown1-tab">
+                      <div class="panel fresh-color panel-success">
+                        <div class="panel-heading">Common Table Example</div>
+                        <div class="panel-body">
+                          <div class="row">
+                            <div class="col-md-12" style="overflow: auto">
+                              <form class="navbar-form navbar-right" role="search">
+                                <div class="form-group">
+                                  <input data-bind="value:searchKeyword" class="form-control" placeholder="输入关键字" type="text">
+                                </div>
+                                <button data-bind="click:function(){buildView()}" type="submit" class="btn btn-success">搜索</button>
+                              </form>
+                              <table class="table table-striped" cellspacing="0">
+                                <thead>
+                                  <tr>
+                                    <!-- ko foreach: columnNames -->
+                                    <th>
+                                      <span data-bind="text: $data"></span>
+                                    </th>
+                                    <!-- /ko -->
+                                  </tr>
+                                </thead>
+                                <tbody data-bind="foreach:viewData">
+                                  <tr data-bind="visible:isDisplay,foreach: data">
+                                    <td data-bind="text: $data"></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                          <div id="pagingDIV">
+                            <nav>
+                              <ul class="pager">
+                                <span class="pull-left">Total Size:
+                                      <span data-bind="text:totalCounts()"></span>
+                                </span>
+                                <span class="pull-right">
+                                      <select class="form-control" style="width:88px" data-bind="options:pagingSizeArray,value:pageMaxSize"></select>
+                                    </span>
+                                <li><a data-bind="click:function(){toPage(1)}" href="#">首页</a></li>
+                                <li><a data-bind="click:function(){toPage(currentPageNumber()-1)}" href="#">前翻</a></li>
+                                <li>
+                                  <input data-bind="value:currentPageNumber" style="width:38px" ;type="text" class="text-center">
+                                </li>
+                                <li><a data-bind="click:function(){toPage(currentPageNumber()+1)}" href="#">后翻</a></li>
+                                <li><a data-bind="click:function(){toPage(totalPage())}" href="#">末页</a></li>
+                              </ul>
+                            </nav>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="stepv5" aria-labelledby="dropdown1-tab">
+                      <div class="panel fresh-color panel-primary">
+                        <div class="panel-heading"><i class="fa fa-files-o"></i> 筛选文件列表</div>
+                        <div class="panel-body">
+                          <div class="card profile" id="filesContentDIV">
+                            <div class="card-body">
+                              <div class="name"></div>
+                              <div class="description">
+                                <div data-bind="foreach:viewData">
+                                  <button type="button" class="btn btn-default btn-xs" data-bind="visible:isChecked,click:function(){$parent.checkListener($data)}">
+                                    <span class="fa fa-close" aria-hidden="true"></span>
+                                    <span data-bind="text:data[1]"></span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="card-footer">
+                              <i class="fa fa-files-o"></i> &nbsp;Selected Files:
+                              <strong data-bind="text: totalSelected()"></strong>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="panel fresh-color panel-info">
+                        <div class="panel-heading">Special Table</div>
+                        <div class="panel-body">
+                          <div class="row">
+                            <div class="col-md-12" style="overflow: auto">
+                              <form class="navbar-form navbar-right" role="search">
+                                <div class="form-group">
+                                  <input data-bind="value:searchKeyword" class="form-control" placeholder="输入关键字" type="text">
+                                </div>
+                                <button data-bind="click:function(){buildView()}" type="submit" class="btn btn-info">搜索</button>
+                              </form>
+                              <table class="table table-striped sortable" cellspacing="0" width="100%">
+                                <thead>
+                                  <tr>
+                                    <th>
+                                      <input type="checkbox" data-bind="checked:isSelectCurrentPage" />本页
+                                      <input type="checkbox" data-bind="checked:isSelectAllPage" />全选
+                                    </th>
+                                    <th>name</th>
+                                    <th>email</th>
+                                  </tr>
+                                </thead>
+                                <tbody data-bind="foreach: viewData">
+                                  <tr data-bind="visible:isDisplay">
+                                    <td>
+                                      <input type="checkbox" data-bind="checked: isChecked" />
+                                    </td>
+                                    <td data-bind="text: data[1]">
+                                    </td>
+                                    <td data-bind="text: data[4]">
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                          <div id="pagingDIV">
+                            <nav>
+                              <ul class="pager">
+                                <span class="pull-left">Total Size:
+                                      <span data-bind="text:totalCounts()"></span>
+                                </span>
+                                <span class="pull-right">
+                                      <select class="form-control" style="width:88px" data-bind="options:pagingSizeArray,value:pageMaxSize"></select>
+                                    </span>
+                                <li><a data-bind="click:function(){toPage(1)}" href="#">首页</a></li>
+                                <li><a data-bind="click:function(){toPage(currentPageNumber()-1)}" href="#">前翻</a></li>
+                                <li>
+                                  <input data-bind="value:currentPageNumber" style="width:38px" ;type="text" class="text-center">
+                                </li>
+                                <li><a data-bind="click:function(){toPage(currentPageNumber()+1)}" href="#">后翻</a></li>
+                                <li><a data-bind="click:function(){toPage(totalPage())}" href="#">末页</a></li>
+                              </ul>
+                            </nav>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <footer>
+    <hr class="divider" />
+    <br/>
+    <p class="pull-right"><a href="#">回到顶部</a></p>
+    <div class="container">
+      <p><strong>Matrix</strong> is a development phase whole lifecycle solution, Support <strong>© 2016 Scripter Team</strong>. All rights reserved.</p>
+    </div>
+
+  </footer>
+
+
+
+
+
+
+
+  <!-- Javascript for reference: JQUERY,BOOTSTRAP,KNOCKOUT -->
+  <script src="../assets/reference/jquery/jquery-1.11.1.min.js"></script>
+  <script src="../assets/reference/jquery/jquery.json.js"></script>
+  <script src="../assets/reference/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../assets/reference/knockout.js/knockout-3.3.0.js"></script>
+  <script src="../assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+
+  <!-- Javascript for Matrix Self Owned -->
+  <script src="../assets/self-owned/js/generic/generic_algorithm.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_cache.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_charting.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_csv.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_cud.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_modal.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_prototype.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_query.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_table.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_util.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
+  <script>
+    $(document).ready(function() {
+
+    });
+
+    var tableModel = new ListViewModel();
+    ko.applyBindings(tableModel, document.getElementById('contentDIV'));
+
+    var retrieveData_mock = function() {
+      $.ajax({
+        url: $.getRootPath() + "/assets/self-owned/data/server_mock_data.json",
+        type: 'GET',
+        dataType: 'json',
+        success: function(json) {
+          var serverData = json;
+          var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
+          tableModel.buildData(tableData.result);
+          tableModel.columnNames(tableData.header);
+          tableModel.buildView();
+        },
+        error: function(xhr, status) {
+          console.log('Sorry, there was a problem on SERVER_REQUEST_ACTION process!');
+        },
+        complete: function(xhr, status) {}
+      });
+    }
+    retrieveData_mock();
+  </script>
+
+
+</body>
+
+</html>
