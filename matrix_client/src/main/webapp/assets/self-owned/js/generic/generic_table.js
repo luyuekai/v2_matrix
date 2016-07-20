@@ -18,7 +18,7 @@ function ListViewModel() {
     self.originalData = ko.observableArray();
     self.viewData = ko.observableArray();
     self.columnNames = ko.observableArray();
-    self.pagingSizeArray = ko.observableArray([10, 20, 50, 100]);
+    self.pagingSizeArray = ko.observableArray([5,10, 20, 50, 100]);
 
     self.isSelectCurrentPage = ko.observable();
     self.isSelectAllPage = ko.observable();

@@ -418,6 +418,7 @@
         success: function(json) {
           var serverData = json;
           var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
+          tableModel.pageMaxSize(5);
           tableModel.buildData(tableData.result);
           tableModel.columnNames(tableData.header);
           tableModel.buildView();
