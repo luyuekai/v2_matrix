@@ -152,7 +152,7 @@ UtilPOJO = {
   // 1: UtilPOJO.formatTime(1458185053699) result: "2016-03-17 11:24:13 699"
   // 2: UtilPOJO.formatTime(1458185053699,'yyyy-MM-dd') result: "2016-03-17"
   formatTime: function(input, format) {
-    debugger;
+    
     var date = new Date();
     date.setTime(input);
     format = format ? format : "yyyy-MM-dd hh:mm:ss S";

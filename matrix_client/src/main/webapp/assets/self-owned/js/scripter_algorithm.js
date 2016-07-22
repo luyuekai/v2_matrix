@@ -618,7 +618,7 @@ DataTransferPOJO={
       return resultArray;
     },
     tableData2PieChartData:function(tableHeaderArray,tableDataArray,wantedColumnHeader){
-      debugger;
+      
       var resultArray = [];
       var index = tableHeaderArray.indexOf(wantedColumnHeader);
       if(index>-1){
