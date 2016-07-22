@@ -36,6 +36,7 @@ function ListViewModel() {
     });
 
     self.currentPageNumber.subscribe(function (newValue) {
+        newValue = Number(newValue);
         self.toPage(newValue);
     });
 

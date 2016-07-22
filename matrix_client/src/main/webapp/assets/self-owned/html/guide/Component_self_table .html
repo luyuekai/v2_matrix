@@ -45,23 +45,23 @@ window.gon={};gon.api_version="v3";gon.default_avatar_url="http://gitlab.local/a
   [data-user-is] {
     display: none !important;
   }
-  
+
   [data-user-is="296"] {
     display: block !important;
   }
-  
+
   [data-user-is="296"][data-display="inline"] {
     display: inline !important;
   }
-  
+
   [data-user-is-not] {
     display: block !important;
   }
-  
+
   [data-user-is-not][data-display="inline"] {
     display: inline !important;
   }
-  
+
   [data-user-is-not="296"] {
     display: none !important;
   }
@@ -425,6 +425,7 @@ function ListViewModel() {
   self.isSelectAllPage= ko.observable();
 
   self.currentPageNumber.subscribe(function(newValue) {
+    newValue = Number(newValue);
     self.toPage(newValue);
   });
 

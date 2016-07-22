@@ -69,6 +69,7 @@ function ServerPagingViewModel() {
     });
 
     self.currentPageNumber.subscribe(function (newValue) {
+      newValue = Number(newValue);
         if (!self.retrieveData) {
             return;
         }
