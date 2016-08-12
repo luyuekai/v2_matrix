@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Matrix Components Framework">
+  <meta name="author" content="LY">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
+  <!-- Loading Bootstrap -->
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+  <!-- Loading Flat UI -->
+  <link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/css/flat-ui.css">
+
+  <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+  <div class="container" style="text-transform: uppercase;font-weight: 700;font-size: 13px;">
+    <nav class="navbar navbar-inverse navbar-fixed-top navbar-top" style="text-align: left;">
+      <div class="navbar-header" style="margin-top:3px">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#" onclick="location.href = $.getRootPath() + '/tutorial/hive_analyze_lifecycle_tutorials.html'"><i class="fa fa-bug fa-1x"></i> <span class="light">天玑</span></a>
+      </div>
+      <div style="height: 1px;" aria-expanded="false" id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class='dropdown'>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-book"></i><span class="hidden-sm">&nbsp;&nbsp;教程</span> <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#" onclick="location.href = $.getRootPath() + '/tutorial/hive_analyze_lifecycle_tutorials.html'"><i class="fa fa-book"></i><span class="hidden-sm">&nbsp;最佳实践(推荐)</span></a></li>
+              <li><a href="#" onclick="location.href = $.getRootPath() + '/quickStart_dashboard.html'"><i class="fa fa-book"></i><span class="hidden-sm">&nbsp;开始学习</span></a></li>
+            </ul>
+          </li>
+          <li class='dropdown'>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-dashboard"></i><span class="hidden-sm">&nbsp;&nbsp;仪表板</span> <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#" onclick="location.href = $.getRootPath() + '/dashboard_jobs.html'"><i class="fa fa-dashboard"></i><span class="hidden-sm">&nbsp;&nbsp;集群作业仪表板</span></a></li>
+              <li><a href="#" onclick="location.href = $.getRootPath() + '/dashboard.html'"><i class="fa fa-dashboard"></i><span class="hidden-sm">&nbsp;&nbsp;定制仪表板</span></a></li>
+            </ul>
+          </li>
+          <li class='dropdown'>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-flask"></i><span class="hidden-sm">&nbsp;&nbsp;Notebook</span> <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#" onclick="location.href = $.getRootPath() + '/notebook.html'"><i class="fa fa-forumbee"></i>&nbsp;HIVE</a></li>
+              <li><a href="#" onclick="location.href = $.getRootPath() + '/notebook_rdms.html'"><i class="fa fa-database"></i>&nbsp;RDMS</a></li>
+              <li><a href="#" onclick="location.href = $.getRootPath() + '/notebook_pig.html'"><i class="fa fa-magic"></i>&nbsp;PIG</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-circle-o-notch"></i><span class="hidden-sm">&nbsp;&nbsp;管理</span> <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#" onclick="location.href = $.getRootPath() + '/file.html'"><i class="fa fa-file"></i>&nbsp;HDFS资源管理器</a></li>
+
+              <li><a href="#" onclick="location.href = $.getRootPath() + '/data-mgmt.html'"><i class="fa fa-forumbee"></i>&nbsp;HIVE资源管理器</a></li>
+              <li><a href="#" onclick="location.href = $.getRootPath() + '/rdms_mgmt.html'"><i class="fa fa-database"></i>&nbsp;RDMS资源管理器</a></li>
+
+              <li><a href="#" onclick="location.href = $.getRootPath() + '/job_main.html'"><i class="fa fa-tasks"></i>&nbsp;集群作业资源管理器</a></li>
+              <li><a href="#" onclick="location.href = $.getRootPath() + '/console_metadata.html'"><i class="fa fa-cogs"></i>&nbsp;元数据资源管理器</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right " id="userNameUL">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i>&nbsp;<span class="hidden-sm" data-bind="text: userName"></span></a>
+          </li>
+
+          <li class="dropdown profile hidden-xs">
+            <a href="#" class="dropdown-toggle page-scroll" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-sitemap"></i> <span class="hidden-sm">&nbsp;系统地图</span> <span class="caret"></span></a>
+            <ul class="dropdown-menu animated fadeInDown" style="width: 668px;padding-bottom: 0px;text-align: center;">
+
+              <li>
+                <div class="row profile-info  text-center" style="margin:0px;font-family: 'Roboto Condensed', sans-serif;padding: 15px;">
+                  <div class="col-md-3">
+                    <a href="#features" class="btn btn-primary btn-md page-scroll" style="border-radius: 300px;font-weight: 700;"><i class="fa fa-book"></i> 教程</a>
+                    <hr style="border-color: #353d47;border-width: 3px;max-width: 50px;">
+                    <a onclick="location.href = $.getRootPath() + '/quickStart_dashboard.html'" href="#" class="btn btn-sm " style="font-weight: 700;">开始学习</a>
+                    <a onclick="location.href = $.getRootPath() + '/tutorial/hive_analyze_lifecycle_tutorials.html'" href="#" class="btn btn-sm " style="font-weight: 700;">最佳实践</a>
+                  </div>
+                  <div class="col-md-3">
+                    <a href="#features" class="btn btn-primary btn-md page-scroll" style="border-radius: 300px;font-weight: 700;"><i class="fa fa-flask"></i> 功能特性</a>
+                    <hr style="border-color: #353d47;border-width: 3px;max-width: 50px;">
+                    <a onclick="location.href = $.getRootPath() + '/notebook.html'" href="#" class="btn btn-sm " style="font-weight: 700;">hive notebook</a>
+                    <a onclick="location.href = $.getRootPath() + '/notebook_rdms.html'" href="#" class="btn btn-sm " style="font-weight: 700;">rdms notebook</a>
+                    <a onclick="location.href = $.getRootPath() + '/notebook_pig.html'" href="#" class="btn btn-sm " style="font-weight: 700;">pig notebook</a>
+                    <a onclick="location.href = $.getRootPath() + '/dashboard.html'" href="#" class="btn btn-sm " style="font-weight: 700;">仪表板</a>
+                  </div>
+                  <div class="col-md-3">
+                    <a href="#features" class="btn btn-primary btn-md page-scroll" style="border-radius: 300px;font-weight: 700;"><i class="fa fa-circle-o-notch"></i> 管理</a>
+                    <hr style="border-color: #353d47;border-width: 3px;max-width: 50px;">
+                    <a onclick="location.href = $.getRootPath() + '/file.html'" href="#" class="btn btn-sm " style="font-weight: 700;">hdfs资源管理器</a>
+                    <a onclick="location.href = $.getRootPath() + '/data-mgmt.html'" href="#" class="btn btn-sm " style="font-weight: 700;">hive资源管理器</a>
+                    <a onclick="location.href = $.getRootPath() + '/rdms_mgmt.html'" href="#" class="btn btn-sm " style="font-weight: 700;">rdms资源管理器</a>
+                    <a onclick="location.href = $.getRootPath() + '/job_main.html'" href="#" class="btn btn-sm " style="font-weight: 700;">job资源管理器</a>
+                    <a onclick="location.href = $.getRootPath() + '/console_metadata.html'" href="#" class="btn btn-sm " style="font-weight: 700;">元数据资源管理器</a>
+                  </div>
+                  <div class="col-md-3">
+                    <a href="#features" class="btn btn-primary btn-md page-scroll" style="border-radius: 300px;font-weight: 700;"><i class="fa fa-user"></i> 用户</a>
+                    <hr style="border-color: #353d47;border-width: 3px;max-width: 50px;">
+                    <a onclick="location.href = $.getRootPath() + '/user_profile.html'" href="#" class="btn btn-sm " style="font-weight: 700;">概要配置</a>
+                    <a onclick="location.href = $.getRootPath() + '/logout'" href="#" class="btn btn-sm " style="font-weight: 700;">系统注销</a>
+                    <a onclick="location.href = $.getServerRoot() + '/scripter_client_cn/'" href="#" class="btn btn-sm " style="font-weight: 700;">中文版</a>
+                    <a onclick="location.href = $.getServerRoot() + '/scripter_client/'" href="#" class="btn btn-sm " style="font-weight: 700;">English</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right " id="healthStatusUL">
+          <li data-bind="css:css_service_li_class">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cloud"> &nbsp;&nbsp;</i></a>
+            <ul class="dropdown-menu dropdown-menu-right" data-bind="css:css_service_ul_class">
+              <li class="title">
+                <span class="badge pull-right" data-bind="text:clusterHealth"></span>集群整体状态评估
+              </li>
+              <li>
+                <ul class="list-group notifications" data-bind="foreach:healthSummaryArray">
+                  <a href="#">
+                    <li class="list-group-item">
+                      <span data-bind="css:spanclass,text:healthSummary"></span> <i data-bind="css:icon"></i> <span data-bind="text:name"></span>
+                    </li>
+                  </a>
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+          <li data-bind="css:css_alljob_li_class">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-puzzle-piece"> &nbsp;&nbsp;</i> </a>
+            <ul class="dropdown-menu dropdown-menu-right" data-bind="css:css_alljob_ul_class">
+              <li class="title">
+                <span class="badge pull-right" data-bind="text:allQueueJob"></span>活动的Job总数量
+              </li>
+
+              <li>
+                <ul class="list-group notifications">
+                  <a href="#">
+                    <li class="list-group-item">
+                      <span class="badge warning" data-bind="text:allPendingJob"></span> <i class="fa fa-exclamation-circle icon"></i> Pending Job总数量
+                    </li>
+                  </a>
+                  <a href="#">
+                    <li class="list-group-item">
+                      <span class="badge info " data-bind="text:allRunningJob"></span><i class="fa fa-spinner">&nbsp;</i> Running Job总数量
+                    </li>
+                  </a>
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+          <li data-bind="css:css_myjob_li_class">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-heartbeat"> &nbsp;&nbsp;</i></a>
+            <ul class="dropdown-menu dropdown-menu-right" data-bind="css:css_myjob_ul_class">
+              <li class="title">
+                我的Job <span class="badge pull-right" data-bind="text: myJob"></span>
+              </li>
+              <li>
+                <ul class="list-group notifications">
+                  <a href="#">
+                    <li class="list-group-item">
+                      <span class="badge warning" data-bind="text:myPendingJob"></span> <i class="fa fa-exclamation-circle icon"></i> Pending
+                    </li>
+                  </a>
+                  <a href="#">
+                    <li class="list-group-item">
+                      <span class="badge info" data-bind="text:myRunningJob"></span> <i class="fa fa-spinner"></i> &nbsp;Running
+                    </li>
+                  </a>
+                  <a href="#">
+                    <li class="list-group-item">
+                      <span class="badge success" data-bind="text:myFinishedJob"></span> <i class="fa fa-check icon"></i> Finished
+                    </li>
+                  </a>
+                  <a href="#">
+                    <li class="list-group-item">
+                      <span class="badge default" data-bind="text:myFailedJob"></span> <i class="fa fa-times"></i> &nbsp;&nbsp;Failed
+                    </li>
+                  </a>
+                  <a href="#">
+                    <li class="list-group-item">
+                      <span class="badge default" data-bind="text:myKilledJob"></span> <i class="fa fa-power-off"></i> &nbsp;&nbsp;Killed
+                    </li>
+                  </a>
+                  <a href="#">
+                    <li class="list-group-item message">
+                      <a href="#" onclick="location.href = $.getRootPath() + '/job_main.html'">&nbsp;查看更多信息</a>
+                    </li>
+                  </a>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+      </div>
+    </nav>
+  </div>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+        <span class="sr-only">Toggle navigation</span>
+      </button>
+      <a class="navbar-brand" href="#">Flat UI</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-01">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#fakelink">Products</a></li>
+        <li><a href="#fakelink">Features</a></li>
+      </ul>
+      <form class="navbar-form navbar-right" action="#" role="search">
+        <div class="form-group">
+          <div class="input-group">
+            <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+            <span class="input-group-btn">
+                <button type="submit" class="btn"><span class="fui-search"></span></button>
+            </span>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- /.navbar-collapse -->
+  </nav>
+
+  <div class="container">
+    <h1>Hello, world!</h1>
+
+
+  </div>
+  <!-- /.container -->
+
+
+  <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+  <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="assets/reference/flat-ui/js/vendor/video.js"></script>
+  <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
+
+
+</body>
+
+</html>
