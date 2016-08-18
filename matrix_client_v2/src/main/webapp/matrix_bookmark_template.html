@@ -28,8 +28,21 @@
 
             <div id="contentDIV">
               <!-- Breadcrum Zone -->
-              
+              <ol class="breadcrumb" style="margin-top:-30px;margin-left:-30px">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Bookmark</li>
+              </ol>
               <!-- Content Header  -->
+              <h2><i class="fa fa-tasks"></i> Bookmark <small>{(This is matrix template!)}</small> </h2>
+
+              <div class="" style="width:80px">
+                <button id="b1" onclick="activeBookmark('b1')" class="matrix_bookmark bookmark_active btn  btn-primary pull-right" style="">Hive</button>
+                <button id="b2"  onclick="activeBookmark('b2')" class="matrix_bookmark bookmark_normal btn  btn-info pull-right" style="">SQL</button>
+                <button id="b3"  onclick="activeBookmark('b3')" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="">Pig</button>
+                <button id="b4"  onclick="activeBookmark('b4')" class="matrix_bookmark bookmark_normal btn  btn-danger  pull-right" style="">Spark</button>
+                <button id="b5"  onclick="activeBookmark('b5')" class="matrix_bookmark bookmark_normal btn  btn-warning  pull-right" style="">Impala</button>
+                <button id="b6"  onclick="activeBookmark('b6')" class="matrix_bookmark bookmark_normal btn  pull-right" style="">MD</button>
+              </div>
             </div>
           </div>
         </div>
@@ -64,9 +77,9 @@
   <script src="assets/self-owned/js/generic/generic_validation.js"></script>
 
   <script>
-    $(document).ready(function() {
-      $('#assistDIV').load($.getRootPath() + '/assets/self-owned/html/assist/matrix_assist_sample.html');
-    });
+    $(document).ready(function() {});
+
+
   </script>
 </body>
 

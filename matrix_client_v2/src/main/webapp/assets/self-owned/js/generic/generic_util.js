@@ -152,7 +152,7 @@ UtilPOJO = {
   // 1: UtilPOJO.formatTime(1458185053699) result: "2016-03-17 11:24:13 699"
   // 2: UtilPOJO.formatTime(1458185053699,'yyyy-MM-dd') result: "2016-03-17"
   formatTime: function(input, format) {
-    
+
     var date = new Date();
     date.setTime(input);
     format = format ? format : "yyyy-MM-dd hh:mm:ss S";
@@ -216,4 +216,18 @@ LoaderUtil = {
         LoaderUtil.removeMask(div_id);
     }
 
+}
+
+
+var activeBookmark = function(div_id,fn) {
+  event.preventDefault();
+  $('button.matrix_bookmark').removeClass('bookmark_active');
+  $('button.matrix_bookmark').removeClass('bookmark_normal');
+  $('button.matrix_bookmark').addClass('bookmark_normal');
+  $('#'+div_id).addClass('bookmark_active');
+  $('#'+div_id).removeClass('bookmark_normal');
+
+ if(fn && $.isFunction(fn)){
+   fn();
+ }
 }
