@@ -13,6 +13,8 @@
   <link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/css/flat-ui.css">
   <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
+
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap-markdown-2.10.0/css/bootstrap-markdown.min.css">
 </head>
 
 <style>
@@ -39,9 +41,19 @@
               <!-- Content Header  -->
               <h2><i class="fa fa-tasks"></i> Markdown <small><a href="http://www.codingdrama.com/bootstrap-markdown/">Bootstrap Markdown Home</a></small> </h2>
               <div>
-                <textarea id="text-input" oninput="this.editor.update()" rows="6" cols="60">Type **Markdown** here.</textarea>
-                <div id="preview" > </div>
-
+                <form>
+                  <input name="title" type="text" placeholder="Title?" />
+                  <textarea name="content" data-provide="markdown" rows="10"></textarea>
+                  <label class="checkbox">
+                    <input name="publish" type="checkbox"> Publish
+                  </label>
+                  <hr/>
+                  <button type="submit" class="btn">Submit</button>
+                </form>
+              </div>
+              <div data-provide="markdown-editable">
+                <h3>This is some editable heading</h3>
+                <p>Well, actually all contents within this "markdown-editable" context is really editable. Just click anywhere!</p>
               </div>
             </div>
           </div>
@@ -63,8 +75,8 @@
   <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
   <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
   <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
-  <script src="assets/reference/markdown/markdown.min.js"></script>
 
+  <script src="assets/reference/bootstrap-markdown-2.10.0/js/bootstrap-markdown.js"></script>
   <!-- Javascript for Matrix Self Owned -->
   <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
   <script src="assets/self-owned/js/generic/generic_cache.js"></script>
@@ -79,15 +91,7 @@
   <script src="assets/self-owned/js/generic/generic_validation.js"></script>
 
   <script>
-    $(document).ready(function() {
-      new Markdown_Editor(document.getElementById("text-input"), document.getElementById("preview"));
-
-    });
-  </script>
-  <script>
-
-
-
+    $(document).ready(function() {});
   </script>
 </body>
 

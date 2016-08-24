@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Matrix Components Framework">
+  <meta name="author" content="LY">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/css/flat-ui.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/fuelux/fuelux.min.css">
+  <style>
+    #myTree {
+      min-width: 250px;
+      min-height: 250px;
+      max-width: 300px;
+      max-height: 300px;
+      overflow: auto;
+    }
+
+    #inputPath {
+      width: 250px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="flat-matrix">
+    <div class="app-container">
+      <div class="row content-container">
+        <div id="navDIV"></div>
+        <!-- 应用左侧NAV导航，可以应用与assist，帮助，过滤等辅助组件，默认自动收缩扩展，支持悬停（点击右上角按钮切换）-->
+        <div id="assistDIV"></div>
+        <div class="container-fluid">
+          <div class="side-body padding-top">
+
+            <div id="contentDIV">
+              <!-- Breadcrum Zone -->
+              <ol class="breadcrumb" style="margin-top:-30px;margin-left:-30px">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Tree</li>
+              </ol>
+              <!-- Content Header  -->
+              <h2><i class="fa fa-tasks"></i> Tree</h2>
+
+              <div>
+                <div class="row" style="margin:0px 0px -30px 0px">
+                  <div class="col-md-12">
+                    <div class="panel fresh-color panel-primary">
+                      <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;Tree Component
+                      </div>
+                      <div class="panel-body">
+                        <div id="container" class="fuelux">
+                          <div>
+                            <input type="text" id="inputPath" />
+                            <button type="button" class="btn btn-link" title="选择" onclick="selectFromTree()">
+                              <div class="title"><i class="fa fa-folder-open"></i></div>
+                            </button>
+                          </div>
+                          <div>
+                            <ul class="tree tree-folder-select" role="tree" id="myTree">
+                              <li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
+                                <div class="tree-branch-header">
+                                  <button type="button" class="glyphicon icon-caret glyphicon-play">
+                                    <span class="sr-only">Open</span>
+                                  </button>
+                                  <button type="button" class="tree-branch-name">
+                                    <span class="glyphicon icon-folder glyphicon-folder-close"></span>
+                                    <span class="tree-label"></span>
+                                  </button>
+                                </div>
+                                <ul class="tree-branch-children" role="group"></ul>
+                                <div class="tree-loader" role="alert">Loading...</div>
+                              </li>
+                              <li class="tree-item hide" data-template="treeitem" role="treeitem">
+                                <button type="button" class="tree-item-name">
+                                  <span class="glyphicon icon-item fueluxicon-bullet"></span>
+                                  <span class="tree-label"></span>
+                                </button>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- /.container -->
+
+
+  <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+  <script src="assets/reference/jquery/jquery.json.js"></script>
+  <script src="assets/reference/knockout.js/knockout-3.3.0.js"></script>
+  <script src="assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+  <script src="assets/reference/flat-ui/js/vendor/video.js"></script>
+  <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
+  <script src="assets/reference/fuelux/tree.js"></script>
+  <!-- Javascript for Matrix Self Owned -->
+  <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
+  <script src="assets/self-owned/js/generic/generic_cache.js"></script>
+  <script src="assets/self-owned/js/generic/generic_charting.js"></script>
+  <script src="assets/self-owned/js/generic/generic_csv.js"></script>
+  <script src="assets/self-owned/js/generic/generic_cud.js"></script>
+  <script src="assets/self-owned/js/generic/generic_modal.js"></script>
+  <script src="assets/self-owned/js/generic/generic_prototype.js"></script>
+  <script src="assets/self-owned/js/generic/generic_query.js"></script>
+  <script src="assets/self-owned/js/generic/generic_table.js"></script>
+  <script src="assets/self-owned/js/generic/generic_util.js"></script>
+  <script src="assets/self-owned/js/generic/generic_validation.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('#assistDIV').load($.getRootPath() + '/assets/self-owned/html/assist/matrix_assist_sample.html');
+    });
+  </script>
+  <script type="text/javascript">
+
+      function selectFromTree() {
+          if ($("#myTree").css("display") == "none") {
+              $("#myTree").css("display", "")
+          } else {
+              $("#myTree").css("display", "none");
+          }
+      }
+      $(function () {
+          $('#myTree').on('selected.fu.tree', function (event) {
+              var path = $('#myTree').tree('selectedItems')[0].path;
+              console.log(path);
+              $("#inputPath").val(path);
+          });
+      })
+
+      initTree();
+      function initTree() {
+          $('#myTree').tree({
+              dataSource: dynamicDataSource,
+              multiSelect: false,
+              folderSelect: true
+          });
+      }
+
+
+      function dynamicDataSource(openedParentData, callback) {
+          $.getJSON('assets/self-owned/data/tree_mock_data.json', function (resp) {
+              var childObjectsArray = [];
+              var parent_path = openedParentData.path || "";
+              for (var i = 0; i < resp.length; i++) {
+                  childObjectsArray.push({"name": resp[i].name, "type": resp[i].type, "path": parent_path + "/" + resp[i].name, "attr": {id: resp[i].attr.id, "data-icon": resp[i].attr.icon}});
+              }
+              callback({
+                  data: childObjectsArray
+              });
+          });
+      }
+
+
+  </script>
+</body>
+
+</html>

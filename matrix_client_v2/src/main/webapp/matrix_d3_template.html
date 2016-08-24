@@ -13,11 +13,9 @@
   <link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/css/flat-ui.css">
   <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
+
+
 </head>
-
-<style>
-
-</style>
 
 <body>
 
@@ -34,15 +32,12 @@
               <!-- Breadcrum Zone -->
               <ol class="breadcrumb" style="margin-top:-30px;margin-left:-30px">
                 <li><a href="index.html">Home</a></li>
-                <li class="active">Markdown</li>
+                <li class="active">D3</li>
               </ol>
               <!-- Content Header  -->
-              <h2><i class="fa fa-tasks"></i> Markdown <small><a href="http://www.codingdrama.com/bootstrap-markdown/">Bootstrap Markdown Home</a></small> </h2>
-              <div>
-                <textarea id="text-input" oninput="this.editor.update()" rows="6" cols="60">Type **Markdown** here.</textarea>
-                <div id="preview" > </div>
+              <h2><i class="fa fa-tasks"></i> D3</h2>
 
-              </div>
+              <div id="d3DIV"></div>
             </div>
           </div>
         </div>
@@ -63,7 +58,7 @@
   <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
   <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
   <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
-  <script src="assets/reference/markdown/markdown.min.js"></script>
+  <script src="assets/reference/d3/d3.min.js"></script>
 
   <!-- Javascript for Matrix Self Owned -->
   <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
@@ -80,15 +75,11 @@
 
   <script>
     $(document).ready(function() {
-      new Markdown_Editor(document.getElementById("text-input"), document.getElementById("preview"));
-
+      $('#assistDIV').load($.getRootPath() + '/assets/self-owned/html/assist/matrix_assist_sample.html');
+      $('#d3DIV').load($.getRootPath() + '/matrix_d3_content_template.html');
     });
   </script>
-  <script>
 
-
-
-  </script>
 </body>
 
 </html>

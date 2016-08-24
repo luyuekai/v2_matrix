@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Matrix Components Framework">
+  <meta name="author" content="LY">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/css/flat-ui.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
+</head>
+
+<body>
+
+  <div class="flat-matrix">
+    <div class="app-container">
+      <div class="row content-container">
+        <div id="navDIV"></div>
+        <!-- 应用左侧NAV导航，可以应用与assist，帮助，过滤等辅助组件，默认自动收缩扩展，支持悬停（点击右上角按钮切换）-->
+        <div id="assistDIV"></div>
+        <div class="container-fluid">
+          <div class="side-body padding-top">
+
+            <div id="contentDIV">
+              <!-- Breadcrum Zone -->
+              <ol class="breadcrumb" style="margin-top:-30px;margin-left:-30px">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Card</li>
+              </ol>
+              <!-- Content Header  -->
+              <h2><i class="fa fa-tasks"></i> Cards</h2>
+
+              <div>
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <a onclick="void(0);" style="cursor:pointer">
+                            <div class="card yellow summary-inline" style="min-height:88px; max-height:88px;">
+                                <div class="card-body">
+                                    <i class="icon fa fa-bed fa-1x"> Warning </i>
+                                </div>
+                                <div class='text-right' data-bind= "text:type_pending" style="position:absolute;right:18px;bottom:18px;font-size:28px"> 10 Messages</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a onclick="void(0);" style="cursor:pointer">
+                            <div class="card blue summary-inline" style="min-height:88px; max-height:88px;">
+                                <div class="card-body">
+                                    <i class="icon fa fa-sliders fa-1x"> Info </i>
+                                </div>
+                                <div class='text-right' data-bind="text: type_running" style="position:absolute;right:18px;bottom:18px;font-size:28px">10 Messages</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a onclick="void(0);" style="cursor:pointer">
+                            <div class="card green summary-inline" style="min-height:88px; max-height:88px;">
+                                <div class="card-body">
+                                    <i class="icon fa fa-check fa-1x"> Success </i>
+                                </div>
+                                <div class='text-right' data-bind="text: type_succeeded" style="position:absolute;right:18px;bottom:18px;font-size:28px">10 Messages</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a onclick="void(0);" style="cursor:pointer">
+                            <div class="card summary-inline" style="min-height:88px; max-height:88px;">
+                                <div class="card-body">
+                                    <i class="icon fa fa-remove fa-1x"> White </i>
+                                </div>
+                                <div class='text-right' data-bind="text: type_failed" style="position:absolute;right:18px;bottom:18px;font-size:28px">10 Messages</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a onclick="void(0);" style="cursor:pointer">
+                            <div class="card red summary-inline" style="min-height:88px; max-height:88px;">
+                                <div class="card-body">
+                                    <i class="icon fa fa-trash fa-1x"> Danger </i>
+                                </div>
+                                <div class='text-right' data-bind="text: type_killed" style="position:absolute;right:18px;bottom:18px;font-size:28px">10 Messages</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a onclick="void(0);" style="cursor:pointer">
+                            <div class="card dark summary-inline" style="min-height:88px; max-height:88px;">
+                                <div class="card-body">
+                                    <i class="icon fa fa-bars fa-1x"> Dark </i>
+                                </div>
+                                <div class='text-right' data-bind="text: type_total" style="position:absolute;right:18px;bottom:18px;font-size:28px">10 Messages</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card green summary-inline" style="min-height:118px; max-height:118px;">
+                            <div class="card-body">
+                                <i class="icon fa fa-rocket fa-1x"> &nbsp;迅速的</i>
+                            </div>
+                            <div class="row text-center">
+                                <div class="col-md-4">
+                                    <a onclick="void(0);" style="cursor:pointer;color:#fff"><i class="fa fa-rocket fa-2x">&nbsp; 10<span data-bind="text:less_one_min"></span></i> <br> &nbsp;小于1分钟</a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a onclick="void(0);" style="cursor:pointer;color:#fff"><i class="fa fa-fighter-jet fa-2x">&nbsp; 20<span data-bind="text:less_half_hour"></span></i> <br> &nbsp;小于半小时</a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a onclick="void(0);" style="cursor:pointer;color:#fff"><i class="fa fa-plane fa-2x">&nbsp; 30<span data-bind="text:less_one_hour"></span></i> <br> &nbsp;小于一小时 </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="card yellow summary-inline" style="min-height:118px; max-height:118px;">
+                            <div class="card-body">
+                                <i class="icon fa fa-car fa-1x"> &nbsp;可忍受的</i>
+                            </div>
+                            <div class="row text-center">
+                                <div class="col-md-4">
+                                    <a onclick="void(0);" style="cursor:pointer;color:#fff"><i class="fa fa-car fa-2x">&nbsp; 3<span data-bind="text:less_three_hour"></span></i> <br> &nbsp;小于三小时</a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a onclick="void(0);" style="cursor:pointer;color:#fff"><i class="fa fa-motorcycle fa-2x">&nbsp; 6<span data-bind="text:less_twelve_hour"></span></i> <br> &nbsp;小于12小时</a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a onclick="void(0);" style="cursor:pointer;color:#fff"><i class="fa fa-bicycle fa-2x">&nbsp; 9<span data-bind="text:less_one_day"></span></i> <br> &nbsp;小于24小时 </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="card red summary-inline" style="min-height:118px; max-height:118px;">
+                            <div class="card-body">
+                                <i class="icon fa fa-car fa-1x"> &nbsp;不可忍受的</i>
+                            </div>
+                            <div class="row text-center">
+                                <div class="col-md-12">
+                                    <a onclick="void(0);" style="cursor:pointer;color:#fff"><i class="fa fa-wheelchair fa-2x">&nbsp; 2<span data-bind="text:more_one_day"></span></i> <br> &nbsp;超过一天</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- /.container -->
+
+
+  <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+  <script src="assets/reference/jquery/jquery.json.js"></script>
+  <script src="assets/reference/knockout.js/knockout-3.3.0.js"></script>
+  <script src="assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+  <script src="assets/reference/flat-ui/js/vendor/video.js"></script>
+  <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
+  <!-- Javascript for Matrix Self Owned -->
+  <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
+  <script src="assets/self-owned/js/generic/generic_cache.js"></script>
+  <script src="assets/self-owned/js/generic/generic_charting.js"></script>
+  <script src="assets/self-owned/js/generic/generic_csv.js"></script>
+  <script src="assets/self-owned/js/generic/generic_cud.js"></script>
+  <script src="assets/self-owned/js/generic/generic_modal.js"></script>
+  <script src="assets/self-owned/js/generic/generic_prototype.js"></script>
+  <script src="assets/self-owned/js/generic/generic_query.js"></script>
+  <script src="assets/self-owned/js/generic/generic_table.js"></script>
+  <script src="assets/self-owned/js/generic/generic_util.js"></script>
+  <script src="assets/self-owned/js/generic/generic_validation.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('#assistDIV').load($.getRootPath() + '/assets/self-owned/html/assist/matrix_assist_sample.html');
+    });
+  </script>
+</body>
+
+</html>

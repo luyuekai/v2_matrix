@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Matrix Components Framework">
+  <meta name="author" content="LY">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/css/flat-ui.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
+</head>
+
+<body>
+
+  <div class="flat-matrix">
+    <div class="app-container">
+      <div class="row content-container">
+        <div id="navDIV"></div>
+        <!-- 应用左侧NAV导航，可以应用与assist，帮助，过滤等辅助组件，默认自动收缩扩展，支持悬停（点击右上角按钮切换）-->
+        <div id="assistDIV"></div>
+        <div class="container-fluid">
+          <div class="side-body padding-top">
+
+            <div id="contentDIV">
+              <!-- Breadcrum Zone -->
+              <ol class="breadcrumb" style="margin-top:-30px;margin-left:-30px">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Panel</li>
+              </ol>
+              <!-- Content Header  -->
+              <h2><i class="fa fa-tasks"></i> Panels</h2>
+
+              <div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="panel fresh-color panel-primary">
+                      <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;Panel Title
+                        <button type="button" class=" btn btn-black btn-xs pull-right" title="Download">
+                          <div class="title"><i class="fa fa-download"></i>&nbsp;Pannel Button</div>
+                        </button>
+                      </div>
+                      <div class="panel-body">
+                          <h5>Panel Context</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="panel fresh-color panel-default" >
+                      <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;Panel Title
+                      </div>
+                      <div class="panel-body">
+                          <h5>Panel Context</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="panel fresh-color panel-warning">
+                        <div class="panel-heading">为什么要制作自定义Table控件</div>
+                        <div class="panel-body">
+                          我们在使用table的过程中，发现前端JS table组件或多或少都有一个问题，比如:
+                          <ul>
+                            <li>1， 不支持跨页选择</li>
+                            <li>2， 不支持跨页操作</li>
+                            <li>3， 和其它js有依赖(比如ng-table,强依赖于angularjs)</li>
+                            <li>4， 删选+选择等组合使用操作多产生bug</li>
+                            <li>5， 从server端拿取数据后的DOM render有问题</li>
+                            <li>6， 不支持跨页全选/反选</li>
+                          </ul>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="panel fresh-color panel-yellow">
+                        <div class="panel-heading">为什么要制作自定义Table控件</div>
+                        <div class="panel-body">
+                          我们在使用table的过程中，发现前端JS table组件或多或少都有一个问题，比如:
+                          <ul>
+                            <li>1， 不支持跨页选择</li>
+                            <li>2， 不支持跨页操作</li>
+                            <li>3， 和其它js有依赖(比如ng-table,强依赖于angularjs)</li>
+                            <li>4， 删选+选择等组合使用操作多产生bug</li>
+                            <li>5， 从server端拿取数据后的DOM render有问题</li>
+                            <li>6， 不支持跨页全选/反选</li>
+                          </ul>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="panel fresh-color panel-danger" style="width:100%">
+                        <div class="panel-heading">Transfered Table Data</div>
+                        <div class="panel-body">
+                          <p>
+                            {
+                            <br> &nbsp;&nbsp;&nbsp; "header": ["id", "name", "sex", "age", "email", "phone"],
+                            <br> &nbsp;&nbsp;&nbsp; "result": [
+                            <br> &nbsp;&nbsp;&nbsp;&nbsp; ]
+                            <br> }
+                          </p>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="panel fresh-color panel-red" style="width:100%">
+                        <div class="panel-heading">Transfered Table Data</div>
+                        <div class="panel-body">
+                          <p>
+                            {
+                            <br> &nbsp;&nbsp;&nbsp; "header": ["id", "name", "sex", "age", "email", "phone"],
+                            <br> &nbsp;&nbsp;&nbsp; "result": [
+                            <br> &nbsp;&nbsp;&nbsp;&nbsp; ]
+                            <br> }
+                          </p>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="panel fresh-color panel-success" >
+                      <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;Panel Title
+                      </div>
+                      <div class="panel-body">
+                          <h5>Panel Context</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="panel fresh-color panel-info" style="width:100%">
+                        <div class="panel-heading">How to transfer Data?</div>
+                        <div class="panel-body">
+                          <p>
+                            1， import generic_algorithm.js file
+                            <br> 2， set serverData variable as row data reference
+                            <br> 3， invoke DataTransferPOJO.serverJsonData2TableData(serverData) function
+                            <br> The code frage should be like this:
+                            <br> var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
+                            <br>
+
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- /.container -->
+
+
+  <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+  <script src="assets/reference/jquery/jquery.json.js"></script>
+  <script src="assets/reference/knockout.js/knockout-3.3.0.js"></script>
+  <script src="assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+  <script src="assets/reference/flat-ui/js/vendor/video.js"></script>
+  <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
+  <!-- Javascript for Matrix Self Owned -->
+  <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
+  <script src="assets/self-owned/js/generic/generic_cache.js"></script>
+  <script src="assets/self-owned/js/generic/generic_charting.js"></script>
+  <script src="assets/self-owned/js/generic/generic_csv.js"></script>
+  <script src="assets/self-owned/js/generic/generic_cud.js"></script>
+  <script src="assets/self-owned/js/generic/generic_modal.js"></script>
+  <script src="assets/self-owned/js/generic/generic_prototype.js"></script>
+  <script src="assets/self-owned/js/generic/generic_query.js"></script>
+  <script src="assets/self-owned/js/generic/generic_table.js"></script>
+  <script src="assets/self-owned/js/generic/generic_util.js"></script>
+  <script src="assets/self-owned/js/generic/generic_validation.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('#assistDIV').load($.getRootPath() + '/assets/self-owned/html/assist/matrix_assist_sample.html');
+    });
+  </script>
+</body>
+
+</html>

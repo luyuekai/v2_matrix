@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Matrix Components Framework">
+  <meta name="author" content="LY">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/css/flat-ui.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/gridstack/gridstack.css" />
+  <link rel="stylesheet" type="text/css" href="assets/reference/gridstack/gridstack-extra.css" />
+
+  <style>
+    .grid-stack-item-content {
+      background: white;
+      color: #2c3e50;
+      font-family: 'Indie Flower', cursive;
+      text-align: center;
+      font-size: 20px;
+    }
+
+    .grid-stack-item-content .fa {
+      font-size: 64px;
+      display: block;
+      margin: 20px 0 10px;
+    }
+
+    header a,
+    header a:hover {
+      color: #fff;
+    }
+
+    .darklue {
+      background: #2c3e50;
+      color: #fff;
+    }
+
+    .darklue hr.star-light::after {
+      background-color: #2c3e50;
+    }
+  </style>
+
+
+  <style>
+    /*.sidebar {
+    background: rgba(0, 255, 0, 0.1);
+    height: 150px;
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .sidebar .grid-stack-item {
+    width: 200px;
+    height: 100px;
+    border: 2px dashed green;
+    text-align: center;
+    line-height: 100px;
+    z-index: 10;
+    background: rgba(0, 255, 0, 0.1);
+    cursor: default;
+    display: inline-block;
+  }
+
+  .sidebar .grid-stack-item .grid-stack-item-content {
+    background: none;
+  }*/
+  </style>
+</head>
+
+<body>
+
+  <div class="flat-matrix">
+    <div class="app-container">
+      <div class="row content-container">
+        <div id="navDIV"></div>
+        <!-- 应用左侧NAV导航，可以应用与assist，帮助，过滤等辅助组件，默认自动收缩扩展，支持悬停（点击右上角按钮切换）-->
+        <div id="assistDIV"></div>
+        <div class="container-fluid">
+          <div class="side-body padding-top">
+
+            <div id="contentDIV">
+              <!-- Breadcrum Zone -->
+              <ol class="breadcrumb" style="margin-top:-30px;margin-left:-30px">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Dragable</li>
+              </ol>
+              <!-- Content Header  -->
+              <h2><i class="fa fa-tasks"></i> Dragable</h2>
+
+              <div class="row">
+                <div class="col-md-1">
+                  <div class="sidebar">
+                    <div class="grid-stack-item">
+                      <div class="grid-stack-item-content"><i class="fa fa-area-chart"></i></div>
+                    </div>
+                    <div class="grid-stack-item">
+                      <div class="grid-stack-item-content"><i class="fa fa-bar-chart"></i></div>
+                    </div>
+                    <div class="grid-stack-item">
+                      <div class="grid-stack-item-content"><i class="fa fa-line-chart"></i></div>
+                    </div>
+                    <div class="grid-stack-item">
+                      <div class="grid-stack-item-content"><i class="fa fa-pie-chart"></i></div>
+                    </div>
+                    <div class="grid-stack-item">
+                      <div class="grid-stack-item-content"><i class="fa fa-table"></i></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <section id="demo" class="darklue">
+                    <div class="container" style="padding-bottom: 58px;">
+                      <div class="row">
+                        <div class="col-lg-12 text-center">
+                          <h2>Demo</h2>
+                          <hr class="star-light">
+                        </div>
+                      </div>
+
+                      <div class="grid-stack" data-gs-width="12" data-gs-animate="yes">
+                        <div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="4" data-gs-height="2">
+                          <div class="grid-stack-item-content">1</div>
+                        </div>
+                        <div class="grid-stack-item" data-gs-x="4" data-gs-y="0" data-gs-width="4" data-gs-height="4">
+                          <div class="grid-stack-item-content">2</div>
+                        </div>
+                        <div class="grid-stack-item" data-gs-x="8" data-gs-y="0" data-gs-width="2" data-gs-height="2" data-gs-min-width="2" data-gs-no-resize="yes">
+                          <div class="grid-stack-item-content"> <span class="fa fa-hand-o-up"></span> Drag me! </div>
+                        </div>
+                        <div class="grid-stack-item" data-gs-x="10" data-gs-y="0" data-gs-width="2" data-gs-height="2">
+                          <div class="grid-stack-item-content">4</div>
+                        </div>
+                        <div class="grid-stack-item" data-gs-x="0" data-gs-y="2" data-gs-width="2" data-gs-height="2">
+                          <div class="grid-stack-item-content">5</div>
+                        </div>
+                        <div class="grid-stack-item" data-gs-x="2" data-gs-y="2" data-gs-width="2" data-gs-height="4">
+                          <div class="grid-stack-item-content">6</div>
+                        </div>
+                        <div class="grid-stack-item" data-gs-x="8" data-gs-y="2" data-gs-width="4" data-gs-height="2">
+                          <div class="grid-stack-item-content">7</div>
+                        </div>
+                        <div class="grid-stack-item" data-gs-x="0" data-gs-y="4" data-gs-width="2" data-gs-height="2">
+                          <div class="grid-stack-item-content">8</div>
+                        </div>
+                        <div class="grid-stack-item" data-gs-x="4" data-gs-y="4" data-gs-width="4" data-gs-height="2">
+                          <div class="grid-stack-item-content">9</div>
+                        </div>
+                        <div class="grid-stack-item" data-gs-x="8" data-gs-y="4" data-gs-width="2" data-gs-height="2">
+                          <div class="grid-stack-item-content">10</div>
+                        </div>
+                        <div class="grid-stack-item" data-gs-x="10" data-gs-y="4" data-gs-width="2" data-gs-height="2">
+                          <div class="grid-stack-item-content">11</div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+                <div class="col-md-1">
+                  <div class="trash">
+                    <i class="fa fa-trash fa-4x"></i>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- /.container -->
+
+
+  <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+  <script src="assets/reference/jquery/jquery.json.js"></script>
+  <script src="assets/reference/knockout.js/knockout-3.3.0.js"></script>
+  <script src="assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+  <script src="assets/reference/flat-ui/js/vendor/video.js"></script>
+  <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
+
+  <script src="assets/reference/jquery-ui/jquery-ui.js"></script>
+  <script src="assets/reference/lodash/lodash-4.15.0.js"></script>
+  <script src="assets/reference/gridstack/gridstack.all.js"></script>
+
+  <!-- Javascript for Matrix Self Owned -->
+  <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
+  <script src="assets/self-owned/js/generic/generic_cache.js"></script>
+  <script src="assets/self-owned/js/generic/generic_charting.js"></script>
+  <script src="assets/self-owned/js/generic/generic_csv.js"></script>
+  <script src="assets/self-owned/js/generic/generic_cud.js"></script>
+  <script src="assets/self-owned/js/generic/generic_modal.js"></script>
+  <script src="assets/self-owned/js/generic/generic_prototype.js"></script>
+  <script src="assets/self-owned/js/generic/generic_query.js"></script>
+  <script src="assets/self-owned/js/generic/generic_table.js"></script>
+  <script src="assets/self-owned/js/generic/generic_util.js"></script>
+  <script src="assets/self-owned/js/generic/generic_validation.js"></script>
+
+  <script>
+    $(document).ready(function() {});
+  </script>
+  <script type="text/javascript">
+    $(function() {
+
+      var options = {
+        alwaysShowResizeHandle: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+        resizable: {
+          handles: 'e, se, s, sw, w'
+        },
+        width: 12,
+        float: false,
+        removable: '.trash',
+        removeTimeout: 100,
+        acceptWidgets: '.grid-stack-item'
+      };
+
+      $('.grid-stack').gridstack(options);
+
+
+      $('.sidebar .grid-stack-item').draggable({
+        revert: 'invalid',
+        handle: '.grid-stack-item-content',
+        scroll: false,
+        appendTo: 'body'
+      });
+
+    });
+  </script>
+</body>
+
+</html>

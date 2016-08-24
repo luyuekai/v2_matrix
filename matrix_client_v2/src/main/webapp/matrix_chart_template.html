@@ -15,10 +15,6 @@
   <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
 </head>
 
-<style>
-
-</style>
-
 <body>
 
   <div class="flat-matrix">
@@ -34,15 +30,12 @@
               <!-- Breadcrum Zone -->
               <ol class="breadcrumb" style="margin-top:-30px;margin-left:-30px">
                 <li><a href="index.html">Home</a></li>
-                <li class="active">Markdown</li>
+                <li class="active">Chart</li>
               </ol>
               <!-- Content Header  -->
-              <h2><i class="fa fa-tasks"></i> Markdown <small><a href="http://www.codingdrama.com/bootstrap-markdown/">Bootstrap Markdown Home</a></small> </h2>
-              <div>
-                <textarea id="text-input" oninput="this.editor.update()" rows="6" cols="60">Type **Markdown** here.</textarea>
-                <div id="preview" > </div>
+              <h2><i class="fa fa-tasks"></i> Charts</h2>
 
-              </div>
+              <div id="chartDIV"></div>
             </div>
           </div>
         </div>
@@ -63,8 +56,8 @@
   <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
   <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
   <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
-  <script src="assets/reference/markdown/markdown.min.js"></script>
-
+  <script src="assets/reference/echarts/echarts-min-3.1.6.js"></script>
+  <script src="assets/reference/echarts/geo/world.js"></script>
   <!-- Javascript for Matrix Self Owned -->
   <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
   <script src="assets/self-owned/js/generic/generic_cache.js"></script>
@@ -80,15 +73,10 @@
 
   <script>
     $(document).ready(function() {
-      new Markdown_Editor(document.getElementById("text-input"), document.getElementById("preview"));
-
+      $('#chartDIV').load($.getRootPath() + '/matrix_chart_content_template.html');
     });
   </script>
-  <script>
 
-
-
-  </script>
 </body>
 
 </html>

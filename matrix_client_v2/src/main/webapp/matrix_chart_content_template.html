@@ -1,0 +1,785 @@
+<div class="row">
+
+  <!-- Charting Zone BEGIN-->
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card summary-inline" style="min-height:380px; max-height:380px;">
+          <div class="card-body">
+            <i class="icon fa fa-bar-chart fa-1x"> &nbsp;Bar chart</i>
+          </div>
+          <div id="bar_chart_div" style="height:320px">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <a href="#">
+          <div class="card summary-inline" style="min-height:380px; max-height:380px;">
+            <div class="card-body">
+              <i class="icon fa fa-line-chart fa-1x"> &nbsp;Line chart </i>
+            </div>
+            <div id="line_chart_div" style="height:320px">
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="#">
+          <div class="card summary-inline" style="min-height:380px; max-height:380px;">
+            <div class="card-body">
+              <i class="icon fa fa-area-chart fa-1x"> &nbsp;Area chart</i>
+            </div>
+            <div id="area_chart_div" style="height:320px">
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="col-md-4">
+        <a href="#">
+          <div class="card summary-inline" style="min-height:380px; max-height:380px;">
+            <div class="card-body">
+              <i class="icon fa fa-pie-chart fa-1x"> &nbsp;Pie chart </i>
+            </div>
+            <div id="pie_chart_div" style="height:320px">
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="#">
+          <div class="card summary-inline" style="min-height:380px; max-height:380px;">
+            <div class="card-body">
+              <i class="icon fa fa-filter fa-1x"> &nbsp;Funnel chart</i>
+            </div>
+            <div id="funnel_chart_div" style="height:320px">
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="#">
+          <div class="card summary-inline" style="min-height:380px; max-height:380px;">
+            <div class="card-body">
+              <i class="icon fa fa-tachometer fa-1x"> &nbsp;Gauge chart </i>
+            </div>
+            <div id="gauge_chart_div" style="height:320px">
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <!-- <div class="row">
+      <div class="col-md-4">
+        <a href="#">
+          <div class="card summary-inline" style="min-height:380px; max-height:380px;">
+            <div class="card-body">
+              <i class="icon fa fa-map-marker fa-1x"> &nbsp;Geography </i>
+            </div>
+            <div id="geo_chart_div" style="height:320px">
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="#">
+          <div class="card summary-inline" style="min-height:380px; max-height:380px;">
+            <div class="card-body">
+              <i class="icon fa fa-ellipsis-v fa-1x"> &nbsp;Scatter chart</i>
+            </div>
+            <div id="scatter_chart_div" style="height:320px">
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="#">
+          <div class="card summary-inline" style="min-height:380px; max-height:380px;">
+            <div class="card-body">
+              <i class="icon fa fa-flash fa-1x"> &nbsp;Radar chart </i>
+            </div>
+            <div id="radar_chart_div" style="height:320px">
+            </div>
+          </div>
+        </a>
+      </div> -->
+    </div>
+  </div>
+  <!-- Charting Zone END-->
+
+</div>
+
+<script type="text/javascript">
+  // 基于准备好的dom，初始化echarts实例
+  var labelStyle = {
+    // // color: 'white',
+    fontWeight: 'bold',
+    fontSize: '12'
+  };
+  var chart1 = echarts.init(document.getElementById('bar_chart_div'));
+
+  // 指定图表的配置项和数据
+  var option_chart1 = {
+    title: {
+      show: true,
+      x: 'left',
+      padding: [0, 0, 0, 20],
+      textStyle: labelStyle,
+      text: 'Analyze for Server',
+      // subtext: 'Data from scripter',
+    },
+    tooltip: {},
+    legend: {
+      orient: 'vertical',
+      left: 'right',
+      top: 'top',
+      padding: [0, 20, 0, 0],
+      data: ['流记录数量', '服务器数量'],
+      textStyle: {
+        // // color: 'white',
+        fontWeight: 'bold',
+        fontSize: '12'
+      },
+    },
+    grid: {
+      left: '20%'
+    },
+    xAxis: {
+      axisLabel: {
+        interval: 0, // 强制显示所有标签
+        rotate: -45,
+        textStyle: labelStyle,
+      },
+      axisLine: {
+        lineStyle: {
+          // // color: '#fff'
+        }
+      },
+      splitLine: {
+        show: false
+      },
+      data: ['http', 'dns', 'https', 'http proxy', 'xmpp', '14000', 'other', 'total']
+    },
+    yAxis: {
+      axisLabel: {
+        rotate: 45,
+        textStyle: labelStyle,
+      },
+      axisLine: {
+        lineStyle: {
+          // // color: '#fff'
+        }
+      },
+      splitLine: {
+        show: false
+      },
+    },
+    series: [{
+      name: '流记录数量',
+      type: 'bar',
+      stack: 'server',
+      itemStyle: {
+        normal: {
+          //color: '#aa10c9',
+        }
+      },
+      data: [334812, 108753, 28524, 20065, 18786, 17547, 48705, 577183]
+    }, {
+      name: '服务器数量',
+      type: 'bar',
+      stack: 'server',
+      itemStyle: {
+        normal: {
+          //color: '#ea62ca',
+        }
+      },
+      data: [67455, 1659, 16739, 4966, 1635, 379, 297695, 373724]
+    }]
+  };
+
+  // 使用刚指定的配置项和数据显示图表。
+  chart1.setOption(option_chart1);
+</script>
+<script type="text/javascript">
+  // 基于准备好的dom，初始化echarts实例
+  var chart2 = echarts.init(document.getElementById('line_chart_div'));
+
+  // 指定图表的配置项和数据
+  var option_chart2 = {
+    title: {
+      show: true,
+      x: 'left',
+      padding: [0, 0, 0, 20],
+      textStyle: labelStyle,
+      text: 'Analyze for Server',
+      // subtext: 'Data from scripter',
+    },
+    tooltip: {},
+    legend: {
+      orient: 'vertical',
+      left: 'right',
+      top: 'top',
+      padding: [0, 20, 0, 0],
+      data: ['流记录数量', '服务器数量'],
+      textStyle: {
+        // color: 'white',
+        fontWeight: 'bold',
+        fontSize: '12'
+      },
+    },
+    grid: {
+      left: '20%'
+    },
+    xAxis: {
+      axisLabel: {
+        interval: 0, // 强制显示所有标签
+        rotate: -45,
+        textStyle: labelStyle,
+      },
+      axisLine: {
+        lineStyle: {
+          // color: '#fff'
+        }
+      },
+      splitLine: {
+        show: false
+      },
+      data: ['http', 'dns', 'https', 'http proxy', 'xmpp', '14000', 'other', 'total']
+    },
+    yAxis: {
+      axisLabel: {
+        rotate: 45,
+        textStyle: labelStyle,
+      },
+      axisLine: {
+        lineStyle: {
+          // color: '#fff'
+        }
+      },
+      splitLine: {
+        show: false
+      },
+    },
+    series: [{
+      name: '流记录数量',
+      type: 'line',
+      stack: 'server',
+      itemStyle: {
+        normal: {
+          //color: '#aa10c9',
+        }
+      },
+      data: [334812, 108753, 28524, 20065, 18786, 17547, 48705, 577183]
+    }, {
+      name: '服务器数量',
+      type: 'line',
+      stack: 'server',
+      itemStyle: {
+        normal: {
+          //color: '#ea62ca',
+        }
+      },
+      data: [67455, 1659, 16739, 4966, 1635, 379, 297695, 373724]
+    }]
+  };
+
+  // 使用刚指定的配置项和数据显示图表。
+  chart2.setOption(option_chart2);
+</script>
+
+<script type="text/javascript">
+  // 基于准备好的dom，初始化echarts实例
+  var chart3 = echarts.init(document.getElementById('area_chart_div'));
+
+  // 指定图表的配置项和数据
+  var option_chart3 = {
+    title: {
+      show: true,
+      x: 'left',
+      padding: [0, 0, 0, 20],
+      textStyle: labelStyle,
+      text: 'Analyze for Server',
+      // subtext: 'Data from scripter',
+    },
+    tooltip: {},
+    legend: {
+      orient: 'vertical',
+      left: 'right',
+      top: 'top',
+      padding: [0, 20, 0, 0],
+      data: ['流记录数量', '服务器数量'],
+      textStyle: {
+        // color: 'white',
+        fontWeight: 'bold',
+        fontSize: '12'
+      },
+    },
+    grid: {
+      left: '20%'
+    },
+    xAxis: {
+      axisLabel: {
+        interval: 0, // 强制显示所有标签
+        rotate: -45,
+        textStyle: labelStyle,
+      },
+      axisLine: {
+        lineStyle: {
+          // color: '#fff'
+        }
+      },
+      splitLine: {
+        show: false
+      },
+      data: ['http', 'dns', 'https', 'http proxy', 'xmpp', '14000', 'other', 'total']
+    },
+    yAxis: {
+      axisLabel: {
+        rotate: 45,
+        textStyle: labelStyle,
+      },
+      axisLine: {
+        lineStyle: {
+          // color: '#fff'
+        }
+      },
+      splitLine: {
+        show: false
+      },
+    },
+    series: [{
+      name: '流记录数量',
+      type: 'line',
+      stack: 'server',
+      itemStyle: {
+        normal: {
+          //color: '#aa10c9',
+        }
+      },
+      areaStyle: {
+        normal: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+            offset: 0,
+            color: 'rgb(255, 158, 68)'
+          }, {
+            offset: 1,
+            color: 'rgb(255, 70, 131)'
+          }])
+        }
+      },
+      data: [334812, 108753, 28524, 20065, 18786, 17547, 48705, 577183]
+    }, {
+      name: '服务器数量',
+      type: 'line',
+      stack: 'server',
+      itemStyle: {
+        normal: {
+          //color: '#ea62ca',
+        }
+      },
+      areaStyle: {
+        normal: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+            offset: 0,
+            color: 'rgb(0, 80, 255)'
+          }, {
+            offset: 1,
+            color: 'rgb(255, 0, 0)'
+          }])
+        }
+      },
+      data: [67455, 1659, 16739, 4966, 1635, 379, 297695, 373724]
+    }]
+  };
+
+  // 使用刚指定的配置项和数据显示图表。
+  chart3.setOption(option_chart3);
+</script>
+
+<script type="text/javascript">
+  // 基于准备好的dom，初始化echarts实例
+  var chart4 = echarts.init(document.getElementById('pie_chart_div'));
+
+  // 指定图表的配置项和数据
+  var option_chart4 = {
+    textStyle: labelStyle,
+    tooltip: {
+      trigger: 'item',
+      formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    labelLine: {
+      normal: {
+        lineStyle: {
+          // color: '#fff'
+        }
+      }
+    },
+    itemStyle: {
+      normal: {
+        // 设置扇形的颜色
+        //color: '#aa10c9',
+        shadowBlur: 200,
+        shadowColor: 'rgba(0, 0, 0, 0.5)'
+      }
+    },
+    visualMap: {
+      // 不显示 visualMap 组件，只用于明暗度的映射
+      show: false,
+      // 映射的最小值为 80
+      min: 80,
+      // 映射的最大值为 600
+      max: 600,
+      inRange: {
+        // 明暗度的范围是 0 到 1
+        colorLightness: [0, 1]
+      }
+    },
+    series: [{
+      name: '端口类型',
+      type: 'pie',
+      radius: '55%',
+      roseType: 'angle',
+      itemStyle: {
+        emphasis: {
+          shadowBlur: 200,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      },
+      data: [{
+        value: 400,
+        name: 'http'
+      }, {
+        value: 335,
+        name: 'dns'
+      }, {
+        value: 310,
+        name: 'https'
+      }, {
+        value: 335,
+        name: 'http proxy'
+      }, {
+        value: 310,
+        name: '14000'
+      }, {
+        value: 274,
+        name: 'xmpp'
+      }, {
+        value: 235,
+        name: 'other'
+      }]
+    }]
+  };
+
+  // 使用刚指定的配置项和数据显示图表。
+  chart4.setOption(option_chart4);
+</script>
+
+
+<script type="text/javascript">
+  // 基于准备好的dom，初始化echarts实例
+  var chart5 = echarts.init(document.getElementById('funnel_chart_div'));
+
+  // 指定图表的配置项和数据
+  var option_chart5 = {
+    tooltip: {
+      trigger: 'item',
+      formatter: "{a} <br/>{b} : {c}%"
+    },
+    calculable: true,
+    series: [{
+      name: '流记录数量',
+      type: 'funnel',
+      width: '40%',
+      height: '45%',
+      left: '5%',
+      top: '5%',
+      label: {
+        normal: {
+          position: 'right'
+        }
+      },
+      data: [{
+        value: 4000,
+        name: 'http'
+      }, {
+        value: 335,
+        name: 'dns'
+      }, {
+        value: 1310,
+        name: 'https'
+      }, {
+        value: 935,
+        name: 'http proxy'
+      }, {
+        value: 310,
+        name: '14000'
+      }, {
+        value: 274,
+        name: 'xmpp'
+      }, {
+        value: 1235,
+        name: 'other'
+      }]
+    }, {
+      name: '服务器数量',
+      type: 'funnel',
+      width: '40%',
+      height: '45%',
+      left: '55%',
+      top: '50%',
+      sort: 'ascending',
+      label: {
+        normal: {
+          position: 'left'
+        }
+      },
+      data: [{
+        value: 400,
+        name: 'http'
+      }, {
+        value: 335,
+        name: 'dns'
+      }, {
+        value: 310,
+        name: 'https'
+      }, {
+        value: 335,
+        name: 'http proxy'
+      }, {
+        value: 310,
+        name: '14000'
+      }, {
+        value: 274,
+        name: 'xmpp'
+      }, {
+        value: 235,
+        name: 'other'
+      }]
+    }]
+  };
+
+  // 使用刚指定的配置项和数据显示图表。
+  chart5.setOption(option_chart5);
+</script>
+
+
+<script type="text/javascript">
+  // 基于准备好的dom，初始化echarts实例
+  var chart6 = echarts.init(document.getElementById('gauge_chart_div'));
+
+  // 指定图表的配置项和数据
+  var option_chart6 = {
+    tooltip: {
+      formatter: "{a} <br/>{b} : {c}%"
+    },
+    series: [{
+      name: '业务指标',
+      type: 'gauge',
+      // axisLine: {
+      //   lineStyle: {
+      //     color: [
+      //       [0.30, '#e6c7ed'],
+      //       [0.70, '#FF6BDE'],
+      //       [1, '#BB11DD']
+      //     ]
+      //   }
+      // },
+      axisLabel: {
+        textStyle: labelStyle,
+      },
+      title: {
+        show: true,
+        textStyle: labelStyle,
+      },
+      detail: {
+        formatter: '{value}%'
+      },
+      data: [{
+        value: 58,
+        name: '流记录/服务器'
+      }]
+    }]
+  };
+
+  // 使用刚指定的配置项和数据显示图表。
+  chart6.setOption(option_chart6);
+</script>
+
+
+<script type="text/javascript">
+  // 基于准备好的dom，初始化echarts实例
+  var chart7 = echarts.init(document.getElementById('geo_chart_div'));
+
+  // 指定图表的配置项和数据
+  var option_chart7 = {
+    series: [{
+      type: 'map',
+      map: 'world'
+    }]
+  };
+
+  // 使用刚指定的配置项和数据显示图表。
+  chart7.setOption(option_chart7);
+</script>
+
+
+<script type="text/javascript">
+
+  var chart8 = echarts.init(document.getElementById('scatter_chart_div'));
+
+  // 指定图表的配置项和数据
+  var option_chart8 = {
+    title: {
+      show: true,
+      x: 'left',
+      padding: [0, 0, 0, 20],
+      textStyle: labelStyle,
+      text: 'Analyze for Server',
+      // subtext: 'Data from scripter',
+    },
+    tooltip: {},
+    legend: {
+      orient: 'vertical',
+      left: 'right',
+      top: 'top',
+      padding: [0, 20, 0, 0],
+      data: ['流记录数量', '服务器数量'],
+      textStyle: {
+        // color: 'white',
+        fontWeight: 'bold',
+        fontSize: '12'
+      },
+    },
+    grid: {
+      left: '20%'
+    },
+    xAxis: {
+      axisLabel: {
+        interval: 0, // 强制显示所有标签
+        rotate: -45,
+        textStyle: labelStyle,
+      },
+      axisLine: {
+        lineStyle: {
+          // color: '#fff'
+        }
+      },
+      splitLine: {
+        show: false
+      },
+      data: ['http', 'dns', 'https', 'http proxy', 'xmpp', '14000', 'other', 'total']
+    },
+    yAxis: {
+      axisLabel: {
+        rotate: 45,
+        textStyle: labelStyle,
+      },
+      axisLine: {
+        lineStyle: {
+          // color: '#fff'
+        }
+      },
+      splitLine: {
+        show: false
+      },
+    },
+    series: [{
+      name: '流记录数量',
+      type: 'scatter',
+      stack: 'server',
+      itemStyle: {
+        normal: {
+          //color: '#aa10c9',
+        }
+      },
+      data: [334812, 108753, 28524, 20065, 18786, 17547, 48705, 577183]
+    }, {
+      name: '服务器数量',
+      type: 'scatter',
+      stack: 'server',
+      itemStyle: {
+        normal: {
+          //color: '#ea62ca',
+        }
+      },
+      data: [67455, 1659, 16739, 4966, 1635, 379, 297695, 373724]
+    }]
+  };
+
+  // 使用刚指定的配置项和数据显示图表。
+  chart8.setOption(option_chart8);
+</script>
+
+<script type="text/javascript">
+  // 基于准备好的dom，初始化echarts实例
+  var chart9 = echarts.init(document.getElementById('radar_chart_div'));
+
+  // 指定图表的配置项和数据
+  var option_chart9 = {
+    legend: {
+      orient: 'vertical',
+      left: 'right',
+      top: 'top',
+      padding: [0, 20, 0, 0],
+      textStyle: {
+        // color: 'white',
+        fontWeight: 'bold',
+        fontSize: '12'
+      },
+      data: ['Flow', 'Server']
+  },
+    radar: {
+      // shape: 'circle',
+      indicator: [
+         { name: 'http', max: 6500},
+         { name: 'dns', max: 16000},
+         { name: 'https', max: 30000},
+         { name: 'http proxy', max: 38000},
+         { name: 'xmpp', max: 52000},
+         { name: 'others', max: 25000}
+      ],
+      shape:'circle',
+      name: {
+          textStyle: {
+              color: 'rgb(238, 197, 102)'
+          }
+      },
+      splitLine: {
+          lineStyle: {
+              color: [
+                  'rgba(238, 197, 102, 0.1)', 'rgba(238, 197, 102, 0.2)',
+                  'rgba(238, 197, 102, 0.4)', 'rgba(238, 197, 102, 0.6)',
+                  'rgba(238, 197, 102, 0.8)', 'rgba(238, 197, 102, 1)'
+              ].reverse()
+          }
+      },
+      splitArea: {
+          show: false
+      },
+      axisLine: {
+          lineStyle: {
+              color: 'rgba(238, 197, 102, 0.5)'
+          }
+      }
+  },
+  series: [{
+      name: 'Flow & Server',
+      type: 'radar',
+      data : [
+          {
+              value : [4300, 10000, 28000, 35000, 50000, 19000],
+              name : 'Flow'
+          },
+           {
+              value : [5000, 14000, 28000, 31000, 42000, 21000],
+              name : 'Server'
+          }
+      ]
+  }]
+  };
+
+  // 使用刚指定的配置项和数据显示图表。
+  chart9.setOption(option_chart9);
+</script>

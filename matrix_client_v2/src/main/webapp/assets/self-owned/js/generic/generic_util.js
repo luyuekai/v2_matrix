@@ -231,3 +231,20 @@ var activeBookmark = function(div_id,fn) {
    fn();
  }
 }
+
+
+function Markdown_Editor(input, preview) {
+  this.update = function() {
+    preview.innerHTML = markdown.toHTML(input.value);
+  };
+  input.editor = this;
+  this.update();
+}
+
+function Highlight_Editor(input, preview) {
+  this.update = function() {
+    preview.innerHTML = input.value;
+  };
+  input.editor = this;
+  this.update();
+}

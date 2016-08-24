@@ -15,10 +15,6 @@
   <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
 </head>
 
-<style>
-
-</style>
-
 <body>
 
   <div class="flat-matrix">
@@ -34,14 +30,32 @@
               <!-- Breadcrum Zone -->
               <ol class="breadcrumb" style="margin-top:-30px;margin-left:-30px">
                 <li><a href="index.html">Home</a></li>
-                <li class="active">Markdown</li>
+                <li class="active">Alert</li>
               </ol>
               <!-- Content Header  -->
-              <h2><i class="fa fa-tasks"></i> Markdown <small><a href="http://www.codingdrama.com/bootstrap-markdown/">Bootstrap Markdown Home</a></small> </h2>
-              <div>
-                <textarea id="text-input" oninput="this.editor.update()" rows="6" cols="60">Type **Markdown** here.</textarea>
-                <div id="preview" > </div>
+              <h2><i class="fa fa-tasks"></i> Alerts</h2>
 
+              <div>
+                <div class="row" style="margin:0px 0px -30px 0px">
+                  <div class="col-md-12">
+                    <div class="alert alert-success alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <strong><i class="fa fa-warning"></i>&nbsp;成功! </strong> 工作台返回的成功级别信息， 详细描述及成功代码。
+                    </div>
+                    <div class="alert alert-info alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <strong><i class="fa fa-warning"></i>&nbsp;信息!</strong> 工作台返回的信息级别信息，详细描述及信息代码。
+                    </div>
+                    <div class="alert alert-warning alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <strong><i class="fa fa-warning"></i>&nbsp;警告！</strong> 工作台返回的警告级别信息， 详细描述及警告代码。
+                    </div>
+                    <div class="alert alert-danger alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <strong><i class="fa fa-warning"></i>&nbsp;错误！</strong> 工作台返回的错误级别信息，详细描述及错误代码。
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -63,8 +77,6 @@
   <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
   <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
   <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
-  <script src="assets/reference/markdown/markdown.min.js"></script>
-
   <!-- Javascript for Matrix Self Owned -->
   <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
   <script src="assets/self-owned/js/generic/generic_cache.js"></script>
@@ -80,14 +92,8 @@
 
   <script>
     $(document).ready(function() {
-      new Markdown_Editor(document.getElementById("text-input"), document.getElementById("preview"));
-
+      $('#assistDIV').load($.getRootPath() + '/assets/self-owned/html/assist/matrix_assist_sample.html');
     });
-  </script>
-  <script>
-
-
-
   </script>
 </body>
 
