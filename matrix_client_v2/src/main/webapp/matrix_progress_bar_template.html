@@ -15,10 +15,6 @@
   <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
 </head>
 
-<style>
-
-</style>
-
 <body>
 
   <div class="flat-matrix">
@@ -34,14 +30,24 @@
               <!-- Breadcrum Zone -->
               <ol class="breadcrumb" style="margin-top:-30px;margin-left:-30px">
                 <li><a href="index.html">Home</a></li>
-                <li class="active">Markdown</li>
+                <li class="active">Progress Bar</li>
               </ol>
               <!-- Content Header  -->
-              <h2><i class="fa fa-tasks"></i> Markdown <small><a href="http://www.codingdrama.com/bootstrap-markdown/">Bootstrap Markdown Home</a></small> </h2>
-              <div>
-                <textarea id="text-input" oninput="this.editor.update()" rows="6" cols="60">Type **Markdown** here.</textarea>
-                <div id="preview" > </div>
+              <h2>
+                <i class="fa fa-tasks"></i> Progress Bar
+                <button data-bind='click:progress(0)' type="button" class=" btn btn-white btn-xs" >
+                  <span class="fa fa-repeat fa-2x" aria-hidden="true" title="重置">&nbsp;Reset</span>
+                </button>
+              </h2>
 
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="progress">
+                    <div class="progress-bar" data-bind="style: {width: progress()+'%'}">
+                      <span data-bind="text: (function(){return progress().toString().substr(0, 5)+'%'})()"></span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -63,8 +69,6 @@
   <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
   <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
   <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
-  <script src="assets/reference/markdown/markdown.min.js"></script>
-
   <!-- Javascript for Matrix Self Owned -->
   <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
   <script src="assets/self-owned/js/generic/generic_cache.js"></script>
@@ -77,26 +81,25 @@
   <script src="assets/self-owned/js/generic/generic_table.js"></script>
   <script src="assets/self-owned/js/generic/generic_util.js"></script>
   <script src="assets/self-owned/js/generic/generic_validation.js"></script>
-
   <script>
-    $(document).ready(function() {
-      new Markdown_Editor(document.getElementById("text-input"), document.getElementById("preview"));
-
-    });
-  </script>
-  <script>
-
-  function Markdown_Editor(input, preview) {
-    if(this){
-      this.update = function() {
-        preview.innerHTML = markdown.toHTML(input.value);
-      };
-      input.editor = this;
-      this.update();
+    // *******Data Bind JS Code*******
+    function ProgressViewModel() {
+      var self = this;
+      self.progress= ko.observable(0);
     }
-  }
+    var progressViewModel = new ProgressViewModel();
+    ko.applyBindings(progressViewModel, document.getElementById('contentDIV'));
 
+    function increaseProgress(){
+      var progress = progressViewModel.progress();
+      if(progress<100){
+        progress++;
+      }
+      progressViewModel.progress(progress);
+    }
+    setInterval(function(){ increaseProgress() }, 100);
   </script>
+
 </body>
 
 </html>

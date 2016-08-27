@@ -1,0 +1,32 @@
+{
+  "hasError": false,
+  "errorMessage": "",
+  "statusCode": 200,
+  "status": "SUCCESS",
+  "result": [{
+    "id": 52,
+    "parentId": null,
+    "name": "0.5900976804760416",
+    "parentName": null,
+    "category": null,
+    "description": "Wed May 18 15:01:26 CST 2016"
+  }, {
+    "id": 1,
+    "parentId": null,
+    "name": "0.6954408338991886",
+    "parentName": null,
+    "category": null,
+    "description": "Wed May 18 14:59:34 CST 2016"
+  }, {
+    "id": 102,
+    "parentId": null,
+    "name": "0.4290327164765001",
+    "parentName": null,
+    "category": null,
+    "description": "Tue May 31 16:55:30 CST 2016"
+  }],
+  "totalCounts": 3,
+  "pageMaxSize": 10,
+  "currentPageNumber": 1,
+  "currentPageSize": 3
+}

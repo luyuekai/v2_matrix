@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Matrix Components Framework">
+  <meta name="author" content="LY">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/css/flat-ui.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
+
+
+  <style>
+    textarea {
+      border: 0px solid #ddd;
+      padding-left: 20px;
+      margin-top: 10px;
+      margin-bottom: -10px;
+      vertical-align: top;
+      border-left: 5px solid #eee;
+      width: 100%;
+    }
+
+    .animated {
+      -webkit-transition: height 0.2s;
+      -moz-transition: height 0.2s;
+      transition: height 0.2s;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="flat-matrix">
+    <div class="app-container">
+      <div class="row content-container">
+        <div id="navDIV"></div>
+        <!-- 应用左侧NAV导航，可以应用与assist，帮助，过滤等辅助组件，默认自动收缩扩展，支持悬停（点击右上角按钮切换）-->
+        <div id="assistDIV"></div>
+        <div class="container-fluid">
+          <div class="side-body padding-top">
+
+            <div id="contentDIV">
+
+
+              <!-- Breadcrum Zone -->
+              <ol class="breadcrumb" style="margin-top:-30px;margin-left:-30px">
+                <li><a href="index.html">首页</a></li>
+                <li class="active">工作台</li>
+              </ol>
+              <!-- Content Header  -->
+              <h5>
+                <i class="fa fa-tasks"></i> 欢迎使用大数据BI分析工具台
+                <button type="button" class=" btn btn-white btn-xs" >
+                  <span class="fa fa-repeat" aria-hidden="true" title="重置">&nbsp;重置</span>
+                </button>
+                <button type="button" class=" btn btn-white btn-xs">
+                  <span class="fa fa-plus" aria-hidden="true" title="新增">&nbsp;新增</span>
+                </button>
+                <button type="button" class="btn btn-white btn-xs">
+                  <span class="fa fa-bar-chart" aria-hidden="true" title="chart">&nbsp;图表</span>
+                </button>
+                <button type="button" class="btn btn-white btn-xs">
+                  <span class="fa fa-share" aria-hidden="true">&nbsp;共享</span>
+                </button>
+                <button type="button" class="btn btn-white btn-xs">
+                  <span class="fa fa-download" aria-hidden="true">&nbsp;下载</span>
+                </button>
+                <button type="button" class="btn btn-white btn-xs">
+                  <span class="fa fa-upload" aria-hidden="true">&nbsp;上传</span>
+                </button>
+                <button type="button" class="btn btn-white btn-xs">
+                  <span class="fa fa-clock-o" aria-hidden="true">&nbsp;定时</span>
+                </button>
+              </h5>
+
+
+              <!-- <div id="chartDIV"></div> -->
+              <div id="chartDIV"></div>
+              <!-- <div class="panel fresh-color panel-danger">
+                <div class="panel-heading"><i class="fa fa-bar-chart"></i> &nbsp;图表仪表盘
+                </div>
+                <div class="panel-body">
+                  <div class="alert alert-danger alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong><i class="fa fa-bug"></i>&nbsp;&nbsp;提示: </strong> 当前没有图表存在，请通过工作台分析结果表中进行添加
+                  </div>
+
+                </div>
+              </div> -->
+
+              <div style="border:1.6px solid #ddd; border-radius: 8px; margin-top:20px;">
+                <div class="row" style="margin:0px 1px">
+                  <div class="col-md-9">
+                    <form class="form-inline">
+                      <div class="form-group">
+                        <div style="width:80px">
+                          <button id="b1" onclick="activeBookmark('b1')" class="matrix_bookmark bookmark_active btn  btn-inverse pull-right" style="">Hive</button>
+                          <button id="b2" onclick="activeBookmark('b2')" class="matrix_bookmark bookmark_normal btn  btn-inverse pull-right" style="opacity: 0.9">SQL</button>
+                          <button id="b3" onclick="activeBookmark('b3')" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.8">Pig</button>
+                          <button id="b4" onclick="activeBookmark('b4')" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.7">Spark</button>
+                          <button id="b5" onclick="activeBookmark('b5')" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.6">Impala</button>
+                          <button id="b6" onclick="activeBookmark('b6')" class="matrix_bookmark bookmark_normal btn  btn-inverse pull-right" style="opacity: 0.5">MD</button>
+                        </div>
+                      </div>
+                      <div class="form-group" style="width:90%; ">
+                        <textarea id="text-input" oninput="this.editor.update()" class='animated' rows="7" style="font-size:12px;">### Type **Markdown** here.
+                        </textarea>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col-md-3">
+
+                    <button type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
+                      <span class="fa fa-close fa-2x" aria-hidden="true" title="关闭此控制台"></span>
+                    </button>
+                    <button type="button" class="btn btn-white btn-xs pull-right" style="border-color:#fff">
+                      <span class="fa fa-bell-slash fa-2x" aria-hidden="true" title="隐藏日志面板"></span>
+                    </button>
+                    <button type="button" class="btn btn-white btn-xs pull-right" style="border-color:#fff">
+                      <span class="fa fa-bell fa-2x" aria-hidden="true" title="显示日志面板"></span>
+                    </button>
+                    <button type="button" class="btn btn-white btn-xs pull-right" style="border-color:#fff">
+                      <span class="fa fa-sort-up fa-2x" aria-hidden="true" title="隐藏结果面板"></span>
+                    </button>
+                    <button type="button" class="btn btn-white btn-xs pull-right" style="border-color:#fff">
+                      <span class="fa fa-sort-down fa-2x" aria-hidden="true" title="显示结果面板"></span>
+                    </button>
+                    <button type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
+                      <span class="fa fa-compress fa-2x" aria-hidden="true" title="隐藏脚本编辑器"></span>
+                    </button>
+                    <button type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
+                      <span class="fa fa-expand fa-2x" aria-hidden="true" title="显示脚本编辑器"></span>
+                    </button>
+                    <button type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
+                      <span class="fa fa-play fa-2x" aria-hidden="true" title="运行脚本"></span>
+                    </button>
+                    <!-- <div class="col-md-12">
+                      <small class="pull-right" style="color: #777;">
+                        Job Id:&nbsp;<a href="#" style="color: #777;">job_scripter_123456</a>
+                      </small>
+                    </div>
+                    <div class="col-md-12">
+                      <small class="pull-right" style="color: #777;">
+                        Output:&nbsp;<a href="#" style="color: #777;">/scripter/hive/output/job_scripter_123456</a>
+                      </small>
+                    </div> -->
+                    <div class="col-md-12">
+                      <small class="pull-right" style="color: #777;">
+                        <span class="fa fa-spinner fa-spin" aria-hidden="true" title="运行脚本"></span> &nbsp;RUNNING
+                      </small>
+                    </div>
+                    <div class="col-md-6 col-md-offset-6" style="margin-bottom:-30px">
+                      <div class="progress">
+                        <div class="progress-bar progress-bar " role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 99%;">
+                          99%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" style="margin:0px 0px -30px 0px">
+                  <div class="col-md-12">
+                    <div class="alert alert-warning alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <strong><i class="fa fa-warning"></i>&nbsp;警告！ </strong> 工作台返回的警告级别信息， 详细描述及警告代码。
+                    </div>
+                    <div class="alert alert-danger alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <strong><i class="fa fa-warning"></i>&nbsp;错误！</strong> 工作台返回的错误级别信息，详细描述及错误代码。
+                    </div>
+                  </div>
+                </div>
+
+                <br>
+
+                <div class="row" style="margin:0px 10px -10px 10px">
+                  <div class="panel fresh-color panel-primary" style="border:1px solid">
+                    <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;结果显示
+                      <button type="button" class=" btn btn-black btn-xs pull-right" title="Download" data-bind="click:function(data,event){$parent.downloadCSV(data,'base')}">
+                        <div class="title"><i class="fa fa-download"></i>&nbsp;Excel</div>
+                      </button>
+                      <button type="button" class=" btn btn-black btn-xs pull-right" title="Download" data-bind="click:function(data,event){$parent.downloadCSV(data,'base')}">
+                        <div class="title"><i class="fa fa-download"></i>&nbsp;CSV</div>
+                      </button>
+                      <button type="button" class=" btn btn-black btn-xs pull-right" title="Analyze" data-bind="click:function(data,event){$parent.analyze(data,'base')}">
+                        <div class="title"><i class="fa fa-cubes"></i>&nbsp;分析</div>
+                      </button>
+                      <button type="button" class=" btn btn-black btn-xs pull-right" title="Charting" data-bind="click:function(data,event){$parent.prepareCharting(data,'base')}">
+                        <div class="title"><i class="fa fa-bar-chart">&nbsp;图表</i></div>
+                      </button>
+                      <button data-bind="click:function(data,event){$parent.run(data,$index())}" type="button" class=" btn btn-black btn-xs pull-right" style="border-color:#fff">
+                        <span class="fa fa-database" aria-hidden="true" title="">&nbsp;导库</span>
+                      </button>
+                    </div>
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-12" style="overflow: auto">
+                          <div id="preview" class=""> </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12" style="overflow: auto">
+                          <table class="table table-striped" cellspacing="0">
+                            <thead>
+                              <tr>
+                                <!-- ko foreach: columnNames -->
+                                <th>
+                                  <span data-bind="text: $data"></span>
+                                </th>
+                                <!-- /ko -->
+                              </tr>
+                            </thead>
+                            <tbody data-bind="foreach:viewData">
+                              <tr data-bind="visible:isDisplay,foreach: data">
+                                <td data-bind="text: $data"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                      <div>
+
+
+                        <div class="row">
+                          <div class="col-xs-12" style="margin-bottom:8px">
+                            <nav class="matrix-pager " role="navigation">
+
+                              <div class="collapse navbar-collapse" id="navbar-collapse-01">
+
+                                <ul class="nav navbar-nav navbar-right ">
+                                  <li><a href="#fakelink"><i class="fa fa-angle-double-left"></i> &nbsp;首页</a></li>
+                                  <li><a href="#fakelink"><i class="fa fa-angle-left"></i> &nbsp;上页</a></li>
+                                  <li>
+
+                                    <form class="navbar-form navbar-center" action="#" role="search" style="width:88px">
+                                      <div class="form-group">
+                                        <div class="input-group">
+                                          <input class="form-control text-center" type="search" placeholder="页数" style="width:58px">
+                                        </div>
+                                      </div>
+                                    </form>
+                                  </li>
+                                  <li><a href="#fakelink">下页 &nbsp;<i class="fa fa-angle-right"></i></a></li>
+                                  <li><a href="#fakelink"> 末页 &nbsp;<i class="fa fa-angle-double-right"></i></a></li>
+
+                                  <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">每页10条<b class="caret"></b></a>
+                                    <span class="dropdown-arrow"></span>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="#">10</a></li>
+                                      <li><a href="#">20</a></li>
+                                      <li><a href="#">50</a></li>
+                                      <li><a href="#">100</a></li>
+                                    </ul>
+                                  </li>
+                                  <!-- <li><a href="#">结果总数:2000000条</a></li> -->
+                                </ul>
+                                <ul class="nav navbar-nav">
+                                  <li><a href="#">结果总数:2000000条</a></li>
+                                </ul>
+                                <form class="navbar-form navbar-left" action="#" role="search">
+                                  <div class="form-group">
+                                    <div class="input-group">
+                                      <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+                                      <span class="input-group-btn">
+                                        <button type="submit" class="btn"><span class="fui-search"></span></button>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                              <!-- /.navbar-collapse -->
+                            </nav>
+                            <!-- /navbar -->
+                          </div>
+                        </div>
+                        <!-- /row -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel fresh-color panel-primary" style="border:1px solid">
+                    <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;迭代分析
+                      <button type="button" class=" btn btn-black btn-xs pull-right" title="Download" data-bind="click:function(data,event){$parent.downloadCSV(data,'base')}">
+                        <div class="title"><i class="fa fa-download"></i>&nbsp;Excel</div>
+                      </button>
+                      <button type="button" class=" btn btn-black btn-xs pull-right" title="Download" data-bind="click:function(data,event){$parent.downloadCSV(data,'base')}">
+                        <div class="title"><i class="fa fa-download"></i>&nbsp;CSV</div>
+                      </button>
+                      <button type="button" class=" btn btn-black btn-xs pull-right" title="Analyze" data-bind="click:function(data,event){$parent.analyze(data,'base')}">
+                        <div class="title"><i class="fa fa-cubes"></i>&nbsp;分析</div>
+                      </button>
+                      <button type="button" class=" btn btn-black btn-xs pull-right" title="Charting" data-bind="click:function(data,event){$parent.prepareCharting(data,'base')}">
+                        <div class="title"><i class="fa fa-bar-chart">&nbsp;图表</i></div>
+                      </button>
+                      <button data-bind="click:function(data,event){$parent.run(data,$index())}" type="button" class=" btn btn-black btn-xs pull-right" style="border-color:#fff">
+                        <span class="fa fa-database" aria-hidden="true" title="">&nbsp;导库</span>
+                      </button>
+                    </div>
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-12" style="overflow: auto">
+                          <table class="table table-striped" cellspacing="0">
+                            <thead>
+                              <tr>
+                                <!-- ko foreach: columnNames -->
+                                <th>
+                                  <span data-bind="text: $data"></span>
+                                </th>
+                                <!-- /ko -->
+                              </tr>
+                            </thead>
+                            <tbody data-bind="foreach:viewData">
+                              <tr data-bind="visible:isDisplay,foreach: data">
+                                <td data-bind="text: $data"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div>
+
+
+                        <div class="row">
+                          <div class="col-xs-12" style="margin-bottom:8px">
+                            <nav class="matrix-pager " role="navigation">
+
+                              <div class="collapse navbar-collapse" id="navbar-collapse-01">
+
+                                <ul class="nav navbar-nav navbar-right ">
+                                  <li><a href="#fakelink"><i class="fa fa-angle-double-left"></i> &nbsp;首页</a></li>
+                                  <li><a href="#fakelink"><i class="fa fa-angle-left"></i> &nbsp;上页</a></li>
+                                  <li>
+
+                                    <form class="navbar-form navbar-center" action="#" role="search" style="width:88px">
+                                      <div class="form-group">
+                                        <div class="input-group">
+                                          <input class="form-control text-center" type="search" placeholder="页数" style="width:58px">
+                                        </div>
+                                      </div>
+                                    </form>
+                                  </li>
+                                  <li><a href="#fakelink">下页 &nbsp;<i class="fa fa-angle-right"></i></a></li>
+                                  <li><a href="#fakelink"> 末页 &nbsp;<i class="fa fa-angle-double-right"></i></a></li>
+
+                                  <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">每页10条<b class="caret"></b></a>
+                                    <span class="dropdown-arrow"></span>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="#">10</a></li>
+                                      <li><a href="#">20</a></li>
+                                      <li><a href="#">50</a></li>
+                                      <li><a href="#">100</a></li>
+                                    </ul>
+                                  </li>
+                                  <!-- <li><a href="#">结果总数:2000000条</a></li> -->
+                                </ul>
+                                <ul class="nav navbar-nav">
+                                  <li><a href="#">结果总数:2000000条</a></li>
+                                </ul>
+                                <form class="navbar-form navbar-left" action="#" role="search">
+                                  <div class="form-group">
+                                    <div class="input-group">
+                                      <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+                                      <span class="input-group-btn">
+                                        <button type="submit" class="btn"><span class="fui-search"></span></button>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                              <!-- /.navbar-collapse -->
+                            </nav>
+                            <!-- /navbar -->
+                          </div>
+                        </div>
+                        <!-- /row -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+
+
+
+
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- /.container -->
+
+
+  <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+  <script src="assets/reference/jquery/jquery.json.js"></script>
+  <script src="assets/reference/knockout.js/knockout-3.3.0.js"></script>
+  <script src="assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+  <script src="assets/reference/flat-ui/js/vendor/video.js"></script>
+  <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
+  <script src="assets/reference/jquery/jquery.json.js"></script>
+  <script src="assets/reference/jquery/jquery.autosize.js"></script>
+  <script src="assets/reference/markdown/markdown.min.js"></script>
+  <script src="assets/reference/echarts/echarts-min-3.1.6.js"></script>
+  <script src="assets/reference/echarts/geo/world.js"></script>
+
+  <!-- Javascript for Matrix Self Owned -->
+  <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
+  <script src="assets/self-owned/js/generic/generic_cache.js"></script>
+  <script src="assets/self-owned/js/generic/generic_charting.js"></script>
+  <script src="assets/self-owned/js/generic/generic_csv.js"></script>
+  <script src="assets/self-owned/js/generic/generic_cud.js"></script>
+  <script src="assets/self-owned/js/generic/generic_modal.js"></script>
+  <script src="assets/self-owned/js/generic/generic_prototype.js"></script>
+  <script src="assets/self-owned/js/generic/generic_query.js"></script>
+  <script src="assets/self-owned/js/generic/generic_table.js"></script>
+  <script src="assets/self-owned/js/generic/generic_util.js"></script>
+  <script src="assets/self-owned/js/generic/generic_validation.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('#assistDIV').load($.getRootPath() + '/assets/self-owned/html/assist/matrix_assist_sample.html');
+      $('#chartDIV').load($.getRootPath() + '/matrix_chart_content_template.html');
+      new Markdown_Editor(document.getElementById("text-input"), document.getElementById("preview"));
+    });
+    $(function() {
+      autosize($('textarea'));
+    });
+    function Markdown_Editor(input, preview) {
+      if(this){
+        this.update = function() {
+          preview.innerHTML = markdown.toHTML(input.value);
+        };
+        input.editor = this;
+        this.update();
+      }
+    }
+  </script>
+  <script>
+    var tableModel = new ListViewModel();
+    ko.applyBindings(tableModel, document.getElementById('contentDIV'));
+
+    var retrieveData_mock = function() {
+      $.ajax({
+        url: $.getRootPath() + "/assets/self-owned/data/server_mock_data.json",
+        type: 'GET',
+        dataType: 'json',
+        success: function(json) {
+          var serverData = json;
+          var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
+          tableModel.pageMaxSize(5);
+          tableModel.buildData(tableData.result);
+          tableModel.columnNames(tableData.header);
+          tableModel.buildView();
+        },
+        error: function(xhr, status) {
+          console.log('Sorry, there was a problem on SERVER_REQUEST_ACTION process!');
+        },
+        complete: function(xhr, status) {}
+      });
+    }
+    retrieveData_mock();
+  </script>
+</body>
+
+</html>

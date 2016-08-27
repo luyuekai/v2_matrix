@@ -144,21 +144,25 @@ function ResponseViewModel() {
   self.resultSubTitle = ko.observable("[General Search]");
   self.resultContent = ko.observable("This is the result content...");
 
-  self.errorResponse = function(content) {
-    self.styleClass("alert-danger");
-    self.resultTitle("Error:");
-    self.resultSubTitle("");
+  self.errorResponse = function(content,title,subTitle) {
+    self.response("alert-danger",content||"",title||'Error',subTitle||"");
+  };
+
+  self.correctResponse = function(content,title,subTitle) {
+    self.response("alert-success",content||"",title||'Success',subTitle||"");
+  };
+
+  self.warningResponse = function(content,title,subTitle) {
+    self.response("alert-warning",content||"",title||'Warning',subTitle||"");
+  }
+
+  self.response = function(response_level,content,title,subTitle) {
+    self.styleClass(response_level);
+    self.resultTitle(title);
+    self.resultSubTitle(subTitle);
     self.resultContent(content);
     self.resultVisible(true);
   };
-
-  self.correctResponse = function(content) {
-    self.styleClass("alert-success");
-    self.resultTitle("Successed:");
-    self.resultSubTitle("");
-    self.resultContent(content);
-    self.resultVisible(true);
-  }
 
   self.reset = function(){
     self.resultVisible(false);

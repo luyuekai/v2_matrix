@@ -15,10 +15,6 @@
   <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
 </head>
 
-<style>
-
-</style>
-
 <body>
 
   <div class="flat-matrix">
@@ -34,21 +30,45 @@
               <!-- Breadcrum Zone -->
               <ol class="breadcrumb" style="margin-top:-30px;margin-left:-30px">
                 <li><a href="index.html">Home</a></li>
-                <li class="active">Markdown</li>
+                <li class="active">Block</li>
               </ol>
               <!-- Content Header  -->
-              <h2><i class="fa fa-tasks"></i> Markdown <small><a href="http://www.codingdrama.com/bootstrap-markdown/">Bootstrap Markdown Home</a></small> </h2>
-              <div>
-                <textarea id="text-input" oninput="this.editor.update()" rows="6" cols="60">Type **Markdown** here.</textarea>
-                <div id="preview" > </div>
+              <h2>
+                <i class="fa fa-tasks"></i> Block
+                <button onclick="block()" type="button" class="btn btn-white btn-xs">
+                  <span class="fa fa-clock-o" aria-hidden="true">&nbsp;Block</span>
+                </button>
+                <button onclick="unblock()" type="button" class="btn btn-white btn-xs">
+                  <span class="fa fa-clock-o" aria-hidden="true">&nbsp;Unblock</span>
+                </button>
+              </h2>
 
+              <div >
+                <div class="row">
+                  <div class="col-md-12">
+                    <div id="blockDIV" class="panel fresh-color panel-danger" style="width:100%">
+                      <div class="panel-heading">Transfered Table Data</div>
+                      <div class="panel-body">
+                        <p>
+                          {
+                          <br> &nbsp;&nbsp;&nbsp; "header": ["id", "name", "sex", "age", "email", "phone"],
+                          <br> &nbsp;&nbsp;&nbsp; "result": [
+                          <br> &nbsp;&nbsp;&nbsp;&nbsp; ]
+                          <br> }
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
+
     </div>
+  </div>
   </div>
 
 
@@ -63,8 +83,7 @@
   <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
   <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
   <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
-  <script src="assets/reference/markdown/markdown.min.js"></script>
-
+  <script src="assets/reference/jquery/jquery.blockUI.js"></script>
   <!-- Javascript for Matrix Self Owned -->
   <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
   <script src="assets/self-owned/js/generic/generic_cache.js"></script>
@@ -80,22 +99,18 @@
 
   <script>
     $(document).ready(function() {
-      new Markdown_Editor(document.getElementById("text-input"), document.getElementById("preview"));
-
+      $('#assistDIV').load($.getRootPath() + '/assets/self-owned/html/assist/matrix_assist_sample.html');
     });
   </script>
   <script>
-
-  function Markdown_Editor(input, preview) {
-    if(this){
-      this.update = function() {
-        preview.innerHTML = markdown.toHTML(input.value);
-      };
-      input.editor = this;
-      this.update();
-    }
+  var block = function() {
+    $('#blockDIV').block({
+      message: null
+    });
   }
-
+  var unblock = function() {
+    $('#blockDIV').unblock();
+  }
   </script>
 </body>
 

@@ -15,15 +15,12 @@
   <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
 </head>
 
-<style>
-
-</style>
-
 <body>
 
   <div class="flat-matrix">
     <div class="app-container">
       <div class="row content-container">
+        <div id="hideDIV"></div>
         <div id="navDIV"></div>
         <!-- 应用左侧NAV导航，可以应用与assist，帮助，过滤等辅助组件，默认自动收缩扩展，支持悬停（点击右上角按钮切换）-->
         <div id="assistDIV"></div>
@@ -34,13 +31,23 @@
               <!-- Breadcrum Zone -->
               <ol class="breadcrumb" style="margin-top:-30px;margin-left:-30px">
                 <li><a href="index.html">Home</a></li>
-                <li class="active">Markdown</li>
+                <li class="active">{Breadcrum}</li>
               </ol>
               <!-- Content Header  -->
-              <h2><i class="fa fa-tasks"></i> Markdown <small><a href="http://www.codingdrama.com/bootstrap-markdown/">Bootstrap Markdown Home</a></small> </h2>
+              <h2><i class="fa fa-tasks"></i> {Hello World} <small>{(This is matrix template!)}</small> </h2>
+
               <div>
-                <textarea id="text-input" oninput="this.editor.update()" rows="6" cols="60">Type **Markdown** here.</textarea>
-                <div id="preview" > </div>
+                <h2>Participants</h2> Here are the participants:
+                <div data-bind="template: { name: 'test', data: buyer }"></div>
+                <div data-bind="template: { name: 'test', data: seller }"></div>
+                <div data-bind="template: { name: 'markdown-template', data: markdown }"></div>
+
+
+                <!-- <script type="text/html" id="person-template">
+                  <h3 data-bind="text: name"></h3>
+                  <p>Credits: <span data-bind="text: credits"></span></p>
+                </script> -->
+
 
               </div>
             </div>
@@ -64,7 +71,6 @@
   <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
   <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
   <script src="assets/reference/markdown/markdown.min.js"></script>
-
   <!-- Javascript for Matrix Self Owned -->
   <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
   <script src="assets/self-owned/js/generic/generic_cache.js"></script>
@@ -77,26 +83,48 @@
   <script src="assets/self-owned/js/generic/generic_table.js"></script>
   <script src="assets/self-owned/js/generic/generic_util.js"></script>
   <script src="assets/self-owned/js/generic/generic_validation.js"></script>
-
-  <script>
-    $(document).ready(function() {
-      new Markdown_Editor(document.getElementById("text-input"), document.getElementById("preview"));
-
-    });
-  </script>
-  <script>
-
-  function Markdown_Editor(input, preview) {
-    if(this){
-      this.update = function() {
-        preview.innerHTML = markdown.toHTML(input.value);
+  <script type="text/javascript">
+    function MyViewModel() {
+      this.buyer = {
+        name: 'Franklin',
+        credits: 250
       };
-      input.editor = this;
-      this.update();
+      this.seller = {
+        name: 'Mario',
+        credits: 5800
+      };
+      this.markdown = new MVM();
     }
-  }
 
+    function MVM(){
+      this.markdown_data = ko.observable('# Header1');
+    }
+    var viewModel = new MyViewModel();
   </script>
+  <script>
+    // $(document).ready(function() {
+    //   // $('#assistDIV').load($.getRootPath() + '/assets/self-owned/html/assist/matrix_assist_sample.html');
+    //   // $('#hideDIV').load($.getRootPath() + '/matrix_ko_components_template_context.html');
+    //   console.log(1);
+    //   $.get($.getRootPath() + '/matrix_ko_components_template_context.html', function(templates) {
+    //     $('#hideDIV').append('<div id="123" style="display:none">' + templates + '<\/div>');
+    //   });
+    //   console.log(2);
+    //
+    //   ko.applyBindings(new MyViewModel());
+    //   console.log(4);
+    // });
+
+    $(function() {
+      ensureTemplates(["test","markdown-template"],viewModel);
+    });
+
+
+
+    var txt = markdown.toHTML('# Header1');
+    viewModel.markdown.markdown_data(txt);
+  </script>
+
 </body>
 
 </html>

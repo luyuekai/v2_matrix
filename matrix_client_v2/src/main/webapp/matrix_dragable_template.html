@@ -71,6 +71,38 @@
     background: none;
   }*/
   </style>
+  <style>
+    .animated_div {
+      width: 65px;
+      height: 40px;
+      background: #e74c3c;
+      color: #ffffff;
+      position: absolute;
+      font-weight: bold;
+      font-size: 15px;
+      padding: 10px;
+      float: left;
+      margin: 5px;
+      -webkit-transition: -webkit-transform 1s, opacity 1s, background 1s, width 1s, height 1s, font-size 1s;
+      -webkit-border-radius: 5px;
+      -o-transition-property: width, height, -o-transform, background, font-size, opacity;
+      -o-transition-duration: 1s, 1s, 1s, 1s, 1s, 1s;
+      -moz-transition-property: width, height, -o-transform, background, font-size, opacity;
+      -moz-transition-duration: 1s, 1s, 1s, 1s, 1s, 1s;
+      transition-property: width, height, transform, background, font-size, opacity;
+      transition-duration: 1s, 1s, 1s, 1s, 1s, 1s;
+      border-radius: 5px;
+      opacity: 0.4;
+    }
+
+    .animated_div:hover {
+      opacity: 1;
+      background: #1ec7e6;
+      width: 130px;
+      height: 80px;
+      font-size: 35px;
+    }
+  </style>
 </head>
 
 <body>
@@ -94,6 +126,7 @@
               <h2><i class="fa fa-tasks"></i> Dragable</h2>
 
               <div class="row">
+
                 <div class="col-md-1">
                   <div class="sidebar">
                     <div class="grid-stack-item">
@@ -111,9 +144,17 @@
                     <div class="grid-stack-item">
                       <div class="grid-stack-item-content"><i class="fa fa-table"></i></div>
                     </div>
+                    <hr>
+                    <div class="text-center">
+                      <a href="#" id="add-new-widget"><i class="fa fa-plus fa-4x"></i></a>
+                    </div>
+                    <hr>
+                    <div class="text-center">
+                      <a href="#" id="copy-widget" onclick="copy('prepareCopyDIV')"><i class="fa fa-copy fa-4x"></i></a>
+                    </div>
                   </div>
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-9">
                   <section id="demo" class="darklue">
                     <div class="container" style="padding-bottom: 58px;">
                       <div class="row">
@@ -157,18 +198,37 @@
                         <div class="grid-stack-item" data-gs-x="10" data-gs-y="4" data-gs-width="2" data-gs-height="2">
                           <div class="grid-stack-item-content">11</div>
                         </div>
+
                       </div>
                     </div>
                   </section>
                 </div>
-                <div class="col-md-1">
-                  <div class="trash">
-                    <i class="fa fa-trash fa-4x"></i>
+                <div class="col-md-2">
+                  <div class="trash text-center " style="width:100%;height:600px;border:2px dashed #e74c3c">
+                    <!-- <button class="btn btn-danger text-center"><i class="fa fa-trash fa-4x"></i></button> -->
+                  </div>
+                  <div class="trash text-center animated_div">
+                    <i class="fa fa-trash"></i>
                   </div>
                 </div>
               </div>
 
-
+              <div class="col-md-6">
+                <div id="prepareCopyDIV">
+                  <div class="panel fresh-color panel-danger" style="width:100%">
+                    <div class="panel-heading">Prepared Copy Data</div>
+                    <div class="panel-body">
+                      <p>
+                        {
+                        <br> &nbsp;&nbsp;&nbsp; "header": ["id", "name", "sex", "age", "email", "phone"],
+                        <br> &nbsp;&nbsp;&nbsp; "result": [
+                        <br> &nbsp;&nbsp;&nbsp;&nbsp; ]
+                        <br> }
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -235,7 +295,60 @@
         appendTo: 'body'
       });
 
+      new function() {
+        this.items = [{
+          x: 0,
+          y: 0,
+          width: 2,
+          height: 2
+        }, {
+          x: 3,
+          y: 1,
+          width: 1,
+          height: 2
+        }, {
+          x: 4,
+          y: 1,
+          width: 1,
+          height: 1
+        }, {
+          x: 2,
+          y: 3,
+          width: 3,
+          height: 1
+        }, {
+          x: 2,
+          y: 5,
+          width: 1,
+          height: 1
+        }];
+
+        this.grid = $('.grid-stack').data('gridstack');
+
+        this.addNewWidget = function() {
+          var node = this.items.pop() || {
+            x: 12 * Math.random(),
+            y: 5 * Math.random(),
+            width: 1 + 3 * Math.random(),
+            height: 1 + 3 * Math.random()
+          };
+          this.grid.addWidget($('<div><div class="grid-stack-item-content" /><div/>'),
+            node.x, node.y, node.width, node.height);
+          return false;
+        }.bind(this);
+
+        $('#add-new-widget').click(this.addNewWidget);
+      };
     });
+  </script>
+  <script>
+    var copy = function(id) {
+      var grid = $('.grid-stack').data('gridstack');
+      var context = $('<div class="grid-stack-item-content"></div>').append($('#' + id).clone());
+      var widget = $('<div></div>').append(context);
+      grid.addWidget(widget, 0, 0, 12, 4);
+
+    }
   </script>
 </body>
 

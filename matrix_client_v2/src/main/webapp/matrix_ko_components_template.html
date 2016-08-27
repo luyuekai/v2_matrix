@@ -15,10 +15,6 @@
   <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
 </head>
 
-<style>
-
-</style>
-
 <body>
 
   <div class="flat-matrix">
@@ -34,13 +30,29 @@
               <!-- Breadcrum Zone -->
               <ol class="breadcrumb" style="margin-top:-30px;margin-left:-30px">
                 <li><a href="index.html">Home</a></li>
-                <li class="active">Markdown</li>
+                <li class="active">Knockout Components</li>
               </ol>
               <!-- Content Header  -->
-              <h2><i class="fa fa-tasks"></i> Markdown <small><a href="http://www.codingdrama.com/bootstrap-markdown/">Bootstrap Markdown Home</a></small> </h2>
+              <h2><i class="fa fa-tasks"></i> Knockout Components</h2>
+
               <div>
-                <textarea id="text-input" oninput="this.editor.update()" rows="6" cols="60">Type **Markdown** here.</textarea>
-                <div id="preview" > </div>
+                <ul data-bind="foreach: products">
+                  <li class="product">
+                    <strong data-bind="text: name"></strong>
+                    <like-widget params="value: userRating"></like-widget>
+                  </li>
+                </ul>
+
+
+                <h2>Participants</h2> Here are the participants:
+                <div data-bind="template: { name: 'person-template', data: buyer }"></div>
+                <div data-bind="template: { name: 'person-template', data: seller }"></div>
+
+                <script type="text/html" id="person-template">
+                  <h3 data-bind="text: name"></h3>
+                  <p>Credits: <span data-bind="text: credits"></span></p>
+                </script>
+
 
               </div>
             </div>
@@ -51,7 +63,7 @@
     </div>
   </div>
 
-
+  <div id="hideDIV"></div>
   <!-- /.container -->
 
 
@@ -63,8 +75,6 @@
   <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
   <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
   <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
-  <script src="assets/reference/markdown/markdown.min.js"></script>
-
   <!-- Javascript for Matrix Self Owned -->
   <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
   <script src="assets/self-owned/js/generic/generic_cache.js"></script>
@@ -78,24 +88,64 @@
   <script src="assets/self-owned/js/generic/generic_util.js"></script>
   <script src="assets/self-owned/js/generic/generic_validation.js"></script>
 
+
+  <!-- <script src="assets/reference/require.js/require-2.2.0.js"></script> -->
   <script>
     $(document).ready(function() {
-      new Markdown_Editor(document.getElementById("text-input"), document.getElementById("preview"));
-
+      $('#hideDIV').load($.getRootPath() + '/matrix_ko_components_template_context.html');
     });
-  </script>
-  <script>
 
-  function Markdown_Editor(input, preview) {
-    if(this){
-      this.update = function() {
-        preview.innerHTML = markdown.toHTML(input.value);
-      };
-      input.editor = this;
-      this.update();
+
+    ko.components.register('like-widget', {
+      viewModel: function(params) {
+        // Data: value is either null, 'like', or 'dislike'
+        this.chosenValue = params.value;
+
+        // Behaviors
+        this.like = function() {
+          this.chosenValue('like');
+        }.bind(this);
+        this.dislike = function() {
+          this.chosenValue('dislike');
+        }.bind(this);
+      },
+      template: '<div class="like-or-dislike" data-bind="visible: !chosenValue()">\
+            <button data-bind="click: like">Like it</button>\
+            <button data-bind="click: dislike">Dislike it</button>\
+        </div>\
+        <div class="result" data-bind="visible: chosenValue">\
+            You <strong data-bind="text: chosenValue"></strong> it\
+        </div>'
+        // template: {element:'like-widget-template'}
+    });
+
+    function Product(name, rating) {
+      this.name = name;
+      this.userRating = ko.observable(rating || null);
     }
-  }
 
+    function MyViewModel() {
+      this.products = [
+        new Product('Garlic bread'),
+        new Product('Pain au chocolat'),
+        new Product('Seagull spaghetti', 'like') // This one was already 'liked'
+      ];
+    }
+
+    ko.applyBindings(new MyViewModel());
+  </script>
+  <script type="text/javascript">
+    function MyViewModel() {
+      this.buyer = {
+        name: 'Franklin',
+        credits: 250
+      };
+      this.seller = {
+        name: 'Mario',
+        credits: 5800
+      };
+    }
+    ko.applyBindings(new MyViewModel());
   </script>
 </body>
 
