@@ -16,8 +16,9 @@ function ConsoleViewModel(data, isChecked, isDisplay) {
  * View Model for the result zone in the notebook
  *
  */
-function ResultViewModel(data, isChecked, isDisplay) {
+function ResultViewModel(data, isChecked, isDisplay,notebook) {
   var self = this;
+  self.notebook = notebook;
   self.data = data;
   self.isChecked = ko.observable(isChecked);
   self.isDisplay = ko.observable(isDisplay);
@@ -28,7 +29,7 @@ function ResultViewModel(data, isChecked, isDisplay) {
   self.isDisplay_impala = ko.observable(false);
   self.isDisplay_markdown = ko.observable(false);
 
-  self.result_hive = new HiveResultViewModel();
+  self.result_hive = new HiveResultViewModel(notebook);
   self.result_sql = new SqlResultViewModel();
   self.result_pig = new PigResultViewModel();
   self.result_spark = new SparkResultViewModel();
@@ -37,8 +38,12 @@ function ResultViewModel(data, isChecked, isDisplay) {
 
 }
 
-function HiveResultViewModel(){
+function HiveResultViewModel(notebook){
   var self = this;
+  self.notebook = notebook;
+  self.data_server = null;
+  self.vm_server = new ListViewModel();
+  self.vm_analyze = new ListViewModel();
 }
 function SqlResultViewModel(){
   var self = this;
@@ -83,7 +88,7 @@ function NotebookViewModel(data, isChecked, isDisplay) {
   self.isChecked = ko.observable(isChecked);
   self.isDisplay = ko.observable(isDisplay);
   self.console = new ConsoleViewModel(null, false, true);
-  self.result = new ResultViewModel(null, false, false);
+  self.result = new ResultViewModel(null, false, false,self);
   self.status = new StatusViewModel(null, false, false);
   self.alerts = new ResponseViewModel(); // This model is located in the generic_query.js
 }
@@ -97,6 +102,8 @@ function NotebookListViewModel() {
   // notebook elements for the whole DOM
   self.notebooks = ko.observableArray();
   self.currentNotebook = ko.observable();
+
+  self.tables = ko.observableArray();
 
 
   //单纯的界面逻辑函数： 重置当前notebook list
@@ -128,4 +135,10 @@ function NotebookListViewModel() {
     run_businessLogic(currentData, currentIndex,self);
   }
 
+  self.download = function(headers,data,type,notebook){
+    download_businessLogic(headers,data,type,notebook);
+  }
+
 }
+
+//-----------------------------mock

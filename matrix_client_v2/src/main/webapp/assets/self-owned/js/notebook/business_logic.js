@@ -74,7 +74,7 @@ var addNotebook_businessLogic = function(notebookListViewModel) {
   autosize($('textarea'));
   notebook_textarea_keyboard_event_listener(); // need to do this for setup new notebook feature
   var index = self.notebooks().length - 1;
-
+  notebook.console.currentBookmark(1); //default bookmark as 1--hive
   notebook.result.isDisplay_hive(true); // default display hive result
 };
 
@@ -102,6 +102,13 @@ var run_businessLogic = function(currentData, currentIndex, notebookListViewMode
   var bi = notebook.console.currentBookmark(); // bookmark index
   if (bi === 1) {
     //hive business logic
+    if(hive_mock_data){
+      var tableModel = notebook.result.result_hive.vm_server;
+      tableModel.pageMaxSize(5);
+      tableModel.buildData(hive_mock_data.result);
+      tableModel.columnNames(hive_mock_data.header);
+      tableModel.buildView();
+    }
   }
   if (bi === 2) {
     //sql business logic
@@ -156,7 +163,7 @@ var retrieveData_mock = function(currentNotebook, currentIndex) {
   mock_count++;
   if (mock_count % 4 == 1) {
     console.log('request action invoked[request_success]');
-    $.serverRequest($.getRootPath() + '/api/mock/success', null, "SEARCH_SUCCESS_LISTENER", "PAGING_SEARCH_FAILED", "SERVICE_GENERIC_QUERY_FAILED", 'GET', true, currentIndex);
+    $.serverRequest($.getRootPath() + '/api/mock/success', null, "SUCCESS_LISTENER", "FAILED_LISTENER", "SERVER_FAILED_LISTENER", 'GET', true, currentIndex);
   } else if (mock_count % 4 == 2) {
     console.log('request action invoked[request_warning]');
     if (notebookListViewModel) {
@@ -168,23 +175,23 @@ var retrieveData_mock = function(currentNotebook, currentIndex) {
         notebook.status.currentStatusClass("fa fa-exclamation");
         notebook.status.progress(100);
         blockCheck(currentIndex);
-      }, 2000);
+      }, 1000);
     }
   } else if (mock_count % 4 == 3) {
     console.log('request action invoked[request_error]');
-    $.serverRequest($.getRootPath() + '/api/mock/service_error', null, "SEARCH_SUCCESS_LISTENER", "PAGING_SEARCH_FAILED", "SERVICE_GENERIC_QUERY_FAILED", 'GET', true, currentIndex);
+    $.serverRequest($.getRootPath() + '/api/mock/service_error', null, "SUCCESS_LISTENER", "FAILED_LISTENER", "SERVER_FAILED_LISTENER", 'GET', true, currentIndex);
   } else if (mock_count % 4 == 0) {
     console.log('request action invoked[request_exception]');
-    $.serverRequest($.getRootPath() + '/api/mock/server_error', null, "SEARCH_SUCCESS_LISTENER", "PAGING_SEARCH_FAILED", "SERVICE_GENERIC_QUERY_FAILED", 'GET', true, currentIndex);
+    $.serverRequest($.getRootPath() + '/api/mock/server_error', null, "SUCCESS_LISTENER", "FAILED_LISTENER", "SERVER_FAILED_LISTENER", 'GET', true, currentIndex);
   }
 }
 
 
 
 // *******Server Side Retrieve Data Listener JS Code*******
-$.subscribe("SEARCH_SUCCESS_LISTENER", successListener);
-$.subscribe("PAGING_SEARCH_FAILED", failedListener);
-$.subscribe("SERVICE_GENERIC_QUERY_FAILED", failedServiceListener);
+$.subscribe("SUCCESS_LISTENER", successListener);
+$.subscribe("FAILED_LISTENER", failedListener);
+$.subscribe("SERVER_FAILED_LISTENER", failedServiceListener);
 
 function failedServiceListener() {
 
@@ -199,7 +206,7 @@ function failedServiceListener() {
       notebook.status.currentStatusClass("fa fa-exclamation");
       notebook.status.progress(100);
       blockCheck(request_notebook_index);
-    }, 2000);
+    }, 1000);
   }
   console.log("request_notebook_index is:" + request_notebook_index);
 }
@@ -217,7 +224,7 @@ function failedListener() {
         notebook.status.currentStatusClass("fa fa-exclamation");
         notebook.status.progress(100);
         blockCheck(request_notebook_index);
-      }, 2000);
+      }, 1000);
     }
     console.log("request_notebook_index is:" + request_notebook_index);
     console.log("response context is:" + JSON.stringify(arguments[1].response));
@@ -239,9 +246,55 @@ function successListener() {
         notebook.status.progress(100);
         blockCheck(request_notebook_index);
         notebook.result.isDisplay(true);
-      }, 2000);
+      }, 1000);
     }
     console.log("request_notebook_index is:" + request_notebook_index);
     console.log("response context is:" + JSON.stringify(arguments[1].response));
   }
 }
+
+
+var download_businessLogic = function(headers,data,type,notebook){
+  if(headers && data){
+    download(headers,data,type);
+  }else{
+    notebook.alerts.warningResponse("当前没有合适下载的数据结果", "提示:", "[导出/下载数据]");
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//---------------------------------mock zone-------------------------------------------
+var hive_mock_data = null;
+var initialize_hive_mock_data = function() {
+  $.ajax({
+    url: $.getRootPath() + "/assets/self-owned/data/server_mock_data.json",
+    type: 'GET',
+    dataType: 'json',
+    success: function(json) {
+      var serverData = json;
+      hive_mock_data = DataTransferPOJO.serverJsonData2TableData(serverData);
+    },
+    error: function(xhr, status) {
+      console.log('Sorry, there was a problem on SERVER_REQUEST_ACTION process!');
+    },
+    complete: function(xhr, status) {}
+  });
+}
+
+initialize_hive_mock_data();

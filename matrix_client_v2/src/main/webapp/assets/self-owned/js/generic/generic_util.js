@@ -12,7 +12,6 @@ $.serverRequest = function(request_url, request_data, listener_response_success,
     contentType: "application/x-www-form-urlencoded;charset=UTF-8",
     dataType: 'json',
     success: function(json) {
-
       if (json.hasError) {
         console.log("SERVER_REQUEST_ACTION get error: " + json.errorMessage);
         if (needWrap) {
@@ -287,7 +286,7 @@ function Highlight_Editor(input, preview) {
 }
 
 
-function ensureTemplates(list,viewModel,templateFolder) {
+function ensureTemplates(list,templateFolder) {
   var loadedTemplates = [];
   templateFolder = templateFolder || "ko-templates/";
   ko.utils.arrayForEach(list, function(name) {
@@ -295,7 +294,7 @@ function ensureTemplates(list,viewModel,templateFolder) {
       $("body").append("<script id=\"" + name + "\" type=\"text/html\">" + template + "<\/script>");
       loadedTemplates.push(name);
       if (list.length === loadedTemplates.length) {
-        ko.applyBindings(viewModel);
+        $.publish("MATRIX_TEMPLATES_LOAD_FINISHED");
       }
     });
   });
