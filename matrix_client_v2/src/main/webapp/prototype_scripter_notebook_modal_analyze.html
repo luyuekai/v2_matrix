@@ -1,0 +1,459 @@
+<div id="genericModalDiv">
+
+  <!--RESULT DISPLAY DIV BEGIN-->
+  <div id="resultDIV" data-bind="visible: hasResult,css: styleClass" class="alert fresh-color">
+    <button type="button" class="close" data-bind="click:hasResult(false)" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>
+      <span data-bind="text:resultTitle"></span>
+    </strong>
+    <span data-bind="text:resultSubTitle"></span>
+    <div data-bind="text:resultContent"></div>
+  </div>
+  <!--RESULT DISPLAY DIV END-->
+
+  <!--CONTENT DIV BEGIN-->
+  <div id="modal_content_div">
+    <div class="card card-success">
+      <div class="card profile">
+        <div class="card-body">
+          <!--Validation DIV BEGIN-->
+          <div data-bind="visible: hasError" class="alert alert-warning alert-dismissible fresh-color" role="alert">
+            <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>提示:</strong>
+            <div id="errorMessagesDIV" data-bind="foreach:errorMessage">
+              <div data-bind="text:$data"></div>
+            </div>
+          </div>
+          <!--Validation DIV END-->
+          <!-- *******YOUR SHOULD CODING IN HERE:[BEGIN]*******-->
+          <div data-bind="if:businessPOJO()">
+            <div data-bind="with:businessPOJO">
+              <div class="step">
+                <ul class="nav nav-tabs nav-justified" role="tablist">
+                  <li role="step" class="active">
+                    <a href="#step1" id="step1-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+                      <div class="icon fa fa-credit-card"></div>
+                      <div class="step-title">
+                        <div class="title">步骤一</div>
+                        <div class="description">选择统计分析类型</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li role="step">
+                    <a href="#step2" role="tab" id="step2-tab" data-toggle="tab" aria-controls="profile">
+                      <div class="icon fa fa-stethoscope"></div>
+                      <div class="step-title">
+                        <div class="title">步骤二</div>
+                        <div class="description">进行细节设置</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li role="step">
+                    <a href="#step3" role="tab" id="step3-tab" data-toggle="tab" aria-controls="profile">
+                      <div class="icon fa fa-file-text-o"></div>
+                      <div class="step-title">
+                        <div class="title">步骤三</div>
+                        <div class="description">检查结果与执行</div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+
+                <div class="tab-content">
+                  <script type="text/javascript">
+                    $(':radio').radiocheck();
+                  </script>
+                  <div role="tabpanel" class="tab-pane fade in active" id="step1" aria-labelledby="home-tab">
+                    <div class="card card-success">
+                      <div class="card-header" style="height:50px">
+                        <div class="card-title" style="padding: 8px 20px;">
+                          <div class="title"><i class="fa fa-cogs"></i> 选择想要进行的统计分析类型
+                          </div>
+                        </div>
+                        <div class="clear-both"></div>
+                      </div>
+                      <div class="card-body no-padding">
+                        <br>
+                        <form class="form-horizontal">
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label" style="margin-top: 16px;">
+                              <span style="font-weight: bold;font-size: 14px;">支持的统计分析</span>
+                              <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                            </label>
+                            <div class="col-sm-9">
+
+                              <!-- ko foreach: items -->
+                              <div>
+                                <label class="radio" data-bind="attr:{'for':'radio'+$index()+'_analyze_type'}">
+                                  <input type="radio" data-bind="attr:{'id':'radio'+$index()+'_analyze_type'},checkedValue: $data, checked: $parent.chosenItem" data-toggle="radio" name="optionsRadios_analyze_type">
+                                  <span data-bind="text: itemName"></span>
+                                </label>
+                              </div>
+                              <!-- /ko -->
+                            </div>
+                          </div>
+                        </form>
+                        <div class="col-sm-12">
+                          <div class="alert alert-info fresh-color" role="alert">
+                            基础统计:对指定属性列进行基于值的统计
+                            <br> 透视图统计:选择多属性列形成基于值的数据透视图统计
+                            <br> 扩展列分析:对当前表的所有属性列进行灵活组合计算生成新的扩展列
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="step2" aria-labelledby="profile-tab">
+                    <div class="card card-success">
+                      <div class="card-header" style="height:50px">
+                        <div class="card-title" style="padding: 8px 20px;">
+                          <div class="title"><i class="fa fa-cogs"></i> 设置统计分析细节
+                            <small>(基于所选择类型进行定制化设置)</small>
+                          </div>
+                        </div>
+                        <div class="clear-both"></div>
+                      </div>
+                      <div class="card-body no-padding">
+                        <br>
+                        <form class="form-horizontal">
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">
+                              <span style="font-weight: bold;font-size: 14px;">当前所选类型</span>
+                              <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                            </label>
+                            <div class="col-sm-9">
+                              <p class="form-control-static" style="font-size:14px;padding-top: 8px;" data-bind="text:chosenItem().itemName"></p>
+                            </div>
+                          </div>
+                          <div data-bind="if: chosenItem().itemValue =='baseOnColumn'">
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label">
+                                <span style="font-weight: bold;font-size: 14px;">指定属性列</span>
+                                <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                              </label>
+                              <div class="col-sm-9">
+                                <select class="form-control" style="width:388px" data-bind="options:availableColumnNames,value:selectedColumn_1,optionsCaption: '请选择...'"></select>
+                              </div>
+                              <div class="col-sm-9 col-sm-offset-3">
+                                选择需要统计分析的属性列，系统会对其进行统计.
+                              </div>
+                            </div>
+                          </div>
+
+                          <div data-bind="if: chosenItem().itemValue =='baseOnMultiColumn'">
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label">
+                                <span style="font-weight: bold;font-size: 14px;">横坐标轴属性列</span>
+                                <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                              </label>
+                              <div class="col-sm-9">
+                                <select class="form-control" style="width:388px" data-bind="options:availableColumnNames,value:selectedColumn_x,optionsCaption: '请选择...'"></select>
+                              </div>
+                              <div class="col-sm-9 col-sm-offset-3">
+                                选择构成数据透视图横坐标(X轴)的属性列.
+                              </div>
+                              <label class="col-sm-3 control-label">
+                                <span style="font-weight: bold;font-size: 14px;">纵坐标轴属性列</span>
+                                <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                              </label>
+                              <div class="col-sm-9">
+                                <select class="form-control" style="width:388px" data-bind="options:availableColumnNames,value:selectedColumn_y,optionsCaption: '请选择...'"></select>
+                              </div>
+                              <div class="col-sm-9 col-sm-offset-3">
+                                选择构成数据透视图纵坐标(Y轴)的属性列.
+                              </div>
+                            </div>
+                          </div>
+
+                          <div data-bind="if: chosenItem().itemValue =='baseOnExtendColumn'">
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label">
+                                <span style="font-weight: bold;font-size: 14px;">扩展列key</span>
+                                <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                              </label>
+                              <div class="col-sm-9">
+                                <input type="text" class="form-control" style="width:388px" data-bind="value: extendColumnKey" placeholder="名称">
+                              </div>
+                              <div class="col-sm-9 col-sm-offset-3">
+                                分析结果生成的新列标示符
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label">
+                                <span style="font-weight: bold;font-size: 14px;">分析首选属性列</span>
+                                <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                              </label>
+                              <div class="col-sm-9">
+                                <select class="form-control" style="width:388px" data-bind="options:availableColumnNames,value:selectedColumn_extend_1,optionsCaption: '请选择(必选)...'"></select>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label">
+                                <span style="font-weight: bold;font-size: 14px;">是否进行算数运算</span>
+                              </label>
+                              <div class="col-sm-9">
+                                <select class="form-control" style="width:388px" data-bind="options:mathOperators,value:selectedMathOperator,optionsCaption: '不进行'"></select>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label">
+                                <span style="font-weight: bold;font-size: 14px;">分析额外属性列</span>
+                              </label>
+                              <div class="col-sm-9">
+                                <select class="form-control" style="width:388px" data-bind="options:availableColumnNames,value:selectedColumn_extend_2,optionsCaption: '不选择'"></select>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label">
+                                <span style="font-weight: bold;font-size: 14px;">是否进行结果运算</span>
+                              </label>
+                              <div class="col-sm-9">
+                                <select class="form-control" style="width:388px" data-bind="options:valueOperators,value:selectedValueOperator"></select>
+                              </div>
+                            </div>
+                          </div>
+
+                        </form>
+
+
+                      </div>
+                    </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="step3" aria-labelledby="profile-tab">
+                    <div class="card card-success">
+                      <div class="card-header" style="height:50px">
+                        <div class="card-title" style="padding: 8px 20px;">
+                          <div class="title"><i class="fa fa-cogs"></i> 检查结果与执行
+                          </div>
+                        </div>
+                        <div class="clear-both"></div>
+                      </div>
+                      <div class="card-body no-padding">
+                        <br>
+                        <form class="form-horizontal">
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">
+                              <span style="font-weight: bold;font-size: 14px;">当前所选类型</span>
+                              <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                            </label>
+                            <div class="col-sm-9">
+                              <p class="form-control-static" style="font-size:14px;padding-top: 8px;" data-bind="text:chosenItem().itemName"></p>
+                            </div>
+                          </div>
+                          <div data-bind="if: chosenItem().itemValue =='baseOnColumn'">
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label"><span style="font-weight: bold;font-size: 14px;">指定属性列</span><i class="fa fa-asterisk" style="color: #E74C3C;"></i></label>
+                              <div class="col-sm-9">
+                                <p class="form-control-static" style="font-size:14px;padding-top: 8px;" data-bind="text:selectedColumn_1()"></p>
+                              </div>
+                            </div>
+                          </div>
+                          <div data-bind="if: chosenItem().itemValue =='baseOnMultiColumn'">
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label"><span style="font-weight: bold;font-size: 14px;">横坐标轴属性列</span><i class="fa fa-asterisk" style="color: #E74C3C;"></i></label>
+                              <div class="col-sm-9">
+                                <p class="form-control-static" style="font-size:14px;padding-top: 8px;" data-bind="text:selectedColumn_x()"></p>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label"><span style="font-weight: bold;font-size: 14px;">纵坐标轴属性列</span><i class="fa fa-asterisk" style="color: #E74C3C;"></i></label>
+                              <div class="col-sm-9">
+                                <p class="form-control-static" style="font-size:14px;padding-top: 8px;" data-bind="text:selectedColumn_y()"></p>
+                              </div>
+                            </div>
+                          </div>
+                          <div data-bind="if: chosenItem().itemValue =='baseOnExtendColumn'">
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label"><span style="font-weight: bold;font-size: 14px;">扩展列key</span><i class="fa fa-asterisk" style="color: #E74C3C;"></i></label>
+                              <div class="col-sm-9">
+                                <p class="form-control-static" style="font-size:14px;padding-top: 8px;" data-bind="text:extendColumnKey"></p>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label"><span style="font-weight: bold;font-size: 14px;">分析首选属性列</span><i class="fa fa-asterisk" style="color: #E74C3C;"></i></label>
+                              <div class="col-sm-9">
+                                <p class="form-control-static" style="font-size:14px;padding-top: 8px;" data-bind="text:selectedColumn_extend_1()?selectedColumn_extend_1():'无'"></p>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label"><span style="font-weight: bold;font-size: 14px;">是否进行算数运算</span></label>
+                              <div class="col-sm-9">
+                                <p class="form-control-static" style="font-size:14px;padding-top: 8px;" data-bind="text:selectedMathOperator()?selectedMathOperator():'不进行'"></p>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label"><span style="font-weight: bold;font-size: 14px;">分析额外属性列</span></label>
+                              <div class="col-sm-9">
+                                <p class="form-control-static" style="font-size:14px;padding-top: 8px;" data-bind="text:selectedColumn_extend_2()?selectedColumn_extend_2():'无'"></p>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label"><span style="font-weight: bold;font-size: 14px;">是否进行结果运算</span></label>
+                              <div class="col-sm-9">
+                                <p class="form-control-static" style="font-size:14px;padding-top: 8px;" data-bind="text:selectedValueOperator()"></p>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="pull-right">
+                      <button class="btn btn-primary btn-wide" onclick="execute()">检查并执行</button>
+                      <button class="btn btn-inverse btn-wide" onclick="ModalUtil.modal_close('popupModalPro')">关闭</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- *******YOUR SHOULD CODING IN HERE:[END]*******-->
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--CONTENT DIV END-->
+</div>
+
+<script>
+  // Initialize the View Model
+  // Clean the paging binding nodes
+  // Binding the view Model
+  var genericModalViewModel = new GenericModalViewModel();
+  ko.cleanNode($('#genericModalDiv')[0]);
+  ko.applyBindings(genericModalViewModel, document.getElementById('genericModalDiv'));
+</script>
+
+<script>
+  // Setup the business model with view model
+  (function initialize() {
+    // *******YOUR SHOULD CODING IN HERE:*******
+    function BusinessPOJO() {
+      var self = this;
+      self.data = null;
+      self.key = ko.observable('');
+      self.value = ko.observable('');
+      self.project = ko.observable('');
+      self.product = ko.observable('');
+
+      self.items = ko.observableArray([{
+        itemName: '基于某列进行基础统计',
+        itemValue: 'baseOnColumn'
+      }, {
+        itemName: '基于多列进行透视图统计',
+        itemValue: 'baseOnMultiColumn'
+      }, {
+        itemName: '基于当前表进行扩展列分析',
+        itemValue: 'baseOnExtendColumn'
+
+      }]);
+      self.chosenItem = ko.observable(self.items()[0]);
+      self.availableColumnNames = ko.observableArray();
+      self.selectedColumn_1 = ko.observable();
+      self.selectedColumn_x = ko.observable();
+      self.selectedColumn_y = ko.observable();
+      self.selectedColumn_extend_1 = ko.observable();
+      self.selectedColumn_extend_2 = ko.observable();
+      self.mathOperators = ko.observableArray(['+', '-', '*', '/', '%']);
+      self.selectedMathOperator = ko.observable();
+      self.valueOperators = ko.observableArray(["无", "绝对值", "四舍五入", "向上取整", "向下取整", "保留2位小数", "正弦", "余弦", "正切", "反正弦", "反余弦", "反正切", "对数", "平方根"]);
+      self.selectedValueOperator = ko.observable();
+      self.extendColumnKey = ko.observable();
+    }
+    var businessPOJO = new BusinessPOJO();
+    if (ModalUtil.businessPOJO) {
+      businessPOJO.data = ModalUtil.businessPOJO;
+      businessPOJO.availableColumnNames(businessPOJO.data.headers);
+    }
+    genericModalViewModel.businessPOJO(businessPOJO);
+  })();
+
+  function execute() {
+    // validation failed
+    // show validation error message in the warning DIV...
+    if (!genericModalViewModel.validation(businessValidation)) {
+      return;
+    } else {
+      // validation correct
+      // do your business...
+      runService();
+    }
+  }
+
+  // *******YOUR SHOULD CODING IN HERE:*******
+  var businessValidation = function() {
+    var errorMessages = [];
+    //validate logic...
+
+    //validate
+
+    if (genericModalViewModel.businessPOJO().chosenItem().itemValue == 'baseOnColumn') {
+      //validate selectedColumn_1
+      var validateFunctions = ['KEY_NOT_NULL'];
+      ValidationPOJO.validate("指定属性列", genericModalViewModel.businessPOJO().selectedColumn_1(), errorMessages, validateFunctions);
+    } else if (genericModalViewModel.businessPOJO().chosenItem().itemValue == 'baseOnMultiColumn') {
+      //validate x&y axis
+      var validateFunctions_x_axis = ['KEY_NOT_NULL'];
+      ValidationPOJO.validate("横坐标轴属性列", genericModalViewModel.businessPOJO().selectedColumn_x(), errorMessages, validateFunctions_x_axis);
+      var validateFunctions_y_axis = ['KEY_NOT_NULL'];
+      ValidationPOJO.validate("纵坐标轴属性列", genericModalViewModel.businessPOJO().selectedColumn_y(), errorMessages, validateFunctions_y_axis);
+    } else if (genericModalViewModel.businessPOJO().chosenItem().itemValue == 'baseOnExtendColumn') {
+      //1 扩展列key,分析首选属性列必选
+      //2 如果进行算数运算，那么分析额外属性列必选
+      var validateFunctions_extend_1 = ['KEY_NOT_NULL'];
+      ValidationPOJO.validate("分析首选属性列", genericModalViewModel.businessPOJO().selectedColumn_extend_1(), errorMessages, validateFunctions_extend_1);
+      var validateFunctions_extendColumnKey = ['KEY_NOT_NULL'];
+      ValidationPOJO.validate("扩展列key", genericModalViewModel.businessPOJO().extendColumnKey(), errorMessages, validateFunctions_extendColumnKey);
+      if (genericModalViewModel.businessPOJO().selectedMathOperator()) {
+        var validateFunctions_extend_2 = ['KEY_NOT_NULL'];
+        ValidationPOJO.validate("分析额外属性列在进行算数运算时", genericModalViewModel.businessPOJO().selectedColumn_extend_2(), errorMessages, validateFunctions_extend_2);
+      }
+    } else {
+
+    }
+
+    return errorMessages;
+  }
+
+  // *******YOUR SHOULD CODING IN HERE:*******
+  var runService = function() {
+    console.log("run service function invoked!");
+    var headers = genericModalViewModel.businessPOJO().data.headers;
+    var dataArray = genericModalViewModel.businessPOJO().data.data;
+    var notebook = genericModalViewModel.businessPOJO().data.notebook;
+    var tableData = null;
+    if (genericModalViewModel.businessPOJO().chosenItem().itemValue == 'baseOnColumn') {
+      var jsonDataArray = DataTransferPOJO.tableData2JsonDataArray(headers, dataArray);
+      var aggregateResult = AlgorithmPOJO.aggregateDataByKey(jsonDataArray, genericModalViewModel.businessPOJO().selectedColumn_1(), false);
+      tableData = DataTransferPOJO.analyzeData2TableData(aggregateResult, 'baseOnColumn');
+    } else if (genericModalViewModel.businessPOJO().chosenItem().itemValue == 'baseOnMultiColumn') {
+      var jsonDataArray = DataTransferPOJO.tableData2JsonDataArray(headers, dataArray);
+      var rowTableArray = AlgorithmPOJO.transferToXYTable(jsonDataArray, genericModalViewModel.businessPOJO().selectedColumn_y(), genericModalViewModel.businessPOJO().selectedColumn_x());
+      // AlgorithmPOJO.printTable(rowTableArray);
+      tableData = DataTransferPOJO.analyzeData2TableData(rowTableArray, 'baseOnMultiColumn');
+    } else if (genericModalViewModel.businessPOJO().chosenItem().itemValue == 'baseOnExtendColumn') {
+      var newColumnName = genericModalViewModel.businessPOJO().extendColumnKey();
+      var operatorColumnNameArray = [];
+      if (genericModalViewModel.businessPOJO().selectedColumn_extend_1()) {
+        operatorColumnNameArray.push(genericModalViewModel.businessPOJO().selectedColumn_extend_1());
+      }
+      if (genericModalViewModel.businessPOJO().selectedColumn_extend_2()) {
+        operatorColumnNameArray.push(genericModalViewModel.businessPOJO().selectedColumn_extend_2());
+      }
+      var mathOperatorLabel = genericModalViewModel.businessPOJO().selectedMathOperator();
+      var valueOperatorLabel = genericModalViewModel.businessPOJO().selectedValueOperator();
+      var rowTableArray = [];
+      rowTableArray = DataTransferPOJO.tableData2AnalyzeData(headers, dataArray);
+      rowTableArray = AlgorithmPOJO.addColumnAndOperate(rowTableArray, newColumnName, operatorColumnNameArray, mathOperatorLabel, valueOperatorLabel);
+      tableData = DataTransferPOJO.analyzeData2TableData(rowTableArray, 'baseOnExtendColumn');
+    } else {
+
+    }
+    console.log("--------------The Analyze Data Result IS:----------------")
+    console.log(tableData);
+  }
+
+</script>

@@ -19,12 +19,23 @@
 
 <button class="btn btn-primary">
   Save
-  <span class="btn-tip">$300</span>
+  <span class="btn-tip">$300222</span>
 </button>
 
-
+<input type="checkbox" checked data-toggle="switch" name="info-square-switch" data-on-color="danger" id="switch-07" />
 <script type="text/javascript">
   $(document).ready(function() {
     $("head").append($("<link rel='stylesheet' href='assets/reference/flat-ui/css/flat-ui.css' type='text/css' media='screen' />"));
+
+    $("<link/>", {
+      rel: "stylesheet",
+      type: "text/css",
+      href: "assets/reference/flat-ui/css/flat-ui.css"
+    }).appendTo("head");
+
+    $(':radio').radiocheck();
   });
 </script>
+
+
+<link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/css/flat-ui.css">

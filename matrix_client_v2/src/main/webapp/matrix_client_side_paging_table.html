@@ -84,6 +84,15 @@
                           </div>
                         </a>
                       </li>
+                      <li role="step">
+                        <a href="#stepv6" role="tab" id="step5-vtab" data-toggle="tab" aria-controls="profile">
+                          <div class="icon fa fa-cogs"></div>
+                          <div class="step-title">
+                            <div class="title">Example</div>
+                            <div class="description">Results Check</div>
+                          </div>
+                        </a>
+                      </li>
                     </ul>
                     <div class="tab-content" style="width:100%">
                       <div role="tabpanel" class="tab-pane fade in active" id="stepv1" aria-labelledby="home-tab">
@@ -213,7 +222,7 @@
 
 
                       </div>
-                      <div role="tabpanel" class="tab-pane fade" id="stepv4" aria-labelledby="dropdown1-tab">
+                      <div data-bind="with:tableModel" role="tabpanel" class="tab-pane fade" id="stepv4" aria-labelledby="dropdown1-tab">
                         <div class="panel fresh-color panel-primary">
                           <div class="panel-heading">Common Table Example</div>
                           <div class="panel-body">
@@ -270,7 +279,7 @@
                                     <!-- <li><a href="#">结果总数:2000000条</a></li> -->
                                   </ul>
                                   <ul class="nav navbar-nav">
-                                    <li><a href="#">结果总数:<span data-bind="text:totalCounts()"></span>条</a></li>
+                                    <li><a href="#">结果总数:<span data-bind="text:totalCounts()?totalCounts():0"></span>条</a></li>
                                   </ul>
                                   <form class="navbar-form navbar-left" action="#" role="search">
                                     <div class="form-group">
@@ -294,7 +303,7 @@
                           </div>
                         </div>
                       </div>
-                      <div role="tabpanel" class="tab-pane fade" id="stepv5" aria-labelledby="dropdown1-tab">
+                      <div data-bind="with:tableModel" role="tabpanel" class="tab-pane fade" id="stepv5" aria-labelledby="dropdown1-tab">
                         <div class="panel fresh-color panel-primary">
                           <div class="panel-heading"><i class="fa fa-files-o"></i> 筛选文件列表</div>
                           <div class="panel-body">
@@ -376,7 +385,7 @@
                                     <!-- <li><a href="#">结果总数:2000000条</a></li> -->
                                   </ul>
                                   <ul class="nav navbar-nav">
-                                    <li><a href="#">结果总数:<span data-bind="text:totalCounts()"></span>条</a></li>
+                                    <li><a href="#">结果总数:<span data-bind="text:totalCounts()?totalCounts():0"></span>条</a></li>
                                   </ul>
                                   <form class="navbar-form navbar-left" action="#" role="search">
                                     <div class="form-group">
@@ -396,6 +405,105 @@
                           </div>
                         </div>
                       </div>
+
+                      <div role="tabpanel" class="tab-pane fade" id="stepv6" aria-labelledby="dropdown1-tab">
+                        <div class="panel fresh-color panel-primary">
+                          <div class="panel-heading">
+                            Result Table Example
+                            <button onclick="initialize_table()" type="button" class=" btn btn-black btn-xs pull-right" title="">
+                              <div class="title"><i class="fa fa-download"></i>&nbsp;Load Data</div>
+                            </button>
+                          </div>
+                          <div class="panel-body">
+                            <div data-bind="if:!(tableModel_no_intialize() && tableModel_no_intialize().serverData)">
+                              <div class="alert alert-success alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+                                <strong><i class="fa fa-warning"></i>&nbsp;信息:</strong> &nbsp;Table Not Initialized! Please load data first!
+                              </div>
+                            </div>
+                            <div data-bind="if:(tableModel_no_intialize() && tableModel_no_intialize().serverData)">
+
+                              <div data-bind="with:tableModel_no_intialize()">
+                                <div class="row">
+                                  <div class="col-md-12" style="overflow: auto">
+                                    <table class="table table-striped" cellspacing="0">
+                                      <thead>
+                                        <tr>
+                                          <!-- ko foreach: columnNames -->
+                                          <th>
+                                            <span data-bind="text: $data"></span>
+                                          </th>
+                                          <!-- /ko -->
+                                        </tr>
+                                      </thead>
+                                      <tbody data-bind="foreach:viewData">
+                                        <tr data-bind="visible:isDisplay,foreach: data">
+                                          <td data-bind="text: $data"></td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+
+                                <div class="matrix-pager-example">
+                                  <nav class="matrix-pager " role="navigation">
+
+                                    <div class="collapse navbar-collapse" id="navbar-collapse-01">
+
+                                      <ul class="nav navbar-nav navbar-right ">
+                                        <li><a data-bind="click:function(){toPage(1)}" href="#"><i class="fa fa-angle-double-left"></i> &nbsp;首页</a></li>
+                                        <li><a data-bind="click:function(){toPage(currentPageNumber()-1)}" href="#"><i class="fa fa-angle-left"></i> &nbsp;上页</a></li>
+                                        <li>
+                                          <form class="navbar-form navbar-center" action="#" role="search" style="width:68px;margin-left: -20px;">
+                                            <div class="form-group">
+                                              <div class="input-group">
+                                                <input data-bind="value:currentPageNumber" class="form-control text-center" type="search" placeholder="页数" style="width:50px;border-radius: 0px;">
+                                                <span class="input-group-btn" style="padding-left: 3px;">
+                                            <button data-bind="visible:false,click:function(){}" type="submit" class="btn"><span class="fui-search"></span></button>
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </form>
+                                        </li>
+                                        <li><a data-bind="click:function(){toPage(currentPageNumber()+1)}" href="#">下页 &nbsp;<i class="fa fa-angle-right"></i></a></li>
+                                        <li><a data-bind="click:function(){toPage(totalPage())}" href="#"> 末页 &nbsp;<i class="fa fa-angle-double-right"></i></a></li>
+                                        <li class="dropdown">
+                                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">每页<span data-bind="text:pageMaxSize()"></span>条<b class="caret"></b></a>
+                                          <span class="dropdown-arrow"></span>
+                                          <ul class="dropdown-menu" data-bind="foreach: pagingSizeArray">
+                                            <li><a data-bind="click:function(){$parent.pageMaxSize($data)}" href="#"><span data-bind="text:$data"></span></a></li>
+                                          </ul>
+                                        </li>
+                                        <!-- <li><a href="#">结果总数:2000000条</a></li> -->
+                                      </ul>
+                                      <ul class="nav navbar-nav">
+                                        <li><a href="#">结果总数:<span data-bind="text:totalCounts()?totalCounts():0"></span>条</a></li>
+                                      </ul>
+                                      <form class="navbar-form navbar-left" action="#" role="search">
+                                        <div class="form-group">
+                                          <div class="input-group">
+                                            <input data-bind="value:searchKeyword" class="form-control text-center" id="navbarInput-01" type="search" placeholder="Search">
+                                            <span class="input-group-btn">
+                                          <button data-bind="click:function(){buildView()}" type="submit" class="btn"><span class="fui-search"></span></button>
+                                            </span>
+                                            <!-- <span class="input-group-btn" style="padding-left: 3px;">
+                                          <button  data-bind="click:function(){buildView()}" type="button" class="btn"><span class="fui-search"></span></button>
+                                        </span> -->
+
+                                          </div>
+                                        </div>
+                                      </form>
+                                    </div>
+                                    <!-- /.navbar-collapse -->
+                                  </nav>
+                                  <!-- /navbar -->
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
                   </div>
                 </div>
@@ -439,8 +547,16 @@
     });
   </script>
   <script>
+    function PageModel() {
+      var self = this;
+      self.tableModel = null;
+      self.tableModel_no_intialize = ko.observable();
+    }
+    var pageModel = new PageModel();
     var tableModel = new ListViewModel();
-    ko.applyBindings(tableModel, document.getElementById('contentDIV'));
+    pageModel.tableModel = tableModel;
+
+    ko.applyBindings(pageModel, document.getElementById('contentDIV'));
 
     var retrieveData_mock = function() {
       $.ajax({
@@ -464,9 +580,10 @@
     retrieveData_mock();
 
 
-    var test = function(){
-      // $parent.pageMaxSize($data)
-      console.log(".....")
+    var initialize_table = function() {
+      if (pageModel.tableModel_no_intialize() == null) {
+        pageModel.tableModel_no_intialize(tableModel);
+      }
     }
   </script>
 </body>

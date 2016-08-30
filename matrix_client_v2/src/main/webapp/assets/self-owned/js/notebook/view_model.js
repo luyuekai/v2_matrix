@@ -43,6 +43,7 @@ function HiveResultViewModel(notebook){
   self.notebook = notebook;
   self.data_server = null;
   self.vm_server = new ListViewModel();
+  self.vm_server_has_result = ko.observable(false);
   self.vm_analyze = new ListViewModel();
 }
 function SqlResultViewModel(){
@@ -99,11 +100,10 @@ function NotebookViewModel(data, isChecked, isDisplay) {
  */
 function NotebookListViewModel() {
   var self = this;
+  self.data = null;
   // notebook elements for the whole DOM
   self.notebooks = ko.observableArray();
   self.currentNotebook = ko.observable();
-
-  self.tables = ko.observableArray();
 
 
   //单纯的界面逻辑函数： 重置当前notebook list
@@ -137,6 +137,9 @@ function NotebookListViewModel() {
 
   self.download = function(headers,data,type,notebook){
     download_businessLogic(headers,data,type,notebook);
+  }
+  self.prepare_analyze = function(headers,data,notebook){
+    prepare_analyze_businessLogic(headers,data,notebook);
   }
 
 }

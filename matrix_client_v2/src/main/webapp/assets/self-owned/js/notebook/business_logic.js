@@ -102,12 +102,13 @@ var run_businessLogic = function(currentData, currentIndex, notebookListViewMode
   var bi = notebook.console.currentBookmark(); // bookmark index
   if (bi === 1) {
     //hive business logic
-    if(hive_mock_data){
+    if (hive_mock_data) {
       var tableModel = notebook.result.result_hive.vm_server;
       tableModel.pageMaxSize(5);
       tableModel.buildData(hive_mock_data.result);
       tableModel.columnNames(hive_mock_data.header);
       tableModel.buildView();
+      notebook.result.result_hive.vm_server_has_result(true);
     }
   }
   if (bi === 2) {
@@ -254,10 +255,10 @@ function successListener() {
 }
 
 
-var download_businessLogic = function(headers,data,type,notebook){
-  if(headers && data){
-    download(headers,data,type);
-  }else{
+var download_businessLogic = function(headers, data, type, notebook) {
+  if (headers && data) {
+    download(headers, data, type);
+  } else {
     notebook.alerts.warningResponse("当前没有合适下载的数据结果", "提示:", "[导出/下载数据]");
   }
 
@@ -265,11 +266,21 @@ var download_businessLogic = function(headers,data,type,notebook){
 
 
 
+var prepare_analyze_businessLogic = function(headers, data, notebook) {
+  if (headers && data) {
+    headers = headers.filter(UtilPOJO.removeEmptyChars);
+    // do something...
+    var pojo = {
+      'headers':headers,
+      'data':data,
+      'notebook':notebook
+    }
+    ModalUtil.popup_modal_with_businessPOJO('数据统计分析设置', '/prototype_scripter_notebook_modal_analyze.html',pojo);
+  } else {
+    notebook.alerts.warningResponse("当前没有合适分析的数据结果", "提示:", "[分析数据]");
+  }
 
-
-
-
-
+}
 
 
 
