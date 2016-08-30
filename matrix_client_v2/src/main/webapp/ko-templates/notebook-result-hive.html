@@ -10,7 +10,7 @@
       <button type="button" class=" btn btn-black btn-xs pull-right" title="Analyze" data-bind="click:function(data,event){notebookListViewModel.prepare_analyze(vm_server.columnNames(),vm_server.serverData,notebook);}">
         <div class="title"><i class="fa fa-cubes"></i>&nbsp;分析</div>
       </button>
-      <button type="button" class=" btn btn-black btn-xs pull-right" title="Charting" data-bind="click:function(data,event){}">
+      <button type="button" class=" btn btn-black btn-xs pull-right" title="Charting" data-bind="click:function(data,event){notebookListViewModel.prepare_charting(vm_server.columnNames(),vm_server.serverData,notebook);}">
         <div class="title"><i class="fa fa-bar-chart">&nbsp;图表</i></div>
       </button>
       <button data-bind="click:function(data,event){console.log(notebook);notebookListViewModel.test()}" type="button" class=" btn btn-black btn-xs pull-right" style="border-color:#fff">
@@ -99,7 +99,6 @@
     </div>
   </div>
 
-  <hr>
   <div data-bind="if:vm_analyze_has_result()">
     <div class="panel fresh-color panel-primary">
       <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;数据统计迭代分析(Hive)
@@ -112,7 +111,7 @@
         <button type="button" class=" btn btn-black btn-xs pull-right" title="Analyze" data-bind="click:function(data,event){notebookListViewModel.prepare_analyze(vm_analyze.columnNames(),vm_analyze.serverData,notebook);}">
           <div class="title"><i class="fa fa-cubes"></i>&nbsp;分析</div>
         </button>
-        <button type="button" class=" btn btn-black btn-xs pull-right" title="Charting" data-bind="click:function(data,event){}">
+        <button type="button" class=" btn btn-black btn-xs pull-right" title="Charting" data-bind="click:function(data,event){notebookListViewModel.prepare_charting(vm_analyze.columnNames(),vm_analyze.serverData,notebook);}">
           <div class="title"><i class="fa fa-bar-chart">&nbsp;图表</i></div>
         </button>
         <button data-bind="click:function(data,event){console.log(notebook);notebookListViewModel.test()}" type="button" class=" btn btn-black btn-xs pull-right" style="border-color:#fff">

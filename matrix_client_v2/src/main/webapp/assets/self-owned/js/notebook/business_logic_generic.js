@@ -23,23 +23,18 @@ var switchBookmark_businessLogic = function(ni, bi, notebookListViewModel) {
     self.notebooks()[ni].result.isDisplay_markdown(false);
     if (bi === 1) {
       self.notebooks()[ni].result.isDisplay_hive(true);
-
     }
     if (bi === 2) {
       self.notebooks()[ni].result.isDisplay_sql(true);
-
     }
     if (bi === 3) {
       self.notebooks()[ni].result.isDisplay_pig(true);
-
     }
     if (bi === 4) {
       self.notebooks()[ni].result.isDisplay_spark(true);
-
     }
     if (bi === 5) {
       self.notebooks()[ni].result.isDisplay_impala(true);
-
     }
     if (bi === 6) {
       self.notebooks()[ni].result.isDisplay_markdown(true);
@@ -82,8 +77,8 @@ var resetNotebook_businessLogic = function(notebookListViewModel) {
   var self = notebookListViewModel;
   self.notebooks.removeAll();
   self.addNotebook();
-  // self.chartPanel.charts.removeAll();
-  // self.chartPanel.isDisplay(false);
+  self.chartPanel.charts.removeAll();
+  self.chartPanel.isDisplay(false);
 };
 
 
