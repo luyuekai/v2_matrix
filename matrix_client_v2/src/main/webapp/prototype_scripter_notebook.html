@@ -53,6 +53,7 @@
                 <li class="active">工作台</li>
               </ol>
               <!-- Content Header  -->
+
               <h5>
                 <i class="fa fa-tasks"></i> 欢迎使用大数据BI分析工具台
                 <button data-bind="click:resetNotebook" type="button" class=" btn btn-white btn-xs" >
@@ -77,8 +78,6 @@
                   <span class="fa fa-clock-o" aria-hidden="true">&nbsp;定时</span>
                 </button>
               </h5>
-
-
 
 
 
@@ -194,7 +193,10 @@
                   </div>
 
 
-                
+                  <!-- Mock Table -->
+
+
+                  <!-- Mock Table End-->
                 </div>
 
 
@@ -208,7 +210,31 @@
 
       </div>
     </div>
+
+
+    <div class="modal fade modal-success" id="popupModalPro" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <i class="fa fa-send-o"></i> &nbsp; <span class="modal-title" id="popupModalLabelPro"></span>
+          </div>
+          <div class="modal-body">
+            <div id="modalContentDIVPro"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
   </div>
+
+
+
+
 
   <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
   <script src="assets/reference/jquery/jquery.json.js"></script>
@@ -239,7 +265,8 @@
   <script src="assets/self-owned/js/generic/generic_validation.js"></script>
 
   <script src="assets/self-owned/js/notebook/view_model.js"></script>
-  <script src="assets/self-owned/js/notebook/business_logic.js"></script>
+  <script src="assets/self-owned/js/notebook/business_logic_generic.js"></script>
+  <script src="assets/self-owned/js/notebook/business_logic_hive.js"></script>
 
   <script>
     $(document).ready(function() {
@@ -252,47 +279,12 @@
     });
   </script>
 
-  <script>
-    var tableModel = new ListViewModel();
 
-
-    var retrieveData_mock_test = function() {
-      $.ajax({
-        url: $.getRootPath() + "/assets/self-owned/data/server_mock_data.json",
-        type: 'GET',
-        dataType: 'json',
-        success: function(json) {
-          var serverData = json;
-          var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
-          tableModel.pageMaxSize(5);
-          tableModel.buildData(tableData.result);
-          tableModel.columnNames(tableData.header);
-          tableModel.buildView();
-
-        },
-        error: function(xhr, status) {
-          console.log('Sorry, there was a problem on SERVER_REQUEST_ACTION process!');
-        },
-        complete: function(xhr, status) {}
-      });
-    }
-    retrieveData_mock_test();
-
-    function PageViewModel() {
-      var self = this;
-      this.tables = ko.observableArray();
-    }
-    // var pageModel = new PageViewModel();
-    // pageModel.tables.push(tableModel);
-    //
-    // ko.applyBindings(pageModel, document.getElementById('contentDIV'));
-  </script>
 
   <script>
     var notebookListViewModel = new NotebookListViewModel();
 
     notebookListViewModel.addNotebook();
-    notebookListViewModel.tables.push(tableModel);
 
     $.subscribe("MATRIX_TEMPLATES_LOAD_FINISHED", MATRIX_TEMPLATES_LOAD_FINISHED_LISTENER);
 

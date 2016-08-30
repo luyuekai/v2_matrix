@@ -334,10 +334,6 @@
     function BusinessPOJO() {
       var self = this;
       self.data = null;
-      self.key = ko.observable('');
-      self.value = ko.observable('');
-      self.project = ko.observable('');
-      self.product = ko.observable('');
 
       self.items = ko.observableArray([{
         itemName: '基于某列进行基础统计',
@@ -421,6 +417,7 @@
   // *******YOUR SHOULD CODING IN HERE:*******
   var runService = function() {
     console.log("run service function invoked!");
+
     var headers = genericModalViewModel.businessPOJO().data.headers;
     var dataArray = genericModalViewModel.businessPOJO().data.data;
     var notebook = genericModalViewModel.businessPOJO().data.notebook;
@@ -454,6 +451,11 @@
     }
     console.log("--------------The Analyze Data Result IS:----------------")
     console.log(tableData);
+    var pojo = {
+      'tableData':tableData,
+      'notebook':notebook
+    }
+    $.publish("NOTEBOOK_ANALYZE_EVENT", pojo);
   }
 
 </script>

@@ -1,0 +1,288 @@
+<div id="genericModalDiv">
+
+  <!--RESULT DISPLAY DIV BEGIN-->
+  <div id="resultDIV" data-bind="visible: hasResult,css: styleClass" class="alert fresh-color">
+    <button type="button" class="close" data-bind="click:hasResult(false)" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>
+      <span data-bind="text:resultTitle"></span>
+    </strong>
+    <span data-bind="text:resultSubTitle"></span>
+    <div data-bind="text:resultContent"></div>
+  </div>
+  <!--RESULT DISPLAY DIV END-->
+
+  <!--CONTENT DIV BEGIN-->
+  <div id="modal_content_div">
+    <div class="card card-success">
+      <div class="card profile">
+        <div class="card-body">
+          <!--Validation DIV BEGIN-->
+          <div data-bind="visible: hasError" class="alert alert-warning alert-dismissible fresh-color" role="alert">
+            <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>提示:</strong>
+            <div id="errorMessagesDIV" data-bind="foreach:errorMessage">
+              <div data-bind="text:$data"></div>
+            </div>
+          </div>
+          <!--Validation DIV END-->
+          <!-- *******YOUR SHOULD CODING IN HERE:[BEGIN]*******-->
+          <div data-bind="if:businessPOJO()">
+            <div data-bind="with:businessPOJO">
+              <div class="step">
+                <ul class="nav nav-tabs nav-justified" role="tablist">
+                  <li role="step" class="active">
+                    <a href="#step1" id="step1-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+                      <div class="icon fa fa-bar-chart"></div>
+                      <div class="step-title">
+                        <div class="title">步骤一</div>
+                        <div class="description">选择出图类型</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li role="step">
+                    <a href="#step2" role="tab" id="step2-tab" data-toggle="tab" aria-controls="profile">
+                      <div class="icon fa fa-stethoscope"></div>
+                      <div class="step-title">
+                        <div class="title">步骤二</div>
+                        <div class="description">进行细节设置</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li role="step">
+                    <a href="#step3" role="tab" id="step3-tab" data-toggle="tab" aria-controls="profile">
+                      <div class="icon fa fa-file-text-o"></div>
+                      <div class="step-title">
+                        <div class="title">步骤三</div>
+                        <div class="description">检查结果与执行</div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+
+                <div class="tab-content">
+                  <script type="text/javascript">
+                    $(':radio').radiocheck();
+                  </script>
+                  <div role="tabpanel" class="tab-pane fade in active" id="step1" aria-labelledby="home-tab">
+                    <div class="card card-success">
+                      <div class="card-header" style="height:50px">
+                        <div class="card-title" style="padding: 8px 20px;">
+                          <div class="title"><i class="fa fa-cogs"></i> 选择想要进行的出图类型
+                          </div>
+                        </div>
+                        <div class="clear-both"></div>
+                      </div>
+                      <div class="card-body no-padding">
+                        <br>
+                        <div>
+                          <form class="form-horizontal">
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label">
+                                <span style="font-weight: bold;font-size: 14px;">支持的出图类型</span>
+                                <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                              </label>
+                              <div class="col-sm-9">
+                                <select class="form-control" style="width:288px" data-bind="options:supportChartTypes,value:chosenChartType,optionsCaption: '请选择...'"></select>
+                              </div>
+                            </div>
+                          </form>
+                          <div class="alert alert-info fresh-color" role="alert">
+                            出图类型: 柱状图、折线图、散点图、饼图、地图、雷达图、热力图、漏斗图、仪表图
+                            <br> 饼图: 对于二维数据透视图,可以对指定的列生成饼图,每个饼代表对应横坐标数据单元格值，饼图中默认去掉合计统计
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="step2" aria-labelledby="profile-tab">
+                    <div class="card card-success">
+                      <div class="card-header" style="height:50px">
+                        <div class="card-title" style="padding: 8px 20px;">
+                          <div class="title"><i class="fa fa-cogs"></i> 设置出图细节
+                            <small>(基于所选择类型进行定制化设置)</small>
+                          </div>
+                        </div>
+                        <div class="clear-both"></div>
+                      </div>
+                      <div class="card-body no-padding">
+                        <br>
+                        <form class="form-horizontal">
+                          <div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label">
+                                <span style="font-weight: bold;font-size: 14px;">设置名称</span>
+                                <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                              </label>
+                              <div class="col-sm-9">
+                                <input type="text" class="form-control" style="width:388px" data-bind="value: chartName" placeholder="名称">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label">
+                                <span style="font-weight: bold;font-size: 14px;">横坐标轴(x-Axis)</span>
+                                <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                              </label>
+                              <div class="col-sm-9">
+                                <select class="form-control" style="width:388px" data-bind="options:availableColumnNames,value:selectedColumn_x,optionsCaption: '请选择...'"></select>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label">
+                                <span style="font-weight: bold;font-size: 14px;">纵坐标轴(y-Axis)</span>
+                                <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                              </label>
+                              <div class="col-sm-9">
+                                <select class="form-control" style="width:388px" data-bind="options:availableColumnNames,value:selectedColumn_y,optionsCaption: '请选择...'"></select>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+
+
+                      </div>
+                    </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="step3" aria-labelledby="profile-tab">
+                    <div class="card card-success">
+                      <div class="card-header" style="height:50px">
+                        <div class="card-title" style="padding: 8px 20px;">
+                          <div class="title"><i class="fa fa-cogs"></i> 检查结果与执行
+                          </div>
+                        </div>
+                        <div class="clear-both"></div>
+                      </div>
+                      <div class="card-body no-padding">
+                        <br>
+                        <form class="form-horizontal">
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">
+                              <span style="font-weight: bold;font-size: 14px;">出图类型</span>
+                              <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                            </label>
+                            <div class="col-sm-9">
+                              <p class="form-control-static" style="font-size:14px;padding-top: 8px;" data-bind="text:chosenChartType"></p>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">
+                              <span style="font-weight: bold;font-size: 14px;">设置名称</span>
+                              <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                            </label>
+                            <div class="col-sm-9">
+                              <p class="form-control-static" style="font-size:14px;padding-top: 8px;" data-bind="text:chartName"></p>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label"><span style="font-weight: bold;font-size: 14px;">横坐标轴(x-Axis)</span><i class="fa fa-asterisk" style="color: #E74C3C;"></i></label>
+                            <div class="col-sm-9">
+                              <p class="form-control-static" style="font-size:14px;padding-top: 8px;" data-bind="text:selectedColumn_x()"></p>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label"><span style="font-weight: bold;font-size: 14px;">纵坐标轴(y-Axis)</span><i class="fa fa-asterisk" style="color: #E74C3C;"></i></label>
+                            <div class="col-sm-9">
+                              <p class="form-control-static" style="font-size:14px;padding-top: 8px;" data-bind="text:selectedColumn_y()"></p>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="pull-right">
+                      <button class="btn btn-primary btn-wide" onclick="execute()">检查并执行</button>
+                      <button class="btn btn-inverse btn-wide" onclick="ModalUtil.modal_close('popupModalPro')">关闭</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- *******YOUR SHOULD CODING IN HERE:[END]*******-->
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--CONTENT DIV END-->
+</div>
+
+<script>
+  // Initialize the View Model
+  // Clean the paging binding nodes
+  // Binding the view Model
+  var genericModalViewModel = new GenericModalViewModel();
+  ko.cleanNode($('#genericModalDiv')[0]);
+  ko.applyBindings(genericModalViewModel, document.getElementById('genericModalDiv'));
+</script>
+
+<script>
+  // Setup the business model with view model
+  (function initialize() {
+    // *******YOUR SHOULD CODING IN HERE:*******
+    function BusinessPOJO() {
+      var self = this;
+      self.data = null;
+
+      self.chartName = ko.observable("未命名");
+      self.supportChartTypes = ko.observableArray(['bar', 'line', 'scatter', 'area']);
+      self.chosenChartType = ko.observable(self.supportChartTypes()[0]);
+      self.availableColumnNames = ko.observableArray();
+      self.selectedColumn_x = ko.observable();
+      self.selectedColumn_y = ko.observable();
+
+    }
+    var businessPOJO = new BusinessPOJO();
+    if (ModalUtil.businessPOJO) {
+      businessPOJO.data = ModalUtil.businessPOJO;
+      if(businessPOJO.data.headers){
+        businessPOJO.availableColumnNames(businessPOJO.data.headers);
+        if(businessPOJO.data.headers.length>0){
+          businessPOJO.selectedColumn_x(businessPOJO.data.headers[0]);
+          businessPOJO.selectedColumn_y(businessPOJO.data.headers[0]);
+        }
+      }
+    }
+    genericModalViewModel.businessPOJO(businessPOJO);
+  })();
+
+  function execute() {
+    // validation failed
+    // show validation error message in the warning DIV...
+    if (!genericModalViewModel.validation(businessValidation)) {
+      return;
+    } else {
+      // validation correct
+      // do your business...
+      runService();
+    }
+  }
+
+  // *******YOUR SHOULD CODING IN HERE:*******
+  var businessValidation = function() {
+    var errorMessages = [];
+    //validate logic...
+
+    //validate
+
+    var validateFunctions_chartName = ['KEY_NOT_NULL','KEY_SPECIAL'];
+    ValidationPOJO.validate("Chart Name", genericModalViewModel.businessPOJO().chartName(), errorMessages, validateFunctions_chartName);
+    var validateFunctions_x_axis = ['KEY_NOT_NULL'];
+    ValidationPOJO.validate("横坐标轴属性列", genericModalViewModel.businessPOJO().selectedColumn_x(), errorMessages, validateFunctions_x_axis);
+    var validateFunctions_y_axis = ['KEY_NOT_NULL'];
+    ValidationPOJO.validate("纵坐标轴属性列", genericModalViewModel.businessPOJO().selectedColumn_y(), errorMessages, validateFunctions_y_axis);
+
+    return errorMessages;
+  }
+
+  // *******YOUR SHOULD CODING IN HERE:*******
+  var runService = function() {
+    console.log("run service function invoked!");
+
+    var pojo = {
+      'chartSetting': genericModalViewModel.businessPOJO()
+    }
+    $.publish("NOTEBOOK_CHARTING_EVENT", pojo);
+  }
+</script>

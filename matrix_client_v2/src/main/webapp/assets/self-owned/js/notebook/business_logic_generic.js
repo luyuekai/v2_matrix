@@ -271,19 +271,34 @@ var prepare_analyze_businessLogic = function(headers, data, notebook) {
     headers = headers.filter(UtilPOJO.removeEmptyChars);
     // do something...
     var pojo = {
-      'headers':headers,
-      'data':data,
-      'notebook':notebook
+      'headers': headers,
+      'data': data,
+      'notebook': notebook
     }
-    ModalUtil.popup_modal_with_businessPOJO('数据统计分析设置', '/prototype_scripter_notebook_modal_analyze.html',pojo);
+    ModalUtil.popup_modal_with_businessPOJO('数据统计分析设置', '/prototype_scripter_notebook_modal_analyze.html', pojo);
   } else {
     notebook.alerts.warningResponse("当前没有合适分析的数据结果", "提示:", "[分析数据]");
   }
-
 }
 
 
 
+$.subscribe("NOTEBOOK_ANALYZE_EVENT", listener_NOTEBOOK_ANALYZE_EVENT);
+function listener_NOTEBOOK_ANALYZE_EVENT() {
+  if (arguments && arguments[1]) {
+    console.log("Catch event [NOTEBOOK_ANALYZE_EVENT] and the response data are:");
+    console.log(arguments[1]);
+    var notebook = arguments[1].notebook;
+    var tableData = arguments[1].tableData;
+    var bookmark = notebook.console.currentBookmark();
+    if (bookmark == 1) {
+      analyze_result_display_businessLogic_hive(tableData, notebook);
+    }
+
+    ModalUtil.modal_close('popupModalPro');
+  }
+
+}
 
 
 

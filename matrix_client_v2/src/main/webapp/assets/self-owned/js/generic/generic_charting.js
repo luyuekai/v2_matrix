@@ -1,5 +1,5 @@
 var labelStyle = {
-  color: 'white',
+  //color: 'white',
   fontWeight: 'bold',
   fontSize: '12'
 };
@@ -69,7 +69,7 @@ ChartPOJO = {
         },
         axisLine: {
           lineStyle: {
-            color: '#fff'
+            //color: '#fff'
           }
         },
         splitLine: {
@@ -84,7 +84,7 @@ ChartPOJO = {
         },
         axisLine: {
           lineStyle: {
-            color: '#fff'
+            //color: '#fff'
           }
         },
         splitLine: {
@@ -133,7 +133,7 @@ ChartPOJO = {
       // stack: 'server',
       itemStyle: {
         normal: {
-          color: '#aa10c9',
+          //color: '#aa10c9',
         }
       },
       data: series_data
