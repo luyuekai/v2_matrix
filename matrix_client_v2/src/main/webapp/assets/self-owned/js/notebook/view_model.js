@@ -106,7 +106,7 @@ function NotebookListViewModel() {
   self.data = null;
   // notebook elements for the whole DOM
   self.notebooks = ko.observableArray();
-  self.currentNotebook = ko.observable();
+  // self.currentNotebook = ko.observable();
   self.chartPanel = new ChartListViewModel(self);
 
 

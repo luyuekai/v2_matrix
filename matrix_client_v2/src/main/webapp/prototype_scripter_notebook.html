@@ -1,5 +1,4 @@
-_series_add
-<!-- <!DOCTYPE html> -->
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -14,8 +13,6 @@ _series_add
   <link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/css/flat-ui.css">
   <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
-
-
   <style>
     textarea {
       border: 0px solid #ddd;
@@ -33,7 +30,6 @@ _series_add
       transition: height 0.2s;
     }
   </style>
-
 </head>
 
 <body>
@@ -78,6 +74,7 @@ _series_add
                   <span class="fa fa-clock-o" aria-hidden="true">&nbsp;定时</span>
                 </button>
               </h5>
+
               <!-- Charting DIV BEGIN -->
               <div id="chartDIV" class="container-fluid" data-bind="visible:chartPanel.isDisplay()" style="background-color:white;border:0px solid #ddd;display:none">
                 <div class="row" data-bind="visible: chartPanel.charts().length<1">
@@ -122,6 +119,7 @@ _series_add
                 </div>
               </div>
               <!-- Charting DIV END -->
+
 
               <div data-bind="foreach:notebooks">
                 <div style="border:1.6px solid #ddd; border-radius: 8px; margin-top:20px;">
@@ -234,6 +232,10 @@ _series_add
     </div>
 
 
+
+
+
+    <!-- Matrix Modal -->
     <div class="modal fade modal-success" id="popupModalPro" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -250,12 +252,7 @@ _series_add
       </div>
     </div>
 
-
-
   </div>
-
-
-
 
 
   <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
@@ -319,7 +316,6 @@ _series_add
       ensureTemplates(["notebook-result-hive", "notebook-result-sql", "notebook-result-pig", "notebook-result-spark", "notebook-result-impala", "notebook-result-markdown"]);
     });
   </script>
-
 </body>
 
 </html>
