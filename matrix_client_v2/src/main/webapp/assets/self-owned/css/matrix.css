@@ -1603,7 +1603,7 @@ a:hover {
   color: #34495e;
 }
 .flat-matrix .navbar .navbar-nav > li, .flat-matrix .navbar.navbar-default .navbar-nav > li {
-  border-left: 1px solid #F9F9F9;
+  /*border-left: 1px solid #F9F9F9;*/
 }
 .flat-matrix .navbar .navbar-nav > li > a, .flat-matrix .navbar.navbar-default .navbar-nav > li > a {
   color: #34495e;
@@ -1648,7 +1648,7 @@ a:hover {
   color: #FFF;
 }
 .flat-matrix .navbar.navbar-inverse .navbar-nav > li {
-  border-left: 1px solid #363c46;
+  /*border-left: 1px solid #363c46;*/
 }
 .flat-matrix .navbar.navbar-inverse .navbar-nav > li > a {
   color: #FFF;

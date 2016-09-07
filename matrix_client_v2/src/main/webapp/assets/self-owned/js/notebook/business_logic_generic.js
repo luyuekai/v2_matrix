@@ -279,6 +279,7 @@ var prepare_analyze_businessLogic = function(headers, data, notebook) {
 
 
 $.subscribe("NOTEBOOK_ANALYZE_EVENT", listener_NOTEBOOK_ANALYZE_EVENT);
+
 function listener_NOTEBOOK_ANALYZE_EVENT() {
   if (arguments && arguments[1]) {
     console.log("Catch event [NOTEBOOK_ANALYZE_EVENT] and the response data are:");
@@ -319,3 +320,280 @@ var initialize_hive_mock_data = function() {
 }
 
 initialize_hive_mock_data();
+
+
+
+
+// Function for serialize the notebook page model to savable data
+var export_notebook_mock = function() {
+  var result = {};
+
+  var serialize_notebook_mock_data = serialize_notebook_mock();
+
+  result = serialize_notebook_mock_data;
+  console.log("The export notebook mock data is:");
+  console.log(result);
+  return result;
+}
+
+var serialize_notebook_mock = function() {
+
+  var notebook_1 = {
+    console: {
+      inputContent: '#Note: \n This is serialize data from export notebook mock function...',
+      isDisplay: true,
+      isBlocking: false,
+      currentBookmark: 1
+    },
+    result: {
+      isDisplay: true,
+      isDisplay_hive: true,
+      isDisplay_sql: false,
+      isDisplay_pig: false,
+      isDisplay_spark: false,
+      isDisplay_impala: false,
+      isDisplay_markdown: false,
+      result_hive: {
+        vm_server: {
+          serverData: [
+            [1, "bill", "male", 32, "bill@matrix.com", 13912738475],
+            [2, "amanda", "female", 32, "amanda@matrix.com", 13912738475],
+            [3, "carina", "female", 32, "carina@matrix.com", 13912738475],
+            [4, "tom", "male", 32, "tom@matrix.com", 13912738475],
+            [5, "frank", "male", 32, "frank@matrix.com", 13912738475],
+            [6, "willy", "male", 32, "willy@matrix.com", 13912738475],
+            [7, "bill2", "female", 32, "bill@matrix.com", 13912738475],
+            [8, "bill3", "male", 32, "bill@matrix.com", 13912738475],
+            [9, "bill4", "male", 32, "bill@matrix.com", 13912738475],
+            [10, "bill5", "female", 32, "bill@matrix.com", 13912738475],
+            [11, "bill6", "male", 32, "bill@matrix.com", 13912738475],
+            [12, "bill7", "male", 32, "bill@matrix.com", 13912738475],
+            [13, "bill8", "male", 32, "bill@matrix.com", 13912738475],
+            [14, "frank1", "female", 32, "bill@matrix.com", 13912738475],
+            [15, "frank2", "male", 32, "bill@matrix.com", 13912738475],
+            [16, "frank3", "male", 32, "bill@matrix.com", 13912738475],
+            [17, "frank4", "male", 32, "bill@matrix.com", 13912738475],
+            [18, "frank5", "female", 32, "bill@matrix.com", 13912738475],
+            [19, "frank", "male", 32, "bill@matrix.com", 13912738475],
+            [20, "bill3", "male", 32, "bill@matrix.com", 13912738475],
+            [21, "bill2", "male", 32, "bill@matrix.com", 13912738475],
+            [22, "bill1", "male", 32, "bill@matrix.com", 13912738475],
+            [23, "bill6", "male", 32, "bill@matrix.com", 13912738475],
+            [24, "bill8", "male", 32, "bill@matrix.com", 13912738475],
+            [25, "bill", "male", 32, "bill@matrix.com", 13912738475]
+          ],
+          columnNames: ["id", "name", "sex", "age", "email", "phone"]
+        },
+        vm_server_has_result: true,
+
+        vm_analyze: {
+          serverData: [
+            ["bill@matrix.com", 2, 0, 0, 0, 1, 0, 2, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 20],
+            ["amanda@matrix.com", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            ["carina@matrix.com", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            ["tom@matrix.com", 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            ["frank@matrix.com", 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            ["willy@matrix.com", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            ["Total", 2, 1, 1, 1, 2, 1, 2, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 25]
+          ],
+          columnNames: ["", "bill", "amanda", "carina", "tom", "frank", "willy", "bill2", "bill3", "bill4", "bill5", "bill6", "bill7", "bill8", "frank1", "frank2", "frank3", "frank4", "frank5", "bill1", "Total"]
+        },
+        vm_analyze_has_result: true
+      },
+      result_sql: {},
+      result_pig: {},
+      result_spark: {},
+      result_impala: {},
+      result_markdown: {}
+    },
+    status: {
+      currentStatus: 'READY',
+      currentStatusClass: 'fa fa-plug',
+      progress: 0,
+      isDisplay: true
+    },
+    alerts: {
+      styleClass: "alert-success",
+      resultVisible: false,
+      resultTitle: "Successed",
+      resultSubTitle: "[General Search]",
+      resultContent: "This is the result content..."
+    }
+  };
+  var notebook_2 = {
+    console: {
+      inputContent: '#Note: \n This is serialize data from export notebook mock function...',
+      isDisplay: true,
+      isBlocking: false,
+      currentBookmark: 1
+    },
+    result: {
+      isDisplay: true,
+      isDisplay_hive: true,
+      isDisplay_sql: false,
+      isDisplay_pig: false,
+      isDisplay_spark: false,
+      isDisplay_impala: false,
+      isDisplay_markdown: false,
+      result_hive: {
+        vm_server: {
+          serverData: [
+            [1, "bill", "male", 32, "bill@matrix.com", 13912738475],
+            [2, "amanda", "female", 32, "amanda@matrix.com", 13912738475],
+            [3, "carina", "female", 32, "carina@matrix.com", 13912738475],
+            [4, "tom", "male", 32, "tom@matrix.com", 13912738475],
+            [5, "frank", "male", 32, "frank@matrix.com", 13912738475],
+            [6, "willy", "male", 32, "willy@matrix.com", 13912738475],
+            [7, "bill2", "female", 32, "bill@matrix.com", 13912738475],
+            [8, "bill3", "male", 32, "bill@matrix.com", 13912738475],
+            [9, "bill4", "male", 32, "bill@matrix.com", 13912738475],
+            [10, "bill5", "female", 32, "bill@matrix.com", 13912738475],
+            [11, "bill6", "male", 32, "bill@matrix.com", 13912738475],
+            [12, "bill7", "male", 32, "bill@matrix.com", 13912738475],
+            [13, "bill8", "male", 32, "bill@matrix.com", 13912738475],
+            [14, "frank1", "female", 32, "bill@matrix.com", 13912738475],
+            [15, "frank2", "male", 32, "bill@matrix.com", 13912738475],
+            [16, "frank3", "male", 32, "bill@matrix.com", 13912738475],
+            [17, "frank4", "male", 32, "bill@matrix.com", 13912738475],
+            [18, "frank5", "female", 32, "bill@matrix.com", 13912738475],
+            [19, "frank", "male", 32, "bill@matrix.com", 13912738475],
+            [20, "bill3", "male", 32, "bill@matrix.com", 13912738475],
+            [21, "bill2", "male", 32, "bill@matrix.com", 13912738475],
+            [22, "bill1", "male", 32, "bill@matrix.com", 13912738475],
+            [23, "bill6", "male", 32, "bill@matrix.com", 13912738475],
+            [24, "bill8", "male", 32, "bill@matrix.com", 13912738475],
+            [25, "bill", "male", 32, "bill@matrix.com", 13912738475]
+          ],
+          columnNames: ["id", "name", "sex", "age", "email", "phone"]
+        },
+        vm_server_has_result: true,
+
+        vm_analyze: {
+          serverData: [
+            ["bill@matrix.com", 2, 0, 0, 0, 1, 0, 2, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 20],
+            ["amanda@matrix.com", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            ["carina@matrix.com", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            ["tom@matrix.com", 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            ["frank@matrix.com", 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            ["willy@matrix.com", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            ["Total", 2, 1, 1, 1, 2, 1, 2, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 25]
+          ],
+          columnNames: ["", "bill", "amanda", "carina", "tom", "frank", "willy", "bill2", "bill3", "bill4", "bill5", "bill6", "bill7", "bill8", "frank1", "frank2", "frank3", "frank4", "frank5", "bill1", "Total"]
+        },
+        vm_analyze_has_result: true
+      },
+      result_sql: {},
+      result_pig: {},
+      result_spark: {},
+      result_impala: {},
+      result_markdown: {}
+    },
+    status: {
+      currentStatus: 'READY',
+      currentStatusClass: 'fa fa-plug',
+      progress: 0,
+      isDisplay: true
+    },
+    alerts: {
+      styleClass: "alert-success",
+      resultVisible: false,
+      resultTitle: "Successed",
+      resultSubTitle: "[General Search]",
+      resultContent: "This is the result content..."
+    }
+  };
+  var notebookPage = {
+    chartPanel: {
+
+    },
+    notebooks: [
+      notebook_1, notebook_2
+    ]
+  };
+
+
+  return JSON.stringify(notebookPage);
+}
+
+// Function for deserialize the notebook page from saved data
+var import_notebook_mock = function(inputData) {
+  if (inputData == null) {
+    inputData = export_notebook_mock();
+    inputData = $.parseJSON(inputData);
+  }
+  var viewModel = deserialize_notebook_mock(inputData);
+  ko.cleanNode($('#contentDIV')[0]);
+  ko.applyBindings(viewModel, document.getElementById('contentDIV'));
+}
+
+var deserialize_notebook_mock = function(inputData) {
+  var viewModel = new NotebookListViewModel();
+  load_chartPanel(viewModel, inputData);
+  load_notebooks(viewModel, inputData);
+  return viewModel;
+}
+
+var load_chartPanel = function(viewModel, inputData) {
+
+}
+var load_notebooks = function(viewModel, inputData) {
+  $.each(inputData.notebooks, function(idx, notebook) {
+    console.log(notebook);
+    var notebookViewModel = new NotebookViewModel(null, false, true);
+    //load console
+    notebookViewModel.console.inputContent(notebook.console.inputContent);
+    notebookViewModel.console.isDisplay(notebook.console.isDisplay);
+    notebookViewModel.console.isBlocking(notebook.console.isBlocking);
+    notebookViewModel.console.currentBookmark(notebook.console.currentBookmark);
+    //load StatusViewModel
+    notebookViewModel.status.currentStatus(notebook.status.currentStatus);
+    notebookViewModel.status.currentStatusClass(notebook.status.currentStatusClass);
+    notebookViewModel.status.progress(notebook.status.progress);
+    notebookViewModel.status.isDisplay(notebook.status.isDisplay);
+    //load alert
+    notebookViewModel.alerts.styleClass(notebook.alerts.styleClass);
+    notebookViewModel.alerts.resultVisible(notebook.alerts.resultVisible);
+    notebookViewModel.alerts.resultTitle(notebook.alerts.resultTitle);
+    notebookViewModel.alerts.resultSubTitle(notebook.alerts.resultSubTitle);
+    notebookViewModel.alerts.resultContent(notebook.alerts.resultContent);
+    //load result
+    notebookViewModel.result.isDisplay(notebook.result.isDisplay);
+    notebookViewModel.result.isDisplay_hive(notebook.result.isDisplay_hive);
+    notebookViewModel.result.isDisplay_sql(notebook.result.isDisplay_sql);
+    notebookViewModel.result.isDisplay_pig(notebook.result.isDisplay_pig);
+    notebookViewModel.result.isDisplay_spark(notebook.result.isDisplay_spark);
+    notebookViewModel.result.isDisplay_impala(notebook.result.isDisplay_impala);
+    notebookViewModel.result.isDisplay_markdown(notebook.result.isDisplay_markdown);
+
+    if(notebook.console.currentBookmark==1){
+      //fulfill hive
+      notebookViewModel.result.result_hive.vm_server_has_result(notebook.result.result_hive.vm_server_has_result);
+      notebookViewModel.result.result_hive.vm_server.pageMaxSize(10);
+      notebookViewModel.result.result_hive.vm_server.buildData(notebook.result.result_hive.vm_server.serverData);
+      notebookViewModel.result.result_hive.vm_server.columnNames(notebook.result.result_hive.vm_server.serverData.columnNames);
+      notebookViewModel.result.result_hive.vm_server.buildView();
+
+      notebookViewModel.result.result_hive.vm_analyze_has_result(notebook.result.result_hive.vm_analyze_has_result);
+      notebookViewModel.result.result_hive.vm_analyze.pageMaxSize(10);
+      notebookViewModel.result.result_hive.vm_analyze.buildData(notebook.result.result_hive.vm_analyze.serverData);
+      notebookViewModel.result.result_hive.vm_analyze.columnNames(notebook.result.result_hive.vm_analyze.serverData.columnNames);
+      notebookViewModel.result.result_hive.vm_analyze.buildView();
+
+    }else if(notebook.console.currentBookmark==2){
+      //fulfill sql
+    }else if(notebook.console.currentBookmark==3){
+      //fulfill pig
+    }else if(notebook.console.currentBookmark==4){
+      //fulfill spark
+    }else if(notebook.console.currentBookmark==5){
+      //fulfill impala
+    }else if(notebook.console.currentBookmark==6){
+      //fulfill markdown
+    }else if(notebook.console.currentBookmark==7){
+      //fulfill machine learning
+    }
+
+
+    viewModel.notebooks.push(notebookViewModel);
+  });
+}
