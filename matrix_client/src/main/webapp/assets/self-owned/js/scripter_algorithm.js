@@ -522,7 +522,7 @@ DataTransferPOJO={
       $.each(inputData, function(index, value) {
         var singleRowData = [];
         $.each(headers, function(i, v) {
-          if (value[v]) {
+          if (value[v]!=undefined&&value[v]!=null) {
             singleRowData.push(value[v]);
           } else {
             singleRowData.push("");
