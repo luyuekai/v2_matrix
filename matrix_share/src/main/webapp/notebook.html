@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Matrix Components Framework">
+  <meta name="author" content="LY">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/css/flat-ui.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
+  <style>
+    textarea {
+      border: 0px solid #ddd;
+      padding-left: 20px;
+      margin-top: 10px;
+      margin-bottom: -10px;
+      vertical-align: top;
+      border-left: 5px solid #eee;
+      width: 100%;
+    }
+
+    .animated {
+      -webkit-transition: height 0.2s;
+      -moz-transition: height 0.2s;
+      transition: height 0.2s;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="flat-matrix">
+    <div class="app-container">
+      <div class="row content-container">
+        <div id="navDIV"></div>
+        <!-- 应用左侧NAV导航，可以应用与assist，帮助，过滤等辅助组件，默认自动收缩扩展，支持悬停（点击右上角按钮切换）-->
+        <div id="assistDIV"></div>
+        <div class="container-fluid">
+          <div class="side-body padding-top">
+
+            <div id="contentDIV">
+              <!-- Breadcrum Zone -->
+              <ol class="breadcrumb" style="margin-top:-30px;margin-left:-30px">
+                <li><a href="index.html">首页</a></li>
+                <li class="active">工作台</li>
+              </ol>
+              <!-- Content Header  -->
+              <h5>
+                <i class="fa fa-tasks"></i> 欢迎使用大数据BI分析工具台
+                <button onclick="export_notebook_mock()" type="button" class="btn btn-white btn-xs">
+                  <span class="fa fa-download" aria-hidden="true">&nbsp;下载</span>
+                </button>
+                <button onclick="import_notebook_mock()" type="button" class="btn btn-white btn-xs">
+                  <span class="fa fa-upload" aria-hidden="true">&nbsp;上传</span>
+                </button>
+              </h5>
+
+
+              <!-- Charting DIV BEGIN -->
+              <div id="chartDIV" class="container-fluid" data-bind="visible:chartPanel.isDisplay()" style="background-color:white;border:0px solid #ddd;display:none">
+                <div class="row" data-bind="visible: chartPanel.charts().length<1">
+                  <div class="col-md-12">
+                    <div class="card green summary-inline">
+                      <div class="card-body">
+                        <i class="icon fa fa-info-circle fa-1x"> &nbsp;<strong>提示</strong></i>
+                      </div>
+                      <div class="row text-center" style="font-size:28px">
+                        <div class="col-md-12">
+                          当前仪表盘中没有图表存在，请先通过分析显示的数据结果添加一个图表
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" data-bind="foreach:chartPanel.charts">
+                  <div data-bind="css: chart_div_style">
+                    <div class="card summary-inline" style="min-height:380px;">
+                      <div class="card-body">
+                        <i class="icon fa fa-bar-chart fa-1x"> &nbsp;Chart </i>
+                        <button data-bind="click:removeSelf" type="button" class=" btn btn-link btn-xs pull-right" style="color:#666;margin-top:-10px;margin-right:-10px">
+                          <span class="fa fa-close" aria-hidden="true" title="Close Chart"></span>
+                        </button>
+                        <button data-bind="click:popuUpRemoveSeriesModal" type="button" class=" btn btn-link btn-xs pull-right" style="color:#666;margin-top:-10px;margin-right:0px">
+                          <span class="fa fa-minus" aria-hidden="true" title="Remove Series"></span>
+                        </button>
+                        <button data-bind="click:popuUpAddSeriesModal" type="button" class=" btn btn-link btn-xs pull-right" style="color:#666;margin-top:-10px;margin-right:0px">
+                          <span class="fa fa-plus" aria-hidden="true" title="Add Series"></span>
+                        </button>
+                      </div>
+                      <div data-bind="visible: hasError" class="alert alert-warning alert-dismissible fresh-color" role="alert">
+                        <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Warning!</strong> Please initialize the chart component first!
+                      </div>
+                      <div data-bind="attr:{'id':'chart'+$index()}" style="height:320px">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Charting DIV END -->
+
+
+              <div data-bind="foreach:notebooks">
+                <div style="border:1.6px solid #ddd; border-radius: 8px; margin-top:20px;">
+                  <div data-bind="attr:{'id':'notebookDIV'+$index()}" class="row" style="margin:0px 1px">
+                    <div class="col-md-9">
+                      <form class="form-inline" data-bind="visible:console.isDisplay,attr:{'id':'notebookConsoleDIV'+$index()}">
+                        <div class="form-group">
+                          <div style="width:80px">
+                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark1'},click:function(){$parent.switchBookmark($index(),1)}" class="matrix_bookmark bookmark_active btn  btn-inverse pull-right" style="">Hive</button>
+                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark2'},click:function(){$parent.switchBookmark($index(),2)}" class="matrix_bookmark bookmark_normal btn  btn-inverse pull-right" style="opacity: 0.9">SQL</button>
+                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark3'},click:function(){$parent.switchBookmark($index(),3)}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.8">Pig</button>
+                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark4'},click:function(){$parent.switchBookmark($index(),4)}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.7">Spark</button>
+                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark5'},click:function(){$parent.switchBookmark($index(),5)}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.6">Impala</button>
+                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark6'},click:function(){$parent.switchBookmark($index(),6)}" class="matrix_bookmark bookmark_normal btn  btn-inverse pull-right" style="opacity: 0.5">MD</button>
+                          </div>
+                        </div>
+                        <div class="form-group" style="width:90%;">
+                          <div>
+                            <textarea data-bind="attr:{'id':'notebookTextArea'+$index()},value:console.inputContent,valueUpdate:'input'" class='animated' rows="7" style="font-size:12px;">
+                            </textarea>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-md-3">
+                      <button data-bind="click:$parent.removeNotebook" type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
+                        <span class="fa fa-close fa-2x" aria-hidden="true" title="关闭此控制台"></span>
+                      </button>
+                      <button data-bind="visible:result.isDisplay(),click:function(data){$parent.switchState(data,'result')}" type="button" class="btn btn-white btn-xs pull-right" style="border-color:#fff">
+                        <span class="fa fa-sort-up fa-2x" aria-hidden="true" title="隐藏结果面板"></span>
+                      </button>
+                      <button data-bind="visible:!result.isDisplay(),click:function(data){$parent.switchState(data,'result')}" type="button" class="btn btn-white btn-xs pull-right" style="border-color:#fff">
+                        <span class="fa fa-sort-down fa-2x" aria-hidden="true" title="显示结果面板"></span>
+                      </button>
+                      <button data-bind="visible:console.isDisplay(),click:function(data){$parent.switchState(data,'console')}" type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
+                        <span class="fa fa-compress fa-2x" aria-hidden="true" title="隐藏脚本编辑器"></span>
+                      </button>
+                      <button data-bind="visible:!console.isDisplay(),click:function(data){$parent.switchState(data,'console')}" type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
+                        <span class="fa fa-expand fa-2x" aria-hidden="true" title="显示脚本编辑器"></span>
+                      </button>
+                      <div class="col-md-12">
+                        <small class="pull-right" style="color: #777;">
+                          <span data-bind="css: status.currentStatusClass" aria-hidden="true" title="运行脚本"></span>
+                          &nbsp;
+                          <span data-bind="text:status.currentStatus"></span>
+                        </small>
+                      </div>
+                      <div class="col-md-6 col-md-offset-6" style="margin-bottom:-30px">
+                        <div class="progress">
+                          <div class="progress-bar" data-bind="style: {width: status.progress()+'%'}">
+                            <span data-bind="text: (function(){return status.progress().toString().substr(0, 5)+'%'})()"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" style="margin:0px 0px -30px 0px">
+                    <div class="col-md-12">
+                      <div data-bind="attr:{'id':'notebookAlertDIV'+$index()}">
+                        <div class="alert fresh-color " data-bind="css:alerts.styleClass,visible:alerts.resultVisible">
+                          <button type="button" class="close" data-bind="click:alerts.resultVisible(false)" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <strong>
+                                <span data-bind="text:alerts.resultTitle"></span>
+                              </strong>
+                          <span data-bind="text:alerts.resultSubTitle"></span>
+                          <div data-bind="text:alerts.resultContent"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div data-bind="attr:{'id':'resultDIV'+$index()},visible:result.isDisplay">
+                    <div data-bind="attr:{'id':'resultDIV'+$index()+'_hive'},visible:result.isDisplay_hive">
+                      <div data-bind="template: { name: 'notebook-result-hive', data: result.result_hive }"></div>
+                    </div>
+                    <div data-bind="attr:{'id':'resultDIV'+$index()+'_sql'},visible:result.isDisplay_sql">
+                      <div data-bind="template: { name: 'notebook-result-sql', data: result.result_sql }"></div>
+                    </div>
+                    <div data-bind="attr:{'id':'resultDIV'+$index()+'_pig'},visible:result.isDisplay_pig">
+                      <div data-bind="template: { name: 'notebook-result-pig', data: result.result_pig }"></div>
+                    </div>
+                    <div data-bind="attr:{'id':'resultDIV'+$index()+'_spark'},visible:result.isDisplay_spark">
+                      <div data-bind="template: { name: 'notebook-result-spark', data: result.result_spark }"></div>
+                    </div>
+                    <div data-bind="attr:{'id':'resultDIV'+$index()+'_impala'},visible:result.isDisplay_impala">
+                      <div data-bind="template: { name: 'notebook-result-impala', data: result.result_impala }"></div>
+                    </div>
+                    <div data-bind="attr:{'id':'resultDIV'+$index()+'_markdown'},visible:result.isDisplay_markdown">
+                      <div data-bind="template: { name: 'notebook-result-markdown', data: result.result_markdown }"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <!-- Matrix Modal -->
+    <div class="modal fade modal-success" id="popupModalPro" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <i class="fa fa-send-o"></i> &nbsp; <span class="modal-title" id="popupModalLabelPro"></span>
+          </div>
+          <div class="modal-body">
+            <div id="modalContentDIVPro"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+  <script src="assets/reference/jquery/jquery.json.js"></script>
+  <script src="assets/reference/knockout.js/knockout-3.3.0.js"></script>
+  <script src="assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+  <script src="assets/reference/flat-ui/js/vendor/video.js"></script>
+  <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
+  <script src="assets/reference/jquery/jquery.json.js"></script>
+  <script src="assets/reference/jquery/jquery.autosize.js"></script>
+  <script src="assets/reference/jquery/jquery.blockUI.js"></script>
+  <script src="assets/reference/markdown/markdown.min.js"></script>
+  <script src="assets/reference/echarts/echarts-min-3.1.6.js"></script>
+  <script src="assets/reference/echarts/geo/world.js"></script>
+
+  <!-- Javascript for Matrix Self Owned -->
+  <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
+  <script src="assets/self-owned/js/generic/generic_cache.js"></script>
+  <script src="assets/self-owned/js/generic/generic_charting.js"></script>
+  <script src="assets/self-owned/js/generic/generic_csv.js"></script>
+  <script src="assets/self-owned/js/generic/generic_cud.js"></script>
+  <script src="assets/self-owned/js/generic/generic_modal.js"></script>
+  <script src="assets/self-owned/js/generic/generic_prototype.js"></script>
+  <script src="assets/self-owned/js/generic/generic_query.js"></script>
+  <script src="assets/self-owned/js/generic/generic_table.js"></script>
+  <script src="assets/self-owned/js/generic/generic_util.js"></script>
+  <script src="assets/self-owned/js/generic/generic_validation.js"></script>
+
+  <script src="assets/self-owned/js/notebook/view_model.js"></script>
+  <script src="assets/self-owned/js/notebook/chart_model.js"></script>
+  <script src="assets/self-owned/js/notebook/business_logic_generic.js"></script>
+  <script src="assets/self-owned/js/notebook/business_logic_hive.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('#assistDIV').load($.getRootPath() + '/assets/self-owned/html/assist/matrix_assist_sample.html');
+      $(function() {
+        autosize($('textarea'));
+      });
+      notebook_textarea_keyboard_event_listener();
+
+    });
+  </script>
+
+
+
+  <script>
+    var notebookListViewModel = new NotebookListViewModel();
+
+    notebookListViewModel.addNotebook();
+
+    $.subscribe("MATRIX_TEMPLATES_LOAD_FINISHED", MATRIX_TEMPLATES_LOAD_FINISHED_LISTENER);
+
+    function MATRIX_TEMPLATES_LOAD_FINISHED_LISTENER() {
+      ko.applyBindings(notebookListViewModel, document.getElementById('contentDIV'));
+    }
+    $(function() {
+      //this function is located in the generic_util js
+      ensureTemplates(["notebook-result-hive", "notebook-result-sql", "notebook-result-pig", "notebook-result-spark", "notebook-result-impala", "notebook-result-markdown"]);
+    });
+  </script>
+</body>
+
+</html>
