@@ -61,7 +61,7 @@
                 <button data-bind="click:function(data){switchState(data,'chart')}" type="button" class="btn btn-white btn-xs">
                   <span class="fa fa-bar-chart" aria-hidden="true" title="chart">&nbsp;图表</span>
                 </button>
-                <button type="button" class="btn btn-white btn-xs">
+                <button type="button" class="btn btn-white btn-xs" onclick="ModalUtil.popup_modal('共享', '/prototype_scripter_notebook_modal_sharing.html', null, null, null);">
                   <span class="fa fa-share" aria-hidden="true">&nbsp;共享</span>
                 </button>
                 <button onclick="export_notebook_mock()" type="button" class="btn btn-white btn-xs">
@@ -74,6 +74,7 @@
                   <span class="fa fa-clock-o" aria-hidden="true">&nbsp;定时</span>
                 </button>
               </h5>
+
 
               <!-- Charting DIV BEGIN -->
               <div id="chartDIV" class="container-fluid" data-bind="visible:chartPanel.isDisplay()" style="background-color:white;border:0px solid #ddd;display:none">
