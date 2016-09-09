@@ -55,8 +55,14 @@
                 <button onclick="export_notebook_mock()" type="button" class="btn btn-white btn-xs">
                   <span class="fa fa-download" aria-hidden="true">&nbsp;下载</span>
                 </button>
-                <button onclick="import_notebook_mock()" type="button" class="btn btn-white btn-xs">
-                  <span class="fa fa-upload" aria-hidden="true">&nbsp;上传</span>
+                <button onclick="retrieveData_mock(1)" type="button" class="btn btn-white btn-xs">
+                  <span class="fa fa-download" aria-hidden="true">&nbsp;Valid</span>
+                </button>
+                <button onclick="retrieveData_mock(2)" type="button" class="btn btn-white btn-xs">
+                  <span class="fa fa-upload" aria-hidden="true">&nbsp;Invalid</span>
+                </button>
+                <button onclick="retrieveData_mock(3)" type="button" class="btn btn-white btn-xs">
+                  <span class="fa fa-download" aria-hidden="true">&nbsp;Expired</span>
                 </button>
               </h5>
 
@@ -264,12 +270,11 @@
 
   <script>
     $(document).ready(function() {
-      $('#assistDIV').load($.getRootPath() + '/assets/self-owned/html/assist/matrix_assist_sample.html');
       $(function() {
         autosize($('textarea'));
       });
-      notebook_textarea_keyboard_event_listener();
 
+      SharePOJO.environmentCheck();
     });
   </script>
 
@@ -289,6 +294,64 @@
       //this function is located in the generic_util js
       ensureTemplates(["notebook-result-hive", "notebook-result-sql", "notebook-result-pig", "notebook-result-spark", "notebook-result-impala", "notebook-result-markdown"]);
     });
+  </script>
+
+  <script>
+
+    var SharePOJO = SharePOJO || {};
+    SharePOJO ={
+      environmentCheck : function(){
+        console.log("SHARE FUNCTION ENVIRONMENT CHECK...");
+
+        console.log("ENVIRONMENT CHECK [STEP 1: Has token flag]...[BEGIN]");
+        var tokenFlag = $.hasUrlParam('token');
+        if(tokenFlag){
+          console.log("ENVIRONMENT CHECK [STEP 1: Has token flag]...[FINISHED & RESULT:SUCCESSED]");
+        }else{
+          SharePOJO.redirect('INVALID');
+          console.log("ENVIRONMENT CHECK [STEP 1: Has token flag]...[FINISHED & RESULT:FAILED]");
+        }
+
+        console.log("ENVIRONMENT CHECK [STEP 2: Get token ]...[BEGIN]");
+        var token = $.urlParamValue('token');
+        if(token){
+          console.log("ENVIRONMENT CHECK [STEP 2: Get token]...[FINISHED & RESULT:SUCCESSED]");
+        }else{
+          SharePOJO.redirect('INVALID');
+          console.log("ENVIRONMENT CHECK [STEP 2: Get token]...[FINISHED & RESULT:FAILED]");
+        }
+
+        console.log("ENVIRONMENT CHECK [STEP 3: validate token from SERVER side ... please invoke the correct URL and handle the response]...[BEGIN]");
+        //TODO: liqi
+      },
+
+      redirect:function(type){
+        if(type=='INVALID'){
+          console.log("REDIRECT TO INVALID PAGE");
+          window.location.href="matrix_share_invalid.html";
+        }else if(type=='EXPIRED'){
+          console.log("REDIRECT TO EXPIRED PAGE");
+          window.location.href="matrix_share_expired.html";
+        }
+      }
+
+
+
+    }
+
+
+    var retrieveData_mock = function(mock_count) {
+      if (mock_count % 3 == 1) {
+        console.log('request action invoked[request_success]');
+        import_notebook_mock();
+      } else if (mock_count % 3 == 2) {
+        console.log('request action invoked[request_invalid]');
+        SharePOJO.redirect('INVALID');
+      } else if (mock_count % 3 == 0) {
+        console.log('request action invoked[request_expired]');
+        SharePOJO.redirect('EXPIRED');
+      }
+    }
   </script>
 </body>
 
