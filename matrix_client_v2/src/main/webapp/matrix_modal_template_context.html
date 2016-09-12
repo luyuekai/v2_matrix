@@ -238,7 +238,7 @@
 
     //validate
     ValidationPOJO.validate("KEY", genericModalViewModel.businessPOJO().key(), errorMessages, ['KEY_NOT_NULL']);
-    ValidationPOJO.validate("VALUE", genericModalViewModel.businessPOJO().value(), errorMessages, ['KEY_NOT_NULL']);
+    ValidationPOJO.validate("VALUE", genericModalViewModel.businessPOJO().value(), errorMessages, ['KEY_MUST_PHONE_NUMBER'],true);
 
     return errorMessages;
   }
