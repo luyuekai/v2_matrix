@@ -1,0 +1,173 @@
+<div id="genericModalDiv">
+
+  <!--RESULT DISPLAY DIV BEGIN-->
+  <div id="resultDIV" data-bind="visible: hasResult,css: styleClass" class="alert fresh-color">
+    <button type="button" class="close" data-bind="click:hasResult(false)" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>
+      <span data-bind="text:resultTitle"></span>
+    </strong>
+    <span data-bind="text:resultSubTitle"></span>
+    <div data-bind="text:resultContent"></div>
+  </div>
+  <!--RESULT DISPLAY DIV END-->
+
+  <!--CONTENT DIV BEGIN-->
+  <div id="modal_content_div">
+    <div class="card card-success">
+      <div class="card profile">
+        <div class="card-body">
+          <!--Validation DIV BEGIN-->
+          <div data-bind="visible: hasError" class="alert alert-warning alert-dismissible fresh-color" role="alert">
+            <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Warning!</strong>
+            <div id="errorMessagesDIV" data-bind="foreach:errorMessage">
+              <div data-bind="text:$data"></div>
+            </div>
+          </div>
+          <!--Validation DIV END-->
+          <!-- *******YOUR SHOULD CODING IN HERE:[BEGIN]*******-->
+          <div data-bind="if:businessPOJO()">
+            <div data-bind="with:businessPOJO">
+            <div class="step">
+              <ul class="nav nav-tabs nav-justified" role="tablist">
+                <li role="step" class="active">
+                  <a href="#step1" id="step1-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+                    <div class="icon fa fa-flag-checkered"></div>
+                    <div class="step-title">
+                      <div class="title">Editing</div>
+                      <div class="description"><strong>Fulfill the context...</strong></div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="step1" aria-labelledby="home-tab">
+                  <div class="card card-success">
+                    <div class="card-header" style="height:50px">
+                      <div class="card-title" style="padding: 8px 20px;">
+                        <div class="title"><i class="fa fa-cogs"></i> Markdown Editor :
+                          <small>(See the results immediately)</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body no-padding">
+                      <div class="row" style="margin:0px 10px -10px 10px" >
+                        <div class="panel fresh-color panel-primary" style="border:1px solid" >
+                          <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;Markdown Editor
+                          </div>
+                          <div class="panel-body">
+                            <div class="row">
+                              <div class="col-md-12 text-center" style="overflow: auto">
+                                <textarea data-bind="value:inputContent,valueUpdate:'input'" rows="6" cols="70"></textarea>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row" style="margin:0px 10px -10px 10px" >
+                        <div class="panel fresh-color panel-primary" style="border:1px solid" >
+                          <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;结果显示(Markdown)
+                          </div>
+                          <div class="panel-body">
+                            <div class="row">
+                              <div class="col-md-12" style="overflow: auto">
+                                <div data-bind="html:data"> </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <br>
+                  <div class="pull-right">
+                    <button class="btn btn-primary btn-wide" onclick="execute()">Execute</button>
+                    <button class="btn btn-inverse btn-wide" onclick="ModalUtil.modal_close('popupModalPro')">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+          <!-- *******YOUR SHOULD CODING IN HERE:[END]*******-->
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--CONTENT DIV END-->
+</div>
+
+<script>
+
+// function Markdown_Editor(input, preview) {
+//   if(this){
+//     this.update = function() {
+//       preview.innerHTML = markdown.toHTML(input.value);
+//     };
+//     input.editor = this;
+//     this.update();
+//   }
+// }
+// new Markdown_Editor(document.getElementById("text-input"), document.getElementById("preview"));
+</script>
+
+<script>
+  // Initialize the View Model
+  // Clean the paging binding nodes
+  // Binding the view Model
+  var genericModalViewModel = new GenericModalViewModel();
+  ko.cleanNode($('#genericModalDiv')[0]);
+  ko.applyBindings(genericModalViewModel, document.getElementById('genericModalDiv'));
+</script>
+
+
+
+<script>
+  // Setup the business model with view model
+  (function initialize() {
+    // *******YOUR SHOULD CODING IN HERE:*******
+    function BusinessPOJO() {
+      var self = this;
+      self.inputContent = ko.observable("Type **Markdown Comments** here.")
+      self.data = ko.observable("")
+    }
+    var businessPOJO = new BusinessPOJO();
+
+    genericModalViewModel.businessPOJO(businessPOJO);
+  })();
+
+  function execute() {
+    // validation failed
+    // show validation error message in the warning DIV...
+    if (!genericModalViewModel.validation(businessValidation)) {
+      return;
+    } else {
+      // validation correct
+      // do your business...
+      runService();
+    }
+  }
+
+  // *******YOUR SHOULD CODING IN HERE:*******
+  var businessValidation = function() {
+    var errorMessages = [];
+    //validate logic...
+
+    //validate
+
+
+    return errorMessages;
+  }
+
+  // *******YOUR SHOULD CODING IN HERE:*******
+  var runService = function() {
+
+  }
+
+
+</script>
