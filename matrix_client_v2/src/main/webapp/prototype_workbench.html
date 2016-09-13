@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Matrix Components Framework">
+  <meta name="author" content="LY">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
+
+  <!-- reference CSS-->
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/css/flat-ui.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
+
+  <link rel="stylesheet" type="text/css" href="assets/reference/gridstack/gridstack.css" />
+  <link rel="stylesheet" type="text/css" href="assets/reference/gridstack/gridstack-extra.css" />
+
+  <!-- self-owned CSS-->
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
+</head>
+
+<body>
+
+  <div class="flat-matrix">
+    <div class="app-container">
+      <div class="row content-container">
+
+        <!-- 应用顶部NAV导航，在js初始化时加载，默认为assets/html/header.html-->
+        <div id="navDIV"></div>
+
+        <!-- 应用左侧NAV导航，可以应用与assist，帮助，过滤等辅助组件，默认自动收缩扩展，支持悬停（点击右上角按钮切换）-->
+        <div id="assistDIV"></div>
+
+        <div class="container-fluid">
+          <div class="side-body padding-top">
+
+            <!-- 应用具体内容DIV-->
+            <div id="contentDIV"></div>
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- reference Javascript-->
+  <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+  <script src="assets/reference/jquery/jquery.json.js"></script>
+  <script src="assets/reference/knockout.js/knockout-3.3.0.js"></script>
+  <script src="assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+  <script src="assets/reference/flat-ui/js/vendor/video.js"></script>
+  <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
+  <script src="assets/reference/markdown/markdown.min.js"></script>
+
+  <script src="assets/reference/jquery-ui/jquery-ui.js"></script>
+  <script src="assets/reference/lodash/lodash-4.15.0.js"></script>
+  <script src="assets/reference/gridstack/gridstack.all.js"></script>
+
+  <script src="assets/reference/echarts/echarts-min-3.1.6.js"></script>
+  <script src="assets/reference/echarts/geo/world.js"></script>
+
+  <!-- Javascript for Matrix Self Owned -->
+  <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
+  <script src="assets/self-owned/js/generic/generic_cache.js"></script>
+  <script src="assets/self-owned/js/generic/generic_charting.js"></script>
+  <script src="assets/self-owned/js/generic/generic_csv.js"></script>
+  <script src="assets/self-owned/js/generic/generic_cud.js"></script>
+  <script src="assets/self-owned/js/generic/generic_modal.js"></script>
+  <script src="assets/self-owned/js/generic/generic_prototype.js"></script>
+  <script src="assets/self-owned/js/generic/generic_query.js"></script>
+  <script src="assets/self-owned/js/generic/generic_table.js"></script>
+  <script src="assets/self-owned/js/generic/generic_util.js"></script>
+  <script src="assets/self-owned/js/generic/generic_validation.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('#assistDIV').load($.getRootPath() + '/assets/self-owned/html/assist/assist_prototype_workbench.html');
+      $('#contentDIV').load($.getRootPath() + '/prototype_workbench_main_content.html');
+    });
+  </script>
+</body>
+
+</html>

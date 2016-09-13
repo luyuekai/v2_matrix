@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Matrix Components Framework">
+  <meta name="author" content="LY">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/css/flat-ui.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/gridstack/gridstack.css" />
+  <link rel="stylesheet" type="text/css" href="assets/reference/gridstack/gridstack-extra.css" />
+
+  <style>
+    .grid-stack-item-content {
+      background: white;
+      color: #2c3e50;
+    }
+
+    header a,
+    header a:hover {
+      color: #fff;
+    }
+
+    .darklue {
+      background: #888;
+      color: #fff;
+    }
+
+    .darklue hr.star-light::after {
+      background-color: #2c3e50;
+    }
+  </style>
+
+
+  <style>
+    /*.sidebar {
+    background: rgba(0, 255, 0, 0.1);
+    height: 150px;
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  .sidebar .grid-stack-item {
+    width: 200px;
+    height: 100px;
+    border: 2px dashed green;
+    text-align: center;
+    line-height: 100px;
+    z-index: 10;
+    background: rgba(0, 255, 0, 0.1);
+    cursor: default;
+    display: inline-block;
+  }
+
+  .sidebar .grid-stack-item .grid-stack-item-content {
+    background: none;
+  }*/
+  </style>
+
+</head>
+
+<body>
+
+  <div class="flat-matrix">
+    <div class="app-container">
+      <div class="row content-container">
+        <div id="navDIV"></div>
+        <!-- 应用左侧NAV导航，可以应用与assist，帮助，过滤等辅助组件，默认自动收缩扩展，支持悬停（点击右上角按钮切换）-->
+        <div id="assistDIV"></div>
+        <div class="container-fluid">
+          <div class="side-body padding-top">
+
+            <div id="contentDIV">
+              <!-- Breadcrum Zone -->
+              <ol class="breadcrumb" style="margin-top:-30px;margin-left:-30px">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Dragable</li>
+              </ol>
+              <!-- Content Header  -->
+              <h5>
+                <i class="fa fa-tasks"></i> Draggable Dashboard
+                <button id="copy-widget" onclick="copyNew('dragableContext2')" type="button" class=" btn btn-white btn-xs">
+                  <span class="fa fa-copy" aria-hidden="true" title="">&nbsp;Copy</span>
+                </button>
+              </h5>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <section id="demo" class="darklue">
+                    <div style="padding: 58px;">
+                      <div class="grid-stack" data-gs-width="12" data-gs-animate="yes">
+                      </div>
+                    </div>
+                  </section>
+                </div>
+
+              </div>
+
+              <div class="col-md-6">
+                <div id="prepareCopyDIV">
+                  <div class="panel fresh-color panel-primary" style="width:100%">
+                    <div class="panel-heading">
+                      Prepared Copy Data
+                      <button type="button" class=" btn btn-black btn-xs pull-right" title="" onclick="copyNew('dragableContext3')">
+                        <div class="title"><i class="fa fa-thumb-tack"></i></div>
+                      </button>
+                    </div>
+                    <div class="panel-body">
+                      <div id="dragableContext3">
+                        <p>
+                          {
+                          <br> &nbsp;&nbsp;&nbsp; "header": ["id", "name", "sex", "age", "email", "phone"],
+                          <br> &nbsp;&nbsp;&nbsp; "result": [
+                          <br> &nbsp;&nbsp;&nbsp;&nbsp; ]
+                          <br> }
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div id="dragableContext2">
+                  <h5>Dragable Context</h5>
+                </div>
+              </div>
+
+              <div id="chartDIV">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="panel fresh-color panel-primary" style="width:100%">
+                          <div class="panel-heading">
+                            <i class="icon fa fa-bar-chart fa-1x"> &nbsp;Bar chart</i>
+                            <button type="button" class=" btn btn-black btn-xs pull-right" title="" onclick="copyChart(option_chart1)">
+                              <div class="title"><i class="fa fa-thumb-tack"></i></div>
+                            </button>
+                          </div>
+                          <div class="panel-body">
+                            <div id="dragableContext4" style="min-height:380px; max-height:380px;">
+                              <div id="bar_chart_div" style="height:320px">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div style="display:none">
+      <div class="grid-stack-item-content" id='draggableTemplate'>
+        <div class="panel fresh-color panel-dragable">
+          <div class="panel-heading"><i class="fa fa-plug"></i> Drag Item
+            <button type="button" class=" btn btn-black btn-xs pull-right remove-drag" title="">
+              <div class="title"><i class="fa fa-remove"></i></div>
+            </button>
+            <button type="button" class=" btn btn-black btn-xs pull-right lock-drag" title="">
+              <div class="title"><i class="fa fa-unlock"></i></div>
+            </button>
+            <button type="button" class=" btn btn-black btn-xs pull-right unlock-drag" title="" style="display:none">
+              <div class="title"><i class="fa fa-lock"></i></div>
+            </button>
+          </div>
+          <div class="panel-body">
+            <div class="draggableTemplateContext"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.container -->
+
+
+    <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+    <script src="assets/reference/jquery/jquery.json.js"></script>
+    <script src="assets/reference/knockout.js/knockout-3.3.0.js"></script>
+    <script src="assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+    <script src="assets/reference/flat-ui/js/vendor/video.js"></script>
+    <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
+    <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
+    <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
+
+    <script src="assets/reference/jquery-ui/jquery-ui.js"></script>
+    <script src="assets/reference/lodash/lodash-4.15.0.js"></script>
+    <script src="assets/reference/gridstack/gridstack.all.js"></script>
+
+    <script src="assets/reference/echarts/echarts-min-3.1.6.js"></script>
+    <script src="assets/reference/echarts/geo/world.js"></script>
+
+    <!-- Javascript for Matrix Self Owned -->
+    <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
+    <script src="assets/self-owned/js/generic/generic_cache.js"></script>
+    <script src="assets/self-owned/js/generic/generic_charting.js"></script>
+    <script src="assets/self-owned/js/generic/generic_csv.js"></script>
+    <script src="assets/self-owned/js/generic/generic_cud.js"></script>
+    <script src="assets/self-owned/js/generic/generic_modal.js"></script>
+    <script src="assets/self-owned/js/generic/generic_prototype.js"></script>
+    <script src="assets/self-owned/js/generic/generic_query.js"></script>
+    <script src="assets/self-owned/js/generic/generic_table.js"></script>
+    <script src="assets/self-owned/js/generic/generic_util.js"></script>
+    <script src="assets/self-owned/js/generic/generic_validation.js"></script>
+
+    <script>
+      $(document).ready(function() {
+        $('body').on('click', '.remove-drag', function(e) {
+          e.preventDefault();
+          var grid = $('.grid-stack').data('gridstack'),
+            el = $(this).closest('.grid-stack-item')
+
+          grid.removeWidget(el);
+        });
+        $('body').on('click', '.lock-drag', function(e) {
+          e.preventDefault();
+          var $unlock = $(this).next();
+          $unlock.css('display', '');
+
+          var grid = $('.grid-stack').data('gridstack'),
+            el = $(this).closest('.grid-stack-item');
+          grid.locked(el, true);
+
+          $(this).css('display', 'none');
+        });
+
+        $('body').on('click', '.unlock-drag', function(e) {
+          e.preventDefault();
+          var $lock = $(this).prev();
+          $lock.css('display', '');
+          var grid = $('.grid-stack').data('gridstack'),
+            el = $(this).closest('.grid-stack-item');
+
+          grid.locked(el, false);
+          $(this).css('display', 'none');
+        });
+
+        $('.grid-stack').on('resizestop', function(event, ui) {
+          var grid = this;
+          var element = event.target;
+          console.log(grid);
+          console.log(element);
+
+          var $draggableTemplateContext = $(element).find('.draggableTemplateContext');
+          var height_$draggableTemplateContext= $(element).height()-80;
+
+          var $draggableTemplateContext_id = $draggableTemplateContext.attr('id');
+          var $draggableTemplateContext_chart = $draggableTemplateContext.attr('chart');
+          console.log($draggableTemplateContext_id);
+          if ($draggableTemplateContext_id && $draggableTemplateContext_chart) {
+
+            setTimeout(function() {
+              // $draggableTemplateContext_chart.resize();
+              var chart = chartCache[$draggableTemplateContext_id];
+              if(chart){
+                // var ht = $draggableTemplateContext.css('height');
+
+                $draggableTemplateContext.height(height_$draggableTemplateContext);
+                chart.resize();
+              }
+
+            }, 500);
+          }
+        });
+        // locked
+      });
+    </script>
+    <script type="text/javascript">
+      $(function() {
+
+        var options = {
+          alwaysShowResizeHandle: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+          resizable: {
+            handles: 'e, se, s, sw, w'
+          },
+          width: 12,
+          float: false,
+          removable: '.trash',
+          removeTimeout: 100,
+          acceptWidgets: '.grid-stack-item'
+        };
+
+        $('.grid-stack').gridstack(options);
+
+      });
+    </script>
+
+    <script>
+      var copyNew = function(id) {
+        var grid = $('.grid-stack').data('gridstack');
+
+        //step 1: get prepared copy context div, clone it, and remove attribute of id
+        var context_div_clone = $('#' + id).clone();
+        context_div_clone.removeAttr('id');
+        //step 2: clone draggableTemplate, and remove attribute of id
+        var template = $('#draggableTemplate').clone().removeAttr('id');
+        //step 3: find draggableTemplateContext DIV in the template, append the context into it
+        var $draggableTemplateContext = template.find('.draggableTemplateContext');
+        var $draggableTemplateContext_id = (new Date()).getTime();
+        $draggableTemplateContext.attr('id', $draggableTemplateContext_id);
+        $draggableTemplateContext.append(context_div_clone);
+        // template.find('.draggableTemplateContext').append(context_div_clone);
+        //step 4: add template into grid as widget
+        var widget = $('<div></div>').append(template);
+        grid.addWidget(widget, 0, 0, 12, 4);
+
+
+        // var tmp = $('#draggableTemplateContext').append($('#' + id).clone().removeAttr('id')).removeAttr('id');
+        // var context = $('#draggableTemplate').clone().removeAttr('id');
+        // var widget = $('<div></div>').append(context);
+        // grid.addWidget(widget, 0, 0, 12, 4);
+      }
+
+
+      var chartCache={
+
+      };
+      var copyChart = function(option) {
+        var grid = $('.grid-stack').data('gridstack');
+
+        //step 2: clone draggableTemplate, and remove attribute of id
+        var template = $('#draggableTemplate').clone().removeAttr('id');
+        //step 3: find draggableTemplateContext DIV in the template, append the context into it
+        var $draggableTemplateContext = template.find('.draggableTemplateContext');
+        var $draggableTemplateContext_id = (new Date()).getTime();
+        $draggableTemplateContext.attr('id', $draggableTemplateContext_id);
+        // style="min-height:380px; max-height:380px;"
+        // $draggableTemplateContext.css('min-height', '320px');
+        $draggableTemplateContext.css('max-height', '960px');
+        $draggableTemplateContext.css('height', '320px');
+        // template.find('.draggableTemplateContext').append(context_div_clone);
+        //step 4: add template into grid as widget
+        var widget = $('<div></div>').append(template);
+        grid.addWidget(widget, 0, 0, 6, 6);
+
+        var chart = echarts.init(document.getElementById($draggableTemplateContext_id));
+        // 使用刚指定的配置项和数据显示图表。
+        chart.setOption(option);
+
+        $draggableTemplateContext.attr('chart', chart);
+
+        chartCache[$draggableTemplateContext_id] = chart;
+      }
+    </script>
+
+
+
+    <script type="text/javascript">
+      // 基于准备好的dom，初始化echarts实例
+      var labelStyle = {
+        // // color: 'white',
+        fontWeight: 'bold',
+        fontSize: '12'
+      };
+      var chart1 = echarts.init(document.getElementById('bar_chart_div'));
+
+      // 指定图表的配置项和数据
+      var option_chart1 = {
+        title: {
+          show: true,
+          x: 'left',
+          padding: [0, 0, 0, 20],
+          textStyle: labelStyle,
+          text: 'Analyze for Server',
+          // subtext: 'Data from scripter',
+        },
+        tooltip: {},
+        legend: {
+          orient: 'vertical',
+          left: 'right',
+          top: 'top',
+          padding: [0, 20, 0, 0],
+          data: ['流记录数量', '服务器数量'],
+          textStyle: {
+            // // color: 'white',
+            fontWeight: 'bold',
+            fontSize: '12'
+          },
+        },
+        grid: {
+          left: '20%'
+        },
+        xAxis: {
+          axisLabel: {
+            interval: 0, // 强制显示所有标签
+            rotate: -45,
+            textStyle: labelStyle,
+          },
+          axisLine: {
+            lineStyle: {
+              // // color: '#fff'
+            }
+          },
+          splitLine: {
+            show: false
+          },
+          data: ['http', 'dns', 'https', 'http proxy', 'xmpp', '14000', 'other', 'total']
+        },
+        yAxis: {
+          axisLabel: {
+            rotate: 45,
+            textStyle: labelStyle,
+          },
+          axisLine: {
+            lineStyle: {
+              // // color: '#fff'
+            }
+          },
+          splitLine: {
+            show: false
+          },
+        },
+        series: [{
+          name: '流记录数量',
+          type: 'bar',
+          stack: 'server',
+          itemStyle: {
+            normal: {
+              //color: '#aa10c9',
+            }
+          },
+          data: [334812, 108753, 28524, 20065, 18786, 17547, 48705, 577183]
+        }, {
+          name: '服务器数量',
+          type: 'bar',
+          stack: 'server',
+          itemStyle: {
+            normal: {
+              //color: '#ea62ca',
+            }
+          },
+          data: [67455, 1659, 16739, 4966, 1635, 379, 297695, 373724]
+        }]
+      };
+
+      // 使用刚指定的配置项和数据显示图表。
+      chart1.setOption(option_chart1);
+    </script>
+</body>
+
+</html>
