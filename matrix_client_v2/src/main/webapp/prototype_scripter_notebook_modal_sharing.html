@@ -141,6 +141,7 @@
 
   // *******YOUR SHOULD CODING IN HERE:*******
   var runService = function() {
+      $.serverRequest($.getServerRoot()+'/matrix_share/api/success');
     genericModalViewModel.response(true, "共享操作", "[成功]", "共享链接地址: http://localhost:41535/matrix_share/notebook.html?token=f773ac7e09560d6156322dc4ac76187f");
   }
 

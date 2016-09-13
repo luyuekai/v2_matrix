@@ -2220,6 +2220,15 @@ a:hover {
   color: #1ABC9C;
   /*background-color: #ffffff;*/
 }
+.btn-white-pure {
+  /*color: #ffffff;*/
+  background-color: #F9F9F9;
+  margin:-6px -6px -6px -6px;
+}
+.btn-white-pure:hover, .btn-white-pure.hover, .btn-white-pure:focus, .btn-white-pure:active, .btn-white-pure.active, .open > .dropdown-toggle.btn-white-pure {
+  /*color: #ffffff;*/
+  color: #000000;
+}
 .btn-black {
   /*color: #353d47;*/
   background-color: #353d47;
@@ -2294,4 +2303,38 @@ a:hover {
   display: block;
   position: relative;
   clear: both;
+}
+/* header small use bootstrap default*/
+h1 small,
+h2 small,
+h3 small,
+h4 small,
+h5 small,
+h6 small,
+.h1 small,
+.h2 small,
+.h3 small,
+.h4 small,
+.h5 small,
+.h6 small,
+h1 .small,
+h2 .small,
+h3 .small,
+h4 .small,
+h5 .small,
+h6 .small,
+.h1 .small,
+.h2 .small,
+.h3 .small,
+.h4 .small,
+.h5 .small,
+.h6 .small {
+  font-weight: normal;
+  font-size: 60%;
+  line-height: 1;
+  color: #777;
+}
+/* panel like card*/
+.panel.fresh-color.panel-primary.panel-card {
+    border: 0px;
 }

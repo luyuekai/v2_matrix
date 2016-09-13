@@ -32,7 +32,7 @@
   </div>
 </div>
 
-<div class="panel fresh-color panel-primary" style="border: 0px solid;" id="tableDIV">
+<div class="panel fresh-color panel-primary panel-card" id="tableDIV">
   <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;Matrix Prototype Overview
     <button type="button" class=" btn btn-black btn-xs pull-right" title="" onclick="switch_div_display('common_table_div');switch_div_display('special_table_div');ServerPagingQueryPOJO.example_query_action()">
       <div class="title"><i class="fa fa-barcode"></i></div>
@@ -91,10 +91,10 @@
                 <td data-bind="text:$data[30]"></td>
                 <td data-bind="text:$data[31]"></td>
                 <td>
-                  <button type="button" class="btn btn-link" title="update" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Update Entity Operation', '/prototype_console_main_content_modal_update.html',$data);})" style="color:#666;margin:-6px -6px -6px -6px">
+                  <button type="button" class="btn btn-white-pure" title="update" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Update Entity Operation', '/prototype_console_main_content_modal_update.html',$data);})">
                     <div class="title"><i class="fa fa-edit fa-1x"></i></div>
                   </button>
-                  <button type="button" class="btn btn-link" title="remove" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Remove Entity Operation', '/prototype_console_main_content_modal_remove.html',$data);})" style="color:#666;margin:-6px -6px -6px -6px">
+                  <button type="button" class="btn btn-white-pure" title="remove" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Remove Entity Operation', '/prototype_console_main_content_modal_remove.html',$data);})">
                     <div class="title"><i class="fa fa-trash fa-1x"></i></div>
                   </button>
                 </td>
@@ -125,7 +125,7 @@
               </li>
               <li><a data-bind="click:function(){toPage(currentPageNumber()+1)}" href="#">下页 &nbsp;<i class="fa fa-angle-right"></i></a></li>
               <li><a data-bind="click:function(){toPage(totalPage())}" href="#"> 末页 &nbsp;<i class="fa fa-angle-double-right"></i></a></li>
-              <li class="dropdown">
+              <li class="dropup">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">每页<span data-bind="text:pageMaxSize()"></span>条<b class="caret"></b></a>
                 <span class="dropdown-arrow"></span>
                 <ul class="dropdown-menu" data-bind="foreach: pagingSizeArray">
