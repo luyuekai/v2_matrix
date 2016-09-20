@@ -30,68 +30,61 @@
           <!-- *******YOUR SHOULD CODING IN HERE:[BEGIN]*******-->
           <div data-bind="if:businessPOJO()">
             <div data-bind="with:businessPOJO">
-            <div class="step">
-              <ul class="nav nav-tabs nav-justified" role="tablist">
-                <li role="step" class="active">
-                  <a href="#step1" id="step1-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
-                    <div class="icon fa fa-flag-checkered"></div>
-                    <div class="step-title">
-                      <div class="title">Editing</div>
-                      <div class="description"><strong>Fulfill the context...</strong></div>
-                    </div>
-                  </a>
-                </li>
-              </ul>
+              <div class="step">
+                <ul class="nav nav-tabs nav-justified" role="tablist">
+                  <li role="step" class="active">
+                    <a href="#step1" id="step1-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+                      <div class="icon fa fa-flag-checkered"></div>
+                      <div class="step-title">
+                        <div class="title">Editing</div>
+                        <div class="description"><strong>Fulfill the context...</strong></div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
 
-              <div class="tab-content">
-                <div role="tabpanel" class="tab-pane fade in active" id="step1" aria-labelledby="home-tab">
-                  <div class="card card-success">
-                    <div class="card-header" style="height:50px">
-                      <div class="card-title" style="padding: 8px 20px;">
-                        <div class="title"><i class="fa fa-cogs"></i> Markdown Editor :
-                          <small>(See the results immediately)</small>
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade in active" id="step1" aria-labelledby="home-tab">
+                    <div class="card card-success">
+                      <div class="card-header" style="height:50px">
+                        <div class="card-title" style="padding: 8px 20px;">
+                          <div class="title"><i class="fa fa-cogs"></i> Markdown Editor :
+                            <small>(See the results immediately)</small>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="card-body no-padding">
-                      <div class="row" style="margin:0px 10px -10px 10px" >
-                        <div class="panel fresh-color panel-primary" style="border:1px solid" >
-                          <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;Markdown Editor
+                      <div class="card-body no-padding">
+                        <br>
+                        <div class="row">
+                          <div class="col-md-12 text-center" style="overflow: auto">
+                            <textarea data-bind="value:inputContent,valueUpdate:'input'" rows="6" cols="80"></textarea>
                           </div>
-                          <div class="panel-body">
-                            <div class="row">
-                              <div class="col-md-12 text-center" style="overflow: auto">
-                                <textarea data-bind="value:inputContent,valueUpdate:'input'" rows="6" cols="70"></textarea>
+                        </div>
+                        <div class="row" style="margin:0px 10px -10px 10px">
+                          <div class="panel fresh-color panel-primary" style="border:1px solid">
+                            <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;结果显示(Markdown)
+                            </div>
+                            <div class="panel-body">
+                              <div class="row">
+                                <div class="col-md-12" style="overflow: auto">
+                                  <div data-bind="html:data" id="markdownDispalyDIV"> </div>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="row" style="margin:0px 10px -10px 10px" >
-                        <div class="panel fresh-color panel-primary" style="border:1px solid" >
-                          <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;结果显示(Markdown)
-                          </div>
-                          <div class="panel-body">
-                            <div class="row">
-                              <div class="col-md-12" style="overflow: auto">
-                                <div data-bind="html:data"> </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
 
+                      </div>
                     </div>
-                  </div>
-                  <br>
-                  <div class="pull-right">
-                    <button class="btn btn-primary btn-wide" onclick="execute()">Execute</button>
-                    <button class="btn btn-inverse btn-wide" onclick="ModalUtil.modal_close('popupModalPro')">Close</button>
+                    <br>
+                    <div class="pull-right">
+                      <button class="btn btn-primary btn-wide" onclick="execute()">Execute</button>
+                      <button class="btn btn-inverse btn-wide" onclick="ModalUtil.modal_close('popupModalPro')">Close</button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
           </div>
           <!-- *******YOUR SHOULD CODING IN HERE:[END]*******-->
 
@@ -103,17 +96,16 @@
 </div>
 
 <script>
-
-// function Markdown_Editor(input, preview) {
-//   if(this){
-//     this.update = function() {
-//       preview.innerHTML = markdown.toHTML(input.value);
-//     };
-//     input.editor = this;
-//     this.update();
-//   }
-// }
-// new Markdown_Editor(document.getElementById("text-input"), document.getElementById("preview"));
+  // function Markdown_Editor(input, preview) {
+  //   if(this){
+  //     this.update = function() {
+  //       preview.innerHTML = markdown.toHTML(input.value);
+  //     };
+  //     input.editor = this;
+  //     this.update();
+  //   }
+  // }
+  // new Markdown_Editor(document.getElementById("text-input"), document.getElementById("preview"));
 </script>
 
 <script>
@@ -134,7 +126,11 @@
     function BusinessPOJO() {
       var self = this;
       self.inputContent = ko.observable("Type **Markdown Comments** here.")
-      self.data = ko.observable("")
+      self.data = ko.observable("");
+      self.inputContent.subscribe(function (newValue) {
+        var result = markdown.toHTML(newValue);
+        self.data(result);
+      });
     }
     var businessPOJO = new BusinessPOJO();
 
@@ -166,8 +162,11 @@
 
   // *******YOUR SHOULD CODING IN HERE:*******
   var runService = function() {
+  // markdownDispalyDIV
+  var context_div_clone = $('#markdownDispalyDIV').clone().removeAttr('id');
 
+  $.publish('ADD_DRAG_MARKDOWN_DIV_EVENT', context_div_clone);
+
+  console.log("DISPATCH ADD_DRAG_MARKDOWN_DIV_EVENT")
   }
-
-
 </script>

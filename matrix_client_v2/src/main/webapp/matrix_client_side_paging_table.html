@@ -269,7 +269,7 @@
                                     </li>
                                     <li><a data-bind="click:function(){toPage(currentPageNumber()+1)}" href="#">下页 &nbsp;<i class="fa fa-angle-right"></i></a></li>
                                     <li><a data-bind="click:function(){toPage(totalPage())}" href="#"> 末页 &nbsp;<i class="fa fa-angle-double-right"></i></a></li>
-                                    <li class="dropdown">
+                                    <li class="dropup">
                                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">每页<span data-bind="text:pageMaxSize()"></span>条<b class="caret"></b></a>
                                       <span class="dropdown-arrow"></span>
                                       <ul class="dropdown-menu" data-bind="foreach: pagingSizeArray">
@@ -283,15 +283,11 @@
                                   </ul>
                                   <form class="navbar-form navbar-left" action="#" role="search">
                                     <div class="form-group">
-                                      <div class="input-group">
-                                        <input data-bind="value:searchKeyword" class="form-control text-center" id="navbarInput-01" type="search" placeholder="Search">
-                                        <span class="input-group-btn">
-                                          <button data-bind="click:function(){buildView()}" type="submit" class="btn"><span class="fui-search"></span></button>
+                                      <div class="input-group" style="width: 100%;">
+                                        <input data-bind="value:searchKeyword" class="form-control text-center" type="search" placeholder="Search" style="width: 100px;border-radius: 0px;">
+                                        <span class="input-group-btn" style="padding-left: 3px;">
+                                            <button style="border-radius: 0px;" data-bind="click:function(){buildView()}" type="submit" class="btn"><span class="fui-search"></span></button>
                                         </span>
-                                        <!-- <span class="input-group-btn" style="padding-left: 4px;">
-                                          <button  data-bind="click:function(){buildView()}" type="button" class="btn"><span class="fui-search"></span></button>
-                                        </span> -->
-
                                       </div>
                                     </div>
                                   </form>
@@ -375,7 +371,7 @@
                                     </li>
                                     <li><a data-bind="click:function(){toPage(currentPageNumber()+1)}" href="#">下页 &nbsp;<i class="fa fa-angle-right"></i></a></li>
                                     <li><a data-bind="click:function(){toPage(totalPage())}" href="#"> 末页 &nbsp;<i class="fa fa-angle-double-right"></i></a></li>
-                                    <li class="dropdown">
+                                    <li class="dropup">
                                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">每页<span data-bind="text:pageMaxSize()"></span>条<b class="caret"></b></a>
                                       <span class="dropdown-arrow"></span>
                                       <ul class="dropdown-menu" data-bind="foreach: pagingSizeArray">
@@ -389,10 +385,10 @@
                                   </ul>
                                   <form class="navbar-form navbar-left" action="#" role="search">
                                     <div class="form-group">
-                                      <div class="input-group">
-                                        <input data-bind="value:searchKeyword" class="form-control text-center" id="navbarInput-01" type="search" placeholder="Search">
-                                        <span class="input-group-btn">
-                                          <button data-bind="click:function(){buildView()}" type="submit" class="btn"><span class="fui-search"></span></button>
+                                      <div class="input-group" style="width: 100%;">
+                                        <input data-bind="value:searchKeyword" class="form-control text-center" type="search" placeholder="Search" style="width: 100px;border-radius: 0px;">
+                                        <span class="input-group-btn" style="padding-left: 3px;">
+                                            <button style="border-radius: 0px;" data-bind="click:function(){buildView()}" type="submit" class="btn"><span class="fui-search"></span></button>
                                         </span>
                                       </div>
                                     </div>
@@ -466,7 +462,7 @@
                                         </li>
                                         <li><a data-bind="click:function(){toPage(currentPageNumber()+1)}" href="#">下页 &nbsp;<i class="fa fa-angle-right"></i></a></li>
                                         <li><a data-bind="click:function(){toPage(totalPage())}" href="#"> 末页 &nbsp;<i class="fa fa-angle-double-right"></i></a></li>
-                                        <li class="dropdown">
+                                        <li class="dropup">
                                           <a href="#" class="dropdown-toggle" data-toggle="dropdown">每页<span data-bind="text:pageMaxSize()"></span>条<b class="caret"></b></a>
                                           <span class="dropdown-arrow"></span>
                                           <ul class="dropdown-menu" data-bind="foreach: pagingSizeArray">
@@ -480,15 +476,11 @@
                                       </ul>
                                       <form class="navbar-form navbar-left" action="#" role="search">
                                         <div class="form-group">
-                                          <div class="input-group">
-                                            <input data-bind="value:searchKeyword" class="form-control text-center" id="navbarInput-01" type="search" placeholder="Search">
-                                            <span class="input-group-btn">
-                                          <button data-bind="click:function(){buildView()}" type="submit" class="btn"><span class="fui-search"></span></button>
+                                          <div class="input-group" style="width: 100%;">
+                                            <input data-bind="value:searchKeyword" class="form-control text-center" type="search" placeholder="Search" style="width: 100px;border-radius: 0px;">
+                                            <span class="input-group-btn" style="padding-left: 3px;">
+                                                <button style="border-radius: 0px;" data-bind="click:function(){buildView()}" type="submit" class="btn"><span class="fui-search"></span></button>
                                             </span>
-                                            <!-- <span class="input-group-btn" style="padding-left: 4px;">
-                                          <button  data-bind="click:function(){buildView()}" type="button" class="btn"><span class="fui-search"></span></button>
-                                        </span> -->
-
                                           </div>
                                         </div>
                                       </form>
