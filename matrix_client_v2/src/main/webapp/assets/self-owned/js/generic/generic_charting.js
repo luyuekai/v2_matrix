@@ -202,5 +202,10 @@ ChartPOJO = {
     chart.setOption(option);
 
     return chart;
+  },
+
+  cloneChartOption:function(chart){
+      var option = ClonePOJO.deepClone(chart.getOption());
+      return option;
   }
 }

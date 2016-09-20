@@ -111,6 +111,12 @@ function switch_div_display(div_id) {
     $('#' + div_id).css('display', 'none');
   }
 }
+function show_div(div_id) {
+  $('#' + div_id).css('display', '');
+}
+function hide_div(div_id) {
+  $('#' + div_id).css('display', 'none');
+}
 
 var UtilPOJO = UtilPOJO || {};
 UtilPOJO = {

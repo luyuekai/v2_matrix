@@ -60,6 +60,10 @@ var switchState_businessLogic = function(notebook, componentType) {
     notebook.chartPanel.isDisplay(!notebook.chartPanel.isDisplay());
     return;
   }
+  if ('workbench' === componentType) {
+    notebook.workbench.isDisplay(!notebook.workbench.isDisplay());
+    return;
+  }
 };
 
 var addNotebook_businessLogic = function(notebookListViewModel) {

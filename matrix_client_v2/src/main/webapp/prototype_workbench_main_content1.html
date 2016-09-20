@@ -55,9 +55,9 @@
     <div class="dragContainer">
       <div style="padding-top: 60px;padding-left:50px;min-height:760px">
         <div class="grid-stack" data-gs-width="12" data-gs-animate="yes">
-          <div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="4" data-gs-height="2">
+          <!-- <div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="4" data-gs-height="2">
             <div class="grid-stack-item-content">1</div>
-          </div>
+          </div> -->
           <!-- <div class="grid-stack-item" data-gs-x="4" data-gs-y="0" data-gs-width="4" data-gs-height="4">
             <div class="grid-stack-item-content">2</div>
           </div> -->
@@ -68,93 +68,8 @@
 </div>
 
 
-<div class="panel fresh-color panel-primary">
-  <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;Prepare Drag Table
-    <button type="button" class=" btn btn-black btn-xs pull-right" title="" onclick="">
-      <div class="title"><i class="fa fa-thumb-tack"></i></div>
-    </button>
-  </div>
-  <div class="panel-body">
-    <div class="example_table" id="example_table_div">
-      <div class="row">
-        <div class="col-md-12" style="overflow: auto">
-          <div id="preview" class=""> </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12" style="overflow: auto">
-          <table class="table table-striped" cellspacing="0">
-            <thead>
-              <tr data-bind="foreach:columnNames">
-                <th>
-                  <span data-bind="text: $data"></span>
-                </th>
-              </tr>
-            </thead>
-            <tbody data-bind="foreach:viewData">
-              <tr data-bind="visible:isDisplay,foreach: data">
-                <td data-bind="text: $data"></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
 
-      <div class="matrix-pager-example">
-        <nav class="matrix-pager " role="navigation">
-
-          <div class="collapse navbar-collapse" id="navbar-collapse-01">
-
-            <ul class="nav navbar-nav navbar-right ">
-              <li><a data-bind="click:function(){toPage(1)}" href="#"><i class="fa fa-angle-double-left"></i> &nbsp;首页</a></li>
-              <li><a data-bind="click:function(){toPage(currentPageNumber()-1)}" href="#"><i class="fa fa-angle-left"></i> &nbsp;上页</a></li>
-              <li>
-                <form class="navbar-form navbar-center" action="#" role="search" style="width:68px;margin-left: -20px;">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <input data-bind="value:currentPageNumber" class="form-control text-center" type="search" placeholder="页数" style="width:50px;border-radius: 0px;">
-                      <span class="input-group-btn" style="padding-left: 3px;">
-                  <button data-bind="visible:false,click:function(){}" type="submit" class="btn"><span class="fui-search"></span></button>
-                      </span>
-                    </div>
-                  </div>
-                </form>
-              </li>
-              <li><a data-bind="click:function(){toPage(currentPageNumber()+1)}" href="#">下页 &nbsp;<i class="fa fa-angle-right"></i></a></li>
-              <li><a data-bind="click:function(){toPage(totalPage())}" href="#"> 末页 &nbsp;<i class="fa fa-angle-double-right"></i></a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">每页<span data-bind="text:pageMaxSize()"></span>条<b class="caret"></b></a>
-                <span class="dropdown-arrow"></span>
-                <ul class="dropdown-menu" data-bind="foreach: pagingSizeArray">
-                  <li><a data-bind="click:function(){$parent.pageMaxSize($data)}" href="#"><span data-bind="text:$data"></span></a></li>
-                </ul>
-              </li>
-            </ul>
-            <ul class="nav navbar-nav">
-              <li><a href="#">结果总数:<span data-bind="text:totalCounts()?totalCounts():0"></span>条</a></li>
-            </ul>
-            <form class="navbar-form navbar-left" action="#" role="search">
-              <div class="form-group">
-                <div class="input-group">
-                  <input data-bind="value:searchKeyword" class="form-control text-center" type="search" placeholder="Search" style="border-radius: 0px;">
-                  <span class="input-group-btn" style="padding-left: 3px;">
-                      <button style="border-radius: 0px;" data-bind="click:function(){buildView()}" type="submit" class="btn"><span class="fui-search"></span></button>
-                  </span>
-                </div>
-              </div>
-            </form>
-          </div>
-          <!-- /.navbar-collapse -->
-        </nav>
-        <!-- /navbar -->
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-<div class="panel fresh-color panel-primary" style="width:100%">
+<div class="panel fresh-color panel-primary" style="width:100%;display:none">
   <div class="panel-heading">
     <i class="icon fa fa-bar-chart fa-1x"> &nbsp;Bar chart</i>
     <button type="button" class=" btn btn-black btn-xs pull-right" title="" onclick="copyChart(option_chart1)">
@@ -199,97 +114,6 @@
 </div>
 
 
-<div id="copyTableDIV">
-  <div data-bind="foreach:tables">
-    <div class="panel fresh-color panel-primary">
-      <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;Prepare Drag Table
-        <button type="button" class=" btn btn-black btn-xs pull-right remove-drag" title="">
-          <div class="title"><i class="fa fa-remove"></i></div>
-        </button>
-        <button type="button" class=" btn btn-black btn-xs pull-right lock-drag" title="">
-          <div class="title"><i class="fa fa-unlock"></i></div>
-        </button>
-        <button type="button" class=" btn btn-black btn-xs pull-right unlock-drag" title="" style="display:none">
-          <div class="title"><i class="fa fa-lock"></i></div>
-        </button>
-      </div>
-      <div class="panel-body">
-        <div class="example_table" >
-          <div class="row">
-            <div class="col-md-12" style="overflow: auto">
-              <div id="preview" class=""> </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12" style="overflow: auto">
-              <table class="table table-striped" cellspacing="0">
-                <thead>
-                  <tr data-bind="foreach:columnNames">
-                    <th>
-                      <span data-bind="text: $data"></span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody data-bind="foreach:viewData">
-                  <tr data-bind="visible:isDisplay,foreach: data">
-                    <td data-bind="text: $data"></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div class="matrix-pager-example">
-            <nav class="matrix-pager " role="navigation">
-
-              <div class="collapse navbar-collapse" id="navbar-collapse-01">
-
-                <ul class="nav navbar-nav navbar-right ">
-                  <li><a data-bind="click:function(){toPage(1)}" href="#"><i class="fa fa-angle-double-left"></i> &nbsp;首页</a></li>
-                  <li><a data-bind="click:function(){toPage(currentPageNumber()-1)}" href="#"><i class="fa fa-angle-left"></i> &nbsp;上页</a></li>
-                  <li>
-                    <form class="navbar-form navbar-center" action="#" role="search" style="width:68px;margin-left: -20px;">
-                      <div class="form-group">
-                        <div class="input-group">
-                          <input data-bind="value:currentPageNumber" class="form-control text-center" type="search" placeholder="页数" style="width:50px;border-radius: 0px;">
-                          <span class="input-group-btn" style="padding-left: 3px;">
-                      <button data-bind="visible:false,click:function(){}" type="submit" class="btn"><span class="fui-search"></span></button>
-                          </span>
-                        </div>
-                      </div>
-                    </form>
-                  </li>
-                  <li><a data-bind="click:function(){toPage(currentPageNumber()+1)}" href="#">下页 &nbsp;<i class="fa fa-angle-right"></i></a></li>
-                  <li><a data-bind="click:function(){toPage(totalPage())}" href="#"> 末页 &nbsp;<i class="fa fa-angle-double-right"></i></a></li>
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">每页<span data-bind="text:pageMaxSize()"></span>条<b class="caret"></b></a>
-                    <span class="dropdown-arrow"></span>
-                    <ul class="dropdown-menu" data-bind="foreach: pagingSizeArray">
-                      <li><a data-bind="click:function(){$parent.pageMaxSize($data)}" href="#"><span data-bind="text:$data"></span></a></li>
-                    </ul>
-                  </li>
-                </ul>
-                <ul class="nav navbar-nav">
-                  <li><a href="#">结果总数:<span data-bind="text:totalCounts()?totalCounts():0"></span>条</a></li>
-                </ul>
-                <form class="navbar-form navbar-left" action="#" role="search">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <input data-bind="value:searchKeyword" class="form-control text-center" type="search" placeholder="Search" style="border-radius: 0px;">
-                      <span class="input-group-btn" style="padding-left: 3px;">
-                          <button style="border-radius: 0px;" data-bind="click:function(){buildView()}" type="submit" class="btn"><span class="fui-search"></span></button>
-                      </span>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 
@@ -325,7 +149,7 @@
 
 
 
-<div class="example_single_table_bind_div" id="example_single_table_bind_div">
+<div class="example_single_table_bind_div" id="example_single_table_bind_div" style="display:none">
   <div class="row">
     <div class="col-md-12" style="overflow: auto">
       <div id="preview" class=""> </div>
@@ -372,7 +196,7 @@
           </li>
           <li><a data-bind="click:function(){toPage(currentPageNumber()+1)}" href="#">下页 &nbsp;<i class="fa fa-angle-right"></i></a></li>
           <li><a data-bind="click:function(){toPage(totalPage())}" href="#"> 末页 &nbsp;<i class="fa fa-angle-double-right"></i></a></li>
-          <li class="dropdown">
+          <li class="dropup">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">每页<span data-bind="text:pageMaxSize()"></span>条<b class="caret"></b></a>
             <span class="dropdown-arrow"></span>
             <ul class="dropdown-menu" data-bind="foreach: pagingSizeArray">
@@ -385,8 +209,8 @@
         </ul>
         <form class="navbar-form navbar-left" action="#" role="search">
           <div class="form-group">
-            <div class="input-group">
-              <input data-bind="value:searchKeyword" class="form-control text-center" type="search" placeholder="Search" style="border-radius: 0px;">
+            <div class="input-group" style="width: 100%;">
+              <input data-bind="value:searchKeyword" class="form-control text-center" type="search" placeholder="Search" style="width: 100px;border-radius: 0px;">
               <span class="input-group-btn" style="padding-left: 3px;">
                   <button style="border-radius: 0px;" data-bind="click:function(){buildView()}" type="submit" class="btn"><span class="fui-search"></span></button>
               </span>
@@ -402,17 +226,21 @@
 <script>
 
   var test_copy = function(){
+    console.log("test copy");
     var context_div_clone = $('#example_single_table_bind_div').clone().removeAttr('id');
     context_div_clone.attr('id','yangliutestDIV');
-    add_content_div(context_div_clone,0,0,12,6);
+    context_div_clone.css('display', '');
+    add_content_div(context_div_clone,0,0,6,6);
   }
 
   var test_bind = function(){
+    console.log("test test_bind");
     tableModel_yangliutestDIV = new ListViewModel();
     ko.applyBindings(tableModel_yangliutestDIV, document.getElementById('yangliutestDIV'));
   }
 
   var test_load = function(){
+    console.log("test test_load");
     if(tableData){
       tableModel_yangliutestDIV.buildData(tableData.result);
       tableModel_yangliutestDIV.columnNames(tableData.header);
@@ -420,45 +248,9 @@
     }
   }
 
-  var test = function(){
-
-    if(tableData){
-      // var tableModel = new ListViewModel();
-      // tableModel.pageMaxSize(5);
-      // tableModel.buildData(tableData.result);
-      // tableModel.columnNames(tableData.header);
-      // tableModel.buildView();
-
-      var context_div_clone = $('#copyTableDIV').clone().removeAttr('id');
-      // context_div_clone.attr('id','yangliutestDIV');
-      // console.log(context_div_clone);
-      add_content_div(context_div_clone,0,0,12,6);
-    }
-  }
-
-  var test2 = function(){
-    var copyTableListViewModel_yangliutest = new CopyTableListViewModel();
-    ko.cleanNode($('#yangliutestDIV')[0]);
-    ko.applyBindings(copyTableListViewModel_yangliutest, document.getElementById('yangliutestDIV'));
-    copyTableListViewModel_yangliutest.tables.push(tableModel);
-  }
 
 
   var tableData = null;
-  var tableModel = new ListViewModel();
-  ko.applyBindings(tableModel, document.getElementById('example_table_div'));
-
-  function CopyTableViewModel(){
-    var self = this;
-    self.tableViewModel = new ListViewModel();
-  };
-  function CopyTableListViewModel(){
-    var self = this;
-    self.tableViewModel = new ListViewModel();
-    self.tables = ko.observableArray();
-  };
-  var copyTableListViewModel = new CopyTableListViewModel();
-  ko.applyBindings(copyTableListViewModel, document.getElementById('copyTableDIV'));
 
 
 
@@ -470,10 +262,6 @@
       success: function(json) {
         var serverData = json;
         tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
-        tableModel.pageMaxSize(5);
-        tableModel.buildData(tableData.result);
-        tableModel.columnNames(tableData.header);
-        tableModel.buildView();
       },
       error: function(xhr, status) {
         console.log('Sorry, there was a problem on SERVER_REQUEST_ACTION process!');
@@ -484,7 +272,7 @@
   retrieveData_mock();
 
   setTimeout(function() {
-    ModalUtil.popup_modal_with_businessPOJO('Table Editor', '/prototype_workbench_main_content_modal_table.html',tableData);
+    // ModalUtil.popup_modal_with_businessPOJO('Table Editor', '/prototype_workbench_main_content_modal_table.html',tableData);
   }, 1000);
 
 </script>
@@ -636,15 +424,26 @@
       var context_div_clone = $('#example_single_table_bind_div').clone().removeAttr('id');
       var tmp_id = (new Date()).getTime()+"DIV";
       context_div_clone.attr('id',tmp_id);
-      add_content_div(context_div_clone,0,0,12,6);
+      context_div_clone.css('display', '');
+      add_content_div(context_div_clone,0,0,6,6);
 
       var tableModel_yangliutestDIV = new ListViewModel();
       ko.applyBindings(tableModel_yangliutestDIV, document.getElementById(tmp_id));
-
+      tableModel_yangliutestDIV.pageMaxSize(5);
       tableModel_yangliutestDIV.buildData(tableData);
       tableModel_yangliutestDIV.columnNames(tableHeader);
       tableModel_yangliutestDIV.buildView();
+
+      // mock();
+
+      ModalUtil.modal_close('popupModalPro');
     }
+  }
+
+  var mock = function(){
+    test_copy();
+    test_bind();
+    test_load();
   }
 
 

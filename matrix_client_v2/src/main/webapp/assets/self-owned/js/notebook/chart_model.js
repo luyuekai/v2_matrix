@@ -65,9 +65,7 @@ function ChartViewModel(parent) {
 
   // refresh the echart component
   self.refresh = function () {
-    if (self.echartComponent) {
-      self.echartComponent.resize();
-    }
+
   }
 
   self.removeSelf = function () {
@@ -83,6 +81,14 @@ function ChartViewModel(parent) {
   self.popuUpRemoveSeriesModal = function () {
     if(self.chartSetting){
       prepare_series_remove_businessLogic(self);
+    }
+  }
+
+  self.toWorkbench = function(){
+    if (self.echartComponent) {
+      var option_cloned =ChartPOJO.cloneChartOption(self.echartComponent);
+      // console.log(option_cloned);
+      addWidget_chart_businessLogic(option_cloned);
     }
   }
 

@@ -108,7 +108,7 @@ function NotebookListViewModel() {
   self.notebooks = ko.observableArray();
   // self.currentNotebook = ko.observable();
   self.chartPanel = new ChartListViewModel(self);
-
+  // self.workbench = new WorkbenchViewModel(self);
 
   //单纯的界面逻辑函数： 重置当前notebook list
   self.resetNotebook = function() {
