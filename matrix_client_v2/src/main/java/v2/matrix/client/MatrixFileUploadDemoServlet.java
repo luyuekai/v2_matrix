@@ -49,6 +49,8 @@ public class MatrixFileUploadDemoServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("applicaiton/json");
         final PrintWriter writer = response.getWriter();
+        String functionCode = request.getParameter("functionCode");
+        System.out.println("functionCode is:"+functionCode);
         result = processUploadDemo(request, response);
         try {
             if (result != null) {
