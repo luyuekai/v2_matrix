@@ -42,7 +42,11 @@ var switchBookmark_businessLogic = function(ni, bi, notebookListViewModel) {
   }
 };
 
-
+var switchState_chartPanel_businessLogic = function() {
+  if(notebookListViewModel){
+    notebookListViewModel.chartPanel.isDisplay(!notebookListViewModel.chartPanel.isDisplay());
+  }
+};
 var switchState_businessLogic = function(notebook, componentType) {
   if ('console' === componentType) {
     notebook.console.isDisplay(!notebook.console.isDisplay());
@@ -58,10 +62,6 @@ var switchState_businessLogic = function(notebook, componentType) {
   }
   if ('chart' === componentType) {
     notebook.chartPanel.isDisplay(!notebook.chartPanel.isDisplay());
-    return;
-  }
-  if ('workbench' === componentType) {
-    notebook.workbench.isDisplay(!notebook.workbench.isDisplay());
     return;
   }
 };

@@ -70,19 +70,7 @@
               <li><a href="index.html">首页</a></li>
               <li class="active">工作台</li>
             </ol>
-            <!-- WorkBench Div -->
-            <div id="workbenchDIV" style="display:none">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="dragContainer">
-                    <div style="padding:60px 50px;min-height:760px">
-                      <div class="grid-stack" data-gs-width="12" data-gs-animate="yes">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+
 
 
 
@@ -92,13 +80,13 @@
               <!-- Content Header  -->
               <h5>
                 <i class="fa fa-tasks"></i> 欢迎使用大数据BI分析工具台
-                <button data-bind="click:resetNotebook" type="button" class=" btn btn-white btn-xs" >
+                <button onclick="resetNotebook_businessLogic(notebookListViewModel)" type="button" class=" btn btn-white btn-xs" >
                   <span class="fa fa-repeat" aria-hidden="true" title="重置">&nbsp;重置</span>
                 </button>
-                <button data-bind="click:addNotebook" type="button" class=" btn btn-white btn-xs">
+                <button onclick="addNotebook_businessLogic(notebookListViewModel)" type="button" class=" btn btn-white btn-xs">
                   <span class="fa fa-plus" aria-hidden="true" title="新增">&nbsp;新增</span>
                 </button>
-                <button data-bind="click:function(data){switchState(data,'chart')}" type="button" class="btn btn-white btn-xs">
+                <button onclick="switchState_chartPanel_businessLogic()" type="button" class="btn btn-white btn-xs">
                   <span class="fa fa-bar-chart" aria-hidden="true" title="chart">&nbsp;图表</span>
                 </button>
                 <button type="button" class="btn btn-white btn-xs" onclick="ModalUtil.popup_modal('共享', '/prototype_scripter_notebook_modal_sharing.html', null, null, null);">
@@ -118,157 +106,171 @@
                 </button>
               </h5>
 
-
-
-              <!-- Charting DIV BEGIN -->
-              <div id="chartDIV" class="container-fluid" data-bind="visible:chartPanel.isDisplay()" style="background-color:white;border:0px solid #ddd;display:none">
-                <div class="row" data-bind="visible: chartPanel.charts().length<1">
+              <!-- WorkBench Div -->
+              <div id="workbenchDIV" style="display:none">
+                <div class="row">
                   <div class="col-md-12">
-                    <div class="card green summary-inline">
-                      <div class="card-body">
-                        <i class="icon fa fa-info-circle fa-1x"> &nbsp;<strong>提示</strong></i>
-                      </div>
-                      <div class="row text-center" style="font-size:28px">
-                        <div class="col-md-12">
-                          当前仪表盘中没有图表存在，请先通过分析显示的数据结果添加一个图表
+                    <div class="dragContainer">
+                      <div style="padding:60px 50px;min-height:760px">
+                        <div class="grid-stack" data-gs-width="12" data-gs-animate="yes">
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row" data-bind="foreach:chartPanel.charts">
-                  <div data-bind="css: chart_div_style">
-                    <div class="card summary-inline" style="min-height:380px;">
-                      <div class="card-body">
-                        <i class="icon fa fa-bar-chart fa-1x"> &nbsp;Chart </i>
-                        <button data-bind="click:removeSelf" type="button" class=" btn btn-link btn-xs pull-right" style="color:#666;margin-top:-10px;margin-right:-10px">
-                          <span class="fa fa-close" aria-hidden="true" title="Close Chart"></span>
-                        </button>
-                        <button data-bind="click:popuUpRemoveSeriesModal" type="button" class=" btn btn-link btn-xs pull-right" style="color:#666;margin-top:-10px;margin-right:0px">
-                          <span class="fa fa-minus" aria-hidden="true" title="Remove Series"></span>
-                        </button>
-                        <button data-bind="click:popuUpAddSeriesModal" type="button" class=" btn btn-link btn-xs pull-right" style="color:#666;margin-top:-10px;margin-right:0px">
-                          <span class="fa fa-plus" aria-hidden="true" title="Add Series"></span>
-                        </button>
-                        <button data-bind="click:toWorkbench" type="button" class=" btn btn-link btn-xs pull-right" style="color:#666;margin-top:-10px;margin-right:0px">
-                          <span class="fa fa-thumb-tack" aria-hidden="true" title="thumb tack"></span>
-                        </button>
-                      </div>
-                      <div data-bind="visible: hasError" class="alert alert-warning alert-dismissible fresh-color" role="alert">
-                        <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                        <strong>Warning!</strong> Please initialize the chart component first!
-                      </div>
-                      <div data-bind="attr:{'id':'chart'+$index()}" style="height:320px">
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- Charting DIV END -->
 
-
-              <div data-bind="foreach:notebooks">
-                <div style="border:1.6px solid #ddd; border-radius: 8px; margin-top:20px;">
-                  <div data-bind="attr:{'id':'notebookDIV'+$index()}" class="row" style="margin:0px 1px">
-                    <div class="col-md-9">
-                      <form class="form-inline" data-bind="visible:console.isDisplay,attr:{'id':'notebookConsoleDIV'+$index()}">
-                        <div class="form-group">
-                          <div style="width:80px">
-                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark1'},click:function(){$parent.switchBookmark($index(),1)}" class="matrix_bookmark bookmark_active btn  btn-inverse pull-right" style="">Hive</button>
-                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark2'},click:function(){$parent.switchBookmark($index(),2)}" class="matrix_bookmark bookmark_normal btn  btn-inverse pull-right" style="opacity: 0.9">SQL</button>
-                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark3'},click:function(){$parent.switchBookmark($index(),3)}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.8">Pig</button>
-                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark4'},click:function(){$parent.switchBookmark($index(),4)}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.7">Spark</button>
-                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark5'},click:function(){$parent.switchBookmark($index(),5)}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.6">Impala</button>
-                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark6'},click:function(){$parent.switchBookmark($index(),6)}" class="matrix_bookmark bookmark_normal btn  btn-inverse pull-right" style="opacity: 0.5">MD</button>
+              <div id="notebookListViewModelDIV">
+                <!-- Charting DIV BEGIN -->
+                <div id="chartDIV" class="container-fluid" data-bind="visible:chartPanel.isDisplay()" style="background-color:white;border:0px solid #ddd;display:none">
+                  <div class="row" data-bind="visible: chartPanel.charts().length<1">
+                    <div class="col-md-12">
+                      <div class="card green summary-inline">
+                        <div class="card-body">
+                          <i class="icon fa fa-info-circle fa-1x"> &nbsp;<strong>提示</strong></i>
+                        </div>
+                        <div class="row text-center" style="font-size:28px">
+                          <div class="col-md-12">
+                            当前仪表盘中没有图表存在，请先通过分析显示的数据结果添加一个图表
                           </div>
                         </div>
-                        <div class="form-group" style="width:90%;">
-                          <div>
-                            <textarea data-bind="attr:{'id':'notebookTextArea'+$index()},value:console.inputContent,valueUpdate:'input'" class='animated' rows="7" style="font-size:12px;">
-                            </textarea>
-                          </div>
-                        </div>
-                      </form>
+                      </div>
                     </div>
-                    <div class="col-md-3">
-                      <button data-bind="click:$parent.removeNotebook" type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
-                        <span class="fa fa-close fa-2x" aria-hidden="true" title="关闭此控制台"></span>
-                      </button>
-                      <button data-bind="visible:result.isDisplay(),click:function(data){$parent.switchState(data,'result')}" type="button" class="btn btn-white btn-xs pull-right" style="border-color:#fff">
-                        <span class="fa fa-sort-up fa-2x" aria-hidden="true" title="隐藏结果面板"></span>
-                      </button>
-                      <button data-bind="visible:!result.isDisplay(),click:function(data){$parent.switchState(data,'result')}" type="button" class="btn btn-white btn-xs pull-right" style="border-color:#fff">
-                        <span class="fa fa-sort-down fa-2x" aria-hidden="true" title="显示结果面板"></span>
-                      </button>
-                      <button data-bind="visible:console.isDisplay(),click:function(data){$parent.switchState(data,'console')}" type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
-                        <span class="fa fa-compress fa-2x" aria-hidden="true" title="隐藏脚本编辑器"></span>
-                      </button>
-                      <button data-bind="visible:!console.isDisplay(),click:function(data){$parent.switchState(data,'console')}" type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
-                        <span class="fa fa-expand fa-2x" aria-hidden="true" title="显示脚本编辑器"></span>
-                      </button>
-                      <button type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
-                        <span class="fa fa-save fa-2x" aria-hidden="true" title="保存脚本"></span>
-                      </button>
-                      <button type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
-                        <span class="fa fa-cloud-upload fa-2x" aria-hidden="true" title="加载脚本"></span>
-                      </button>
-                      <button type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
-                        <span class="fa fa-paper-plane-o fa-2x" aria-hidden="true" title="高级功能"></span>
-                      </button>
-                      <button data-bind="attr:{'id':'notebookRunButton'+$index()},click:function(data,event){$parent.run(data,$index())}" type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
-                        <span class="fa fa-play-circle-o fa-2x" aria-hidden="true" title="运行脚本(Shift+Enter)"></span>
-                      </button>
-                      <div class="col-md-12">
-                        <small class="pull-right" style="color: #777;">
+                  </div>
+                  <div class="row" data-bind="foreach:chartPanel.charts">
+                    <div data-bind="css: chart_div_style">
+                      <div class="card summary-inline" style="min-height:380px;">
+                        <div class="card-body">
+                          <i class="icon fa fa-bar-chart fa-1x"> &nbsp;Chart </i>
+                          <button data-bind="click:removeSelf" type="button" class=" btn btn-link btn-xs pull-right" style="color:#666;margin-top:-10px;margin-right:-10px">
+                            <span class="fa fa-close" aria-hidden="true" title="Close Chart"></span>
+                          </button>
+                          <button data-bind="click:popuUpRemoveSeriesModal" type="button" class=" btn btn-link btn-xs pull-right" style="color:#666;margin-top:-10px;margin-right:0px">
+                            <span class="fa fa-minus" aria-hidden="true" title="Remove Series"></span>
+                          </button>
+                          <button data-bind="click:popuUpAddSeriesModal" type="button" class=" btn btn-link btn-xs pull-right" style="color:#666;margin-top:-10px;margin-right:0px">
+                            <span class="fa fa-plus" aria-hidden="true" title="Add Series"></span>
+                          </button>
+                          <button data-bind="click:toWorkbench" type="button" class=" btn btn-link btn-xs pull-right" style="color:#666;margin-top:-10px;margin-right:0px">
+                            <span class="fa fa-thumb-tack" aria-hidden="true" title="thumb tack"></span>
+                          </button>
+                        </div>
+                        <div data-bind="visible: hasError" class="alert alert-warning alert-dismissible fresh-color" role="alert">
+                          <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                          <strong>Warning!</strong> Please initialize the chart component first!
+                        </div>
+                        <div data-bind="attr:{'id':'chart'+$index()}" style="height:320px">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Charting DIV END -->
+
+
+                <div data-bind="foreach:notebooks">
+                  <div style="border:1.6px solid #ddd; border-radius: 8px; margin-top:20px;">
+                    <div data-bind="attr:{'id':'notebookDIV'+$index()}" class="row" style="margin:0px 1px">
+                      <div class="col-md-9">
+                        <form class="form-inline" data-bind="visible:console.isDisplay,attr:{'id':'notebookConsoleDIV'+$index()}">
+                          <div class="form-group">
+                            <div style="width:80px">
+                              <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark1'},click:function(){$parent.switchBookmark($index(),1)}" class="matrix_bookmark bookmark_active btn  btn-inverse pull-right" style="">Hive</button>
+                              <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark2'},click:function(){$parent.switchBookmark($index(),2)}" class="matrix_bookmark bookmark_normal btn  btn-inverse pull-right" style="opacity: 0.9">SQL</button>
+                              <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark3'},click:function(){$parent.switchBookmark($index(),3)}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.8">Pig</button>
+                              <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark4'},click:function(){$parent.switchBookmark($index(),4)}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.7">Spark</button>
+                              <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark5'},click:function(){$parent.switchBookmark($index(),5)}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.6">Impala</button>
+                              <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark6'},click:function(){$parent.switchBookmark($index(),6)}" class="matrix_bookmark bookmark_normal btn  btn-inverse pull-right" style="opacity: 0.5">MD</button>
+                            </div>
+                          </div>
+                          <div class="form-group" style="width:90%;">
+                            <div>
+                              <textarea data-bind="attr:{'id':'notebookTextArea'+$index()},value:console.inputContent,valueUpdate:'input'" class='animated' rows="7" style="font-size:12px;">
+                              </textarea>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="col-md-3">
+                        <button data-bind="click:$parent.removeNotebook" type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
+                          <span class="fa fa-close fa-2x" aria-hidden="true" title="关闭此控制台"></span>
+                        </button>
+                        <button data-bind="visible:result.isDisplay(),click:function(data){$parent.switchState(data,'result')}" type="button" class="btn btn-white btn-xs pull-right" style="border-color:#fff">
+                          <span class="fa fa-sort-up fa-2x" aria-hidden="true" title="隐藏结果面板"></span>
+                        </button>
+                        <button data-bind="visible:!result.isDisplay(),click:function(data){$parent.switchState(data,'result')}" type="button" class="btn btn-white btn-xs pull-right" style="border-color:#fff">
+                          <span class="fa fa-sort-down fa-2x" aria-hidden="true" title="显示结果面板"></span>
+                        </button>
+                        <button data-bind="visible:console.isDisplay(),click:function(data){$parent.switchState(data,'console')}" type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
+                          <span class="fa fa-compress fa-2x" aria-hidden="true" title="隐藏脚本编辑器"></span>
+                        </button>
+                        <button data-bind="visible:!console.isDisplay(),click:function(data){$parent.switchState(data,'console')}" type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
+                          <span class="fa fa-expand fa-2x" aria-hidden="true" title="显示脚本编辑器"></span>
+                        </button>
+                        <button type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
+                          <span class="fa fa-save fa-2x" aria-hidden="true" title="保存脚本"></span>
+                        </button>
+                        <button type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
+                          <span class="fa fa-cloud-upload fa-2x" aria-hidden="true" title="加载脚本"></span>
+                        </button>
+                        <button type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
+                          <span class="fa fa-paper-plane-o fa-2x" aria-hidden="true" title="高级功能"></span>
+                        </button>
+                        <button data-bind="attr:{'id':'notebookRunButton'+$index()},click:function(data,event){$parent.run(data,$index())}" type="button" class=" btn btn-white btn-xs pull-right" style="border-color:#fff">
+                          <span class="fa fa-play-circle-o fa-2x" aria-hidden="true" title="运行脚本(Shift+Enter)"></span>
+                        </button>
+                        <div class="col-md-12">
+                          <small class="pull-right" style="color: #777;">
                           <span data-bind="css: status.currentStatusClass" aria-hidden="true" title="运行脚本"></span>
                           &nbsp;
                           <span data-bind="text:status.currentStatus"></span>
                         </small>
-                      </div>
-                      <div class="col-md-6 col-md-offset-6" style="margin-bottom:-30px">
-                        <div class="progress">
-                          <div class="progress-bar" data-bind="style: {width: status.progress()+'%'}">
-                            <span data-bind="text: (function(){return status.progress().toString().substr(0, 5)+'%'})()"></span>
+                        </div>
+                        <div class="col-md-6 col-md-offset-6" style="margin-bottom:-30px">
+                          <div class="progress">
+                            <div class="progress-bar" data-bind="style: {width: status.progress()+'%'}">
+                              <span data-bind="text: (function(){return status.progress().toString().substr(0, 5)+'%'})()"></span>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="row" style="margin:0px 0px -30px 0px">
-                    <div class="col-md-12">
-                      <div data-bind="attr:{'id':'notebookAlertDIV'+$index()}">
-                        <div class="alert fresh-color " data-bind="css:alerts.styleClass,visible:alerts.resultVisible">
-                          <button type="button" class="close" data-bind="click:alerts.resultVisible(false)" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                          <strong>
+                    <div class="row" style="margin:0px 0px -30px 0px">
+                      <div class="col-md-12">
+                        <div data-bind="attr:{'id':'notebookAlertDIV'+$index()}">
+                          <div class="alert fresh-color " data-bind="css:alerts.styleClass,visible:alerts.resultVisible">
+                            <button type="button" class="close" data-bind="click:alerts.resultVisible(false)" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>
                                 <span data-bind="text:alerts.resultTitle"></span>
                               </strong>
-                          <span data-bind="text:alerts.resultSubTitle"></span>
-                          <div data-bind="text:alerts.resultContent"></div>
+                            <span data-bind="text:alerts.resultSubTitle"></span>
+                            <div data-bind="text:alerts.resultContent"></div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <br>
-                  <div data-bind="attr:{'id':'resultDIV'+$index()},visible:result.isDisplay">
-                    <div data-bind="attr:{'id':'resultDIV'+$index()+'_hive'},visible:result.isDisplay_hive">
-                      <div data-bind="template: { name: 'notebook-result-hive', data: result.result_hive }"></div>
-                    </div>
-                    <div data-bind="attr:{'id':'resultDIV'+$index()+'_sql'},visible:result.isDisplay_sql">
-                      <div data-bind="template: { name: 'notebook-result-sql', data: result.result_sql }"></div>
-                    </div>
-                    <div data-bind="attr:{'id':'resultDIV'+$index()+'_pig'},visible:result.isDisplay_pig">
-                      <div data-bind="template: { name: 'notebook-result-pig', data: result.result_pig }"></div>
-                    </div>
-                    <div data-bind="attr:{'id':'resultDIV'+$index()+'_spark'},visible:result.isDisplay_spark">
-                      <div data-bind="template: { name: 'notebook-result-spark', data: result.result_spark }"></div>
-                    </div>
-                    <div data-bind="attr:{'id':'resultDIV'+$index()+'_impala'},visible:result.isDisplay_impala">
-                      <div data-bind="template: { name: 'notebook-result-impala', data: result.result_impala }"></div>
-                    </div>
-                    <div data-bind="attr:{'id':'resultDIV'+$index()+'_markdown'},visible:result.isDisplay_markdown">
-                      <div data-bind="template: { name: 'notebook-result-markdown', data: result.result_markdown }"></div>
+                    <br>
+                    <div data-bind="attr:{'id':'resultDIV'+$index()},visible:result.isDisplay">
+                      <div data-bind="attr:{'id':'resultDIV'+$index()+'_hive'},visible:result.isDisplay_hive">
+                        <div data-bind="template: { name: 'notebook-result-hive', data: result.result_hive }"></div>
+                      </div>
+                      <div data-bind="attr:{'id':'resultDIV'+$index()+'_sql'},visible:result.isDisplay_sql">
+                        <div data-bind="template: { name: 'notebook-result-sql', data: result.result_sql }"></div>
+                      </div>
+                      <div data-bind="attr:{'id':'resultDIV'+$index()+'_pig'},visible:result.isDisplay_pig">
+                        <div data-bind="template: { name: 'notebook-result-pig', data: result.result_pig }"></div>
+                      </div>
+                      <div data-bind="attr:{'id':'resultDIV'+$index()+'_spark'},visible:result.isDisplay_spark">
+                        <div data-bind="template: { name: 'notebook-result-spark', data: result.result_spark }"></div>
+                      </div>
+                      <div data-bind="attr:{'id':'resultDIV'+$index()+'_impala'},visible:result.isDisplay_impala">
+                        <div data-bind="template: { name: 'notebook-result-impala', data: result.result_impala }"></div>
+                      </div>
+                      <div data-bind="attr:{'id':'resultDIV'+$index()+'_markdown'},visible:result.isDisplay_markdown">
+                        <div data-bind="template: { name: 'notebook-result-markdown', data: result.result_markdown }"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -375,6 +377,36 @@
       $('#workbench_content_template_DIV').load($.getRootPath() + '/assets/self-owned/html/template/workbench_content_template.html');
 
       setup_default_workbench();
+
+
+
+      //initialize the bookmark begin
+
+      var bookmarkFlag = $.hasUrlParam('bookmark');
+      if (bookmarkFlag) {
+        var bookmark = $.urlParamValue('bookmark');
+        var bookmark_suffix = 1;
+        if ('hive' == bookmark) {
+          //do nothing
+        } else if ('sql' == bookmark) {
+          bookmark_suffix = 2;
+        } else if ('pig' == bookmark) {
+          bookmark_suffix = 3;
+        } else if ('spark' == bookmark) {
+          bookmark_suffix = 4;
+        } else if ('impala' == bookmark) {
+          bookmark_suffix = 5;
+        } else if ('markdown' == bookmark) {
+          bookmark_suffix = 6;
+        } else {
+          //default as hive
+        }
+        setTimeout(function() {
+          $('#notebook0_bookmark' + bookmark_suffix).click();
+        }, 200);
+
+      }
+      //initialize the bookmark end
     });
   </script>
 
@@ -388,7 +420,7 @@
     $.subscribe("MATRIX_TEMPLATES_LOAD_FINISHED", MATRIX_TEMPLATES_LOAD_FINISHED_LISTENER);
 
     function MATRIX_TEMPLATES_LOAD_FINISHED_LISTENER() {
-      ko.applyBindings(notebookListViewModel, document.getElementById('contentDIV'));
+      ko.applyBindings(notebookListViewModel, document.getElementById('notebookListViewModelDIV'));
     }
     $(function() {
       //this function is located in the generic_util js
