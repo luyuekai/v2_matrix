@@ -339,7 +339,7 @@
         '    <div class="kv-fileinput-error"></div>\n' +
         '    </div>\n' +
         '</div>';
-    tClose = '<div class="close fileinput-remove">&times;</div>\n';
+    tClose = '<div class="close fileinput-remove" style="display:none">&times;</div>\n';
     tFileIcon = '<i class="glyphicon glyphicon-file kv-caption-icon"></i>';
     tCaption = '<div tabindex="500" class="form-control file-caption {class}">\n' +
         '   <div class="file-caption-name"></div>\n' +
@@ -3261,8 +3261,10 @@
         msgImageHeightLarge: 'Height of image file "{name}" cannot exceed {size} px.',
         msgImageResizeError: 'Could not get the image dimensions to resize.',
         msgImageResizeException: 'Error while resizing the image.<pre>{errors}</pre>',
-        dropZoneTitle: 'Drag & drop files here &hellip;',
-        dropZoneClickTitle: '<br>(or click to select {files})',
+        // dropZoneTitle: 'Drag & drop files here &hellip;',
+        // dropZoneClickTitle: '<br>(or click to select {files})',
+        dropZoneTitle: '<h2>+</h2>',
+        dropZoneClickTitle: '',
         previewZoomButtonTitles: {
             prev: 'View previous file',
             next: 'View next file',
