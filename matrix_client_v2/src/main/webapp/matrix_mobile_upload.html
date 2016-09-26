@@ -205,6 +205,9 @@
         if (vm) {
           vm.uploadedFileUrls.push(img_url_path);
           vm.uploadedFileEntitys.push(arguments[1].result[0]);
+          setTimeout(function() {
+            $('#input-id').fileinput('refresh');
+          }, 200);
         }
       }
     }

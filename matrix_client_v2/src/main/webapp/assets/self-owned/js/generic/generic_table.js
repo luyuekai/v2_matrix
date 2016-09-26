@@ -162,6 +162,7 @@ function ListViewModel() {
     }
 
     self.toPage = function (pageNumber) {
+        pageNumber = pageNumber || 1;
         var cp = pageNumber;
         var tc = self.totalCounts();
         var pm = self.pageMaxSize();
