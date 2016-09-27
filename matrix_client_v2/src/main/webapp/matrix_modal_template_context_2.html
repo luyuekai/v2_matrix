@@ -1,0 +1,71 @@
+<div id="genericModalDiv">
+
+
+  <!--CONTENT DIV BEGIN-->
+  <div id="modal_content_div">
+    <div class="card card-success">
+      <div class="card profile">
+        <div class="card-body">
+
+          <!-- *******YOUR SHOULD CODING IN HERE:[BEGIN]*******-->
+          <div>
+            <div>
+              <div class="step">
+                <ul class="nav nav-tabs nav-justified" role="tablist">
+                  <li role="step" class="active">
+                    <a href="#step1" id="step1-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+                      <div class="icon fa fa-database"></div>
+                      <div class="step-title">
+                        <div class="title">Step 1</div>
+                        <div class="description"><strong>Choose Database</strong></div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade in active" id="step1" aria-labelledby="home-tab">
+                    <div class="card card-success">
+                      <div class="card-header" style="height:50px">
+                        <div class="card-title" style="padding: 8px 20px;">
+                          <div class="title"><i class="fa fa-cogs"></i> balabalabala... :
+                            <small>(balabalabala... )</small>
+                          </div>
+                        </div>
+                        <div class="clear-both"></div>
+                      </div>
+                      <div class="card-body no-padding">
+
+                        <br>
+                        <div class="panel fresh-color panel-primary panel-card">
+                          <div class="panel-heading">
+                            <i class="fa fa-table"></i> Common Table Example
+                            <button onclick="" type="button" class=" btn btn-black btn-xs pull-right" title="">
+                              <div class="title"><i class="fa fa-download"></i>&nbsp;Download Data</div>
+                            </button>
+                          </div>
+                          <div class="panel-body">
+                            <div id="clone_parent_div"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- *******YOUR SHOULD CODING IN HERE:[END]*******-->
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--CONTENT DIV END-->
+</div>
+
+<script>
+  create_client_table(header, data, 'clone_parent_div');
+</script>

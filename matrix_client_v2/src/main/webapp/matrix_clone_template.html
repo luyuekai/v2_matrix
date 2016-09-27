@@ -13,6 +13,7 @@
   <link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/css/flat-ui.css">
   <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
+
 </head>
 
 <body>
@@ -25,53 +26,41 @@
         <div id="assistDIV"></div>
         <div class="container-fluid">
           <div class="side-body padding-top">
+            <ol class="breadcrumb" style="margin-top:-30px;margin-left:-30px">
+              <li><a href="index.html">首页</a></li>
+              <li class="active">Matrix Clone</li>
+            </ol>
+
+
+
 
             <div id="contentDIV">
               <!-- Breadcrum Zone -->
-              <ol class="breadcrumb" style="margin-top:-30px;margin-left:-30px">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Modal</li>
-              </ol>
+
               <!-- Content Header  -->
-              <h2><i class="fa fa-tasks"></i> Matrix Modal
-                <button type="button" class=" btn btn-white btn-xs" onclick="ModalUtil.popup_modal('Matrix Modal Example', '/matrix_modal_template_context.html', null, null, null);" >
-                  <span class="fa fa-repeat" aria-hidden="true" title="">&nbsp;Modal Example 1</span>
+              <h5>
+                <i class="fa fa-tasks"></i> Matrix Clone Components
+                <button onclick="create_client_table(header,data,'clone_parent_div')" type="button" class=" btn btn-white btn-xs" >
+                  <span class="fa fa-repeat" aria-hidden="true" title="">&nbsp;Clone Client Table</span>
                 </button>
-                <button type="button" class=" btn btn-white btn-xs" onclick="ModalUtil.popup_modal('Matrix Modal Example', '/matrix_modal_template_context_2.html', null, null, null);">
-                  <span class="fa fa-plus" aria-hidden="true" title="">&nbsp;Modal Example 2</span>
-                </button>
-              </h2>
+              </h5>
 
 
+
+              <div id="clone_parent_div"></div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
 
-    <div class="modal fade modal-success" id="popupModalPro" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <i class="fa fa-send-o"></i> &nbsp; <span class="modal-title" id="popupModalLabelPro"></span>
-          </div>
-          <div class="modal-body">
-            <div id="modalContentDIVPro"></div>
-          </div>
-        </div>
-      </div>
-    </div>
+
+    <!-- WorkBench Table Div -->
+    <div id="workbench_table_template_DIV" style="display:none"></div>
+
+
   </div>
-
-
-  <!-- WorkBench Table Div -->
-  <div id="workbench_table_template_DIV" style="display:none"></div>
-  <!-- /.container -->
 
 
   <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
@@ -82,6 +71,13 @@
   <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
   <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
   <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
+  <script src="assets/reference/jquery/jquery.json.js"></script>
+  <script src="assets/reference/jquery/jquery.autosize.js"></script>
+  <script src="assets/reference/jquery/jquery.blockUI.js"></script>
+  <script src="assets/reference/markdown/markdown.min.js"></script>
+
+
+
   <!-- Javascript for Matrix Self Owned -->
   <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
   <script src="assets/self-owned/js/generic/generic_cache.js"></script>
@@ -97,12 +93,16 @@
   <script src="assets/self-owned/js/generic/generic_workbench.js"></script>
 
 
+
+
   <script>
     $(document).ready(function() {
       $('#workbench_table_template_DIV').load($.getRootPath() + '/assets/self-owned/html/template/client_table_template.html');
     });
-    // ModalUtil.popup_modal('Matrix Modal Example', '/matrix_modal_template_context_2.html', null, null, null);
   </script>
+
+
+
   <script>
     var header, data;
     var retrieveData_mock = function() {

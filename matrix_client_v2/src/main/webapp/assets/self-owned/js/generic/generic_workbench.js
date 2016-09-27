@@ -1,3 +1,33 @@
+var create_client_table = function(header,data,parent_div_id){
+  if(!$('#client_table_template_div').length){
+    return;
+  }
+  if (header && data) {
+    // generate div
+    var context_div_clone = $('#client_table_template_div').clone().removeAttr('id');
+    var tmp_id = (new Date()).getTime() + "DIV";
+    context_div_clone.attr('id', tmp_id);
+    context_div_clone.css('display', '');
+
+    // console.log("generate workbench table div is:");
+    // console.log(context_div_clone);
+
+    var $div = $('#'+parent_div_id);
+    if($div.length){
+      $div.append(context_div_clone);
+    }
+
+    //data bind
+    var tmp_vm = new ListViewModel();
+    ko.applyBindings(tmp_vm, document.getElementById(tmp_id));
+    tmp_vm.pageMaxSize(5);
+    tmp_vm.buildData(data);
+    tmp_vm.columnNames(header);
+    tmp_vm.buildView();
+
+  }
+}
+
 var addWidget_clientTable = function(header, data) {
   if (header && data) {
     // generate div
