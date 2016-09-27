@@ -62,6 +62,18 @@ ValidationPOJO = {
       return true;
     }
   },
+  validateFilePath: function(input) {
+    // console.log("The validate input special chars operation has been invoked!");
+    var regEx = new RegExp(/^(([^\^\.<>%&',;=?$"':#@!~\]\[{}\`\|])*)$/);
+    var result = input.match(regEx);
+    if (result == null) {
+      // console.log("The validate input operation result: false---"+input);
+      return false;
+    } else {
+      // console.log("The validate input operation result: true---"+input);
+      return true;
+    }
+  },
   validateInputLength: function(input) {
     //        console.log("The validate input length operation has been invoked!");
     var result = false;
@@ -103,6 +115,7 @@ ValidationPOJO = {
   KEY_NOT_NEGATIVE: 'KEY_NOT_NEGATIVE',
   KEY_MUST_NUMBER: 'KEY_MUST_NUMBER',
   KEY_MUST_PHONE_NUMBER: 'KEY_MUST_PHONE_NUMBER',
+  KEY_FILE_PATH: 'KEY_FILE_PATH',
   validate: function(inputName, inputValue, errorMessageRef, validateFunctions, emptyFlag) {
     if (emptyFlag) {
 
@@ -164,6 +177,11 @@ ValidationPOJO = {
         if (ValidationPOJO.KEY_MUST_PHONE_NUMBER == key) {
           if (!ValidationPOJO.validatePhonePattern(inputValue)) {
             errorMessageRef.push(inputName + " 必须是合法的电话号码");
+          }
+        };
+        if (ValidationPOJO.KEY_FILE_PATH == key) {
+          if (!ValidationPOJO.validateFilePath(inputValue)) {
+            errorMessageRef.push(inputName + " 必须是合法的文件路径");
           }
         };
       }

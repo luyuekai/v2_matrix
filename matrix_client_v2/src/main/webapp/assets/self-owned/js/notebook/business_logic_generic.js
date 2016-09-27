@@ -1,3 +1,5 @@
+
+
 var switchBookmark_businessLogic = function(ni, bi, notebookListViewModel) {
   var notebook_index = 'notebookDIV' + ni;
   var bookmark_index = 'notebook' + ni + '_bookmark' + bi;

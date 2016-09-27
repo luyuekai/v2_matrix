@@ -10,6 +10,8 @@ function ConsoleViewModel(data, isChecked, isDisplay) {
   self.isDisplay = ko.observable(isDisplay);
   self.isBlocking = ko.observable(false);
   self.currentBookmark = ko.observable();
+
+
 }
 
 /**
