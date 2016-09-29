@@ -1,11 +1,11 @@
-var create_client_table = function(header,data,parent_div_id){
+var create_client_table = function(header,data,parent_div_id,table_id){
   if(!$('#client_table_template_div').length){
     return;
   }
   if (header && data) {
     // generate div
     var context_div_clone = $('#client_table_template_div').clone().removeAttr('id');
-    var tmp_id = (new Date()).getTime() + "DIV";
+    var tmp_id = table_id||(new Date()).getTime() + "DIV";
     context_div_clone.attr('id', tmp_id);
     context_div_clone.css('display', '');
 
