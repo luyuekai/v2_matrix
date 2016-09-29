@@ -219,4 +219,10 @@ function ListViewModel() {
             }
         }
     };
+
+    self.clean = function(){
+      self.buildData("");
+      self.columnNames([]);
+      self.buildView();
+    }
 }
