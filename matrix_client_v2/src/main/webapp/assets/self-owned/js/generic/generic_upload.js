@@ -1,10 +1,14 @@
-function GenericUploadPageViewModel() {
+function GenericUploadPageViewModel(userCode,systemCode,moduleCode,functionCode) {
+  userCode = userCode||'matrix_user';
+  systemCode = systemCode || 'matrix_system';
+  moduleCode = moduleCode || 'matrix_module';
+  functionCode = functionCode || 'matrix_function';
   var self = this;
   self.uploadRef = null;
-  self.key1 = ko.observable('ops');
-  self.key2 = ko.observable('scripter');
-  self.key3 = ko.observable('notebook');
-  self.key4 = ko.observable('uploadPageData');
+  self.key1 = ko.observable(userCode);
+  self.key2 = ko.observable(systemCode);
+  self.key3 = ko.observable(moduleCode);
+  self.key4 = ko.observable(functionCode);
   self.alerts = new ResponseViewModel(); // This model is located in the generic_query.js
   self.uploadedFileUrls = ko.observableArray([]);
 
@@ -29,7 +33,9 @@ function GenericUploadPageViewModel() {
 }
 
 
-var initialize_pic_upload_environment = function(file_upload_component_id,vm) {
+var initialize_pic_upload_environment = function(file_upload_component_id,vm,successListener,failerListener) {
+  successListener = successListener||"SUCCESS_LISTENER";
+  failerListener = failerListener || "FAILED_LISTENER";
   var $upload = $('#' + file_upload_component_id);
   vm.uploadRef = $upload;
   $upload.fileinput({
@@ -56,7 +62,7 @@ var initialize_pic_upload_environment = function(file_upload_component_id,vm) {
       'zip': '<i class="fa fa-file-archive-o text-muted"></i>',
     },
     uploadAsync: true,
-    maxFileSize: 2048,
+    maxFileSize: 10096,
     maxFileCount: 1,
     showBrowse: false,
     browseOnZoneClick: true
@@ -77,9 +83,8 @@ var initialize_pic_upload_environment = function(file_upload_component_id,vm) {
       reader = data.reader;
 
     console.log(response);
-    $.dispatchGenericResponse(response, "SUCCESS_LISTENER", "FAILED_LISTENER");
-    // $upload.fileinput('clear');
-    // $upload.fileinput('reset');
+    $.dispatchGenericResponse(response, successListener, failerListener);
+    $upload.fileinput('refresh');
   });
 
 
@@ -96,4 +101,10 @@ var initialize_pic_upload_environment = function(file_upload_component_id,vm) {
       vm.upload_error_handler();
     }
   });
+
+
+
+
+  //hide
+  $('.file-caption-main').css('display','none');
 }
