@@ -33,7 +33,14 @@
                 <li class="active">Modal</li>
               </ol>
               <!-- Content Header  -->
-              <h2><i class="fa fa-tasks"></i> Matrix Modal  </h2>
+              <h2><i class="fa fa-tasks"></i> Matrix Modal
+                <button type="button" class=" btn btn-white btn-xs" onclick="ModalUtil.popup_modal('Matrix Modal Example', '/matrix_modal_template_context.html', null, null, null);" >
+                  <span class="fa fa-repeat" aria-hidden="true" title="">&nbsp;Modal Example 1</span>
+                </button>
+                <button type="button" class=" btn btn-white btn-xs" onclick="ModalUtil.popup_modal('Matrix Modal Example', '/matrix_modal_template_context_2.html', null, null, null);">
+                  <span class="fa fa-plus" aria-hidden="true" title="">&nbsp;Modal Example 2</span>
+                </button>
+              </h2>
 
 
             </div>
@@ -62,7 +69,8 @@
   </div>
 
 
-
+  <!-- WorkBench Table Div -->
+  <div id="workbench_table_template_DIV" style="display:none"></div>
   <!-- /.container -->
 
 
@@ -86,10 +94,35 @@
   <script src="assets/self-owned/js/generic/generic_table.js"></script>
   <script src="assets/self-owned/js/generic/generic_util.js"></script>
   <script src="assets/self-owned/js/generic/generic_validation.js"></script>
+  <script src="assets/self-owned/js/generic/generic_workbench.js"></script>
 
 
   <script>
-    ModalUtil.popup_modal('Matrix Modal Example', '/matrix_modal_template_context.html', null, null, null);
+    $(document).ready(function() {
+      $('#workbench_table_template_DIV').load($.getRootPath() + '/assets/self-owned/html/template/client_table_template.html');
+    });
+    // ModalUtil.popup_modal('Matrix Modal Example', '/matrix_modal_template_context_2.html', null, null, null);
+  </script>
+  <script>
+    var header, data;
+    var retrieveData_mock = function() {
+      $.ajax({
+        url: $.getRootPath() + "/assets/self-owned/data/server_mock_data.json",
+        type: 'GET',
+        dataType: 'json',
+        success: function(json) {
+          var serverData = json;
+          var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
+          data=tableData.result;
+          header=tableData.header;
+        },
+        error: function(xhr, status) {
+          console.log('Sorry, there was a problem on SERVER_REQUEST_ACTION process!');
+        },
+        complete: function(xhr, status) {}
+      });
+    }
+    retrieveData_mock();
   </script>
 </body>
 

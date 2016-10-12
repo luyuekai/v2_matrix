@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Matrix Components Framework">
+  <meta name="author" content="LY">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/css/flat-ui.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
+
+</head>
+
+<body>
+
+  <div class="flat-matrix">
+    <div class="app-container">
+      <div class="row content-container">
+        <div id="navDIV"></div>
+        <!-- 应用左侧NAV导航，可以应用与assist，帮助，过滤等辅助组件，默认自动收缩扩展，支持悬停（点击右上角按钮切换）-->
+        <div id="assistDIV"></div>
+        <div class="container-fluid">
+          <div class="side-body padding-top">
+            <ol class="breadcrumb" style="margin-top:-30px;margin-left:-30px">
+              <li><a href="index.html">首页</a></li>
+              <li class="active">Matrix Clone</li>
+            </ol>
+
+
+
+
+            <div id="contentDIV">
+              <!-- Breadcrum Zone -->
+
+              <!-- Content Header  -->
+              <h5>
+                <i class="fa fa-tasks"></i> Matrix Clone Components
+                <button onclick="create_client_table(header,data,'clone_parent_div','table_id')" type="button" class=" btn btn-white btn-xs" >
+                  <span class="fa fa-repeat" aria-hidden="true" title="">&nbsp;Clone Client Table</span>
+                </button>
+              </h5>
+
+
+
+              <div id="clone_parent_div"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- WorkBench Table Div -->
+    <div id="workbench_table_template_DIV" style="display:none"></div>
+
+
+  </div>
+
+
+  <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+  <script src="assets/reference/jquery/jquery.json.js"></script>
+  <script src="assets/reference/knockout.js/knockout-3.3.0.js"></script>
+  <script src="assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+  <script src="assets/reference/flat-ui/js/vendor/video.js"></script>
+  <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
+  <script src="assets/reference/jquery/jquery.json.js"></script>
+  <script src="assets/reference/jquery/jquery.autosize.js"></script>
+  <script src="assets/reference/jquery/jquery.blockUI.js"></script>
+  <script src="assets/reference/markdown/markdown.min.js"></script>
+
+
+
+  <!-- Javascript for Matrix Self Owned -->
+  <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
+  <script src="assets/self-owned/js/generic/generic_cache.js"></script>
+  <script src="assets/self-owned/js/generic/generic_charting.js"></script>
+  <script src="assets/self-owned/js/generic/generic_csv.js"></script>
+  <script src="assets/self-owned/js/generic/generic_cud.js"></script>
+  <script src="assets/self-owned/js/generic/generic_modal.js"></script>
+  <script src="assets/self-owned/js/generic/generic_prototype.js"></script>
+  <script src="assets/self-owned/js/generic/generic_query.js"></script>
+  <script src="assets/self-owned/js/generic/generic_table.js"></script>
+  <script src="assets/self-owned/js/generic/generic_util.js"></script>
+  <script src="assets/self-owned/js/generic/generic_validation.js"></script>
+  <script src="assets/self-owned/js/generic/generic_workbench.js"></script>
+
+
+
+
+  <script>
+    $(document).ready(function() {
+      $('#workbench_table_template_DIV').load($.getRootPath() + '/assets/self-owned/html/template/client_table_template.html');
+    });
+  </script>
+
+
+
+  <script>
+    var header, data;
+    var retrieveData_mock = function() {
+      $.ajax({
+        url: $.getRootPath() + "/assets/self-owned/data/server_mock_data.json",
+        type: 'GET',
+        dataType: 'json',
+        success: function(json) {
+          var serverData = json;
+          var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
+          data=tableData.result;
+          header=tableData.header;
+        },
+        error: function(xhr, status) {
+          console.log('Sorry, there was a problem on SERVER_REQUEST_ACTION process!');
+        },
+        complete: function(xhr, status) {}
+      });
+    }
+    retrieveData_mock();
+  </script>
+</body>
+
+</html>

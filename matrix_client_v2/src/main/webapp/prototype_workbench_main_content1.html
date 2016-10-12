@@ -1,0 +1,544 @@
+<style>
+  .grid-stack-item-content {
+    background: white;
+    color: #2c3e50;
+  }
+
+  header a,
+  header a:hover {
+    color: #fff;
+  }
+
+  .dragContainer {
+    background:
+     -webkit-linear-gradient(top, transparent 59px, white 60px),
+     -webkit-linear-gradient(left, #888 59px, white 60px);
+    background-size: 60px 60px;
+    color: #fff;
+  }
+
+  .dragContainer hr.star-light::after {
+    background-color: #2c3e50;
+  }
+
+</style>
+
+<!-- Breadcrum Zone -->
+<ol class="breadcrumb" style="margin-top:-60px;margin-left:-60px">
+  <li><a href="index.html">Home</a></li>
+  <li class="active">Matrix Workbench</li>
+</ol>
+
+<!-- Content Header  -->
+<h3><i class="fa fa-tasks"></i> Matrix Workbench <small>(Implement by Matrix)</small>
+
+  <!-- <button onclick="test()" type="button" class=" btn btn-white btn-xs" >
+    <span class="fa fa-repeat" aria-hidden="true" title="重置">&nbsp;test1</span>
+  </button>
+  <button onclick="test2()" type="button" class=" btn btn-white btn-xs" >
+    <span class="fa fa-repeat" aria-hidden="true" title="重置">&nbsp;test2</span>
+  </button>
+  <button onclick="test_copy()" type="button" class=" btn btn-white btn-xs" >
+    <span class="fa fa-repeat" aria-hidden="true" title="重置">&nbsp;copy</span>
+  </button>
+  <button onclick="test_bind()" type="button" class=" btn btn-white btn-xs" >
+    <span class="fa fa-repeat" aria-hidden="true" title="重置">&nbsp;bind</span>
+  </button>
+  <button onclick="test_load()" type="button" class=" btn btn-white btn-xs" >
+    <span class="fa fa-repeat" aria-hidden="true" title="重置">&nbsp;load</span>
+  </button> -->
+</h3>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="dragContainer">
+      <div style="padding-top: 60px;padding-left:50px;min-height:760px">
+        <div class="grid-stack" data-gs-width="12" data-gs-animate="yes">
+          <!-- <div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="4" data-gs-height="2">
+            <div class="grid-stack-item-content">1</div>
+          </div> -->
+          <!-- <div class="grid-stack-item" data-gs-x="4" data-gs-y="0" data-gs-width="4" data-gs-height="4">
+            <div class="grid-stack-item-content">2</div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="panel fresh-color panel-primary" style="width:100%;display:none">
+  <div class="panel-heading">
+    <i class="icon fa fa-bar-chart fa-1x"> &nbsp;Bar chart</i>
+    <button type="button" class=" btn btn-black btn-xs pull-right" title="" onclick="copyChart(option_chart1)">
+      <div class="title"><i class="fa fa-thumb-tack"></i></div>
+    </button>
+  </div>
+  <div class="panel-body">
+    <div id="dragableContext4" style="min-height:380px; max-height:380px;">
+      <div id="bar_chart_div" style="height:320px">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div style="display:none">
+  <div class="grid-stack-item-content" id='draggableTemplate'>
+    <div class="panel fresh-color panel-dragable">
+      <div class="panel-heading"><i class="fa fa-plug"></i> Drag Item
+        <button type="button" class=" btn btn-black btn-xs pull-right remove-drag" title="">
+          <div class="title"><i class="fa fa-remove"></i></div>
+        </button>
+        <button type="button" class=" btn btn-black btn-xs pull-right lock-drag" title="">
+          <div class="title"><i class="fa fa-unlock"></i></div>
+        </button>
+        <button type="button" class=" btn btn-black btn-xs pull-right unlock-drag" title="" style="display:none">
+          <div class="title"><i class="fa fa-lock"></i></div>
+        </button>
+      </div>
+      <div class="panel-body">
+        <div class="draggableTemplateContext"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="modal fade modal-success" id="popupModalPro" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <i class="fa fa-send-o"></i> &nbsp; <span class="modal-title" id="popupModalLabelPro"></span>
+      </div>
+      <div class="modal-body">
+        <div id="modalContentDIVPro"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="example_single_table_bind_div" id="example_single_table_bind_div" style="display:none">
+  <div class="row">
+    <div class="col-md-12" style="overflow: auto">
+      <div id="preview" class=""> </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" style="overflow: auto">
+      <table class="table table-striped" cellspacing="0">
+        <thead>
+          <tr data-bind="foreach:columnNames">
+            <th>
+              <span data-bind="text: $data"></span>
+            </th>
+          </tr>
+        </thead>
+        <tbody data-bind="foreach:viewData">
+          <tr data-bind="visible:isDisplay,foreach: data">
+            <td data-bind="text: $data"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="matrix-pager-example">
+    <nav class="matrix-pager " role="navigation">
+
+      <div class="collapse navbar-collapse" id="navbar-collapse-01">
+
+        <ul class="nav navbar-nav navbar-right ">
+          <li><a data-bind="click:function(){toPage(1)}" href="#"><i class="fa fa-angle-double-left"></i> &nbsp;首页</a></li>
+          <li><a data-bind="click:function(){toPage(currentPageNumber()-1)}" href="#"><i class="fa fa-angle-left"></i> &nbsp;上页</a></li>
+          <li>
+            <form class="navbar-form navbar-center" action="#" role="search" style="width:68px;margin-left: -20px;">
+              <div class="form-group">
+                <div class="input-group">
+                  <input data-bind="value:currentPageNumber" class="form-control text-center" type="search" placeholder="页数" style="width:50px;border-radius: 0px;">
+                  <span class="input-group-btn" style="padding-left: 3px;">
+              <button data-bind="visible:false,click:function(){}" type="submit" class="btn"><span class="fui-search"></span></button>
+                  </span>
+                </div>
+              </div>
+            </form>
+          </li>
+          <li><a data-bind="click:function(){toPage(currentPageNumber()+1)}" href="#">下页 &nbsp;<i class="fa fa-angle-right"></i></a></li>
+          <li><a data-bind="click:function(){toPage(totalPage())}" href="#"> 末页 &nbsp;<i class="fa fa-angle-double-right"></i></a></li>
+          <li class="dropup">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">每页<span data-bind="text:pageMaxSize()"></span>条<b class="caret"></b></a>
+            <span class="dropdown-arrow"></span>
+            <ul class="dropdown-menu" data-bind="foreach: pagingSizeArray">
+              <li><a data-bind="click:function(){$parent.pageMaxSize($data)}" href="#"><span data-bind="text:$data"></span></a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav">
+          <li><a href="#">结果总数:<span data-bind="text:totalCounts()?totalCounts():0"></span>条</a></li>
+        </ul>
+        <form class="navbar-form navbar-left" action="#" role="search">
+          <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+              <input data-bind="value:searchKeyword" class="form-control text-center" type="search" placeholder="Search" style="width: 100px;border-radius: 0px;">
+              <span class="input-group-btn" style="padding-left: 3px;">
+                  <button style="border-radius: 0px;" data-bind="click:function(){buildView()}" type="submit" class="btn"><span class="fui-search"></span></button>
+              </span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </nav>
+  </div>
+</div>
+
+
+<script>
+
+  var test_copy = function(){
+    console.log("test copy");
+    var context_div_clone = $('#example_single_table_bind_div').clone().removeAttr('id');
+    context_div_clone.attr('id','yangliutestDIV');
+    context_div_clone.css('display', '');
+    add_content_div(context_div_clone,0,0,6,6);
+  }
+
+  var test_bind = function(){
+    console.log("test test_bind");
+    tableModel_yangliutestDIV = new ListViewModel();
+    ko.applyBindings(tableModel_yangliutestDIV, document.getElementById('yangliutestDIV'));
+  }
+
+  var test_load = function(){
+    console.log("test test_load");
+    if(tableData){
+      tableModel_yangliutestDIV.buildData(tableData.result);
+      tableModel_yangliutestDIV.columnNames(tableData.header);
+      tableModel_yangliutestDIV.buildView();
+    }
+  }
+
+
+
+  var tableData = null;
+
+
+
+  var retrieveData_mock = function() {
+    $.ajax({
+      url: $.getRootPath() + "/assets/self-owned/data/server_mock_data.json",
+      type: 'GET',
+      dataType: 'json',
+      success: function(json) {
+        var serverData = json;
+        tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
+      },
+      error: function(xhr, status) {
+        console.log('Sorry, there was a problem on SERVER_REQUEST_ACTION process!');
+      },
+      complete: function(xhr, status) {}
+    });
+  }
+  retrieveData_mock();
+
+  setTimeout(function() {
+    // ModalUtil.popup_modal_with_businessPOJO('Table Editor', '/prototype_workbench_main_content_modal_table.html',tableData);
+  }, 1000);
+
+</script>
+
+
+
+<script>
+
+  var initialize = function(){
+
+      $('body').on('click', '.remove-drag', function(e) {
+        e.preventDefault();
+        var grid = $('.grid-stack').data('gridstack'),
+          el = $(this).closest('.grid-stack-item')
+
+        grid.removeWidget(el);
+      });
+      $('body').on('click', '.lock-drag', function(e) {
+        e.preventDefault();
+        var $unlock = $(this).next();
+        $unlock.css('display', '');
+
+        var grid = $('.grid-stack').data('gridstack'),
+          el = $(this).closest('.grid-stack-item');
+        grid.locked(el, true);
+
+        $(this).css('display', 'none');
+      });
+
+      $('body').on('click', '.unlock-drag', function(e) {
+        e.preventDefault();
+        var $lock = $(this).prev();
+        $lock.css('display', '');
+        var grid = $('.grid-stack').data('gridstack'),
+          el = $(this).closest('.grid-stack-item');
+
+        grid.locked(el, false);
+        $(this).css('display', 'none');
+      });
+
+      $('.grid-stack').on('resizestop', function(event, ui) {
+        var grid = this;
+        var element = event.target;
+        console.log(grid);
+        console.log(element);
+
+        var $draggableTemplateContext = $(element).find('.draggableTemplateContext');
+        var height_$draggableTemplateContext= $(element).height()-80;
+
+        var $draggableTemplateContext_id = $draggableTemplateContext.attr('id');
+        var $draggableTemplateContext_chart = $draggableTemplateContext.attr('chart');
+        console.log($draggableTemplateContext_id);
+        if ($draggableTemplateContext_id && $draggableTemplateContext_chart) {
+
+          setTimeout(function() {
+            // $draggableTemplateContext_chart.resize();
+            var chart = chartCache[$draggableTemplateContext_id];
+            if(chart){
+              // var ht = $draggableTemplateContext.css('height');
+
+              $draggableTemplateContext.height(height_$draggableTemplateContext);
+              chart.resize();
+            }
+
+          }, 500);
+        }
+      });
+  }
+</script>
+<script type="text/javascript">
+  $(function() {
+
+    var options = {
+      cellHeight: 60,
+      verticalMargin: 20,
+      alwaysShowResizeHandle: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+      resizable: {
+        handles: 'e, se, s, sw, w'
+      },
+      width: 12,
+      float: false,
+      removable: '.trash',
+      removeTimeout: 100,
+      acceptWidgets: '.grid-stack-item'
+    };
+
+    $('.grid-stack').gridstack(options);
+
+    initialize();
+  });
+</script>
+
+
+<script>
+
+  var add_empty_div = function(){
+    var grid = $('.grid-stack').data('gridstack');
+    var widget = $('<div></div>').append('<div class="grid-stack-item-content"></div>');
+    grid.addWidget(widget, 0, 0, 1, 2);
+  }
+
+  var add_content_div = function(content,x,y,x_width,y_height){
+    x = x || 0;
+    y = y || 0;
+    x_width = x_width || 12;
+    y_height = y_height || 4
+    var grid = $('.grid-stack').data('gridstack');
+    //clone draggableTemplate, and remove attribute of id
+    var template = $('#draggableTemplate').clone().removeAttr('id');
+    //find draggableTemplateContext DIV in the template, append the context into it
+    var $draggableTemplateContext = template.find('.draggableTemplateContext');
+    var $draggableTemplateContext_id = (new Date()).getTime();
+    $draggableTemplateContext.attr('id', $draggableTemplateContext_id);
+    $draggableTemplateContext.append(content);
+    //add template into grid as widget
+    var widget = $('<div></div>').append(template);
+    grid.addWidget(widget, x, y, x_width, y_height);
+  }
+
+
+  $.subscribe("ADD_DRAG_EMPTY_DIV_EVENT", ADD_DRAG_EMPTY_DIV_EVENT_LISTENER);
+  $.subscribe("ADD_DRAG_MARKDOWN_DIV_EVENT", ADD_DRAG_MARKDOWN_DIV_EVENT_LISTENER);
+  $.subscribe("ADD_DRAG_TABLE_DIV_EVENT", ADD_DRAG_TABLE_DIV_EVENT_LISTENER);
+
+
+  function ADD_DRAG_EMPTY_DIV_EVENT_LISTENER() {
+    console.log("ADD_DRAG_EMPTY_DIV_EVENT invoked");
+    add_empty_div();
+  }
+  function ADD_DRAG_MARKDOWN_DIV_EVENT_LISTENER() {
+    console.log("ADD_DRAG_MARKDOWN_DIV_EVENT invoked");
+    if (arguments && arguments[1]) {
+      // console.log(arguments[1]);
+      var content = arguments[1];
+      add_content_div(content,0,0,6,6);
+      ModalUtil.modal_close('popupModalPro');
+    }
+  }
+  var tmp_vm = null;
+  function ADD_DRAG_TABLE_DIV_EVENT_LISTENER() {
+    console.log("ADD_DRAG_TABLE_DIV_EVENT invoked");
+    if (arguments && arguments[1]) {
+      // console.log(arguments[1]);
+      var content = arguments[1];
+      var tableHeader = content.header;
+      var tableData = content.result;
+
+
+      var context_div_clone = $('#example_single_table_bind_div').clone().removeAttr('id');
+      var tmp_id = (new Date()).getTime()+"DIV";
+      context_div_clone.attr('id',tmp_id);
+      context_div_clone.css('display', '');
+      add_content_div(context_div_clone,0,0,6,6);
+
+      var tableModel_yangliutestDIV = new ListViewModel();
+      ko.applyBindings(tableModel_yangliutestDIV, document.getElementById(tmp_id));
+      tableModel_yangliutestDIV.pageMaxSize(5);
+      tableModel_yangliutestDIV.buildData(tableData);
+      tableModel_yangliutestDIV.columnNames(tableHeader);
+      tableModel_yangliutestDIV.buildView();
+
+      // mock();
+
+      ModalUtil.modal_close('popupModalPro');
+    }
+  }
+
+  var mock = function(){
+    test_copy();
+    test_bind();
+    test_load();
+  }
+
+
+</script>
+
+
+
+<script type="text/javascript">
+  // 基于准备好的dom，初始化echarts实例
+  var labelStyle = {
+    // // color: 'white',
+    fontWeight: 'bold',
+    fontSize: '12'
+  };
+  var chart1 = echarts.init(document.getElementById('bar_chart_div'));
+
+  // 指定图表的配置项和数据
+  var option_chart1 = {
+    title: {
+      show: true,
+      x: 'left',
+      padding: [0, 0, 0, 20],
+      textStyle: labelStyle,
+      text: 'Analyze for Server',
+      // subtext: 'Data from scripter',
+    },
+    tooltip: {},
+    legend: {
+      orient: 'vertical',
+      left: 'right',
+      top: 'top',
+      padding: [0, 20, 0, 0],
+      data: ['流记录数量', '服务器数量'],
+      textStyle: {
+        // // color: 'white',
+        fontWeight: 'bold',
+        fontSize: '12'
+      },
+    },
+    grid: {
+      left: '20%'
+    },
+    xAxis: {
+      axisLabel: {
+        interval: 0, // 强制显示所有标签
+        rotate: -45,
+        textStyle: labelStyle,
+      },
+      axisLine: {
+        lineStyle: {
+          // // color: '#fff'
+        }
+      },
+      splitLine: {
+        show: false
+      },
+      data: ['http', 'dns', 'https', 'http proxy', 'xmpp', '14000', 'other', 'total']
+    },
+    yAxis: {
+      axisLabel: {
+        rotate: 45,
+        textStyle: labelStyle,
+      },
+      axisLine: {
+        lineStyle: {
+          // // color: '#fff'
+        }
+      },
+      splitLine: {
+        show: false
+      },
+    },
+    series: [{
+      name: '流记录数量',
+      type: 'bar',
+      stack: 'server',
+      itemStyle: {
+        normal: {
+          //color: '#aa10c9',
+        }
+      },
+      data: [334812, 108753, 28524, 20065, 18786, 17547, 48705, 577183]
+    }, {
+      name: '服务器数量',
+      type: 'bar',
+      stack: 'server',
+      itemStyle: {
+        normal: {
+          //color: '#ea62ca',
+        }
+      },
+      data: [67455, 1659, 16739, 4966, 1635, 379, 297695, 373724]
+    }]
+  };
+
+  // 使用刚指定的配置项和数据显示图表。
+  chart1.setOption(option_chart1);
+</script>

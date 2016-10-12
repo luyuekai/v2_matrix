@@ -121,14 +121,16 @@ function ListViewModel() {
             if (keyword && keyword.length > 0) {
                 if (self.searchField()){
                     $.each(self.searchField(), function (key,value){
-                        if(jsonData[value].toString().indexOf(keyword) >= 0){
-                            tmp.push(new DataModel(jsonData, false, false));
-                            return false;
+                        if(jsonData[value]){
+                          if(jsonData[value].toString().indexOf(keyword) >= 0){
+                              tmp.push(new DataModel(jsonData, false, false));
+                              return false;
+                          }
                         }
                     })
                 }else{
                     $.each(jsonData, function (key, value) {
-                        if (value.toString().indexOf(keyword) >= 0) {
+                        if (value && value.toString().indexOf(keyword) >= 0) {
                             tmp.push(new DataModel(jsonData, false, false));
                             return false;
                         }
@@ -162,6 +164,7 @@ function ListViewModel() {
     }
 
     self.toPage = function (pageNumber) {
+        pageNumber = pageNumber || 1;
         var cp = pageNumber;
         var tc = self.totalCounts();
         var pm = self.pageMaxSize();
@@ -216,4 +219,10 @@ function ListViewModel() {
             }
         }
     };
+
+    self.clean = function(){
+      self.buildData("");
+      self.columnNames([]);
+      self.buildView();
+    }
 }

@@ -70,22 +70,8 @@ function ServerPagingViewModel() {
 
     self.currentPageNumber.subscribe(function (newValue) {
       newValue = Number(newValue);
-        if (!self.retrieveData) {
-            return;
-        }
-        var cp = newValue;
-        var tc = self.totalCounts();
-        var pm = self.pageMaxSize();
-        var tp = Math.ceil(tc / pm); // total page
-        if (tp == 0 && cp == 1) {
-            self.retrieveData();
-        } else if (cp < 1) {
-            self.currentPageNumber(1);
-        } else if (cp > tp) {
-            self.currentPageNumber(tp);
-        } else {
-            self.retrieveData();
-        }
+      self.toPage(newValue);
+
     });
 
     self.buildData = function (serverData) {
@@ -127,7 +113,26 @@ function ServerPagingViewModel() {
         return tp;
     };
     self.toPage = function (pageNumber) {
-        self.currentPageNumber(pageNumber);
+
+          if (!self.retrieveData) {
+              return;
+          }
+          if(!pageNumber){
+            self.currentPageNumber(1);
+          }
+          var cp = pageNumber;
+          var tc = self.totalCounts();
+          var pm = self.pageMaxSize();
+          var tp = Math.ceil(tc / pm); // total page
+          if (tp == 0 && cp == 1) {
+              self.retrieveData();
+          } else if (cp < 1) {
+              self.currentPageNumber(1);
+          } else if (cp > tp) {
+              self.currentPageNumber(tp);
+          } else {
+              self.retrieveData();
+          }
 //        console.log('navigate to the special page success...');
     };
 

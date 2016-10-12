@@ -1,0 +1,273 @@
+<div id="genericModalDiv">
+
+  <!--RESULT DISPLAY DIV BEGIN-->
+  <div id="resultDIV" data-bind="visible: hasResult,css: styleClass" class="alert fresh-color">
+    <button type="button" class="close" data-bind="click:hasResult(false)" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>
+      <span data-bind="text:resultTitle"></span>
+    </strong>
+    <span data-bind="text:resultSubTitle"></span>
+    <div data-bind="text:resultContent"></div>
+  </div>
+  <!--RESULT DISPLAY DIV END-->
+
+  <!--CONTENT DIV BEGIN-->
+  <div id="modal_content_div">
+    <div class="card card-success">
+      <div class="card profile">
+        <div class="card-body">
+          <!--Validation DIV BEGIN-->
+          <div data-bind="visible: hasError" class="alert alert-warning alert-dismissible fresh-color" role="alert">
+            <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Warning!</strong>
+            <div id="errorMessagesDIV" data-bind="foreach:errorMessage">
+              <div data-bind="text:$data"></div>
+            </div>
+          </div>
+          <!--Validation DIV END-->
+          <!-- *******YOUR SHOULD CODING IN HERE:[BEGIN]*******-->
+          <div data-bind="if:businessPOJO()">
+            <div data-bind="with:businessPOJO">
+              <div class="step">
+                <ul class="nav nav-tabs nav-justified" role="tablist">
+                  <li role="step" class="active">
+                    <a href="#step1" id="step1-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+                      <div class="icon fa fa-flag-checkered"></div>
+                      <div class="step-title">
+                        <div class="title">Editing</div>
+                        <div class="description"><strong>Fulfill the context...</strong></div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade in active" id="step1" aria-labelledby="home-tab">
+                    <div class="card card-success">
+                      <div class="card-header" style="height:50px">
+                        <div class="card-title" style="padding: 8px 20px;">
+                          <div class="title"><i class="fa fa-cogs"></i> Table Editor :
+                            <small>(See the results immediately)</small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-body no-padding">
+
+                        <br>
+                        <form class="form-horizontal">
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">
+                              <span style="font-weight: bold;font-size: 14px;">Select Table Source</span>
+                              <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                            </label>
+                            <div class="col-sm-9">
+                              <select class="form-control" style="width:388px" data-bind="options:items,optionsText:'itemName',value:selectedTableData,optionsCaption: '请选择...'"></select>
+                            </div>
+                            <div class="col-sm-9 col-sm-offset-3">
+                              System will automatic compute and display the table source after it selected.
+                            </div>
+                          </div>
+                        </form>
+
+                        <br>
+
+                        <div data-bind="with:tableModel" id="tableModelDIV">
+                          <div data-bind="if:!(serverData)">
+                            <div class="alert alert-success alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+                              <strong><i class="fa fa-warning"></i>&nbsp;信息:</strong> &nbsp;Table Not Initialized! Please load data first!
+                            </div>
+                          </div>
+                          <div class="panel fresh-color panel-primary" data-bind="if:(serverData)">
+
+
+
+                            <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;Prepare Drag Table
+                            </div>
+                            <div class="panel-body">
+                              <div class="example_table" id="example_table_div">
+                                <div class="row">
+                                  <div class="col-md-12" style="overflow: auto">
+                                    <div id="preview" class=""> </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12" style="overflow: auto">
+                                    <table class="table table-striped" cellspacing="0">
+                                      <thead>
+                                        <tr data-bind="foreach:columnNames">
+                                          <th>
+                                            <span data-bind="text: $data"></span>
+                                          </th>
+                                        </tr>
+                                      </thead>
+                                      <tbody data-bind="foreach:viewData">
+                                        <tr data-bind="visible:isDisplay,foreach: data">
+                                          <td data-bind="text: $data"></td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+
+
+                                <div class="matrix-pager-example">
+                                  <nav class="matrix-pager " role="navigation">
+
+                                    <div class="collapse navbar-collapse" id="navbar-collapse-01">
+
+                                      <ul class="nav navbar-nav navbar-right ">
+                                        <li><a data-bind="click:function(){toPage(1)}" href="#"><i class="fa fa-angle-double-left"></i> &nbsp;首页</a></li>
+                                        <li><a data-bind="click:function(){toPage(currentPageNumber()-1)}" href="#"><i class="fa fa-angle-left"></i> &nbsp;上页</a></li>
+                                        <li>
+                                          <form class="navbar-form navbar-center" action="#" role="search" style="width:68px;margin-left: -20px;">
+                                            <div class="form-group">
+                                              <div class="input-group">
+                                                <input data-bind="value:currentPageNumber" class="form-control text-center" type="search" placeholder="页数" style="width:50px;border-radius: 0px;">
+                                                <span class="input-group-btn" style="padding-left: 3px;">
+                                          <button data-bind="visible:false,click:function(){}" type="submit" class="btn"><span class="fui-search"></span></button>
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </form>
+                                        </li>
+                                        <li><a data-bind="click:function(){toPage(currentPageNumber()+1)}" href="#">下页 &nbsp;<i class="fa fa-angle-right"></i></a></li>
+                                        <li><a data-bind="click:function(){toPage(totalPage())}" href="#"> 末页 &nbsp;<i class="fa fa-angle-double-right"></i></a></li>
+                                        <li class="dropdown">
+                                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">每页<span data-bind="text:pageMaxSize()"></span>条<b class="caret"></b></a>
+                                          <span class="dropdown-arrow"></span>
+                                          <ul class="dropdown-menu" data-bind="foreach: pagingSizeArray">
+                                            <li><a data-bind="click:function(){$parent.pageMaxSize($data)}" href="#"><span data-bind="text:$data"></span></a></li>
+                                          </ul>
+                                        </li>
+                                      </ul>
+                                      <ul class="nav navbar-nav">
+                                        <li><a href="#">结果总数:<span data-bind="text:totalCounts()?totalCounts():0"></span>条</a></li>
+                                      </ul>
+                                      <form class="navbar-form navbar-left" action="#" role="search">
+                                        <div class="form-group">
+                                          <div class="input-group">
+                                            <input data-bind="value:searchKeyword" class="form-control text-center" type="search" placeholder="Search" style="border-radius: 0px;">
+                                            <span class="input-group-btn" style="padding-left: 3px;">
+                                              <button style="border-radius: 0px;" data-bind="click:function(){buildView()}" type="submit" class="btn"><span class="fui-search"></span></button>
+                                            </span>
+                                          </div>
+                                        </div>
+                                      </form>
+                                    </div>
+                                    <!-- /.navbar-collapse -->
+                                  </nav>
+                                  <!-- /navbar -->
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <br>
+                    <div class="pull-right">
+                      <button class="btn btn-primary btn-wide" onclick="execute()">Execute</button>
+                      <button class="btn btn-inverse btn-wide" onclick="ModalUtil.modal_close('popupModalPro')">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- *******YOUR SHOULD CODING IN HERE:[END]*******-->
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--CONTENT DIV END-->
+</div>
+
+
+
+<script>
+  // Initialize the View Model
+  // Clean the paging binding nodes
+  // Binding the view Model
+  var genericModalViewModel = new GenericModalViewModel();
+  ko.cleanNode($('#genericModalDiv')[0]);
+  ko.applyBindings(genericModalViewModel, document.getElementById('genericModalDiv'));
+</script>
+
+
+
+<script>
+  // Setup the business model with view model
+  (function initialize() {
+    // *******YOUR SHOULD CODING IN HERE:*******
+    function BusinessPOJO() {
+      var self = this;
+      self.items = ko.observableArray();
+
+      self.selectedTableData = ko.observable();
+
+      self.selectedTableData.subscribe(function(newValue) {
+        var tableData = newValue.itemValue;
+        var tableModel = new ListViewModel();
+        tableModel.pageMaxSize(5);
+        tableModel.buildData(tableData.result);
+        tableModel.columnNames(tableData.header);
+        tableModel.buildView();
+        businessPOJO.tableModel(tableModel);
+      });
+
+      self.tableModel = ko.observable(new ListViewModel());
+    }
+    var businessPOJO = new BusinessPOJO();
+    if (ModalUtil.businessPOJO) {
+      //prototype
+      console.log(ModalUtil.businessPOJO);
+      var count = 1;
+      var items = [];
+      var item = {
+        itemName: 'Table Source ' + count,
+        itemValue: ModalUtil.businessPOJO
+      };
+      items.push(item);
+      count++;
+      businessPOJO.items(items);
+    }
+    genericModalViewModel.businessPOJO(businessPOJO);
+  })();
+
+  function execute() {
+    // validation failed
+    // show validation error message in the warning DIV...
+    if (!genericModalViewModel.validation(businessValidation)) {
+      return;
+    } else {
+      // validation correct
+      // do your business...
+      runService();
+    }
+  }
+
+  // *******YOUR SHOULD CODING IN HERE:*******
+  var businessValidation = function() {
+    var errorMessages = [];
+    //validate logic...
+    var validateFunctions = ['KEY_NOT_NULL'];
+    ValidationPOJO.validate("Selected Table", genericModalViewModel.businessPOJO().selectedTableData(), errorMessages, validateFunctions);
+    //validate
+
+
+    return errorMessages;
+  }
+
+  // *******YOUR SHOULD CODING IN HERE:*******
+  var runService = function() {
+    var tableData = genericModalViewModel.businessPOJO().selectedTableData().itemValue;
+
+    $.publish('ADD_DRAG_TABLE_DIV_EVENT', tableData);
+
+    console.log("DISPATCH ADD_DRAG_TABLE_DIV_EVENT")
+  }
+</script>

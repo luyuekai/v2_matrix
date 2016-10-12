@@ -1,13 +1,15 @@
-var switchBookmark_businessLogic = function (ni, bi, notebookListViewModel) {
-    var notebook_index = 'notebookDIV' + ni;
-    var bookmark_index = 'notebook' + ni + '_bookmark' + bi;
-    var self = notebookListViewModel;
-    $('#' + notebook_index + ' button.matrix_bookmark').removeClass('bookmark_active');
-    $('#' + notebook_index + ' button.matrix_bookmark').removeClass('bookmark_normal');
-    $('#' + notebook_index + ' button.matrix_bookmark').addClass('bookmark_normal');
-    $('#' + bookmark_index).addClass('bookmark_active');
-    $('#' + bookmark_index).removeClass('bookmark_normal');
-    var original_bi = self.notebooks()[ni].console.currentBookmark();
+
+
+var switchBookmark_businessLogic = function(ni, bi, notebookListViewModel) {
+  var notebook_index = 'notebookDIV' + ni;
+  var bookmark_index = 'notebook' + ni + '_bookmark' + bi;
+  var self = notebookListViewModel;
+  $('#' + notebook_index + ' button.matrix_bookmark').removeClass('bookmark_active');
+  $('#' + notebook_index + ' button.matrix_bookmark').removeClass('bookmark_normal');
+  $('#' + notebook_index + ' button.matrix_bookmark').addClass('bookmark_normal');
+  $('#' + bookmark_index).addClass('bookmark_active');
+  $('#' + bookmark_index).removeClass('bookmark_normal');
+  var original_bi = self.notebooks()[ni].console.currentBookmark();
 
     if (bi != original_bi) {
         self.notebooks()[ni].console.currentBookmark(bi);
@@ -123,6 +125,51 @@ var run_businessLogic = function (currentData, currentIndex, notebookListViewMod
         notebook.result.result_markdown.data(markdown_result);
         console.log(markdown_result);
     }
+  }
+};
+
+var switchState_chartPanel_businessLogic = function() {
+  if(notebookListViewModel){
+    notebookListViewModel.chartPanel.isDisplay(!notebookListViewModel.chartPanel.isDisplay());
+  }
+};
+var switchState_businessLogic = function(notebook, componentType) {
+  if ('console' === componentType) {
+    notebook.console.isDisplay(!notebook.console.isDisplay());
+    return;
+  }
+  if ('result' === componentType) {
+    notebook.result.isDisplay(!notebook.result.isDisplay());
+    return;
+  }
+  if ('status' === componentType) {
+    notebook.status.isDisplay(!notebook.status.isDisplay());
+    return;
+  }
+  if ('chart' === componentType) {
+    notebook.chartPanel.isDisplay(!notebook.chartPanel.isDisplay());
+    return;
+  }
+};
+
+var addNotebook_businessLogic = function(notebookListViewModel) {
+  var self = notebookListViewModel;
+  var notebook = new NotebookViewModel(null, false, true);
+  self.notebooks.push(notebook);
+  autosize($('textarea'));
+  notebook_textarea_keyboard_event_listener(); // need to do this for setup new notebook feature
+  var index = self.notebooks().length - 1;
+  notebook.console.currentBookmark(1); //default bookmark as 1--hive
+  notebook.result.isDisplay_hive(true); // default display hive result
+};
+
+var resetNotebook_businessLogic = function(notebookListViewModel) {
+  var self = notebookListViewModel;
+  self.notebooks.removeAll();
+  self.addNotebook();
+  self.chartPanel.charts.removeAll();
+  self.chartPanel.isDisplay(false);
+};
 
 
 

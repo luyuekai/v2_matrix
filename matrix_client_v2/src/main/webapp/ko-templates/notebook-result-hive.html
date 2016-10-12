@@ -1,6 +1,10 @@
 <div style="margin:0px 10px -10px 10px">
   <div class="panel fresh-color panel-primary">
     <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;结果显示(Hive)
+
+      <button type="button" class=" btn btn-black btn-xs pull-right" title="" data-bind="click:function(data,event){addWidget_clientTable_businessLogic(vm_server.columnNames(),vm_server.serverData);}">
+        <div class="title"><i class="fa fa-thumb-tack"></i></div>
+      </button>
       <button type="button" class=" btn btn-black btn-xs pull-right" title="Download" data-bind="click:function(data,event){notebookListViewModel.download(vm_server.columnNames(),vm_server.serverData,'.xls',notebook)}">
         <div class="title"><i class="fa fa-download"></i>&nbsp;Excel</div>
       </button>
