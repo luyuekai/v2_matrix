@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package v2.matrix.client;
+package v2.matrix.client.rest;
 
 import java.io.IOException;
 import javax.ws.rs.core.Context;

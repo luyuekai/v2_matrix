@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package v2.matrix.client;
+package v2.matrix.client.rest;
 
 import java.util.Set;
 import javax.ws.rs.core.Application;
@@ -29,7 +29,8 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(v2.matrix.client.MockResource.class);
+        resources.add(v2.matrix.client.rest.MockResource.class);
+        resources.add(v2.matrix.client.rest.ShareResource.class);
     }
     
 }
