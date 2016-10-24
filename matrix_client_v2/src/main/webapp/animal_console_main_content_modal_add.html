@@ -77,20 +77,11 @@
                       <form class="form-horizontal">
                         <div class="form-group">
                           <label class="col-sm-2 control-label">
-                            <span style="font-weight: bold;font-size: 1.1em;">Key</span>
+                            <span style="font-weight: bold;font-size: 1.1em;">name</span>
                             <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
                           </label>
                           <div class="col-sm-8">
-                            <input data-bind="value:key" type="text" class="form-control" placeholder="">
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label class="col-sm-2 control-label">
-                            <span style="font-weight: bold;font-size: 1.1em;">Value</span>
-                            <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
-                          </label>
-                          <div class="col-sm-8">
-                            <input data-bind="value:value" type="text" class="form-control" placeholder="">
+                            <input data-bind="value:name" type="text" class="form-control" placeholder="">
                           </div>
                         </div>
                       </form>
@@ -112,18 +103,18 @@
                       <form class="form-horizontal">
                         <div class="form-group">
                           <label class="col-sm-2 control-label">
-                            <span style="font-weight: bold;font-size: 1.1em;">Project</span>
+                            <span style="font-weight: bold;font-size: 1.1em;">category</span>
                           </label>
                           <div class="col-sm-8">
-                            <input data-bind="value:project" type="text" class="form-control" placeholder="">
+                            <input data-bind="value:category" type="text" class="form-control" placeholder="">
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="col-sm-2 control-label">
-                            <span style="font-weight: bold;font-size: 1.1em;">Product</span>
+                            <span style="font-weight: bold;font-size: 1.1em;">sex</span>
                           </label>
                           <div class="col-sm-8">
-                            <input data-bind="value:product" type="text" class="form-control" placeholder="">
+                            <input data-bind="value:sex" type="text" class="form-control" placeholder="">
                           </div>
                         </div>
                       </form>
@@ -144,32 +135,25 @@
                       <form class="form-horizontal">
                         <div class="form-group">
                           <label class="col-sm-2 control-label">
-                            <span style="font-weight: bold;font-size: 1.1em;">Key</span>
+                            <span style="font-weight: bold;font-size: 1.1em;">name</span>
                             <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
                           </label>
                           <div class="col-sm-4">
-                            <p class="form-control-static" data-bind="text:key"></p>
-                          </div>
-                          <label class="col-sm-2 control-label">
-                            <span style="font-weight: bold;font-size: 1.1em;">Value</span>
-                            <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
-                          </label>
-                          <div class="col-sm-4">
-                            <p class="form-control-static" data-bind="text:value"></p>
+                            <p class="form-control-static" data-bind="text:name"></p>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="col-sm-2 control-label">
-                            <span style="font-weight: bold;font-size: 1.1em;">Project</span>
+                            <span style="font-weight: bold;font-size: 1.1em;">category</span>
                           </label>
                           <div class="col-sm-4">
-                            <p class="form-control-static" data-bind="text:project"></p>
+                            <p class="form-control-static" data-bind="text:category"></p>
                           </div>
                           <label class="col-sm-2 control-label">
-                            <span style="font-weight: bold;font-size: 1.1em;">Product</span>
+                            <span style="font-weight: bold;font-size: 1.1em;">sex</span>
                           </label>
                           <div class="col-sm-4">
-                            <p class="form-control-static" data-bind="text:product"></p>
+                            <p class="form-control-static" data-bind="text:sex"></p>
                           </div>
                         </div>
                       </form>
@@ -210,10 +194,9 @@
     function BusinessPOJO() {
       var self = this;
 
-      self.key = ko.observable('');
-      self.value = ko.observable('');
-      self.project = ko.observable('');
-      self.product = ko.observable('');
+      self.name = ko.observable('');
+      self.category = ko.observable('');
+      self.sex = ko.observable('');
     }
     var businessPOJO = new BusinessPOJO();
     genericModalViewModel.businessPOJO(businessPOJO);
@@ -237,8 +220,7 @@
     //validate logic...
 
     //validate
-    ValidationPOJO.validate("KEY", genericModalViewModel.businessPOJO().key(), errorMessages, ['KEY_NOT_NULL']);
-    ValidationPOJO.validate("VALUE", genericModalViewModel.businessPOJO().value(), errorMessages, ['KEY_NOT_NULL']);
+    ValidationPOJO.validate("name", genericModalViewModel.businessPOJO().name(), errorMessages, ['KEY_NOT_NULL']);
 
     return errorMessages;
   }
@@ -247,13 +229,11 @@
   var runService = function() {
     console.log("run service function invoked!")
     var requestPOJO = {
-      "className": "v2.service.generic.query.entity.Genericentity",
+      "className": "v2.service.matrix.entity.AnimalEntity",
       "attributes": {
-        "type": "MATRIX_CLIENT_SERVER_REQUEST_DEMO",
-        "name": genericModalViewModel.businessPOJO().key(),
-        "description": genericModalViewModel.businessPOJO().value(),
-        "stringalpha":genericModalViewModel.businessPOJO().project(),
-        "stringbeta":genericModalViewModel.businessPOJO().product()
+        "name": genericModalViewModel.businessPOJO().name(),
+        "category": genericModalViewModel.businessPOJO().category(),
+        "sex":genericModalViewModel.businessPOJO().sex()
       }
     };
     var data = {

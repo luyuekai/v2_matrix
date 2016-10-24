@@ -41,15 +41,7 @@
                     </div>
                   </a>
                 </li>
-                <li role="step">
-                  <a href="#step2" role="tab" id="step2-tab" data-toggle="tab" aria-controls="profile">
-                    <div class="icon fa fa-filter"></div>
-                    <div class="step-title">
-                      <div class="title">Step 2</div>
-                      <div class="description"><strong>Filter </strong><small>(Time, Noise, Condition...)</small></div>
-                    </div>
-                  </a>
-                </li>
+
                 <li role="step">
                   <a href="#step3" role="tab" id="step3-tab" data-toggle="tab" aria-controls="profile">
                     <div class="icon fa fa-flag-checkered"></div>
@@ -77,59 +69,35 @@
                       <form class="form-horizontal">
                         <div class="form-group">
                           <label class="col-sm-2 control-label">
-                            <span style="font-weight: bold;font-size: 1.1em;">Key</span>
+                            <span style="font-weight: bold;font-size: 1.1em;">名称</span>
                             <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
                           </label>
                           <div class="col-sm-8">
-                            <input data-bind="value:key" type="text" class="form-control" placeholder="">
+                            <input data-bind="value:name" type="text" class="form-control" placeholder="">
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="col-sm-2 control-label">
-                            <span style="font-weight: bold;font-size: 1.1em;">Value</span>
+                            <span style="font-weight: bold;font-size: 1.1em;">描述</span>
+                          </label>
+                          <div class="col-sm-8">
+                            <input data-bind="value:description" type="text" class="form-control" placeholder="">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">
+                            <span style="font-weight: bold;font-size: 1.1em;">代码</span>
                             <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
                           </label>
                           <div class="col-sm-8">
-                            <input data-bind="value:value" type="text" class="form-control" placeholder="">
+                            <input data-bind="value:stringzeta" type="text" class="form-control" placeholder="">
                           </div>
                         </div>
                       </form>
                     </div>
                   </div>
                 </div>
-                <div role="tabpanel" class="tab-pane fade" id="step2" aria-labelledby="profile-tab">
-                  <div class="card card-success">
-                    <div class="card-header" style="height:50px">
-                      <div class="card-title" style="padding: 8px 20px;">
-                        <div class="title"><i class="fa fa-cogs"></i> balabalabala... :
-                          <small>(balabalabala... )</small>
-                        </div>
-                      </div>
-                      <div class="clear-both"></div>
-                    </div>
-                    <div class="card-body no-padding">
-                      <br>
-                      <form class="form-horizontal">
-                        <div class="form-group">
-                          <label class="col-sm-2 control-label">
-                            <span style="font-weight: bold;font-size: 1.1em;">Project</span>
-                          </label>
-                          <div class="col-sm-8">
-                            <input data-bind="value:project" type="text" class="form-control" placeholder="">
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label class="col-sm-2 control-label">
-                            <span style="font-weight: bold;font-size: 1.1em;">Product</span>
-                          </label>
-                          <div class="col-sm-8">
-                            <input data-bind="value:product" type="text" class="form-control" placeholder="">
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
+
                 <div role="tabpanel" class="tab-pane fade" id="step3" aria-labelledby="profile-tab">
                   <div class="card card-success">
                     <div class="card-header" style="height:50px">
@@ -144,32 +112,27 @@
                       <form class="form-horizontal">
                         <div class="form-group">
                           <label class="col-sm-2 control-label">
-                            <span style="font-weight: bold;font-size: 1.1em;">Key</span>
+                            <span style="font-weight: bold;font-size: 1.1em;">名称</span>
                             <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
                           </label>
                           <div class="col-sm-4">
-                            <p class="form-control-static" data-bind="text:key"></p>
+                            <p class="form-control-static" data-bind="text:name"></p>
                           </div>
                           <label class="col-sm-2 control-label">
-                            <span style="font-weight: bold;font-size: 1.1em;">Value</span>
-                            <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                            <span style="font-weight: bold;font-size: 1.1em;">描述</span>
+
                           </label>
                           <div class="col-sm-4">
-                            <p class="form-control-static" data-bind="text:value"></p>
+                            <p class="form-control-static" data-bind="text:description"></p>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="col-sm-2 control-label">
-                            <span style="font-weight: bold;font-size: 1.1em;">Project</span>
+                            <span style="font-weight: bold;font-size: 1.1em;">代码</span>
+                            <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
                           </label>
                           <div class="col-sm-4">
-                            <p class="form-control-static" data-bind="text:project"></p>
-                          </div>
-                          <label class="col-sm-2 control-label">
-                            <span style="font-weight: bold;font-size: 1.1em;">Product</span>
-                          </label>
-                          <div class="col-sm-4">
-                            <p class="form-control-static" data-bind="text:product"></p>
+                            <p class="form-control-static" data-bind="text:stringzeta"></p>
                           </div>
                         </div>
                       </form>
@@ -209,13 +172,18 @@
     // *******YOUR SHOULD CODING IN HERE:*******
     function BusinessPOJO() {
       var self = this;
-
-      self.key = ko.observable('');
-      self.value = ko.observable('');
-      self.project = ko.observable('');
-      self.product = ko.observable('');
+      self.id = null;
+      self.name = ko.observable('');
+      self.description = ko.observable('');
+      self.stringzeta = ko.observable('');
     }
     var businessPOJO = new BusinessPOJO();
+    if(ModalUtil.businessPOJO){
+      businessPOJO.id =  ModalUtil.businessPOJO[0]; // Don't need observable bind!
+      businessPOJO.name(ModalUtil.businessPOJO[14]);
+      businessPOJO.description(ModalUtil.businessPOJO[9]);
+      businessPOJO.stringzeta(ModalUtil.businessPOJO[41]);
+    }
     genericModalViewModel.businessPOJO(businessPOJO);
   })();
 
@@ -237,8 +205,9 @@
     //validate logic...
 
     //validate
-    ValidationPOJO.validate("KEY", genericModalViewModel.businessPOJO().key(), errorMessages, ['KEY_NOT_NULL']);
-    ValidationPOJO.validate("VALUE", genericModalViewModel.businessPOJO().value(), errorMessages, ['KEY_NOT_NULL']);
+    ValidationPOJO.validate("Entity ID", genericModalViewModel.businessPOJO().id, errorMessages, ['KEY_NOT_NULL']);
+    ValidationPOJO.validate("名称", genericModalViewModel.businessPOJO().name(), errorMessages, ['KEY_NOT_NULL']);
+    ValidationPOJO.validate("代码", genericModalViewModel.businessPOJO().stringzeta(), errorMessages, ['KEY_NOT_NULL']);
 
     return errorMessages;
   }
@@ -249,17 +218,16 @@
     var requestPOJO = {
       "className": "v2.service.generic.query.entity.Genericentity",
       "attributes": {
-        "type": "MATRIX_CLIENT_SERVER_REQUEST_DEMO",
-        "name": genericModalViewModel.businessPOJO().key(),
-        "description": genericModalViewModel.businessPOJO().value(),
-        "stringalpha":genericModalViewModel.businessPOJO().project(),
-        "stringbeta":genericModalViewModel.businessPOJO().product()
+        "id":genericModalViewModel.businessPOJO().id,
+        "name": genericModalViewModel.businessPOJO().name(),
+        "description": genericModalViewModel.businessPOJO().description(),
+        "stringzeta":genericModalViewModel.businessPOJO().stringzeta()
       }
     };
     var data = {
         'queryJson': $.toJSON(requestPOJO)
     };
-    $.serverRequest($.getServerRoot() + '/service_generic_query/api/cud/add', data, "SUCCESS_LISTENER_modal", "FAILED_LISTENER_modal", "SERVER_FAILED_LISTENER_modal");
+    $.serverRequest($.getServerRoot() + '/service_generic_query/api/cud/update', data, "SUCCESS_LISTENER_modal", "FAILED_LISTENER_modal", "SERVER_FAILED_LISTENER_modal");
   }
   $.subscribe("SUCCESS_LISTENER_modal", successAddListener_modal);
   $.subscribe("FAILED_LISTENER_modal", failedAddListener_modal);

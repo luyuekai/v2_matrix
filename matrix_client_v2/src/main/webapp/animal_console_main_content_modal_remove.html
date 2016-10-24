@@ -34,10 +34,10 @@
               <ul class="nav nav-tabs nav-justified" role="tablist">
                 <li role="step" class="active">
                   <a href="#step1" id="step1-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
-                    <div class="icon fa fa-share"></div>
+                    <div class="icon fa fa-flag-checkered"></div>
                     <div class="step-title">
-                      <div class="title">Sharing </div>
-                      <div class="description"><strong>Detail Setting</strong></div>
+                      <div class="title">Remove Entity</div>
+                      <div class="description"><strong>Confirm & Execute</strong></div>
                     </div>
                   </a>
                 </li>
@@ -48,8 +48,8 @@
                   <div class="card card-success">
                     <div class="card-header" style="height:50px">
                       <div class="card-title" style="padding: 8px 20px;">
-                        <div class="title"><i class="fa fa-share-square-o"></i> Share Setting :
-                          <small>(Generate share public link and setting expire rules)</small>
+                        <div class="title"><i class="fa fa-cogs"></i> balabalabala... :
+                          <small>(balabalabala... )</small>
                         </div>
                       </div>
                     </div>
@@ -57,22 +57,32 @@
                       <br>
                       <form class="form-horizontal">
                         <div class="form-group">
-                          <label class="col-sm-4 control-label">
-                            <span style="font-weight: bold;font-size: 14px;">共享有效时间将设置为:</span>
+                          <label class="col-sm-2 control-label">
+                            <span style="font-weight: bold;font-size: 1.1em;">name</span>
                             <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
                           </label>
-                          <div class="col-sm-8">
-                            <select class="form-control" style="width:288px" data-bind="options:expireInterval,value:chosenExpireInterval,optionsCaption: '请选择...(天)'"></select>
+                          <div class="col-sm-4">
+                            <p class="form-control-static" data-bind="text:name"></p>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">
+                            <span style="font-weight: bold;font-size: 1.1em;">category</span>
+                          </label>
+                          <div class="col-sm-4">
+                            <p class="form-control-static" data-bind="text:category"></p>
+                          </div>
+                          <label class="col-sm-2 control-label">
+                            <span style="font-weight: bold;font-size: 1.1em;">sex</span>
+                          </label>
+                          <div class="col-sm-4">
+                            <p class="form-control-static" data-bind="text:sex"></p>
                           </div>
                         </div>
                       </form>
                     </div>
-                    <div class="alert alert-info fresh-color" role="alert">
-                      提示：
-                      <br>
-                       - 当共享链接生成的同时，系统会将当前页面的可保存数据进行持久化保存
-                      <br>
-                       - 您可以将生成的链接地址拷贝并发送给任何您想与之分享者
+                    <div class="alert alert-warning fresh-color">
+                      <span>Warning: Are you sure to remove this entity from the storage?</span>
                     </div>
                   </div>
                   <br>
@@ -109,10 +119,18 @@
     // *******YOUR SHOULD CODING IN HERE:*******
     function BusinessPOJO() {
       var self = this;
-      self.expireInterval = ko.observableArray(['1', '7', '30']);
-      self.chosenExpireInterval = ko.observable();
+      self.id = null;
+      self.name = ko.observable('');
+      self.category = ko.observable('');
+      self.sex = ko.observable('');
     }
     var businessPOJO = new BusinessPOJO();
+    if(ModalUtil.businessPOJO){
+      businessPOJO.id =  ModalUtil.businessPOJO[0]; // Don't need observable bind!
+      businessPOJO.name(ModalUtil.businessPOJO[1]);
+      businessPOJO.category(ModalUtil.businessPOJO[2]);
+      businessPOJO.sex(ModalUtil.businessPOJO[3]);
+    }
     genericModalViewModel.businessPOJO(businessPOJO);
   })();
 
@@ -134,16 +152,47 @@
     //validate logic...
 
     //validate
-    ValidationPOJO.validate("共享有效时间", genericModalViewModel.businessPOJO().chosenExpireInterval(), errorMessages, ['KEY_NOT_NULL']);
+    ValidationPOJO.validate("Entity ID", genericModalViewModel.businessPOJO().id, errorMessages, ['KEY_NOT_NULL']);
+    ValidationPOJO.validate("name", genericModalViewModel.businessPOJO().name(), errorMessages, ['KEY_NOT_NULL']);
 
     return errorMessages;
   }
 
   // *******YOUR SHOULD CODING IN HERE:*******
   var runService = function() {
-      $.serverRequest($.getServerRoot()+'/matrix_share/api/success');
-    genericModalViewModel.response(true, "共享操作", "[成功]", "共享链接地址: http://localhost:41535/matrix_share/notebook.html?token=f773ac7e09560d6156322dc4ac76187f");
+    console.log("run service function invoked!")
+    var requestPOJO = {
+      "className": "v2.service.matrix.entity.AnimalEntity",
+      "attributes": {
+        "id":genericModalViewModel.businessPOJO().id
+      }
+    };
+    var data = {
+        'queryJson': $.toJSON(requestPOJO)
+    };
+    $.serverRequest($.getServerRoot() + '/service_generic_query/api/cud/remove', data, "SUCCESS_LISTENER_modal", "FAILED_LISTENER_modal", "SERVER_FAILED_LISTENER_modal");
+  }
+  $.subscribe("SUCCESS_LISTENER_modal", successAddListener_modal);
+  $.subscribe("FAILED_LISTENER_modal", failedAddListener_modal);
+  $.subscribe("SERVER_FAILED_LISTENER_modal", failedServiceListener_modal);
+
+  function successAddListener_modal() {
+    if (arguments && arguments[1]) {
+      // responseViewModel.correctResponse(arguments[1]);
+      genericModalViewModel.response(true, "Entity Operation", "[Successed]", "Operation Successed, please close the console and reload the data.");
+    }
   }
 
+  function failedAddListener_modal() {
+    if (arguments && arguments[1]) {
+      console.log(arguments);
+      var errorMessage = arguments[1].errorMessage;
+      genericModalViewModel.response(false, "Entity Operation", "[Failed]", errorMessage);
+    }
+  }
+
+  function failedServiceListener_modal() {
+    genericModalViewModel.response(false, "Entity Operation", "[Failed]", "SERVICE 'GENERIC XXX' FAILED! Please contact with the system admin for more information...");
+  }
 
 </script>

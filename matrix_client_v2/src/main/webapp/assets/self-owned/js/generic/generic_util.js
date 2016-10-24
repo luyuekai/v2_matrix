@@ -51,7 +51,7 @@ $.serverRequest = function(request_url, request_data, listener_response_success,
         }
         $.publish(listener_service_error,wrapJson);
       }else{
-        $.publish(listener_service_error);
+        $.publish(listener_service_error,xhr);
       }
 
     },

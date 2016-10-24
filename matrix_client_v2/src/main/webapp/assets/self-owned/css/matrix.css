@@ -2338,3 +2338,16 @@ h6 .small,
 .panel.fresh-color.panel-primary.panel-card {
     border: 0px;
 }
+
+
+
+/*form disable style*/
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control, .select2-search input[type="text"][disabled], .select2-search input[type="text"][readonly], fieldset[disabled] .select2-search input[type="text"] {
+    background-color: #f4f6f6;
+    border-color: #d5dbdb;
+    color: black;
+    cursor: default;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+}
