@@ -57,17 +57,27 @@ var serialize_notebook = function () {
             notebookShareModel.result.result_sql.vm_server_has_result = notebook.result.result_sql.vm_server_has_result();
             notebookShareModel.result.result_sql.vm_server.serverData = notebook.result.result_sql.vm_server.serverData;
             notebookShareModel.result.result_sql.vm_server.columnNames = notebook.result.result_sql.vm_server.columnNames();
+            notebookShareModel.result.result_sql.data_offset = notebook.result.result_sql.data_offset();
+            notebookShareModel.result.result_sql.result_size = notebook.result.result_sql.result_size();
 
             notebookShareModel.result.result_sql.vm_analyze_has_result = notebook.result.result_sql.vm_analyze_has_result();
             notebookShareModel.result.result_sql.vm_analyze.serverData = notebook.result.result_sql.vm_analyze.serverData;
             notebookShareModel.result.result_sql.vm_analyze.columnNames = notebook.result.result_sql.vm_analyze.columnNames();
-        } else if (notebook.console.currentBookmark() == 3) {
+        } else if (notebook.console.currentBookmark() == 'pig') {
             //fulfill pig
-        } else if (notebook.console.currentBookmark() == 4) {
+        } else if (notebook.console.currentBookmark() == 'spark') {
             //fulfill spark
-        } else if (notebook.console.currentBookmark() == 5) {
+            notebookShareModel.result.result_spark.data = notebook.result.result_spark.data();
+        } else if (notebook.console.currentBookmark() == 'impala') {
             //fulfill impala
-        } else if (notebook.console.currentBookmark() == 6) {
+            notebookShareModel.result.result_impala.vm_server_has_result = notebook.result.result_impala.vm_server_has_result();
+            notebookShareModel.result.result_impala.vm_server.serverData = notebook.result.result_impala.vm_server.serverData;
+            notebookShareModel.result.result_impala.vm_server.columnNames = notebook.result.result_impala.vm_server.columnNames();
+
+            notebookShareModel.result.result_impala.vm_analyze_has_result = notebook.result.result_impala.vm_analyze_has_result();
+            notebookShareModel.result.result_impala.vm_analyze.serverData = notebook.result.result_impala.vm_analyze.serverData;
+            notebookShareModel.result.result_impala.vm_analyze.columnNames = notebook.result.result_impala.vm_analyze.columnNames();
+        } else if (notebook.console.currentBookmark() == 'md') {
             //fulfill markdown
             notebookShareModel.result.result_markdown.data = notebook.result.result_markdown.data();
         } else if (notebook.console.currentBookmark() == 7) {
@@ -86,9 +96,15 @@ var serialize_notebook = function () {
 var import_notebook = function (inputData) {
     inputData = $.parseJSON(inputData);
     console.log(inputData);
-    var viewModel = deserialize_notebook(inputData);
-    ko.cleanNode($('#contentDIV')[0]);
-    ko.applyBindings(viewModel, document.getElementById('contentDIV'));
+    if (notebookListViewModel != null) {
+        notebookListViewModel = deserialize_notebook(inputData);
+        ko.cleanNode($('#contentDIV')[0]);
+        ko.applyBindings(notebookListViewModel, document.getElementById('contentDIV'));
+    } else {
+        var viewModel = deserialize_notebook(inputData);
+        ko.cleanNode($('#contentDIV')[0]);
+        ko.applyBindings(viewModel, document.getElementById('contentDIV'));
+    }
 }
 
 var deserialize_notebook = function (inputData) {
@@ -130,6 +146,8 @@ var load_notebooks = function (viewModel, inputData) {
         notebookViewModel.result.isDisplay_impala(notebook.result.isDisplay_impala);
         notebookViewModel.result.isDisplay_markdown(notebook.result.isDisplay_markdown);
 
+        console.log('#notebook' + idx + '_bookmark_' + notebook.console.currentBookmark)
+        $('#notebook' + idx + '_bookmark_' + notebook.console.currentBookmark).click();
         if (notebook.console.currentBookmark == 'hive') {
             //fulfill hive
             notebookViewModel.result.result_hive.vm_server_has_result(notebook.result.result_hive.vm_server_has_result);
@@ -155,6 +173,8 @@ var load_notebooks = function (viewModel, inputData) {
                 notebookViewModel.result.result_sql.vm_server.pageMaxSize(10);
                 notebookViewModel.result.result_sql.vm_server.buildData(notebook.result.result_sql.vm_server.serverData);
                 notebookViewModel.result.result_sql.vm_server.columnNames(notebook.result.result_sql.vm_server.columnNames);
+                notebookViewModel.result.result_sql.data_offset(notebook.result.result_sql.data_offset);
+                notebookViewModel.result.result_sql.result_size(notebook.result.result_sql.result_size);
                 notebookViewModel.result.result_sql.vm_server.buildView();
             }
 
@@ -169,9 +189,25 @@ var load_notebooks = function (viewModel, inputData) {
             //fulfill pig
         } else if (notebook.console.currentBookmark == 'spark') {
             //fulfill spark
+            notebookViewModel.result.result_spark.data(notebook.result.result_spark.data);
         } else if (notebook.console.currentBookmark == 'impala') {
             //fulfill impala
-        } else if (notebook.console.currentBookmark == 'markdown') {
+            notebookViewModel.result.result_impala.vm_server_has_result(notebook.result.result_impala.vm_server_has_result);
+            if (notebook.result.result_impala.vm_server_has_result) {
+                notebookViewModel.result.result_impala.vm_server.pageMaxSize(10);
+                notebookViewModel.result.result_impala.vm_server.buildData(notebook.result.result_impala.vm_server.serverData);
+                notebookViewModel.result.result_impala.vm_server.columnNames(notebook.result.result_impala.vm_server.columnNames);
+                notebookViewModel.result.result_impala.vm_server.buildView();
+            }
+
+            notebookViewModel.result.result_impala.vm_analyze_has_result(notebook.result.result_impala.vm_analyze_has_result);
+            if (notebook.result.result_impala.vm_analyze_has_result) {
+                notebookViewModel.result.result_impala.vm_analyze.pageMaxSize(10);
+                notebookViewModel.result.result_impala.vm_analyze.buildData(notebook.result.result_impala.vm_analyze.serverData);
+                notebookViewModel.result.result_impala.vm_analyze.columnNames(notebook.result.result_impala.vm_analyze.columnNames);
+                notebookViewModel.result.result_impala.vm_analyze.buildView();
+            }
+        } else if (notebook.console.currentBookmark == 'md') {
             //fulfill markdown
             notebookViewModel.result.result_markdown.data(notebook.result.result_markdown.data);
         } else if (notebook.console.currentBookmark == 7) {

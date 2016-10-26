@@ -1,13 +1,203 @@
-<div class="row" style="margin:0px 10px -10px 10px">
-  <div class="panel fresh-color panel-primary" style="border:1px solid">
-    <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;结果显示(SQL)
+<div style="margin:0px 10px -10px 10px">
+  <div class="panel fresh-color panel-primary">
+    <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;结果显示(RDMS)
+        (<span id="resultCount" data-bind="text:data_offset">0</span>|
+        <span id="resultTotalCount" data-bind="text:result_size">0</span>)
+      <button type="button" class=" btn btn-black btn-xs pull-right" title="下载" data-bind="click:function(data,event){notebookListViewModel.download(vm_server.columnNames(),vm_server.serverData,'.xls',notebook)}">
+        <div class="title"><i class="fa fa-download"></i>&nbsp;Excel</div>
+      </button>
+      <button type="button" class=" btn btn-black btn-xs pull-right" title="下载" data-bind="click:function(data,event){notebookListViewModel.download(vm_server.columnNames(),vm_server.serverData,'.csv',notebook)}">
+        <div class="title"><i class="fa fa-download"></i>&nbsp;CSV</div>
+      </button>
+      <button type="button" class=" btn btn-black btn-xs pull-right" title="分析" data-bind="click:function(data,event){notebookListViewModel.prepare_analyze(vm_server.columnNames(),vm_server.serverData,notebook);}">
+        <div class="title"><i class="fa fa-cubes"></i>&nbsp;分析</div>
+      </button>
+      <button type="button" class=" btn btn-black btn-xs pull-right" title="图表" data-bind="click:function(data,event){notebookListViewModel.prepare_charting(vm_server.columnNames(),vm_server.serverData,notebook);}">
+        <div class="title"><i class="fa fa-bar-chart">&nbsp;图表</i></div>
+      </button>
+<!--      <button data-bind="click:function(data,event){console.log(notebook);notebookListViewModel.test()}" type="button" class=" btn btn-black btn-xs pull-right" style="border-color:#fff">
+        <span class="fa fa-database" aria-hidden="true" title="">&nbsp;导库</span>
+      </button>-->
+<!--        <button title="加载更多数据" class=" btn btn-black btn-xs" style="color:#FCFDFD" data-bind="click:function(data,event){fetchMoreData(data,$index())}">
+         <div><i class="fa fa-plus fa-x" aria-hidden="true"></i></div>
+      </button>-->
     </div>
     <div class="panel-body">
+      <div data-bind="if:!vm_server_has_result()">
+        <div class="alert alert-success alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+          <strong><i class="fa fa-warning"></i>&nbsp;提示:</strong> &nbsp;当前没有合适分析的数据结果，请先获取您所需要数据
+        </div>
+      </div>
+      <div data-bind="if:vm_server_has_result()">
+        <div data-bind="with:vm_server">
+          <div class="row">
+            <div class="col-md-12" style="overflow: auto">
+              <table class="table table-striped" cellspacing="0">
+                <thead>
+                  <tr>
+                    <!-- ko foreach: columnNames -->
+                    <th>
+                      <span data-bind="text: $data"></span>
+                    </th>
+                    <!-- /ko -->
+                  </tr>
+                </thead>
+                <tbody data-bind="foreach:viewData">
+                  <tr data-bind="visible:isDisplay,foreach: data">
+                    <td data-bind="text: $data"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
 
+          <div class="matrix-pager-example">
+            <nav class="matrix-pager " role="navigation">
+
+              <div class="collapse navbar-collapse" id="navbar-collapse-01">
+
+                <ul class="nav navbar-nav navbar-right ">
+                  <li><a data-bind="click:function(){toPage(1)}" href="#"><i class="fa fa-angle-double-left"></i> &nbsp;首页</a></li>
+                  <li><a data-bind="click:function(){toPage(currentPageNumber()-1)}" href="#"><i class="fa fa-angle-left"></i> &nbsp;上页</a></li>
+                  <li>
+                    <form class="navbar-form navbar-center" action="#" role="search" style="width:68px;margin-left: -20px;">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <input data-bind="value:currentPageNumber" class="form-control text-center" type="search" placeholder="页数" style="width:50px;border-radius: 0px;">
+                          <span class="input-group-btn" style="padding-left: 4px;">
+                      <button data-bind="visible:false,click:function(){}" type="submit" class="btn"><span class="fui-search"></span></button>
+                          </span>
+                        </div>
+                      </div>
+                    </form>
+                  </li>
+                  <li><a data-bind="click:function(){toPage(currentPageNumber()+1)}" href="#">下页 &nbsp;<i class="fa fa-angle-right"></i></a></li>
+                  <li><a data-bind="click:function(){toPage(totalPage())}" href="#"> 末页 &nbsp;<i class="fa fa-angle-double-right"></i></a></li>
+                  <li class="dropup">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">每页<span data-bind="text:pageMaxSize()"></span>条<b class="caret"></b></a>
+                    <span class="dropdown-arrow"></span>
+                    <ul class="dropdown-menu" data-bind="foreach: pagingSizeArray">
+                      <li><a data-bind="click:function(){$parent.pageMaxSize($data)}" href="#"><span data-bind="text:$data"></span></a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <ul class="nav navbar-nav">
+                  <li><a href="#">结果总数:<span data-bind="text:totalCounts()?totalCounts():0"></span>条</a></li>
+                </ul>
+                <form class="navbar-form navbar-left" action="#" role="search">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input data-bind="value:searchKeyword" class="form-control text-center" type="search" placeholder="Search" style="border-radius: 0px;">
+                      <span class="input-group-btn" style="padding-left: 4px;">
+                          <button style="border-radius: 0px;" data-bind="click:function(){buildView()}" type="submit" class="btn"><span class="fui-search"></span></button>
+                      </span>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!-- /.navbar-collapse -->
+            </nav>
+            <!-- /navbar -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div data-bind="if:vm_analyze_has_result()">
+    <div class="panel fresh-color panel-primary">
+      <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;数据统计迭代分析(RDMS)
+        <button type="button" class=" btn btn-black btn-xs pull-right" title="下载" data-bind="click:function(data,event){notebookListViewModel.download(vm_analyze.columnNames(),vm_analyze.serverData,'.xls',notebook)}">
+          <div class="title"><i class="fa fa-download"></i>&nbsp;Excel</div>
+        </button>
+        <button type="button" class=" btn btn-black btn-xs pull-right" title="下载" data-bind="click:function(data,event){notebookListViewModel.download(vm_analyze.columnNames(),vm_analyze.serverData,'.csv',notebook)}">
+          <div class="title"><i class="fa fa-download"></i>&nbsp;CSV</div>
+        </button>
+        <button type="button" class=" btn btn-black btn-xs pull-right" title="分析" data-bind="click:function(data,event){notebookListViewModel.prepare_analyze(vm_analyze.columnNames(),vm_analyze.serverData,notebook);}">
+          <div class="title"><i class="fa fa-cubes"></i>&nbsp;分析</div>
+        </button>
+        <button type="button" class=" btn btn-black btn-xs pull-right" title="图表" data-bind="click:function(data,event){notebookListViewModel.prepare_charting(vm_analyze.columnNames(),vm_analyze.serverData,notebook);}">
+          <div class="title"><i class="fa fa-bar-chart">&nbsp;图表</i></div>
+        </button>
+        <!-- <button data-bind="click:function(data,event){console.log(notebook);notebookListViewModel.test()}" type="button" class=" btn btn-black btn-xs pull-right" style="border-color:#fff">
+          <span class="fa fa-database" aria-hidden="true" title="">&nbsp;导库</span>
+        </button> -->
+      </div>
+      <div class="panel-body">
+        <div>
+          <div data-bind="with:vm_analyze">
+            <div class="row">
+              <div class="col-md-12" style="overflow: auto">
+                <table class="table table-striped" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <!-- ko foreach: columnNames -->
+                      <th>
+                        <span data-bind="text: $data"></span>
+                      </th>
+                      <!-- /ko -->
+                    </tr>
+                  </thead>
+                  <tbody data-bind="foreach:viewData">
+                    <tr data-bind="visible:isDisplay,foreach: data">
+                      <td data-bind="text: $data"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="matrix-pager-example">
+              <nav class="matrix-pager " role="navigation">
+
+                <div class="collapse navbar-collapse" id="navbar-collapse-01">
+
+                  <ul class="nav navbar-nav navbar-right ">
+                    <li><a data-bind="click:function(){toPage(1)}" href="#"><i class="fa fa-angle-double-left"></i> &nbsp;首页</a></li>
+                    <li><a data-bind="click:function(){toPage(currentPageNumber()-1)}" href="#"><i class="fa fa-angle-left"></i> &nbsp;上页</a></li>
+                    <li>
+                      <form class="navbar-form navbar-center" action="#" role="search" style="width:68px;margin-left: -20px;">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <input data-bind="value:currentPageNumber" class="form-control text-center" type="search" placeholder="页数" style="width:50px;border-radius: 0px;">
+                            <span class="input-group-btn" style="padding-left: 4px;">
+                      <button data-bind="visible:false,click:function(){}" type="submit" class="btn"><span class="fui-search"></span></button>
+                            </span>
+                          </div>
+                        </div>
+                      </form>
+                    </li>
+                    <li><a data-bind="click:function(){toPage(currentPageNumber()+1)}" href="#">下页 &nbsp;<i class="fa fa-angle-right"></i></a></li>
+                    <li><a data-bind="click:function(){toPage(totalPage())}" href="#"> 末页 &nbsp;<i class="fa fa-angle-double-right"></i></a></li>
+                    <li class="dropup">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">每页<span data-bind="text:pageMaxSize()"></span>条<b class="caret"></b></a>
+                      <span class="dropdown-arrow"></span>
+                      <ul class="dropdown-menu" data-bind="foreach: pagingSizeArray">
+                        <li><a data-bind="click:function(){$parent.pageMaxSize($data)}" href="#"><span data-bind="text:$data"></span></a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul class="nav navbar-nav">
+                    <li><a href="#">结果总数:<span data-bind="text:totalCounts()?totalCounts():0"></span>条</a></li>
+                  </ul>
+                  <form class="navbar-form navbar-left" action="#" role="search">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input data-bind="value:searchKeyword" class="form-control text-center" type="search" placeholder="Search" style="border-radius: 0px;">
+                        <span class="input-group-btn" style="padding-left: 4px;">
+                          <button style="border-radius: 0px;" data-bind="click:function(){buildView()}" type="submit" class="btn"><span class="fui-search"></span></button>
+                        </span>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <!-- /.navbar-collapse -->
+              </nav>
+              <!-- /navbar -->
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
-<script>
-
-</script>

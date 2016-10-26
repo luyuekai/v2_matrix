@@ -52,17 +52,8 @@
                                 <!-- Content Header  -->
                                 <h5>
                                     <i class="fa fa-tasks"></i> 欢迎使用大数据BI分析工具台
-                                    <button onclick="export_notebook_mock()" type="button" class="btn btn-white btn-xs">
+                                    <button onclick="download_notebooks()" type="button" class="btn btn-white btn-xs">
                                         <span class="fa fa-download" aria-hidden="true">&nbsp;下载</span>
-                                    </button>
-                                    <button onclick="retrieveData_mock(1)" type="button" class="btn btn-white btn-xs">
-                                        <span class="fa fa-download" aria-hidden="true">&nbsp;Valid</span>
-                                    </button>
-                                    <button onclick="retrieveData_mock(2)" type="button" class="btn btn-white btn-xs">
-                                        <span class="fa fa-upload" aria-hidden="true">&nbsp;Invalid</span>
-                                    </button>
-                                    <button onclick="retrieveData_mock(3)" type="button" class="btn btn-white btn-xs">
-                                        <span class="fa fa-download" aria-hidden="true">&nbsp;Expired</span>
                                     </button>
                                 </h5>
 
@@ -120,12 +111,12 @@
                                                 <form class="form-inline" data-bind="visible:console.isDisplay,attr:{'id':'notebookConsoleDIV'+$index()}">
                                                     <div class="form-group">
                                                         <div style="width:80px">
-                                                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark1'},click:function(){$parent.switchBookmark($index(),1)}" class="matrix_bookmark bookmark_active btn  btn-inverse pull-right" style="">Hive</button>
-                                                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark2'},click:function(){$parent.switchBookmark($index(),2)}" class="matrix_bookmark bookmark_normal btn  btn-inverse pull-right" style="opacity: 0.9">SQL</button>
-                                                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark3'},click:function(){$parent.switchBookmark($index(),3)}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.8">Pig</button>
-                                                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark4'},click:function(){$parent.switchBookmark($index(),4)}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.7">Spark</button>
-                                                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark5'},click:function(){$parent.switchBookmark($index(),5)}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.6">Impala</button>
-                                                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark6'},click:function(){$parent.switchBookmark($index(),6)}" class="matrix_bookmark bookmark_normal btn  btn-inverse pull-right" style="opacity: 0.5">MD</button>
+                                                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_hive'},click:function(){$parent.switchBookmark($index(),'hive')}" class="matrix_bookmark bookmark_active btn  btn-inverse pull-right" style="">Hive</button>
+                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_sql'},click:function(){$parent.switchBookmark($index(),'sql')}" class="matrix_bookmark bookmark_normal btn  btn-inverse pull-right" style="opacity: 0.9">SQL</button>
+                             <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_pig'},click:function(){$parent.switchBookmark($index(),'pig')}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.8">Pig</button> 
+                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_spark'},click:function(){$parent.switchBookmark($index(),'spark')}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.7">Spark</button>
+                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_impala'},click:function(){$parent.switchBookmark($index(),'impala')}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.6">Impala</button>
+                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_md'},click:function(){$parent.switchBookmark($index(),'md')}" class="matrix_bookmark bookmark_normal btn  btn-inverse pull-right" style="opacity: 0.5">MD</button>
                                                         </div>
                                                     </div>
                                                     <div class="form-group" style="width:90%;">
@@ -262,6 +253,7 @@
         <script src="assets/self-owned/js/generic/generic_table.js"></script>
         <script src="assets/self-owned/js/generic/generic_util.js"></script>
         <script src="assets/self-owned/js/generic/generic_validation.js"></script>
+        <script src="assets/self-owned/js/generic/generic_constants.js"></script>
 
         <script src="assets/self-owned/js/notebook/view_model.js"></script>
         <script src="assets/self-owned/js/notebook/chart_model.js"></script>
@@ -345,31 +337,19 @@
             }
 
             function failedListener() {
-                console.log("xxxx");
+                console.log("Server Failed!");
             }
     
             function failedServiceListener() {
                 if (arguments && arguments[1]) {
                     var errorMessage = arguments[1].errorMessage;
                     if(errorMessage=="Token Invalid!"){
-                        retrieveData_mock(2)
+                        console.log('request action invoked[request_invalid]');
+                        SharePOJO.redirect('INVALID');
                     }else if(errorMessage=="Token Expire!"){
-                        retrieveData_mock(3)
+                        console.log('request action invoked[request_expired]');
+                        SharePOJO.redirect('EXPIRED');
                     }
-                }
-            }
-
-
-            var retrieveData_mock = function(mock_count) {
-                if (mock_count % 3 == 1) {
-                    console.log('request action invoked[request_success]');
-                    import_notebook();
-                } else if (mock_count % 3 == 2) {
-                    console.log('request action invoked[request_invalid]');
-                    SharePOJO.redirect('INVALID');
-                } else if (mock_count % 3 == 0) {
-                    console.log('request action invoked[request_expired]');
-                    SharePOJO.redirect('EXPIRED');
                 }
             }
         </script>
