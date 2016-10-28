@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Matrix Components Framework">
+  <meta name="author" content="LY">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
+
+  <!-- reference CSS-->
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/css/flat-ui.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
+
+  <!-- self-owned CSS-->
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
+</head>
+
+<body>
+
+  <div class="flat-matrix">
+    <div class="app-container">
+      <div class="row content-container">
+
+        <!-- 应用顶部NAV导航，在js初始化时加载，默认为assets/html/header.html-->
+        <div id="navDIV"></div>
+
+        <!-- 应用左侧NAV导航，可以应用与assist，帮助，过滤等辅助组件，默认自动收缩扩展，支持悬停（点击右上角按钮切换）-->
+        <div id="assistDIV"></div>
+
+        <div class="container-fluid">
+          <div class="side-body padding-top">
+
+            <!-- 应用具体内容DIV-->
+            <div id="contentDIV">
+              <div class="row">
+                <div class="col-ms-12">
+                  <div class="card card-success">
+                    <div class="card-header">
+                      <div class="card-title">
+                        <div class="title"><i class="fa fa-magic"></i> 数据分析向导
+                          <small>（完成数据分析前的数据准备与技术选型阶段）</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="content-section-a">
+
+                    <div class="container" style="width:100%">
+                      <div class="row">
+                        <div class="col-sm-10">
+
+                          <div class="clearfix"></div>
+                          <h5 class="section-heading" style="margin-top: 0px;">数据准备阶段<br><small>选择适合分析的数据源</small></h5>
+                          <p class="text-capitalize">使用者在此阶段确认待分析的数据源类型,并通过向导应用选择相应的数据源。</p>
+                          <div class="row">
+                            <div class="col-sm-4">
+                              <a href="#">
+                                <div class="card blue summary-inline" onClick="renderDom('CONSTANTS_DATA_PREAPARE','data_prepare_hdfs_div')">
+                                  <div class="card-body">
+                                    <i class="icon fa fa-folder-open-o fa-2x"></i>
+                                    <div class="content">
+                                      <div class="title" style="font-size:26px">HDFS </div>
+                                      <div class="sub-title">数据源类型: 文件 </div>
+                                    </div>
+                                    <div class="clear-both"></div>
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
+                            <div class="col-sm-4">
+                              <a href="#">
+                                <div class="card yellow summary-inline" onClick="renderDom('CONSTANTS_DATA_PREAPARE','data_prepare_database_div')">
+                                  <div class="card-body">
+                                    <i class="icon fa fa-database fa-2x"></i>
+                                    <div class="content">
+                                      <div class="title" style="font-size:26px">例表</div>
+                                      <div class="sub-title">数据源类型: 数据表 </div>
+                                    </div>
+                                    <div class="clear-both"></div>
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
+                            <div class="col-sm-4">
+                              <a href="#">
+                                <div class="card red summary-inline" onClick="renderDom('CONSTANTS_DATA_PREAPARE','data_prepare_script_div')">
+                                  <div class="card-body">
+                                    <i class="icon fa fa-pencil-square-o fa-2x"></i>
+                                    <div class="content">
+                                      <div class="title" style="font-size:26px">例程</div>
+                                      <div class="sub-title">数据源类型: 文件/数据表 </div>
+                                    </div>
+                                    <div class="clear-both"></div>
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
+                          </div>
+
+
+                          <div id="data-prepare-context-div">
+                            <div class="row">
+                              <div class="col-sm-12" id='data_prepare_hdfs_div'>
+
+                                <div class="card card-info">
+                                  <div class="card-header">
+                                    <div class="card-title">
+                                      <div class="title"><i class="fa fa-folder-open-o"></i> &nbsp;通过HDFS系统进行待分析数据源选择(数据源类型:文件)</div>
+                                    </div>
+                                    <div class="pull-right card-action">
+                                      <div class="btn-group" role="group" aria-label="..." id="hide_data_prepare_hdfs_content_div">
+                                        <button type="button" class="btn btn-link" title="隐藏" onclick="$('#data_prepare_hdfs_content_div').css('display', 'none'), $('#display_data_prepare_hdfs_content_div').css('display', ''), $('#hide_data_prepare_hdfs_content_div').css('display', 'none')">
+                                          <div class="title"><i class="fa fa-sort-up fa-2x"></i></div>
+                                        </button>
+                                      </div>
+                                      <div class="btn-group" role="group" aria-label="..." id="display_data_prepare_hdfs_content_div" style="display:none">
+                                        <button type="button" class="btn btn-link" title="显示" onclick="$('#data_prepare_hdfs_content_div').css('display', ''), $('#hide_data_prepare_hdfs_content_div').css('display', ''), $('#display_data_prepare_hdfs_content_div').css('display', 'none')">
+                                          <div class="title"><i class="fa fa-sort-down fa-2x"></i></div>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="card profile" id="data_prepare_hdfs_content_div">
+                                    <div class="card-body">
+                                      <div class="row">
+                                        <div class="col-sm-12">
+                                          <label class="radio" for="radio_hdfs_browser">
+                                            <input type="radio" name="optionsRadios1" value="" id="radio_hdfs_browser" data-toggle="radio" onclick="renderDom('CONSTANTS_DATA_PREAPARE_HDFS','data_prepare_hdfs_browser_div')"> 我知道文件在哪里,请给我展示HDFS结构,我来找到它们
+                                          </label>
+                                          <label class="radio" for="radio_hdfs_type_filter">
+                                            <input type="radio" name="optionsRadios1" value="" id="radio_hdfs_type_filter" data-toggle="radio" onclick="renderDom('CONSTANTS_DATA_PREAPARE_HDFS','data_prepare_hdfs_type_filter_div')"> 我知道文件类型,给我展示基于文件类型的过滤工具,我来找到它们
+                                          </label>
+                                        </div>
+                                      </div>
+                                      <div class="panel fresh-color panel-info" id='data_prepare_hdfs_browser_div'>
+                                        <div class="panel-heading"><i class="fa fa-folder-open-o"></i> &nbsp;HDFS结构
+                                        </div>
+                                        <div class="panel-body">
+                                          XXXXXX
+                                        </div>
+                                      </div>
+                                      <div class="panel fresh-color panel-info" id='data_prepare_hdfs_type_filter_div'>
+                                        <div class="panel-heading"><i class="fa fa-folder-open-o"></i> &nbsp;基于文件类型的过滤工具
+                                        </div>
+                                        <div class="panel-body">
+                                          XXXXXX
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="card-footer">
+                                    </div>
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div class="col-sm-12" id='data_prepare_database_div'>
+                                <div class="card card-warning">
+                                  <div class="card-header">
+                                    <div class="card-title">
+                                      <div class="title"><i class="fa fa-database"></i> &nbsp;通过库表进行待分析数据源选择(数据源类型:数据表)</div>
+                                    </div>
+                                    <div class="pull-right card-action">
+                                      <div class="btn-group" role="group" aria-label="..." id="hide_data_prepare_database_content_div">
+                                        <button type="button" class="btn btn-link" title="隐藏" onclick="$('#data_prepare_database_content_div').css('display', 'none'), $('#display_data_prepare_database_content_div').css('display', ''), $('#hide_data_prepare_database_content_div').css('display', 'none')">
+                                          <div class="title"><i class="fa fa-sort-up fa-2x"></i></div>
+                                        </button>
+                                      </div>
+                                      <div class="btn-group" role="group" aria-label="..." id="display_data_prepare_database_content_div" style="display:none">
+                                        <button type="button" class="btn btn-link" title="显示" onclick="$('#data_prepare_database_content_div').css('display', ''), $('#hide_data_prepare_database_content_div').css('display', ''), $('#display_data_prepare_database_content_div').css('display', 'none')">
+                                          <div class="title"><i class="fa fa-sort-down fa-2x"></i></div>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="card profile" id="data_prepare_database_content_div">
+                                    <div class="card-body">
+                                      <div class="row">
+                                        <div class="col-sm-12">
+                                          <label class="radio" for="radio_db_hive">
+                                            <input type="radio" name="optionsRadios1" value="" id="radio_db_hive" data-toggle="radio" onclick="renderDom('CONSTANTS_DATA_PREAPARE_DATABASE','data_prepare_database_hive_div')"> Hive Metadata
+                                          </label>
+                                          <label class="radio" for="radio_db_rdms">
+                                            <input type="radio" name="optionsRadios1" value="" id="radio_db_rdms" data-toggle="radio" onclick="renderDom('CONSTANTS_DATA_PREAPARE_DATABASE','data_prepare_database_rdms_div')"> RDMS
+                                          </label>
+                                        </div>
+                                      </div>
+                                      <div class="panel fresh-color panel-warning" id='data_prepare_database_hive_div'>
+                                        <div class="panel-heading"><i class="fa fa-folder-open-o"></i> &nbsp;Hive Browser
+                                        </div>
+                                        <div class="panel-body">
+                                          XXXXXX
+                                        </div>
+                                      </div>
+                                      <div class="panel fresh-color panel-warning" id='data_prepare_database_rdms_div'>
+                                        <div class="panel-heading"><i class="fa fa-folder-open-o"></i> &nbsp;RDMS Browser
+                                        </div>
+                                        <div class="panel-body">
+                                          XXXXXX
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="card-footer">
+                                    </div>
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div class="col-sm-12" id='data_prepare_script_div'>
+                                <div class="card card-danger">
+                                  <div class="card-header">
+                                    <div class="card-title">
+                                      <div class="title"><i class="fa fa-pencil-square-o"></i> &nbsp;通过系统积累的例程进行待分析数据源选择(数据源类型:复合)</div>
+                                    </div>
+                                    <div class="pull-right card-action">
+                                      <div class="btn-group" role="group" aria-label="..." id="hide_data_prepare_script_content_div">
+                                        <button type="button" class="btn btn-link" title="隐藏" onclick="$('#data_prepare_script_content_div').css('display', 'none'), $('#display_data_prepare_script_content_div').css('display', ''), $('#hide_data_prepare_script_content_div').css('display', 'none')">
+                                          <div class="title"><i class="fa fa-sort-up fa-2x"></i></div>
+                                        </button>
+                                      </div>
+                                      <div class="btn-group" role="group" aria-label="..." id="display_data_prepare_script_content_div" style="display:none">
+                                        <button type="button" class="btn btn-link" title="显示" onclick="$('#data_prepare_script_content_div').css('display', ''), $('#hide_data_prepare_script_content_div').css('display', ''), $('#display_data_prepare_script_content_div').css('display', 'none')">
+                                          <div class="title"><i class="fa fa-sort-down fa-2x"></i></div>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="card profile" id="data_prepare_script_content_div">
+                                    <div class="card-body">
+                                      <div class="row">
+                                        <div class="col-sm-12">
+                                          <label class="radio" for="radio_script_hive">
+                                            <input type="radio" name="optionsRadios1" value="" id="radio_script_hive" data-toggle="radio" onclick=""> Hive
+                                          </label>
+                                          <label class="radio" for="radio_script_pig">
+                                            <input type="radio" name="optionsRadios1" value="" id="radio_script_pig" data-toggle="radio" onclick=""> Pig
+                                          </label>
+                                          <label class="radio" for="radio_script_sql">
+                                            <input type="radio" name="optionsRadios1" value="" id="radio_script_sql" data-toggle="radio" onclick=""> SQL
+                                          </label>
+                                          <label class="radio" for="radio_script_impala">
+                                            <input type="radio" name="optionsRadios1" value="" id="radio_script_impala" data-toggle="radio" onclick=""> Impala
+                                          </label>
+                                          <label class="radio" for="radio_script_spark">
+                                            <input type="radio" name="optionsRadios1" value="" id="radio_script_spark" data-toggle="radio" onclick=""> Spark
+                                          </label>
+                                        </div>
+                                      </div>
+                                      <div class="panel fresh-color panel-danger">
+                                        <div class="panel-heading"><i class="fa fa-folder-open-o"></i> &nbsp;Scripter Browser
+                                        </div>
+                                        <div class="panel-body">
+                                          XXXXXX
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="card-footer">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+
+                        </div>
+
+
+                        <div class="col-sm-2">
+                          <div class="row">
+                            <div class="col-sm-12" style="margin-bottom:8px">
+                              <button class="btn btn-danger " style="float:right">状态:待进行</button>
+                            </div>
+                            <div class="col-sm-12">
+                              <button class="btn btn-danger " style="float:right">数据类型:未选择</button>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="col-sm-10">
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="card card-success">
+                                <div class="card-header">
+                                  <div class="card-title">
+                                    <div class="title"><i class="fa fa-puzzle-piece"></i> 本阶段输出</div>
+                                  </div>
+                                  <div class="pull-right card-action">
+                                    <div class="btn-group" role="group" aria-label="..." id="hide_data_prepare_output_DIV">
+                                      <button type="button" class="btn btn-link" title="隐藏" onclick="$('#data_prepare_output_DIV').css('display', 'none'), $('#display_data_prepare_output_DIV').css('display', ''), $('#hide_data_prepare_output_DIV').css('display', 'none')">
+                                        <div class="title"><i class="fa fa-sort-up fa-2x"></i></div>
+                                      </button>
+                                    </div>
+                                    <div class="btn-group" role="group" aria-label="..." id="display_data_prepare_output_DIV" style="display:none">
+                                      <button type="button" class="btn btn-link" title="显示" onclick="$('#data_prepare_output_DIV').css('display', ''), $('#hide_data_prepare_output_DIV').css('display', ''), $('#display_data_prepare_output_DIV').css('display', 'none')">
+                                        <div class="title"><i class="fa fa-sort-down fa-2x"></i></div>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card profile" id="data_prepare_output_DIV">
+                                  <div class="card-body">
+                                    <div class="row">
+                                      <div class="col-md-12" style="overflow: auto">
+                                        <table class="table table-striped sortable" cellspacing="0" width="100%">
+                                          <thead>
+                                            <tr>
+                                              <th>名称</th>
+                                              <th>位置</th>
+                                              <th>类型</th>
+                                              <th>操作</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr>
+                                              <td>xdr_101.data</td>
+                                              <td>/data/xdr/</td>
+                                              <td>xdr</td>
+                                              <td>
+                                                <button type="button" class="btn btn-link" title="元数据" style="margin:-6px -6px -6px -6px">
+                                                  <div class="title"><i class="fa fa-tag fa-1x"></i> &nbsp;元数据</div>
+                                                </button>
+                                                <button type="button" class="btn btn-link" title="详情" style="margin:-6px -6px -6px -6px">
+                                                  <div class="title"><i class="fa fa-barcode fa-1x"></i> &nbsp;详情</div>
+                                                </button>
+                                                <button type="button" class="btn btn-link" title="移除" style="margin:-6px -6px -6px -6px">
+                                                  <div class="title"><i class="fa fa-trash fa-1x"></i> &nbsp;移除</div>
+                                                </button>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <td>xdr_101_table</td>
+                                              <td>/warehose/hive/</td>
+                                              <td>hive</td>
+                                              <td>
+                                                <button type="button" class="btn btn-link" title="元数据" style="margin:-6px -6px -6px -6px">
+                                                  <div class="title"><i class="fa fa-tag fa-1x"></i> &nbsp;元数据</div>
+                                                </button>
+                                                <button type="button" class="btn btn-link" title="详情" style="margin:-6px -6px -6px -6px">
+                                                  <div class="title"><i class="fa fa-barcode fa-1x"></i> &nbsp;详情</div>
+                                                </button>
+                                                <button type="button" class="btn btn-link" title="移除" style="margin:-6px -6px -6px -6px">
+                                                  <div class="title"><i class="fa fa-trash fa-1x"></i> &nbsp;移除</div>
+                                                </button>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <td>xdr_101_script</td>
+                                              <td>/script/pig/</td>
+                                              <td>pig</td>
+                                              <td>
+                                                <button type="button" class="btn btn-link" title="元数据" style="margin:-6px -6px -6px -6px">
+                                                  <div class="title"><i class="fa fa-tag fa-1x"></i> &nbsp;元数据</div>
+                                                </button>
+                                                <button type="button" class="btn btn-link" title="详情" style="margin:-6px -6px -6px -6px">
+                                                  <div class="title"><i class="fa fa-barcode fa-1x"></i> &nbsp;详情</div>
+                                                </button>
+                                                <button type="button" class="btn btn-link" title="移除" style="margin:-6px -6px -6px -6px">
+                                                  <div class="title"><i class="fa fa-trash fa-1x"></i> &nbsp;移除</div>
+                                                </button>
+                                              </td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="card-footer">
+                                    <i class="fa fa-files-o"></i> &nbsp;本阶段输出总数量:
+                                    <strong data-bind="text: totalSelected()"></strong>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+
+                        </div>
+                        <div class="col-sm-2">
+                          <div class="row">
+                            <div class="col-sm-12" style="margin-bottom:8px">
+                              <button class="btn btn-info " style="float:right">进行下阶段向导</button>
+                            </div>
+
+                          </div>
+
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <hr>
+                  <div class="content-section-a">
+                    <div class="container" style="width:100%">
+                      <div class="row">
+                        <div class="col-sm-10">
+                          <div class="clearfix"></div>
+                          <h5 class="section-heading" style="margin-top: 0px;">技术选型阶段<br><small>根据待分析的数据源进行技术选型</small></h5>
+                          <p class="text-capitalize">使用者在此阶段根据待分析的数据源,通过向导应用选择相应的数据分析技术。</p>
+
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="card card-success">
+                                <div class="card-header">
+                                  <div class="card-title">
+                                    <div class="title"><i class="fa fa-puzzle-piece"></i> 本阶段输入</div>
+                                  </div>
+                                  <div class="pull-right card-action">
+                                    <div class="btn-group" role="group" aria-label="..." id="hide_data_prepare_output_DIV">
+                                      <button type="button" class="btn btn-link" title="隐藏" onclick="$('#data_prepare_output_DIV').css('display', 'none'), $('#display_data_prepare_output_DIV').css('display', ''), $('#hide_data_prepare_output_DIV').css('display', 'none')">
+                                        <div class="title"><i class="fa fa-sort-up fa-2x"></i></div>
+                                      </button>
+                                    </div>
+                                    <div class="btn-group" role="group" aria-label="..." id="display_data_prepare_output_DIV" style="display:none">
+                                      <button type="button" class="btn btn-link" title="显示" onclick="$('#data_prepare_output_DIV').css('display', ''), $('#hide_data_prepare_output_DIV').css('display', ''), $('#display_data_prepare_output_DIV').css('display', 'none')">
+                                        <div class="title"><i class="fa fa-sort-down fa-2x"></i></div>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card profile" id="data_prepare_output_DIV">
+                                  <div class="card-body">
+                                    <div class="card-body">
+                                      <div class="row">
+                                        <div class="col-md-12" style="overflow: auto">
+                                          <table class="table table-striped sortable" cellspacing="0" width="100%">
+                                            <thead>
+                                              <tr>
+                                                <th>名称</th>
+                                                <th>位置</th>
+                                                <th>类型</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr>
+                                                <td>xdr_101.data</td>
+                                                <td>/data/xdr/</td>
+                                                <td>xdr</td>
+                                              </tr>
+                                              <tr>
+                                                <td>xdr_101_table</td>
+                                                <td>/warehose/hive/</td>
+                                                <td>hive</td>
+                                              </tr>
+                                              <tr>
+                                                <td>xdr_101_script</td>
+                                                <td>/script/pig/</td>
+                                                <td>pig</td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div id="data-tech_choise-context-div">
+                            <div class="row">
+                              <div class="col-sm-12" id='data_tech_hdfs_div'>
+
+                                <div class="card card-info">
+                                  <div class="card-header">
+                                    <div class="card-title">
+                                      <div class="title"><i class="fa fa-folder-open-o"></i> &nbsp;基于HDFS文件列表进行技术选型(数据源类型:文件)</div>
+                                    </div>
+                                    <div class="pull-right card-action">
+                                      <div class="btn-group" role="group" aria-label="..." id="hide_data_tech_hdfs_content_div">
+                                        <button type="button" class="btn btn-link" title="隐藏" onclick="$('#data_tech_hdfs_content_div').css('display', 'none'), $('#display_data_tech_hdfs_content_div').css('display', ''), $('#hide_data_tech_hdfs_content_div').css('display', 'none')">
+                                          <div class="title"><i class="fa fa-sort-up fa-2x"></i></div>
+                                        </button>
+                                      </div>
+                                      <div class="btn-group" role="group" aria-label="..." id="display_data_tech_hdfs_content_div" style="display:none">
+                                        <button type="button" class="btn btn-link" title="显示" onclick="$('#data_tech_hdfs_content_div').css('display', ''), $('#hide_data_tech_hdfs_content_div').css('display', ''), $('#display_data_tech_hdfs_content_div').css('display', 'none')">
+                                          <div class="title"><i class="fa fa-sort-down fa-2x"></i></div>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="card profile" id="data_tech_hdfs_content_div">
+                                    <div class="card-body">
+                                      <div class="row">
+                                        <div class="col-sm-12">
+
+                                          <label class="radio" for="radio_tech_file">
+                                            <input type="radio" name="optionsRadios1" value="" id="radio_tech_file" data-toggle="radio" onclick="renderDom('CONSTANTS_DATA_TECH_HDFS','data_tech_file_div')"> 我想直接使用这些文件进行分析
+                                          </label>
+                                          <label class="radio" for="radio_tech_sql">
+                                            <input type="radio" name="optionsRadios1" value="" id="radio_tech_sql" data-toggle="radio" onclick="renderDom('CONSTANTS_DATA_TECH_HDFS','data_tech_sql_div')"> 我想将这些文件导入到库表中并用类SQL语言分析
+                                          </label>
+                                        </div>
+                                      </div>
+                                      <div class="panel fresh-color panel-info" id='data_tech_file_div'>
+                                        <div class="panel-heading"><i class="fa fa-folder-open-o"></i> &nbsp;直接使用文件进行分析
+                                        </div>
+                                        <div class="panel-body">
+                                          <div class="row">
+                                            <div class="col-sm-12">
+                                              <label class="radio" for="radio_tech_pig">
+                                                <input type="radio" name="optionsRadios1" value="" id="radio_tech_pig" data-toggle="radio"> 选择的分析工具为Pig
+                                              </label>
+                                              <label class="radio" for="radio_tech_spark">
+                                                <input type="radio" name="optionsRadios1" value="" id="radio_tech_spark" data-toggle="radio"> 选择的分析工具为Spark
+                                              </label>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="panel fresh-color panel-info" id='data_tech_sql_div'>
+                                        <div class="panel-heading"><i class="fa fa-folder-open-o"></i> &nbsp;文件导入到库表中并用类SQL语言分析
+                                        </div>
+                                        <div class="panel-body">
+                                          <div class="row">
+                                            <div class="col-sm-12">
+
+                                              <label class="radio" for="radio_auto_import">
+                                                <input type="radio" name="optionsRadios1" value="" id="radio_auto_import" data-toggle="radio" onclick="renderDom('CONSTANTS_DATA_TECH_IMPORT','data_tech_auto_import_div')"> 我想系统帮我自动完成全部的建库,建表,数据导入过程
+                                              </label>
+                                              <label class="radio" for="radio_manual_import">
+                                                <input type="radio" name="optionsRadios1" value="" id="radio_manual_import" data-toggle="radio" onclick="renderDom('CONSTANTS_DATA_TECH_IMPORT','data_tech_manual_import_div')"> 我想自己完成全部的建库,建表,数据导入过程
+                                              </label>
+                                            </div>
+                                          </div>
+                                          <div class="panel fresh-color panel-info" id='data_tech_auto_import_div'>
+                                            <div class="panel-heading"><i class="fa fa-folder-open-o"></i> &nbsp;自动完成全部的建库,建表,数据导入过程
+                                            </div>
+                                            <div class="panel-body">
+                                              XXXXXX
+                                            </div>
+                                          </div>
+                                          <div class="panel fresh-color panel-info" id='data_tech_manual_import_div'>
+                                            <div class="panel-heading"><i class="fa fa-folder-open-o"></i> &nbsp;手动完成全部的建库,建表,数据导入过程
+                                            </div>
+                                            <div class="panel-body">
+                                              XXXXXX
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="card-footer">
+                                    </div>
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div class="col-sm-12" id='data_prepare_database_div'>
+                                <div class="card card-warning">
+                                  <div class="card-header">
+                                    <div class="card-title">
+                                      <div class="title"><i class="fa fa-database"></i> &nbsp;基于例表进行技术选型(数据源类型:数据表)</div>
+                                    </div>
+                                    <div class="pull-right card-action">
+                                      <div class="btn-group" role="group" aria-label="..." id="hide_data_tech_database_content_div">
+                                        <button type="button" class="btn btn-link" title="隐藏" onclick="$('#data_tech_database_content_div').css('display', 'none'), $('#display_data_tech_database_content_div').css('display', ''), $('#hide_data_tech_database_content_div').css('display', 'none')">
+                                          <div class="title"><i class="fa fa-sort-up fa-2x"></i></div>
+                                        </button>
+                                      </div>
+                                      <div class="btn-group" role="group" aria-label="..." id="display_data_tech_database_content_div" style="display:none">
+                                        <button type="button" class="btn btn-link" title="显示" onclick="$('#data_tech_database_content_div').css('display', ''), $('#hide_data_tech_database_content_div').css('display', ''), $('#display_data_tech_database_content_div').css('display', 'none')">
+                                          <div class="title"><i class="fa fa-sort-down fa-2x"></i></div>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="card profile" id="data_tech_database_content_div">
+                                    <div class="card-body">
+
+                                    </div>
+                                    <div class="card-footer">
+                                    </div>
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div class="col-sm-12" id='data_tech_script_div'>
+                                <div class="card card-danger">
+                                  <div class="card-header">
+                                    <div class="card-title">
+                                      <div class="title"><i class="fa fa-pencil-square-o"></i> &nbsp;基于例程进行技术选型(数据源类型:复合)</div>
+                                    </div>
+                                    <div class="pull-right card-action">
+                                      <div class="btn-group" role="group" aria-label="..." id="hide_data_tech_script_content_div">
+                                        <button type="button" class="btn btn-link" title="隐藏" onclick="$('#data_tech_script_content_div').css('display', 'none'), $('#display_data_tech_script_content_div').css('display', ''), $('#hide_data_tech_script_content_div').css('display', 'none')">
+                                          <div class="title"><i class="fa fa-sort-up fa-2x"></i></div>
+                                        </button>
+                                      </div>
+                                      <div class="btn-group" role="group" aria-label="..." id="display_data_tech_script_content_div" style="display:none">
+                                        <button type="button" class="btn btn-link" title="显示" onclick="$('#data_tech_script_content_div').css('display', ''), $('#hide_data_tech_script_content_div').css('display', ''), $('#display_data_tech_script_content_div').css('display', 'none')">
+                                          <div class="title"><i class="fa fa-sort-down fa-2x"></i></div>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="card profile" id="data_tech_script_content_div">
+                                    <div class="card-body">
+
+                                    </div>
+                                    <div class="card-footer">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="col-sm-2">
+                          <div class="row">
+                            <div class="col-sm-12" style="margin-bottom:8px">
+                              <button class="btn btn-danger " style="float:right">状态:待进行</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+                  <hr>
+                  <div class="content-section-a">
+                    <div class="container" style="width:100%">
+                      <div class="row">
+                        <div class="col-sm-10">
+                          <div class="clearfix"></div>
+                          <h5 class="section-heading" style="margin-top: 0px;">信息汇总<br><small>根据数据分析向导选择的信息汇总 </small></h5>
+                          <p class="text-capitalize">使用者在这里确认自己使用的相关分析信息,待向导完成后正式开始数据分析之旅。</p>
+
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="card card-success">
+                                <div class="card-header">
+                                  <div class="card-title">
+                                    <div class="title"><i class="fa fa-puzzle-piece"></i> 本阶段输入</div>
+                                  </div>
+                                  <div class="pull-right card-action">
+                                    <div class="btn-group" role="group" aria-label="..." id="hide_data_prepare_output_DIV">
+                                      <button type="button" class="btn btn-link" title="隐藏" onclick="$('#data_prepare_output_DIV').css('display', 'none'), $('#display_data_prepare_output_DIV').css('display', ''), $('#hide_data_prepare_output_DIV').css('display', 'none')">
+                                        <div class="title"><i class="fa fa-sort-up fa-2x"></i></div>
+                                      </button>
+                                    </div>
+                                    <div class="btn-group" role="group" aria-label="..." id="display_data_prepare_output_DIV" style="display:none">
+                                      <button type="button" class="btn btn-link" title="显示" onclick="$('#data_prepare_output_DIV').css('display', ''), $('#hide_data_prepare_output_DIV').css('display', ''), $('#display_data_prepare_output_DIV').css('display', 'none')">
+                                        <div class="title"><i class="fa fa-sort-down fa-2x"></i></div>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card profile" id="data_prepare_output_DIV">
+                                  <div class="card-body">
+                                    <div class="name"></div>
+                                    <div class="description">
+                                    </div>
+                                  </div>
+                                  <div class="card-footer">
+                                    <i class="fa fa-files-o"></i> &nbsp;本阶段输出总数量:
+                                    <strong data-bind="text: totalSelected()"></strong>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+                        </div>
+
+
+                        <div class="col-sm-2">
+                          <div class="row">
+                            <div class="col-sm-12" style="margin-bottom:8px">
+                              <button class="btn btn-danger " style="float:right">状态:待进行</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- reference Javascript-->
+  <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+  <script src="assets/reference/jquery/jquery.json.js"></script>
+  <script src="assets/reference/knockout.js/knockout-3.3.0.js"></script>
+  <script src="assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+  <script src="assets/reference/flat-ui/js/vendor/video.js"></script>
+  <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
+  <!-- Javascript for Matrix Self Owned -->
+  <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
+  <script src="assets/self-owned/js/generic/generic_cache.js"></script>
+  <script src="assets/self-owned/js/generic/generic_charting.js"></script>
+  <script src="assets/self-owned/js/generic/generic_csv.js"></script>
+  <script src="assets/self-owned/js/generic/generic_cud.js"></script>
+  <script src="assets/self-owned/js/generic/generic_modal.js"></script>
+  <script src="assets/self-owned/js/generic/generic_prototype.js"></script>
+  <script src="assets/self-owned/js/generic/generic_query.js"></script>
+  <script src="assets/self-owned/js/generic/generic_table.js"></script>
+  <script src="assets/self-owned/js/generic/generic_util.js"></script>
+  <script src="assets/self-owned/js/generic/generic_validation.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      // initializeDom();
+    });
+
+
+    const CONSTANTS_DATA_PREAPARE = 'CONSTANTS_DATA_PREAPARE';
+    const CONSTANTS_TECH_TYPE = 'CONSTANTS_TECH_TYPE';
+
+    const CONSTANTS_DATA_PREAPARE_HDFS = 'CONSTANTS_DATA_PREAPARE_HDFS';
+    const CONSTANTS_DATA_PREAPARE_DATABASE = 'CONSTANTS_DATA_PREAPARE_DATABASE';
+
+    const LIST_DATA_PREPATE_DIV = ['data_prepare_hdfs_div', 'data_prepare_database_div', 'data_prepare_script_div'];
+    const LIST_DATA_PREPATE_HDFS_DIV = ['data_prepare_hdfs_browser_div', 'data_prepare_hdfs_type_filter_div'];
+    const LIST_DATA_PREPATE_DATABASE_DIV = ['data_prepare_database_hive_div', 'data_prepare_database_rdms_div'];
+
+    const CONSTANTS_DATA_TECH_HDFS = 'CONSTANTS_DATA_TECH_HDFS';
+    const LIST_DATA_TECH_HDFS_DIV = ['data_tech_file_div', 'data_tech_sql_div'];
+
+    const CONSTANTS_DATA_TECH_IMPORT = 'CONSTANTS_DATA_TECH_IMPORT';
+    const LIST_DATA_TECH_IMPORT_DIV = ['data_tech_auto_import_div', 'data_tech_manual_import_div'];
+
+    function initializeDom() {
+      $.each(LIST_DATA_PREPATE_DIV, function(i, data) {
+        $('#' + data).css('display', 'none');
+      });
+    }
+
+    function renderDom(module_type, element_div_id) {
+      if (CONSTANTS_DATA_PREAPARE == module_type) {
+        $.each(LIST_DATA_PREPATE_DIV, function(i, data) {
+          if (data && data == element_div_id) {
+            $('#' + data).css('display', '');
+          } else {
+            $('#' + data).css('display', 'none');
+          }
+        });
+      }
+
+      if (CONSTANTS_DATA_PREAPARE_HDFS == module_type) {
+        $.each(LIST_DATA_PREPATE_HDFS_DIV, function(i, data) {
+          if (data && data == element_div_id) {
+            $('#' + data).css('display', '');
+          } else {
+            $('#' + data).css('display', 'none');
+          }
+        });
+      }
+
+      if (CONSTANTS_DATA_PREAPARE_DATABASE == module_type) {
+        $.each(LIST_DATA_PREPATE_DATABASE_DIV, function(i, data) {
+          if (data && data == element_div_id) {
+            $('#' + data).css('display', '');
+          } else {
+            $('#' + data).css('display', 'none');
+          }
+        });
+      }
+
+      if (CONSTANTS_DATA_TECH_HDFS == module_type) {
+        $.each(LIST_DATA_TECH_HDFS_DIV, function(i, data) {
+          if (data && data == element_div_id) {
+            $('#' + data).css('display', '');
+          } else {
+            $('#' + data).css('display', 'none');
+          }
+        });
+      }
+
+      if (CONSTANTS_DATA_TECH_IMPORT == module_type) {
+        $.each(LIST_DATA_TECH_IMPORT_DIV, function(i, data) {
+          if (data && data == element_div_id) {
+            $('#' + data).css('display', '');
+          } else {
+            $('#' + data).css('display', 'none');
+          }
+        });
+      }
+    }
+  </script>
+
+
+  <script>
+    //从HDFS文件管理器DIV监听返回的输入,用户可多次交互此模块,每次的结果都以此模型封装后返回,变成数据准备阶段输出的输入数据,每一个文件都有其元数据的判断,子模块不负责处理聚合校验
+    var prototype_input_hdfs_browser = {
+      'data_prepare_type': 'hdfs_browser',
+      'data_source_type': 'file',
+      'outputs': [{
+        'name': 'xdr_101_20161001.data',
+        'location': '/data/xdr/101/',
+        'hasMetadata': true,
+        'metadata': {
+          'id': 100,
+          'name': 'xdr_101'
+          //also retrieve metadata_items should be better
+        }
+      }, {
+        'name': 'xdr_101_20161002.data',
+        'location': '/data/xdr/101/',
+        'hasMetadata': true,
+        'metadata': {
+          'id': 100,
+          'name': 'xdr_101'
+        }
+      }]
+    };
+    //数据准备阶段的基于HDFS文件管理器选择后的输出,是将输入进行数据校验后的正确结果形式,结果集必须为统一的元数据格式(或都不具备元数据)
+    var prototype_output_hdfs_browser = {
+      'data_prepare_type': 'hdfs_browser',
+      'data_source_type': 'file',
+      'hasMetadata': true,
+      'metadata': {
+        'id': 100,
+        'name': 'xdr_101'
+        //also retrieve metadata_items should be better
+      },
+      'outputs': [{
+        'name': 'xdr_101_20161001.data',
+        'location': '/data/xdr/101/'
+      }, {
+        'name': 'xdr_101_20161002.data',
+        'location': '/data/xdr/101/'
+      }]
+    };
+
+    //数据准备阶段的基于File Type Filter选择后的输出,是将输入进行数据校验后的正确结果形式,结果集必须为统一的元数据格式
+    var prototype_output_hdfs_type_filter = {
+      'data_prepare_type': 'hdfs_type_filter',
+      'data_source_type': 'file',
+      'hasMetadata': true,
+      'metadata': {
+        'id': 100,
+        'name': 'xdr_101'
+      }
+      'outputs': [{
+        'name': 'xdr_101_20161001.data',
+        'location': '/data/xdr/101/'
+      }, {
+        'name': 'xdr_101_20161002.data',
+        'location': '/data/xdr/101/'
+      }]
+    };
+
+    var prototype_output_database_hive = {
+      'data_prepare_type': 'database_hive',
+      'data_source_type': 'hive',
+      //only has one result
+      'outputs': [{
+        'name': 'table_name',
+        'database': 'database_name',
+        'location': 'ifhas'
+      }]
+    };
+
+    var prototype_output_database_rdms = {
+      'data_prepare_type': 'database_rdms',
+      'data_source_type': 'rdms',
+      //only has one result
+      'outputs': [{
+        'name': 'table_name',
+        'database': 'database_name',
+        'location': 'ifhas'
+      }]
+    };
+
+    var prototype_output_script = {
+      'data_prepare_type': 'script',
+      'data_source_type': 'hive/pig/sql/impala/spark',
+      //only has one result
+      'outputs': [{
+        'name': 'script_name',
+        'code': 'select * from database.table limit 10',
+        'description': ''
+      }]
+    };
+  </script>
+</body>
+
+</html>

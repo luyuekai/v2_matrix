@@ -194,11 +194,14 @@
       // "orderMap": {"status": true},
       "pageMaxSize": viewModel.pageMaxSize(),
       "currentPageNumber": viewModel.currentPageNumber(),
-      "likeORMap": {
-        'name': viewModel.searchKeyword(),
-        'description': viewModel.searchKeyword(),
-        'stringalpha': viewModel.searchKeyword(),
-        'stringbeta': viewModel.searchKeyword()
+      // "likeORMap": {
+      //   'name': viewModel.searchKeyword(),
+      //   'description': viewModel.searchKeyword(),
+      //   'stringalpha': viewModel.searchKeyword(),
+      //   'stringbeta': viewModel.searchKeyword()
+      // },
+      "nqMap": {
+        'name': viewModel.searchKeyword()
       },
       "eqMap": {
         "type": "MATRIX_CLIENT_SERVER_REQUEST_DEMO"
