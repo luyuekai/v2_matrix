@@ -19,9 +19,10 @@
   <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
   <style>
     .div > [class*="form-group"] {
-        margin-bottom: 0px;
+      margin-bottom: 0px;
     }
-    .form-group{
+
+    .form-group {
       margin-bottom: 0px;
     }
   </style>
@@ -677,13 +678,121 @@
                                               </label>
                                             </div>
                                           </div>
-                                          <div class="panel fresh-color panel-info" id='data_tech_auto_import_div'>
-                                            <div class="panel-heading"><i class="fa fa-folder-open-o"></i> &nbsp;自动完成全部的建库,建表,数据导入过程
+
+                                          <!-- AUTO CREATE DB,TABLE,EXPORT DATA BEGIN -->
+                                          <div id="data_tech_auto_import_div">
+
+                                            <div class="card blue summary-inline" style="height:38px;">
+                                              <div class="card-body">
+                                                <i class="fa fa-folder-open-o"></i> &nbsp;系统帮助用户完成全部的建库,建表,数据导入过程
+                                              </div>
                                             </div>
-                                            <div class="panel-body">
-                                              XXXXXX
+                                            <div class="step-v2-success">
+                                              <ul class="nav nav-tabs nav-justified" role="tablist">
+                                                <li role="step" id="step1-li">
+                                                  <a href="#step1" id="step1-tab" aria-controls="home" aria-expanded="true">
+                                                    <div class="icon fa fa-stethoscope"></div>
+                                                    <div class="heading">
+                                                      <div class="title">系统自检</div>
+                                                      <div class="description"> 检查数据源正确性与用户权限</div>
+                                                    </div>
+                                                  </a>
+                                                </li>
+                                                <li role="step" class="" id="step2-li">
+                                                  <a href="#step2" id="step2-tab" aria-controls="profile">
+                                                    <div class="icon fa fa-database"></div>
+                                                    <div class="heading">
+                                                      <div class="title"> 创建数据库</div>
+                                                      <div class="description"> 检查用户相关数据库信息</div>
+                                                    </div>
+                                                  </a>
+                                                </li>
+                                                <li role="step" id="step3-li">
+                                                  <a href="#step3" id="step3-tab" aria-controls="profile">
+                                                    <div class="icon fa fa-table"></div>
+                                                    <div class="heading">
+                                                      <div class="title">创建数据表</div>
+                                                      <div class="description">根据数据源格式创建数据表</div>
+                                                    </div>
+                                                  </a>
+                                                </li>
+                                                <li role="step" id="step4-li">
+                                                  <a href="#step4" id="step4-tab" aria-controls="profile">
+                                                    <div class="icon fa fa-medkit "></div>
+                                                    <div class="heading">
+                                                      <div class="title">数据源数据导入</div>
+                                                      <div class="description">将数据从HDFS文件导入到对应的数据表</div>
+                                                    </div>
+                                                  </a>
+                                                </li>
+                                              </ul>
+                                              <!-- Tab panes -->
+                                              <div class="tab-content">
+                                                <div role="tabpanel" class="tab-pane active" >
+                                                  <b>当前向导步骤描述</b> : Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud
+                                                  exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel
+                                                </div>
+                                              </div>
                                             </div>
+
+                                            <div id="element_div" class="matrix-loading-v2" style="min-height:80px">
+                                              <div class="loader-container text-center">
+                                                <div class="icon">
+                                                  <div class="sk-wave">
+                                                    <div class="sk-rect sk-rect1"></div>
+                                                    <div class="sk-rect sk-rect2"></div>
+                                                    <div class="sk-rect sk-rect3"></div>
+                                                    <div class="sk-rect sk-rect4"></div>
+                                                    <div class="sk-rect sk-rect5"></div>
+                                                  </div>
+                                                </div>
+                                                <div class="title">系统设置运行中...</div>
+                                              </div>
+                                              <div class="text-indent">
+                                                <form class="form-horizontal">
+                                                  <div class="form-group">
+                                                    <label class="col-sm-1 control-label">
+                                                      <span style="font-weight: bold;font-size: 14px;">名称:</span>
+                                                    </label>
+                                                    <div class="col-sm-5">
+                                                      <p class="form-control-static" data-bind="text:key"></p>
+                                                    </div>
+                                                    <label class="col-sm-1 control-label">
+                                                      <span style="font-weight: bold;font-size: 14px;">描述:</span>
+                                                    </label>
+                                                    <div class="col-sm-5">
+                                                      <p class="form-control-static" data-bind="text:value"></p>
+                                                    </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label class="col-sm-1 control-label">
+                                                      <span style="font-weight: bold;font-size: 14px;">创建人:</span>
+                                                    </label>
+                                                    <div class="col-sm-5">
+                                                      <p class="form-control-static" data-bind="text:project"></p>
+                                                    </div>
+                                                    <label class="col-sm-1 control-label">
+                                                      <span style="font-weight: bold;font-size: 14px;">时间:</span>
+                                                    </label>
+                                                    <div class="col-sm-5">
+                                                      <p class="form-control-static" data-bind="text:product"></p>
+                                                    </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label class="col-sm-1 control-label">
+                                                      <span style="font-weight: bold;font-size: 14px;">内容:</span>
+                                                    </label>
+                                                    <div class="col-sm-11">
+                                                      <p class="form-control-static" data-bind="text:product"></p>
+                                                    </div>
+                                                  </div>
+                                                </form>
+                                              </div>
+                                            </div>
+
                                           </div>
+                                          <!-- AUTO CREATE DB,TABLE,EXPORT DATA BEGIN -->
+
                                           <div class="panel fresh-color panel-info" id='data_tech_manual_import_div'>
                                             <div class="panel-heading"><i class="fa fa-folder-open-o"></i> &nbsp;手动完成全部的建库,建表,数据导入过程
                                             </div>
@@ -1054,6 +1163,22 @@
       }]
     };
   </script>
+
+  <script>
+  var step_list = ['step1-li','step2-li','step3-li','step4-li'];
+  var current_step_id = 0;
+  setInterval(
+    function() {
+      StepUtil.setActive(step_list[current_step_id],step_list);
+      current_step_id++;
+      if(current_step_id>3){
+        current_step_id=0;
+      }
+    },
+    3000
+  );
+  </script>
+
 
 </body>
 
