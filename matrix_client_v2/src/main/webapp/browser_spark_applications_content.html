@@ -1,11 +1,47 @@
 <!-- Breadcrum Zone -->
 <ol class="breadcrumb" style="margin-top:-20px;margin-left:-20px">
   <li><a href="index.html">Home</a></li>
-  <li class="active">Matrix Prototype</li>
+  <li class="active">Spark Applications 管理器</li>
 </ol>
 
 <!-- Content Header  -->
-<h3><i class="fa fa-tasks"></i> Matrix Prototype <small>(Implement by Matrix)</small> </h3>
+<h5><i class="fa fa-tasks"></i> Spark Applications 管理器
+
+  <div class="pull-right card-action">
+      <div class="btn-group " role="group" aria-label="...">
+          <button type="button" class="btn btn-primary" data-bind="click:(function(){filterByKeyword('TOTAL')})">Total&nbsp;
+              <span class="badge">
+                  <strong data-bind="text:type_total"></strong>
+              </span>
+          </button>
+          <button type="button" class="btn btn-warning" data-bind="click:(function(){filterByKeyword('PENDING')})">Pending&nbsp;
+              <span class="badge">
+                  <strong data-bind="text:type_pending"></strong>
+              </span>
+          </button>
+          <button type="button" class="btn btn-info" data-bind="click:(function(){filterByKeyword('RUNNING')})">Running&nbsp;
+              <span class="badge">
+                  <strong data-bind="text:type_running"></strong>
+              </span>
+          </button>
+          <button type="button" class="btn btn-success" data-bind="click:(function(){filterByKeyword('SUCCEEDED')})">Succeeded&nbsp;
+              <span class="badge">
+                  <strong data-bind="text:type_succeeded"></strong>
+              </span>
+          </button>
+          <button type="button" class="btn btn-group" data-bind="click:(function(){filterByKeyword('FAILED')})">Failed&nbsp;
+              <span class="badge">
+                  <strong data-bind="text:type_failed"></strong>
+              </span>
+          </button>
+          <button type="button" class="btn btn-danger" data-bind="click:(function(){filterByKeyword('KILLED')})">Killed&nbsp;
+              <span class="badge">
+                  <strong data-bind="text:type_killed"></strong>
+              </span>
+          </button>
+      </div>
+  </div>
+</h5>
 
 
 <!-- Content Zone -->
@@ -33,14 +69,14 @@
 </div>
 
 <div class="panel fresh-color panel-primary panel-card" id="tableDIV">
-  <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;Matrix Prototype Overview
+  <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;Spark Application Overview
     <button type="button" class=" btn btn-black btn-xs pull-right" title="" onclick="switch_div_display('common_table_div');switch_div_display('special_table_div');ServerPagingQueryPOJO.example_query_action()">
       <div class="title"><i class="fa fa-barcode"></i></div>
     </button>
     <button type="button" class=" btn btn-black btn-xs pull-right" title="" onclick="viewModel.retrieveData()">
       <div class="title"><i class="fa fa-search"></i></div>
     </button>
-    <button type="button" class=" btn btn-black btn-xs pull-right" title="" onclick="ModalUtil.popup_modal('Add Entity Operation', '/prototype_console_main_content_modal_add.html', null, null, null);">
+    <button type="button" class=" btn btn-black btn-xs pull-right" title="" onclick="ModalUtil.popup_modal('Add Entity Operation', '/animal_console_main_content_modal_add.html', null, null, null);">
       <div class="title"><i class="fa fa-plus"></i></div>
     </button>
   </div>
@@ -48,7 +84,7 @@
 
     <div data-bind="if:!hasServerResponse()">
       <div class="alert alert-success alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
-        <strong><i class="fa fa-warning"></i>&nbsp;信息:</strong> &nbsp;Table Not Initialized! Please load data first!
+        <strong><i class="fa fa-warning"></i>&nbsp;信息:</strong> &nbsp;数据表未初始化,请先加载/查询数据!
       </div>
     </div>
     <div data-bind="if:hasServerResponse()">
@@ -77,24 +113,45 @@
           <table class="table table-striped" cellspacing="0" width="100%">
             <thead>
               <tr>
-                <th>KEY</th>
-                <th>VALUE</th>
-                <th>PROJECT</th>
-                <th>PRODUCT</th>
-                <th>Actions</th>
+                <th style="padding-left:0px;padding-right:0px;" class="text-left">ID</th>
+                <th style="padding-left:0px;padding-right:0px;" class="text-left">名称</th>
+                <th style="padding-left:0px;padding-right:0px;" class="text-left">状态</th>
+                <th style="padding-left:0px;padding-right:0px;" class="text-left">用户</th>
+                <th style="padding-left:0px;padding-right:0px;" class="text-left">类型</th>
+                <th style="padding-left:0px;padding-right:0px;" class="text-left">进度</th>
+                <th style="padding-left:0px;padding-right:0px;" class="text-left">队列</th>
+                <th style="padding-left:0px;padding-right:0px;" class="text-left">级别</th>
+                <th style="padding-left:0px;padding-right:0px;" class="text-left">时长</th>
+                <th style="padding-left:0px;padding-right:0px;" class="text-left">提交时间</th>
+                <th style="padding-left:0px;padding-right:0px;" class="text-left">操作</th>
               </tr>
             </thead>
-            <tbody data-bind="foreach: viewData">
+            <!-- <tbody data-bind="foreach: viewData"> -->
+            <tbody>
               <tr>
-                <td data-bind="text:$data[14]"></td>
-                <td data-bind="text:$data[9]"></td>
-                <td data-bind="text:$data[30]"></td>
-                <td data-bind="text:$data[31]"></td>
+                <td >
+                  <a href="#" data-bind="click:(function(){
+                        $('#contentDIV').load($.getRootPath() + '/browser_spark_jobs_content.html');
+                      })">
+                      <span data-bind="text: 'Id'" ></span>
+                  </a>
+                </td>
+                <td data-bind="text:'Name'">
+
+                </td>
+                <td data-bind="text:'Name'"></td>
+                <td data-bind="text:'Name'"></td>
+                <td data-bind="text:'Name'"></td>
+                <td data-bind="text:'Name'"></td>
+                <td data-bind="text:'Name'"></td>
+                <td data-bind="text:'Name'"></td>
+                <td data-bind="text:'Name'"></td>
+                <td data-bind="text:'Name'"></td>
                 <td>
-                  <button type="button" class="btn btn-white-pure" title="update" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Update Entity Operation', '/prototype_console_main_content_modal_update.html',$data);})">
+                  <button type="button" class="btn btn-white-pure" title="update" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Update Entity Operation', '/animal_console_main_content_modal_update.html',$data);})">
                     <div class="title"><i class="fa fa-edit fa-1x"></i></div>
                   </button>
-                  <button type="button" class="btn btn-white-pure" title="remove" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Remove Entity Operation', '/prototype_console_main_content_modal_remove.html',$data);})">
+                  <button type="button" class="btn btn-white-pure" title="remove" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Remove Entity Operation', '/animal_console_main_content_modal_remove.html',$data);})">
                     <div class="title"><i class="fa fa-trash fa-1x"></i></div>
                   </button>
                 </td>
@@ -115,7 +172,7 @@
                 <form class="navbar-form navbar-center" action="#" role="search" style="width:68px;margin-left: -20px;">
                   <div class="form-group">
                     <div class="input-group">
-                      <input data-bind="value:currentPageNumber" class="form-control text-center" type="search" placeholder="页数" style="width:50px;border-radius: 0px;">
+                      <input data-bind="value:currentPageNumber" class="form-control text-left" type="search" placeholder="页数" style="width:50px;border-radius: 0px;">
                       <span class="input-group-btn" style="padding-left: 4px;">
                           <button data-bind="visible:false,click:function(){}" type="submit" class="btn"><span class="fui-search"></span></button>
                       </span>
@@ -139,7 +196,7 @@
             <form class="navbar-form navbar-left" action="#" role="search">
               <div class="form-group">
                 <div class="input-group">
-                  <input data-bind="value:searchKeyword" class="form-control text-center" type="search" placeholder="Search" style="border-radius: 0px;">
+                  <input data-bind="value:searchKeyword" class="form-control text-left" type="search" placeholder="Search" style="border-radius: 0px;">
                   <span class="input-group-btn" style="padding-left: 4px;">
                         <button style="border-radius: 0px;" data-bind="click:function(){searchByKeyword()}" type="submit" class="btn"><span class="fui-search"></span></button>
                   </span>
@@ -194,17 +251,12 @@
       // "orderMap": {"status": true},
       "pageMaxSize": viewModel.pageMaxSize(),
       "currentPageNumber": viewModel.currentPageNumber(),
-      // "likeORMap": {
-      //   'name': viewModel.searchKeyword(),
-      //   'description': viewModel.searchKeyword(),
-      //   'stringalpha': viewModel.searchKeyword(),
-      //   'stringbeta': viewModel.searchKeyword()
-      // },
-      "nqMap": {
+      "likeORMap": {
         'name': viewModel.searchKeyword()
       },
       "eqMap": {
-        "type": "MATRIX_CLIENT_SERVER_REQUEST_DEMO"
+        "deleted": false,
+        "type": "MATRIX_YL_DEMO_ANIMAL"
       },
       "inMap": {},
     };
@@ -254,6 +306,7 @@
   var viewModel = new ServerPagingViewModel();
   ko.applyBindings(viewModel, document.getElementById('tableDIV'));
   viewModel.retrieveData = retrieveData;
+  viewModel.retrieveData();
 </script>
 
 <script>

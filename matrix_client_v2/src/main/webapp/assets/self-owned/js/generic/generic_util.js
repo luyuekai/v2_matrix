@@ -51,7 +51,7 @@ $.serverRequest = function(request_url, request_data, listener_response_success,
         }
         $.publish(listener_service_error,wrapJson);
       }else{
-        $.publish(listener_service_error);
+        $.publish(listener_service_error,xhr);
       }
 
     },
@@ -250,10 +250,33 @@ LoaderUtil = {
   },
   remove: function(div_id) {
     LoaderUtil.removeMask(div_id);
-  }
+  },
 
+  add_v2: function(div_id) {
+    if (!$('#' + div_id).hasClass('matrix-loading-v2')) {
+      $('#' + div_id).addClass('matrix-loading-v2');
+    }
+  },
+  remove_v2: function(div_id) {
+    if ($('#' + div_id).hasClass('matrix-loading-v2')) {
+      $('#' + div_id).removeClass('matrix-loading-v2');
+    }
+  }
 }
 
+var StepUtil = StepUtil || {};
+StepUtil = {
+  setActive: function(div_id,div_id_group) {
+    $.each(div_id_group, function(index, value) {
+      if (value) {
+        if ($('#' + value).hasClass('active')) {
+          $('#' + value).removeClass('active');
+        }
+      }
+    });
+    $('#' + div_id).addClass('active');
+  }
+}
 
 var activeBookmark2 = function(parent_div_id, div_id, fn) {
   event.preventDefault();

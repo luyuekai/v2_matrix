@@ -1,11 +1,11 @@
 <!-- Breadcrum Zone -->
 <ol class="breadcrumb" style="margin-top:-20px;margin-left:-20px">
   <li><a href="index.html">Home</a></li>
-  <li class="active">Matrix Prototype</li>
+  <li class="active">Animal Management System</li>
 </ol>
 
 <!-- Content Header  -->
-<h3><i class="fa fa-tasks"></i> Matrix Prototype <small>(Implement by Matrix)</small> </h3>
+<h3><i class="fa fa-tasks"></i> Animal Management System <small>(Implement by Matrix)</small> </h3>
 
 
 <!-- Content Zone -->
@@ -33,14 +33,14 @@
 </div>
 
 <div class="panel fresh-color panel-primary panel-card" id="tableDIV">
-  <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;Matrix Prototype Overview
+  <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;Animal Management System Overview
     <button type="button" class=" btn btn-black btn-xs pull-right" title="" onclick="switch_div_display('common_table_div');switch_div_display('special_table_div');ServerPagingQueryPOJO.example_query_action()">
       <div class="title"><i class="fa fa-barcode"></i></div>
     </button>
     <button type="button" class=" btn btn-black btn-xs pull-right" title="" onclick="viewModel.retrieveData()">
       <div class="title"><i class="fa fa-search"></i></div>
     </button>
-    <button type="button" class=" btn btn-black btn-xs pull-right" title="" onclick="ModalUtil.popup_modal('Add Entity Operation', '/prototype_console_main_content_modal_add.html', null, null, null);">
+    <button type="button" class=" btn btn-black btn-xs pull-right" title="" onclick="ModalUtil.popup_modal('Add Entity Operation', '/animal_console_main_content_modal_add.html', null, null, null);">
       <div class="title"><i class="fa fa-plus"></i></div>
     </button>
   </div>
@@ -77,10 +77,10 @@
           <table class="table table-striped" cellspacing="0" width="100%">
             <thead>
               <tr>
-                <th>KEY</th>
-                <th>VALUE</th>
-                <th>PROJECT</th>
-                <th>PRODUCT</th>
+                <th>Name</th>
+                <th>Descrition</th>
+                <th>Sex</th>
+                <th>Category</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -91,10 +91,10 @@
                 <td data-bind="text:$data[30]"></td>
                 <td data-bind="text:$data[31]"></td>
                 <td>
-                  <button type="button" class="btn btn-white-pure" title="update" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Update Entity Operation', '/prototype_console_main_content_modal_update.html',$data);})">
+                  <button type="button" class="btn btn-white-pure" title="update" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Update Entity Operation', '/animal_console_main_content_modal_update.html',$data);})">
                     <div class="title"><i class="fa fa-edit fa-1x"></i></div>
                   </button>
-                  <button type="button" class="btn btn-white-pure" title="remove" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Remove Entity Operation', '/prototype_console_main_content_modal_remove.html',$data);})">
+                  <button type="button" class="btn btn-white-pure" title="remove" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Remove Entity Operation', '/animal_console_main_content_modal_remove.html',$data);})">
                     <div class="title"><i class="fa fa-trash fa-1x"></i></div>
                   </button>
                 </td>
@@ -194,17 +194,12 @@
       // "orderMap": {"status": true},
       "pageMaxSize": viewModel.pageMaxSize(),
       "currentPageNumber": viewModel.currentPageNumber(),
-      // "likeORMap": {
-      //   'name': viewModel.searchKeyword(),
-      //   'description': viewModel.searchKeyword(),
-      //   'stringalpha': viewModel.searchKeyword(),
-      //   'stringbeta': viewModel.searchKeyword()
-      // },
-      "nqMap": {
+      "likeORMap": {
         'name': viewModel.searchKeyword()
       },
       "eqMap": {
-        "type": "MATRIX_CLIENT_SERVER_REQUEST_DEMO"
+        "deleted": false,
+        "type": "MATRIX_YL_DEMO_ANIMAL"
       },
       "inMap": {},
     };
