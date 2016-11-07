@@ -1,0 +1,215 @@
+<script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
+
+<div class="row">
+  <div class="col-sm-12" id='data_tech_hdfs_div'>
+
+    <div class="card card-info">
+      <div class="card-header">
+        <div class="card-title">
+          <div class="title"><i class="fa fa-folder-open-o"></i> &nbsp;基于HDFS文件列表进行技术选型(数据源类型:文件)</div>
+        </div>
+        <div class="pull-right card-action">
+          <div class="btn-group" role="group" aria-label="..." id="hide_data_tech_hdfs_content_div">
+            <button type="button" class="btn btn-white" title="隐藏" onclick="$('#data_tech_hdfs_content_div').css('display', 'none'), $('#display_data_tech_hdfs_content_div').css('display', ''), $('#hide_data_tech_hdfs_content_div').css('display', 'none')">
+              <div class="title"><i class="fa fa-sort-up fa-2x"></i></div>
+            </button>
+          </div>
+          <div class="btn-group" role="group" aria-label="..." id="display_data_tech_hdfs_content_div" style="display:none">
+            <button type="button" class="btn btn-white" title="显示" onclick="$('#data_tech_hdfs_content_div').css('display', ''), $('#hide_data_tech_hdfs_content_div').css('display', ''), $('#display_data_tech_hdfs_content_div').css('display', 'none')">
+              <div class="title"><i class="fa fa-sort-down fa-2x"></i></div>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="card profile" id="data_tech_hdfs_content_div">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-12">
+
+              <label class="radio" for="radio_tech_file">
+                <input type="radio" name="optionsRadios_Group_tech" value="" id="radio_tech_file" data-toggle="radio" onclick="renderDom('CONSTANTS_DATA_TECH_HDFS','data_tech_file_div')"> 我想直接使用这些文件进行分析
+              </label>
+              <label class="radio" for="radio_tech_sql">
+                <input type="radio" name="optionsRadios_Group_tech" value="" id="radio_tech_sql" data-toggle="radio" onclick="renderDom('CONSTANTS_DATA_TECH_HDFS','data_tech_sql_div')"> 我想将这些文件导入到库表中并用类SQL语言分析
+              </label>
+            </div>
+          </div>
+          <div class="panel fresh-color panel-info" id='data_tech_file_div'>
+            <div class="panel-heading"><i class="fa fa-folder-open-o"></i> &nbsp;直接使用文件进行分析
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-sm-12">
+                  <label class="radio" for="radio_tech_pig">
+                    <input type="radio" name="optionsRadios_Group_tech_file" value="" id="radio_tech_pig" data-toggle="radio"> 选择的分析工具为Pig
+                  </label>
+                  <label class="radio" for="radio_tech_spark">
+                    <input type="radio" name="optionsRadios_Group_tech_file" value="" id="radio_tech_spark" data-toggle="radio"> 选择的分析工具为Spark
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel fresh-color panel-info" id='data_tech_sql_div'>
+            <div class="panel-heading"><i class="fa fa-folder-open-o"></i> &nbsp;文件导入到库表中并用类SQL语言分析
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-sm-12">
+
+                  <label class="radio" for="radio_auto_import">
+                    <input type="radio" name="optionsRadios_Group_tech_import" value="" id="radio_auto_import" data-toggle="radio" onclick="renderDom('CONSTANTS_DATA_TECH_IMPORT','data_tech_auto_import_div')"> 我想系统帮我自动完成全部的建库,建表,数据导入过程
+                  </label>
+                  <label class="radio" for="radio_manual_import">
+                    <input type="radio" name="optionsRadios_Group_tech_import" value="" id="radio_manual_import" data-toggle="radio" onclick="renderDom('CONSTANTS_DATA_TECH_IMPORT','data_tech_manual_import_div')"> 我想自己完成全部的建库,建表,数据导入过程
+                  </label>
+                </div>
+              </div>
+
+              <!-- AUTO CREATE DB,TABLE,EXPORT DATA BEGIN -->
+              <div id="data_tech_auto_import_div">
+
+                <div class="card blue summary-inline" style="height:38px;">
+                  <div class="card-body">
+                    <i class="fa fa-folder-open-o"></i> &nbsp;系统帮助用户完成全部的建库,建表,数据导入过程
+                  </div>
+                </div>
+                <div class="step-v2-success">
+                  <ul class="nav nav-tabs nav-justified" role="tablist">
+                    <li role="step" id="step1-li">
+                      <a href="#step1" id="step1-tab" aria-controls="home" aria-expanded="true">
+                        <div class="icon fa fa-stethoscope"></div>
+                        <div class="heading">
+                          <div class="title">系统自检</div>
+                          <div class="description"> 检查数据源正确性与用户权限</div>
+                        </div>
+                      </a>
+                    </li>
+                    <li role="step" class="" id="step2-li">
+                      <a href="#step2" id="step2-tab" aria-controls="profile">
+                        <div class="icon fa fa-database"></div>
+                        <div class="heading">
+                          <div class="title"> 创建数据库</div>
+                          <div class="description"> 检查用户相关数据库信息</div>
+                        </div>
+                      </a>
+                    </li>
+                    <li role="step" id="step3-li">
+                      <a href="#step3" id="step3-tab" aria-controls="profile">
+                        <div class="icon fa fa-table"></div>
+                        <div class="heading">
+                          <div class="title">创建数据表</div>
+                          <div class="description">根据数据源格式创建数据表</div>
+                        </div>
+                      </a>
+                    </li>
+                    <li role="step" id="step4-li">
+                      <a href="#step4" id="step4-tab" aria-controls="profile">
+                        <div class="icon fa fa-medkit "></div>
+                        <div class="heading">
+                          <div class="title">数据源数据导入</div>
+                          <div class="description">将数据从HDFS文件导入到对应的数据表</div>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active">
+                      <b>当前向导步骤描述</b> : Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud
+                      exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel
+                    </div>
+                  </div>
+                </div>
+
+                <div id="element_div" class="matrix-loading-v2" style="min-height:80px">
+                  <div class="loader-container text-center">
+                    <div class="icon">
+                      <div class="sk-wave">
+                        <div class="sk-rect sk-rect1"></div>
+                        <div class="sk-rect sk-rect2"></div>
+                        <div class="sk-rect sk-rect3"></div>
+                        <div class="sk-rect sk-rect4"></div>
+                        <div class="sk-rect sk-rect5"></div>
+                      </div>
+                    </div>
+                    <div class="title">系统设置运行中...</div>
+                  </div>
+                  <div class="text-indent">
+                    <form class="form-horizontal">
+                      <div class="form-group">
+                        <label class="col-sm-1 control-label">
+                          <span style="font-weight: bold;font-size: 14px;">名称:</span>
+                        </label>
+                        <div class="col-sm-5">
+                          <p class="form-control-static" data-bind="text:key"></p>
+                        </div>
+                        <label class="col-sm-1 control-label">
+                          <span style="font-weight: bold;font-size: 14px;">描述:</span>
+                        </label>
+                        <div class="col-sm-5">
+                          <p class="form-control-static" data-bind="text:value"></p>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-1 control-label">
+                          <span style="font-weight: bold;font-size: 14px;">创建人:</span>
+                        </label>
+                        <div class="col-sm-5">
+                          <p class="form-control-static" data-bind="text:project"></p>
+                        </div>
+                        <label class="col-sm-1 control-label">
+                          <span style="font-weight: bold;font-size: 14px;">时间:</span>
+                        </label>
+                        <div class="col-sm-5">
+                          <p class="form-control-static" data-bind="text:product"></p>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-1 control-label">
+                          <span style="font-weight: bold;font-size: 14px;">内容:</span>
+                        </label>
+                        <div class="col-sm-11">
+                          <p class="form-control-static" data-bind="text:product"></p>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+              </div>
+              <!-- AUTO CREATE DB,TABLE,EXPORT DATA BEGIN -->
+
+              <div class="panel fresh-color panel-info" id='data_tech_manual_import_div'>
+                <div class="panel-heading"><i class="fa fa-folder-open-o"></i> &nbsp;手动完成全部的建库,建表,数据导入过程
+                </div>
+                <div class="panel-body">
+                  XXXXXX
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  var step_list = ['step1-li', 'step2-li', 'step3-li', 'step4-li'];
+  var current_step_id = 0;
+  setInterval(
+    function() {
+      StepUtil.setActive(step_list[current_step_id], step_list);
+      current_step_id++;
+      if (current_step_id > 3) {
+        current_step_id = 0;
+      }
+    },
+    3000
+  );
+</script>

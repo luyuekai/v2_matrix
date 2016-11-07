@@ -1,0 +1,97 @@
+<script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card card-success">
+      <div class="card-header">
+        <div class="card-title">
+          <div class="title"><i class="fa fa-puzzle-piece"></i> 本阶段输出</div>
+        </div>
+        <div class="pull-right card-action">
+          <div class="btn-group" role="group" aria-label="..." id="hide_data_prepare_output_DIV">
+            <button type="button" class="btn btn-white" title="隐藏" onclick="$('#data_prepare_output_DIV').css('display', 'none'), $('#display_data_prepare_output_DIV').css('display', ''), $('#hide_data_prepare_output_DIV').css('display', 'none')">
+              <div class="title"><i class="fa fa-sort-up fa-2x"></i></div>
+            </button>
+          </div>
+          <div class="btn-group" role="group" aria-label="..." id="display_data_prepare_output_DIV" style="display:none">
+            <button type="button" class="btn btn-white" title="显示" onclick="$('#data_prepare_output_DIV').css('display', ''), $('#hide_data_prepare_output_DIV').css('display', ''), $('#display_data_prepare_output_DIV').css('display', 'none')">
+              <div class="title"><i class="fa fa-sort-down fa-2x"></i></div>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="card profile" id="data_prepare_output_DIV">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12" style="overflow: auto">
+              <table class="table table-striped sortable" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    <th>名称</th>
+                    <th>位置</th>
+                    <th>类型</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>xdr_101.data</td>
+                    <td>/data/xdr/</td>
+                    <td>xdr</td>
+                    <td>
+                      <button type="button" class="btn btn-white" title="元数据" style="margin:-6px -6px -6px -6px">
+                        <div class="title"><i class="fa fa-tag fa-1x"></i> &nbsp;元数据</div>
+                      </button>
+                      <button type="button" class="btn btn-white" title="详情" style="margin:-6px -6px -6px -6px">
+                        <div class="title"><i class="fa fa-barcode fa-1x"></i> &nbsp;详情</div>
+                      </button>
+                      <button type="button" class="btn btn-white" title="移除" style="margin:-6px -6px -6px -6px">
+                        <div class="title"><i class="fa fa-trash fa-1x"></i> &nbsp;移除</div>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>xdr_101_table</td>
+                    <td>/warehose/hive/</td>
+                    <td>hive</td>
+                    <td>
+                      <button type="button" class="btn btn-white" title="元数据" style="margin:-6px -6px -6px -6px">
+                        <div class="title"><i class="fa fa-tag fa-1x"></i> &nbsp;元数据</div>
+                      </button>
+                      <button type="button" class="btn btn-white" title="详情" style="margin:-6px -6px -6px -6px">
+                        <div class="title"><i class="fa fa-barcode fa-1x"></i> &nbsp;详情</div>
+                      </button>
+                      <button type="button" class="btn btn-white" title="移除" style="margin:-6px -6px -6px -6px">
+                        <div class="title"><i class="fa fa-trash fa-1x"></i> &nbsp;移除</div>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>xdr_101_script</td>
+                    <td>/script/pig/</td>
+                    <td>pig</td>
+                    <td>
+                      <button type="button" class="btn btn-white" title="元数据" style="margin:-6px -6px -6px -6px">
+                        <div class="title"><i class="fa fa-tag fa-1x"></i> &nbsp;元数据</div>
+                      </button>
+                      <button type="button" class="btn btn-white" title="详情" style="margin:-6px -6px -6px -6px">
+                        <div class="title"><i class="fa fa-barcode fa-1x"></i> &nbsp;详情</div>
+                      </button>
+                      <button type="button" class="btn btn-white" title="移除" style="margin:-6px -6px -6px -6px">
+                        <div class="title"><i class="fa fa-trash fa-1x"></i> &nbsp;移除</div>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <i class="fa fa-files-o"></i> &nbsp;本阶段输出总数量:
+          <strong data-bind="text: totalSelected()"></strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
