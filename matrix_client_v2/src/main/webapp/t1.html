@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Matrix Components Framework">
+  <meta name="author" content="LY">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
+  <!-- Loading Bootstrap -->
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+  <!-- Loading Flat UI -->
+  <link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/css/flat-ui.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/docs/assets/css/docs.css">
+
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+  <!--[if lt IE 9]>
+      <script src="../dist/js/vendor/html5shiv.js"></script>
+      <script src="../dist/js/vendor/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+  <ul class="demo-sidebar hide-on-tablets">
+    <li><a href="#fui-button">Buttons</a></li>
+    <li><a href="#fui-checkbox">Checkboxes</a></li>
+    <li><a href="#fui-radio">Radio buttons</a></li>
+    <li><a href="#fui-dropdown">Dropdown</a></li>
+    <li><a href="#fui-input">Input</a></li>
+    <li><a href="#fui-navbar">Navbar</a></li>
+    <li><a href="#fui-pager">Pager</a></li>
+    <li><a href="#fui-pagination">Pagination</a></li>
+    <li><a href="#fui-progress">Progress</a></li>
+    <li><a href="#fui-select">Select</a></li>
+    <li><a href="#fui-switch">Switch</a></li>
+    <li><a href="#fui-tagsinput">Tags Input</a></li>
+    <li><a href="#fui-tooltip">Tooltip</a></li>
+    <li><a href="#fui-slider">Slider</a></li>
+    <li><a href="#fui-typeahead">Typeahead</a></li>
+    <li><a href="#fui-videoplayer">Video Player</a></li>
+  </ul>
+  <!-- /nav -->
+
+  <h1 class="demo-headline">Components</h1>
+  
+  <!-- /.container -->
+
+
+
+
+    <!-- /.demo-row -->
+
+
+
+    <!-- /.demo-row -->
+
+    <div class="demo-row">
+      <div class="demo-title">
+        <h3>Select</h3>
+      </div>
+      <div class="demo-content">
+        <p class="mbl">
+          We have made a custom select due to the inability of styling the system one. It is based on the <a href="http://ivaynberg.github.io/select2/">Select2</a> plug-in with the source slightly modified to meet Bootstrap naming convention.
+        </p>
+        <p class="mbl">
+          The component inherits its entire style from the button so you can use all its colors and sizes without any problems. We have also supported the <span class="text-info">multiple</span> select state as well as the <span class="text-info">block</span>          mode where it takes all the available space.
+        </p>
+        <p class="mbl pbl">
+          Grids are supported here as&nbsp;well. For more technical details read the <a href="http://ivaynberg.github.io/select2/#documentation">original&nbsp;documentation</a>.
+        </p>
+
+        <select class="form-control select select-primary mbl" data-toggle="select">
+          <optgroup label="Profile">
+            <option value="0">My Profile</option>
+            <option value="1">My Friends</option>
+          </optgroup>
+          <optgroup label="System">
+            <option value="2">Messages</option>
+            <option value="3">My Settings</option>
+            <option value="4">Logout</option>
+          </optgroup>
+        </select>
+
+        <br>
+
+        <select multiple="multiple" class="form-control multiselect multiselect-info mbl" data-toggle="select">
+          <option value="0">1</option>
+          <option value="1" selected>2</option>
+          <option value="2" selected>3</option>
+          <option value="3" selected>4</option>
+          <option value="4">5</option>
+        </select>
+
+        <p class="mvl">
+          You can write the markup as you would normally do, without any difference:
+        </p>
+
+        <pre class="prettyprint mvl">
+&lt;select class="form-control select select-primary select-block mbl"&gt;
+  &lt;optgroup label="Profile"&gt;
+    &lt;option value="0"&gt;My Profile&lt;/option&gt;
+    &lt;option value="1"&gt;My Friends&lt;/option&gt;
+  &lt;/optgroup&gt;
+  &lt;optgroup label="System"&gt;
+    &lt;option value="2"&gt;Messages&lt;/option&gt;
+    &lt;option value="3"&gt;My Settings&lt;/option&gt;
+    &lt;option value="4"&gt;Logout&lt;/option&gt;
+  &lt;/optgroup&gt;
+&lt;/select&gt;
+
+&lt;select multiple="multiple" class="form-control multiselect multiselect-info"&gt;
+  &lt;option value="0"&gt;1&lt;/option&gt;
+  &lt;option value="1" selected&gt;2&lt;/option&gt;
+  &lt;option value="2" selected&gt;3&lt;/option&gt;
+  &lt;option value="3" selected&gt;4&lt;/option&gt;
+  &lt;option value="4"&gt;5&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+        <p class="mvl ptl">
+          Then transform all the system selects into custom ones with JS:
+        </p>
+
+        <pre class="prettyprint mvl">
+$("select").select2({dropdownCssClass: 'dropdown-inverse'});
+
+// dropdownCssClass: dropdown class name
+
+// You can always select by any other attribute, not just tag name.
+// Also you can leave selectpicker arguments blank to apply defaults.
+</pre>
+        <div id="fui-switch"></div>
+      </div>
+      <!-- /.demo-content -->
+    </div>
+    <!-- /.demo-row -->
+
+
+    <!-- /.demo-row -->
+
+
+    <!-- /.demo-row -->
+
+
+
+    <!-- /.demo-row -->
+
+
+
+
+
+
+
+  </div>
+  <!-- /.container -->
+
+  <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+  <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="assets/reference/flat-ui/js/vendor/video.js"></script>
+  <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
+
+  <script>
+    videojs.options.flash.swf = "assets/reference/flat-ui/js/vendors/video-js.swf"
+  </script>
+</body>
+
+</html>
