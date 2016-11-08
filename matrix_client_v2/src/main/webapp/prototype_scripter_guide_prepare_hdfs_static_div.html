@@ -1,0 +1,670 @@
+<script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
+
+<div id="hdfs_div_demo">
+
+  <div class="row">
+    <div class="col-sm-12" style="margin-bottom:8px">
+      <button onclick="switch_tree_browser()" type="button" class="btn btn-white" title="" style="margin:-6px -6px -6px -6px">
+        <div class="title"><i class="fa fa-sitemap fa-1x"></i> &nbsp;资源管理器 </div>
+      </button>
+    </div>
+    <div class="col-sm-2" id="hdfs_tree_browser_div" style="display:none">
+      <div>
+        <div class="panel fresh-color panel-info" style="height:600px">
+          <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;HDFS Tree Component
+          </div>
+          <div class="panel-body">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12" id="hdfs_main_operate_div">
+      <div class="row">
+        <div class="col-sm-12" id='data_prepare_hdfs_div'>
+          <div class="card card-info">
+            <div class="card-header">
+              <div class="card-title">
+                <div class="title">
+
+                  <i class="fa fa-folder-open-o"></i> &nbsp;通过HDFS系统进行待分析数据源选择(数据源文件类型:文件)
+                </div>
+              </div>
+              <div class="pull-right card-action">
+                <div class="btn-group" role="group" aria-label="..." id="hide_data_prepare_hdfs_content_div">
+                  <button type="button" class="btn btn-white" title="隐藏" onclick="$('#data_prepare_hdfs_content_div').css('display', 'none'), $('#display_data_prepare_hdfs_content_div').css('display', ''), $('#hide_data_prepare_hdfs_content_div').css('display', 'none')">
+                    <div class="title"><i class="fa fa-sort-up fa-2x"></i></div>
+                  </button>
+                </div>
+                <div class="btn-group" role="group" aria-label="..." id="display_data_prepare_hdfs_content_div" style="display:none">
+                  <button type="button" class="btn btn-white" title="显示" onclick="$('#data_prepare_hdfs_content_div').css('display', ''), $('#hide_data_prepare_hdfs_content_div').css('display', ''), $('#display_data_prepare_hdfs_content_div').css('display', 'none')">
+                    <div class="title"><i class="fa fa-sort-down fa-2x"></i></div>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="card profile" id="data_prepare_hdfs_content_div">
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="col-sm-12" style="margin-bottom: 0px;">
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="尝试像Google搜索一样在HDFS中搜索文件">
+                      <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button"><span class="fui-search"></span></button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <hr style="margin:0 0 ">
+                <form class="form-horizontal">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                      <button type="button" class="btn btn-white" data-toggle="tooltip" data-placement="right" title="文件文件类型是基于文件数据格式配置完成, 可以通过相关配置查看此文件文件类型的具体属性.">
+                        <div class="title"><i class="fa fa-question fa-1x"></i></div>
+                      </button>
+                      <span style="font-weight: bold;font-size: 14px;">文件文件类型:</span>
+                    </label>
+                    <div class="col-sm-10" style="padding-top: 10px;">
+                      <span>
+                                    <label class="checkbox" for="checkbox1" style="display:inline;margin-right:20px">
+                                      <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox">
+                                      HTTP
+                                      <span>
+                                        <button type="button" class="btn btn-white" style="padding:0px 6px;"><i class="fa fa-barcode fa-1x"></i></button>
+                                        <button type="button" class="btn btn-white" style="padding:0px 6px;" data-toggle="tooltip" data-placement="right" title="Description like 北邮校园网103话单"><div class="title"><i class="fa fa-info fa-1x"></i></div></button>
+                                      </span>
+                      </label>
+                      </span>
+                      <span>
+                                    <label class="checkbox" for="checkbox2" style="display:inline;margin-right:20px">
+                                      <input type="checkbox" value="" id="checkbox2" data-toggle="checkbox">
+                                      UserURL
+                                      <span>
+                                        <button type="button" class="btn btn-white" style="padding:0px 6px;"><i class="fa fa-barcode fa-1x"></i></button>
+                                        <button type="button" class="btn btn-white" style="padding:0px 6px;" data-toggle="tooltip" data-placement="right" title="Description like 北邮校园网103话单"><div class="title"><i class="fa fa-info fa-1x"></i></div></button>
+                                      </span>
+                      </label>
+                      </span>
+                      <span>
+                                    <label class="checkbox" for="checkbox3" style="display:inline;margin-right:20px">
+                                      <input type="checkbox" value="" id="checkbox3" data-toggle="checkbox">
+                                      Userflow
+                                      <span>
+                                        <button type="button" class="btn btn-white" style="padding:0px 6px;"><i class="fa fa-barcode fa-1x"></i></button>
+                                        <button type="button" class="btn btn-white" style="padding:0px 6px;" data-toggle="tooltip" data-placement="right" title="Description like 北邮校园网103话单"><div class="title"><i class="fa fa-info fa-1x"></i></div></button>
+                                      </span>
+                      </label>
+                      </span>
+                      <span>
+                                    <label class="checkbox" for="checkbox4" style="display:inline;margin-right:20px">
+                                      <input type="checkbox" value="" id="checkbox4" data-toggle="checkbox">
+                                      3rdParty
+                                      <span>
+                                        <button type="button" class="btn btn-white" style="padding:0px 6px;"><i class="fa fa-barcode fa-1x"></i></button>
+                                        <button type="button" class="btn btn-white" style="padding:0px 6px;" data-toggle="tooltip" data-placement="right" title="Description like 北邮校园网103话单"><div class="title"><i class="fa fa-info fa-1x"></i></div></button>
+                                      </span>
+                      </label>
+                      </span>
+                      <span>
+                                    <label class="checkbox" for="checkbox5" style="display:inline;margin-right:20px">
+                                      <input type="checkbox" value="" id="checkbox5" data-toggle="checkbox">
+                                      UserLog
+                                      <span>
+                                        <button type="button" class="btn btn-white" style="padding:0px 6px;"><i class="fa fa-barcode fa-1x"></i></button>
+                                        <button type="button" class="btn btn-white" style="padding:0px 6px;" data-toggle="tooltip" data-placement="right" title="Description like 北邮校园网103话单"><div class="title"><i class="fa fa-info fa-1x"></i></div></button>
+                                      </span>
+                      </label>
+                      </span>
+                      <span>
+                                    <label class="checkbox" for="checkbox6" style="display:inline;margin-right:20px">
+                                      <input type="checkbox" value="" id="checkbox6" data-toggle="checkbox">
+                                      RowLog
+                                      <span>
+                                        <button type="button" class="btn btn-white" style="padding:0px 6px;"><i class="fa fa-barcode fa-1x"></i></button>
+                                        <button type="button" class="btn btn-white" style="padding:0px 6px;" data-toggle="tooltip" data-placement="right" title="Description like 北邮校园网103话单"><div class="title"><i class="fa fa-info fa-1x"></i></div></button>
+                                      </span>
+                      </label>
+                      </span>
+                    </div>
+                  </div>
+                </form>
+                <hr style="margin:0 0 ">
+                <form class="form-horizontal">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                      <span style="font-weight: bold;font-size: 14px;">运营商:</span>
+                    </label>
+                    <div class="col-sm-10" style="padding-top: 10px;">
+                      <span>
+                                    <label class="checkbox" for="checkbox1" style="display:inline;margin-right:20px">
+                                      <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox">
+                                      中国电信
+                                  </label>
+                                  </span>
+                      <span>
+                                    <label class="checkbox" for="checkbox2" style="display:inline;margin-right:20px">
+                                      <input type="checkbox" value="" id="checkbox2" data-toggle="checkbox">
+                                      中国移动
+                                  </label>
+                                  </span>
+                      <span>
+                                    <label class="checkbox" for="checkbox3" style="display:inline;margin-right:20px">
+                                      <input type="checkbox" value="" id="checkbox3" data-toggle="checkbox">
+                                      中国联通
+                                  </label>
+                                  </span>
+                    </div>
+                  </div>
+                </form>
+                <hr style="margin:0 0 ">
+                <form class="form-horizontal">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                      <span style="font-weight: bold;font-size: 14px;">省份:</span>
+                    </label>
+                    <div class="col-sm-10" style="padding-top: 10px;">
+                      <span>
+                                    <label class="checkbox" for="checkbox1" style="display:inline;margin-right:20px">
+                                      <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox">
+                                      广州
+                                  </label>
+                                  </span>
+                      <span>
+                                    <label class="checkbox" for="checkbox2" style="display:inline;margin-right:20px">
+                                      <input type="checkbox" value="" id="checkbox2" data-toggle="checkbox">
+                                      安徽
+                                  </label>
+                                  </span>
+                      <span>
+                                    <label class="checkbox" for="checkbox3" style="display:inline;margin-right:20px">
+                                      <input type="checkbox" value="" id="checkbox3" data-toggle="checkbox">
+                                      辽宁
+                                  </label>
+                                  </span>
+                      <span>
+                                    <label class="checkbox" for="checkbox4" style="display:inline;margin-right:20px">
+                                      <input type="checkbox" value="" id="checkbox4" data-toggle="checkbox">
+                                      黑龙江
+                                  </label>
+                                  </span>
+                      <span>
+                                    <label class="checkbox" for="checkbox4" style="display:inline;margin-right:20px">
+                                      <input type="checkbox" value="" id="checkbox4" data-toggle="checkbox">
+                                      江苏
+                                  </label>
+                                  </span>
+                    </div>
+                  </div>
+                </form>
+                <hr style="margin:0 0 ">
+                <form class="form-horizontal">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                      <span style="font-weight: bold;font-size: 14px;">接口文件类型:</span>
+                    </label>
+                    <div class="col-sm-10" style="padding-top: 10px;">
+                      <span>
+                                    <label class="checkbox" for="checkbox1" style="display:inline;margin-right:20px">
+                                      <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox">
+                                      PI
+                                  </label>
+                                  </span>
+                      <span>
+                                    <label class="checkbox" for="checkbox2" style="display:inline;margin-right:20px">
+                                      <input type="checkbox" value="" id="checkbox2" data-toggle="checkbox">
+                                      SNSR
+                                  </label>
+                                  </span>
+                      <span>
+                                    <label class="checkbox" for="checkbox3" style="display:inline;margin-right:20px">
+                                      <input type="checkbox" value="" id="checkbox3" data-toggle="checkbox">
+                                      CY
+                                  </label>
+                                  </span>
+                      <span>
+                                    <label class="checkbox" for="checkbox4" style="display:inline;margin-right:20px">
+                                      <input type="checkbox" value="" id="checkbox4" data-toggle="checkbox">
+                                      GN
+                                  </label>
+                                  </span>
+                    </div>
+                  </div>
+                </form>
+                <hr style="margin:0 0 ">
+                <div class="row" style="margin-top: 6px;">
+                  <!-- <div class="col-sm-2">高级选项:</div> -->
+                  <label class="col-sm-2 control-label text-right">
+                    <button type="button" class="btn btn-white" id="hide_tab_content_advanced_div_button" style="display:none" onclick="$('#tab_content_advanced_div').css('display', 'none'), $('#show_tab_content_advanced_div_button').css('display', ''), $('#hide_tab_content_advanced_div_button').css('display', 'none')">
+                      <div class="title"><i class="fa fa-caret-up fa-1x"></i></div>
+                    </button>
+                    <button type="button" class="btn btn-white" id="show_tab_content_advanced_div_button" onclick="$('#tab_content_advanced_div').css('display', ''), $('#hide_tab_content_advanced_div_button').css('display', ''), $('#show_tab_content_advanced_div_button').css('display', 'none')">
+                      <div class="title"><i class="fa fa-caret-down fa-1x"></i></div>
+                    </button>
+                    <span style="font-weight: bold;font-size: 14px;">高级选项</span>
+                  </label>
+                  <div class="col-sm-10">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                      <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab" onclick="$('#tab_content_advanced_div').css('display', '')">高级标签1&nbsp; <i class="fa fa-angle-double-down fa-1x"></i></a></li>
+                      <li role="presentation"><a href="#profile" role="tab" data-toggle="tab" onclick="$('#tab_content_advanced_div').css('display', '')">高级标签2&nbsp; <i class="fa fa-angle-double-down fa-1x"></i></a></li>
+                      <li role="presentation"><a href="#messages" role="tab" data-toggle="tab" onclick="$('#tab_content_advanced_div').css('display', '')">高级标签3&nbsp; <i class="fa fa-angle-double-down fa-1x"></i></a></li>
+                      <li role="presentation"><a href="#settings" role="tab" data-toggle="tab" onclick="$('#tab_content_advanced_div').css('display', '')">高级标签4&nbsp; <i class="fa fa-angle-double-down fa-1x"></i></a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content" id="tab_content_advanced_div" style="display:none">
+                      <div role="tabpanel" class="tab-pane active" id="home" style="padding-bottom: 0px;">
+                        <span>
+                                      <label class="checkbox" for="checkbox1" style="display:inline;margin-right:20px">
+                                        <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox">
+                                        PI
+                                    </label>
+                                    </span>
+                        <span>
+                                      <label class="checkbox" for="checkbox2" style="display:inline;margin-right:20px">
+                                        <input type="checkbox" value="" id="checkbox2" data-toggle="checkbox">
+                                        SNSR
+                                    </label>
+                                    </span>
+                        <span>
+                                      <label class="checkbox" for="checkbox3" style="display:inline;margin-right:20px">
+                                        <input type="checkbox" value="" id="checkbox3" data-toggle="checkbox">
+                                        CY
+                                    </label>
+                                    </span>
+                        <span>
+                                      <label class="checkbox" for="checkbox4" style="display:inline;margin-right:20px">
+                                        <input type="checkbox" value="" id="checkbox4" data-toggle="checkbox">
+                                        GN
+                                    </label>
+                                    </span>
+                      </div>
+                      <div role="tabpanel" class="tab-pane" id="profile" style="padding-bottom: 0px;">
+                        <span>
+                                      <label class="checkbox" for="checkbox1" style="display:inline;margin-right:20px">
+                                        <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox">
+                                        广州
+                                    </label>
+                                    </span>
+                        <span>
+                                      <label class="checkbox" for="checkbox2" style="display:inline;margin-right:20px">
+                                        <input type="checkbox" value="" id="checkbox2" data-toggle="checkbox">
+                                        安徽
+                                    </label>
+                                    </span>
+                        <span>
+                                      <label class="checkbox" for="checkbox3" style="display:inline;margin-right:20px">
+                                        <input type="checkbox" value="" id="checkbox3" data-toggle="checkbox">
+                                        辽宁
+                                    </label>
+                                    </span>
+                        <span>
+                                      <label class="checkbox" for="checkbox4" style="display:inline;margin-right:20px">
+                                        <input type="checkbox" value="" id="checkbox4" data-toggle="checkbox">
+                                        黑龙江
+                                    </label>
+                                    </span>
+                        <span>
+                                      <label class="checkbox" for="checkbox4" style="display:inline;margin-right:20px">
+                                        <input type="checkbox" value="" id="checkbox4" data-toggle="checkbox">
+                                        江苏
+                                    </label>
+                                    </span>
+                      </div>
+                      <div role="tabpanel" class="tab-pane" id="messages" style="padding-bottom: 0px;">
+                        <span>
+                                      <label class="checkbox" for="checkbox3" style="display:inline;margin-right:20px">
+                                        <input type="checkbox" value="" id="checkbox3" data-toggle="checkbox">
+                                        CY
+                                    </label>
+                                    </span>
+                        <span>
+                                      <label class="checkbox" for="checkbox4" style="display:inline;margin-right:20px">
+                                        <input type="checkbox" value="" id="checkbox4" data-toggle="checkbox">
+                                        GN
+                                    </label>
+                                    </span>
+                      </div>
+                      <div role="tabpanel" class="tab-pane" id="settings" style="padding-bottom: 0px;">
+                        <span>
+                                      <label class="checkbox" for="checkbox4" style="display:inline;margin-right:20px">
+                                        <input type="checkbox" value="" id="checkbox4" data-toggle="checkbox">
+                                        黑龙江
+                                    </label>
+                                    </span>
+                        <span>
+                                      <label class="checkbox" for="checkbox4" style="display:inline;margin-right:20px">
+                                        <input type="checkbox" value="" id="checkbox4" data-toggle="checkbox">
+                                        江苏
+                                    </label>
+                                    </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr style="margin:0 0 ">
+                <div class="row" style="margin-top: 6px;">
+                  <div class="pull-right">
+                    <button class="btn btn-info btn-wide" onclick="">搜索 &nbsp;<i class="fa fa-search fa-1x"></i></button>
+                    <button class="btn btn-inverse btn-wide" onclick="">重置 &nbsp;<i class="fa fa-refresh fa-1x"></i></button>
+                  </div>
+                </div>
+
+              </div>
+              <div class="card-footer">
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card card-info">
+            <div class="card-header">
+              <div class="card-title">
+                <div class="title"><i class="fa fa-file-o"></i> &nbsp;搜索结果</div>
+              </div>
+              <div class="pull-right card-action">
+                <div class="btn-group" role="group" aria-label="..." id="hide_data_prepare_output_DIV">
+                  <button type="button" class="btn btn-white" title="隐藏" onclick="$('#data_prepare_output_DIV').css('display', 'none'), $('#display_data_prepare_output_DIV').css('display', ''), $('#hide_data_prepare_output_DIV').css('display', 'none')">
+                    <div class="title"><i class="fa fa-sort-up fa-2x"></i></div>
+                  </button>
+                </div>
+                <div class="btn-group" role="group" aria-label="..." id="display_data_prepare_output_DIV" style="display:none">
+                  <button type="button" class="btn btn-white" title="显示" onclick="$('#data_prepare_output_DIV').css('display', ''), $('#hide_data_prepare_output_DIV').css('display', ''), $('#display_data_prepare_output_DIV').css('display', 'none')">
+                    <div class="title"><i class="fa fa-sort-down fa-2x"></i></div>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="card profile" id="data_prepare_output_DIV">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12" style="overflow: auto">
+                    <table class="table table-striped sortable" cellspacing="0" width="100%">
+                      <thead>
+                        <tr>
+                          <th>名称</th>
+                          <th>位置</th>
+                          <th>文件类型</th>
+                          <th>文件大小</th>
+                          <th>所属用户</th>
+                          <th>操作</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>xdr_101.data</td>
+                          <td>/data/xdr/</td>
+                          <td>xdr</td>
+                          <td>12GB</td>
+                          <td>ops</td>
+                          <td>
+                            <button type="button" class="btn btn-white" title="详情" style="margin:-6px -6px -6px -6px">
+                              <div class="title"><i class="fa fa-barcode fa-1x"></i> &nbsp;详情</div>
+                            </button>
+                            <button type="button" class="btn btn-white" title="选择" style="margin:-6px -6px -6px -6px">
+                              <div class="title"><i class="fa fa-check fa-1x"></i> &nbsp;选择</div>
+                            </button>
+                            <button type="button" class="btn btn-white" title="数据格式" style="margin:-6px -6px -6px -6px">
+                              <div class="title"><i class="fa fa-tag fa-1x"></i> &nbsp;数据格式</div>
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>xdr_103.data</td>
+                          <td>/data/xdr/</td>
+                          <td>xdr</td>
+                          <td>12.8MB</td>
+                          <td>ops</td>
+                          <td>
+                            <button type="button" class="btn btn-white" title="详情" style="margin:-6px -6px -6px -6px">
+                              <div class="title"><i class="fa fa-barcode fa-1x"></i> &nbsp;详情</div>
+                            </button>
+                            <button type="button" class="btn btn-white" title="选择" style="margin:-6px -6px -6px -6px">
+                              <div class="title"><i class="fa fa-check fa-1x"></i> &nbsp;选择</div>
+                            </button>
+                            <button type="button" class="btn btn-white" title="数据格式" style="margin:-6px -6px -6px -6px">
+                              <div class="title"><i class="fa fa-tag fa-1x"></i> &nbsp;数据格式</div>
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>temp.data</td>
+                          <td>/trash</td>
+                          <td>无格式</td>
+                          <td>100KB</td>
+                          <td>ops</td>
+                          <td>
+                            <button type="button" class="btn btn-white" title="详情" style="margin:-6px -6px -6px -6px">
+                              <div class="title"><i class="fa fa-barcode fa-1x"></i> &nbsp;详情</div>
+                            </button>
+                            <button type="button" class="btn btn-white" title="选择" style="margin:-6px -6px -6px -6px">
+                              <div class="title"><i class="fa fa-check fa-1x"></i> &nbsp;选择</div>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12" style="margin-bottom:8px">
+                    <nav class="matrix-pager-info " role="navigation">
+
+                      <div class="collapse navbar-collapse" id="navbar-collapse-01">
+
+                        <ul class="nav navbar-nav navbar-right ">
+                          <li><a href="#fakelink"><i class="fa fa-angle-double-left"></i> &nbsp;首页</a></li>
+                          <li><a href="#fakelink"><i class="fa fa-angle-left"></i> &nbsp;上页</a></li>
+                          <li>
+
+                            <form class="navbar-form navbar-center" action="#" role="search" style="width:58px">
+                              <div class="form-group">
+                                <div class="input-group">
+                                  <input class="form-control text-center" type="search" placeholder="页数" style="width:58px">
+                                </div>
+                              </div>
+                            </form>
+                          </li>
+                          <li><a href="#fakelink">下页 &nbsp;<i class="fa fa-angle-right"></i></a></li>
+                          <li><a href="#fakelink"> 末页 &nbsp;<i class="fa fa-angle-double-right"></i></a></li>
+
+                          <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">每页10条<b class="caret"></b></a>
+                            <span class="dropdown-arrow"></span>
+                            <ul class="dropdown-menu">
+                              <li><a href="#">10</a></li>
+                              <li><a href="#">20</a></li>
+                              <li><a href="#">50</a></li>
+                              <li><a href="#">100</a></li>
+                            </ul>
+                          </li>
+                          <!-- <li><a href="#">结果总数:2000000条</a></li> -->
+                        </ul>
+                        <ul class="nav navbar-nav">
+                          <li><a href="#">结果总数:2000000条</a></li>
+                        </ul>
+                        <form class="navbar-form navbar-left" action="#" role="search">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <input class="form-control text-center" id="navbarInput-01" type="search" placeholder="Search">
+                              <span class="input-group-btn">
+                                            <button type="submit" class="btn"><span class="fui-search"></span></button>
+                              </span>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <!-- /.navbar-collapse -->
+                    </nav>
+                    <!-- /navbar -->
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>
+
+
+
+<script type="text/javascript">
+  $(function() {
+    $('[data-toggle="tooltip"]').tooltip('hide');
+  })
+
+
+  // Data Model modal
+  var mock_tag_list = [{
+    "description": "运营商描述",
+    "name": "运营商",
+    "type": "SCRIPTER_TAG_TYPE",
+    "priority": 1,
+    "children": [{
+      "name": "中国电信",
+      "type": "SCRIPTER_TAG",
+    }, {
+      "name": "中国移动",
+      "type": "SCRIPTER_TAG",
+    }, {
+      "name": "中国联通",
+      "type": "SCRIPTER_TAG"
+    }]
+  }, {
+    "description": "省份描述",
+    "name": "省份",
+    "type": "SCRIPTER_TAG_TYPE",
+    "priority": 2,
+    "children": [{
+      "name": "广州",
+      "type": "SCRIPTER_TAG",
+    }, {
+      "name": "安徽",
+      "type": "SCRIPTER_TAG",
+    }, {
+      "name": "黑龙江",
+      "type": "SCRIPTER_TAG"
+    }]
+  }];
+
+  var mock_metadata_list = [{
+    "description": "用户流话单",
+    "name": "userflow_tutorial_demo",
+    "stringalpha": "用户流话单",
+    "stringbeta": "v1",
+    "type": "SCRIPTER_METADATA",
+    "children": [{
+      "name": "a.aa",
+      "type": "SCRIPTER_HIVE_TABLE",
+    }, {
+      "name": "demo.demotable",
+      "type": "SCRIPTER_HIVE_TABLE",
+    }, {
+      "description": "用户名",
+      "name": "username",
+      "numberalpha": 3,
+      "stringalpha": "用户名",
+      "type": "SCRIPTER_METADATA_ATOMIC",
+    }, {
+      "description": "用户 IP",
+      "name": "user_ip",
+      "numberalpha": 4,
+      "stringalpha": "用户 IP",
+      "type": "SCRIPTER_METADATA_ATOMIC",
+    }, {
+      "description": "服务器 IP",
+      "name": "server_ip",
+      "numberalpha": 5,
+      "stringalpha": "服务器 IP",
+      "type": "SCRIPTER_METADATA_ATOMIC",
+    }, {
+      "description": "单位为 byte",
+      "name": "upload_byte",
+      "numberalpha": 6,
+      "stringalpha": "上行流量",
+      "type": "SCRIPTER_METADATA_ATOMIC",
+    }, {
+      "description": "单位为 byte",
+      "name": "download_byte",
+      "numberalpha": 7,
+      "stringalpha": "下行流量",
+      "type": "SCRIPTER_METADATA_ATOMIC",
+    }, {
+      "description": "主机域名",
+      "name": "host",
+      "numberalpha": 8,
+      "stringalpha": "主机",
+      "type": "SCRIPTER_METADATA_ATOMIC",
+    }, {
+      "booleanalpha": true,
+      "description": "大类业务",
+      "name": "large_class_business",
+      "numberalpha": 9,
+      "stringalpha": "大类业务",
+      "type": "SCRIPTER_METADATA_ATOMIC",
+    }, {
+      "booleanalpha": true,
+      "description": "小类业务",
+      "name": "small_class_business",
+      "numberalpha": 10,
+      "stringalpha": "小类业务",
+      "type": "SCRIPTER_METADATA_ATOMIC",
+    }, {
+      "description": "上行流量求和",
+      "name": "round(sum(upload_byte)+sum(download_byte))",
+      "stringalpha": "total_flow",
+      "type": "SCRIPTER_METADATA_ALGORITHM",
+    }, {
+      "description": "平均下行流量",
+      "name": "avg(download_byte)",
+      "stringalpha": "avg_download",
+      "type": "SCRIPTER_METADATA_ALGORITHM",
+    }, {
+      "description": "去重用户数",
+      "name": "count(distinct(username))",
+      "stringalpha": "user_counts",
+      "type": "SCRIPTER_METADATA_ALGORITHM",
+    }]
+  }];
+</script>
+
+<script>
+  var flag = false;
+
+  function switch_tree_browser() {
+    if (flag) {
+      if ($('#hdfs_main_operate_div').hasClass('col-sm-10')) {
+        $('#hdfs_main_operate_div').removeClass('col-sm-10');
+      }
+      if (!$('#hdfs_main_operate_div').hasClass('col-sm-12')) {
+        $('#hdfs_main_operate_div').addClass('col-sm-12');
+      }
+      $('#hdfs_tree_browser_div').css('display', 'none');
+    } else {
+      if ($('#hdfs_main_operate_div').hasClass('col-sm-12')) {
+        $('#hdfs_main_operate_div').removeClass('col-sm-12');
+      }
+      if (!$('#hdfs_main_operate_div').hasClass('col-sm-10')) {
+        $('#hdfs_main_operate_div').addClass('col-sm-10');
+      }
+      $('#hdfs_tree_browser_div').css('display', '');
+    }
+    flag = !flag;
+  }
+</script>

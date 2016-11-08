@@ -1049,7 +1049,7 @@ a:hover {
 
 .loader-container {
   display: none; }
-  
+
 .matrix-loading-v2 {
   position: relative;
   overflow: hidden; }
@@ -3419,9 +3419,9 @@ a:hover {
   background-color: transparent;
 }
 .btn-white:hover, .btn-white.hover, .btn-white:focus, .btn-white:active, .btn-white.active, .open > .dropdown-toggle.btn-white {
-  /*color: #ffffff;*/
-  background-color: #1ABC9C;
-  border-color: #1ABC9C;
+  color: #666;
+  /*background-color: #1ABC9C;*/
+  /*border-color: #1ABC9C;*/
 }
 .btn-white:active, .btn-white.active, .open > .dropdown-toggle.btn-white {
   background: #c44133;
