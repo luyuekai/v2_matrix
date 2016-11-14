@@ -266,8 +266,6 @@
             $(function() {
               autosize($('textarea'));
             });
-
-            SharePOJO.environmentCheck();
           });
         </script>
 
@@ -282,6 +280,7 @@
 
             function MATRIX_TEMPLATES_LOAD_FINISHED_LISTENER() {
                 ko.applyBindings(notebookListViewModel, document.getElementById('contentDIV'));
+                SharePOJO.environmentCheck();
             }
             $(function() {
                 //this function is located in the generic_util js

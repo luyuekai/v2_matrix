@@ -95,12 +95,14 @@ var serialize_notebook = function () {
 // Function for deserialize the notebook page from saved data
 var import_notebook = function (inputData) {
     inputData = $.parseJSON(inputData);
-//    console.log(inputData);
-    while (notebookListViewModel == null) {
-        console.log("等待页面初始化");
-        $.delay(1000);
-    }
-     notebookListViewModel = deserialize_notebook(inputData);
+    console.log(inputData);
+    notebookListViewModel = deserialize_notebook(inputData);
+    ko.cleanNode($('#contentDIV')[0]);
+    ko.applyBindings(notebookListViewModel, document.getElementById('contentDIV'));
+    setTimeout(function () {
+        autosize($('textarea'));
+        notebook_textarea_keyboard_event_listener(); // need to do this for setup new notebook feature
+    }, 500);
 }
 
 var deserialize_notebook = function (inputData) {
@@ -115,7 +117,7 @@ var load_chartPanel = function (viewModel, inputData) {
 }
 var load_notebooks = function (viewModel, inputData) {
     $.each(inputData.notebooks, function (idx, notebook) {
-//        console.log(notebook);
+        console.log(notebook);
         var notebookViewModel = new NotebookViewModel(null, false, true);
         //load console
         notebookViewModel.console.inputContent(notebook.console.inputContent);
@@ -142,7 +144,7 @@ var load_notebooks = function (viewModel, inputData) {
         notebookViewModel.result.isDisplay_impala(notebook.result.isDisplay_impala);
         notebookViewModel.result.isDisplay_markdown(notebook.result.isDisplay_markdown);
 
-//        console.log('#notebook' + idx + '_bookmark_' + notebook.console.currentBookmark)
+        console.log('#notebook' + idx + '_bookmark_' + notebook.console.currentBookmark)
         $('#notebook' + idx + '_bookmark_' + notebook.console.currentBookmark).click();
         if (notebook.console.currentBookmark == 'hive') {
             //fulfill hive
