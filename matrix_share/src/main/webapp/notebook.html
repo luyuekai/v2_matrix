@@ -57,7 +57,6 @@
                                     </button>
                                 </h5>
 
-
                                 <!-- Charting DIV BEGIN -->
                                 <div id="chartDIV" class="container-fluid" data-bind="visible:chartPanel.isDisplay()" style="background-color:white;border:0px solid #ddd;display:none">
                                     <div class="row" data-bind="visible: chartPanel.charts().length<1">
@@ -74,30 +73,23 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div data-bind="visible:chartPanel.charts().length>0">
-                                        22222222222222222222222
-                                        <span data-bind="text:chartPanel.charts().length"></span>
-                                        <!-- ko foreach: chartPanel.charts() -->
-                                        <span>111111111111111111111111</span>
-                                        <!-- /ko -->
-                                    </div>
                                     <div class="row" data-bind="foreach: chartPanel.charts">
-                                        <div data-bind="css: chart_div_style">
+                                        <div data-bind="css: $data.chart_div_style">
                                             <div class="card summary-inline" style="min-height:380px;">
                                                 <div class="card-body">
                                                     <i class="icon fa fa-bar-chart fa-1x"> &nbsp;Chart </i>
-                                                    <button data-bind="click:removeSelf" type="button" class=" btn btn-link btn-xs pull-right" style="color:#666;margin-top:-10px;margin-right:-10px">
+                                                    <button data-bind="click:$data.removeSelf" type="button" class=" btn btn-link btn-xs pull-right" style="color:#666;margin-top:-10px;margin-right:-10px">
                                                         <span class="fa fa-close" aria-hidden="true" title="Close Chart"></span>
                                                     </button>
-                                                    <button data-bind="click:popuUpRemoveSeriesModal" type="button" class=" btn btn-link btn-xs pull-right" style="color:#666;margin-top:-10px;margin-right:0px">
+                                                    <button data-bind="click:$data.popuUpRemoveSeriesModal" type="button" class=" btn btn-link btn-xs pull-right" style="color:#666;margin-top:-10px;margin-right:0px">
                                                         <span class="fa fa-minus" aria-hidden="true" title="Remove Series"></span>
                                                     </button>
-                                                    <button data-bind="click:popuUpAddSeriesModal" type="button" class=" btn btn-link btn-xs pull-right" style="color:#666;margin-top:-10px;margin-right:0px">
+                                                    <button data-bind="click:$data.popuUpAddSeriesModal" type="button" class=" btn btn-link btn-xs pull-right" style="color:#666;margin-top:-10px;margin-right:0px">
                                                         <span class="fa fa-plus" aria-hidden="true" title="Add Series"></span>
                                                     </button>
                                                 </div>
-                                                <div data-bind="visible: hasError" class="alert alert-warning alert-dismissible fresh-color" role="alert">
-                                                    <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
+                                                <div data-bind="visible: $data.hasError" class="alert alert-warning alert-dismissible fresh-color" role="alert">
+                                                    <button type="button" data-bind="click:function(){$data.hasError(!$data.hasError)}" class="close" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                     <strong>警告!</strong> Please initialize the chart component first!
@@ -119,11 +111,11 @@
                                                     <div class="form-group">
                                                         <div style="width:80px">
                                                             <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_hive'},click:function(){$parent.switchBookmark($index(),'hive')}" class="matrix_bookmark bookmark_active btn  btn-inverse pull-right" style="">Hive</button>
-                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_sql'},click:function(){$parent.switchBookmark($index(),'sql')}" class="matrix_bookmark bookmark_normal btn  btn-inverse pull-right" style="opacity: 0.9">SQL</button>
-                             <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_pig'},click:function(){$parent.switchBookmark($index(),'pig')}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.8">Pig</button> 
-                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_spark'},click:function(){$parent.switchBookmark($index(),'spark')}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.7">Spark</button>
-                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_impala'},click:function(){$parent.switchBookmark($index(),'impala')}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.6">Impala</button>
-                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_md'},click:function(){$parent.switchBookmark($index(),'md')}" class="matrix_bookmark bookmark_normal btn  btn-inverse pull-right" style="opacity: 0.5">MD</button>
+                                                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_sql'},click:function(){$parent.switchBookmark($index(),'sql')}" class="matrix_bookmark bookmark_normal btn  btn-inverse pull-right" style="opacity: 0.9">SQL</button>
+                                                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_pig'},click:function(){$parent.switchBookmark($index(),'pig')}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.8">Pig</button> 
+                                                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_spark'},click:function(){$parent.switchBookmark($index(),'spark')}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.7">Spark</button>
+                                                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_impala'},click:function(){$parent.switchBookmark($index(),'impala')}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.6">Impala</button>
+                                                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_md'},click:function(){$parent.switchBookmark($index(),'md')}" class="matrix_bookmark bookmark_normal btn  btn-inverse pull-right" style="opacity: 0.5">MD</button>
                                                         </div>
                                                     </div>
                                                     <div class="form-group" style="width:90%;">
@@ -341,7 +333,6 @@
                     import_notebook(notebooks);
                 }
             }
-
             function failedListener() {
                 console.log("Server Failed!");
             }
