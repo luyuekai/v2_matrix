@@ -98,9 +98,19 @@ var serialize_notebook = function () {
 // Function for deserialize the notebook page from saved data
 var import_notebook = function (inputData) {
     inputData = $.parseJSON(inputData);
-    notebookListViewModel = deserialize_notebook(inputData);
+
+    // notebookListViewModel = deserialize_notebook(inputData);
+    // ko.cleanNode($('#contentDIV')[0]);
+    // ko.applyBindings(notebookListViewModel, document.getElementById('contentDIV'));
+
+    //Comments: notebookListViewModel本身是正在使用的绑定对象，
+    //第一句话的直接引用造成的问题，
+    //解决方法:创建一个方法级的变量，清除原有绑定关系，重建绑定，将方法级变量关联之前的对象引用
+    var tmp_vm = deserialize_notebook(inputData);
     ko.cleanNode($('#contentDIV')[0]);
-    ko.applyBindings(notebookListViewModel, document.getElementById('contentDIV'));
+    ko.applyBindings(tmp_vm, document.getElementById('contentDIV'));
+    notebookListViewModel = tmp_vm;
+
     setTimeout(function () {
         autosize($('textarea'));
         load_chartPanel(inputData);
