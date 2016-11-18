@@ -10,8 +10,8 @@ var export_notebook = function () {
 }
 var serialize_notebook = function () {
     var notebookPage = {
-        chartPanel: {
-        },
+        chartPanel: [
+        ],
         notebooks: [
         ]
     };
@@ -87,33 +87,59 @@ var serialize_notebook = function () {
         delete notebookShareModel.result.result_hive["notebook"];
         notebookPage.notebooks.push(notebookShareModel);
     });
-    console.log(notebookPage.notebooks[0].result)
-//    console.log(jsonify(notebookPage))
-    return JSON.stringify(notebookPage);
+
+    $.each(notebookListViewModel.chartPanel.charts(), function (idx, chart) {
+        delete chart.chartSetting.data["notebook"];
+        notebookPage.chartPanel.push(chart.chartSetting);
+    })
+    return ko.toJSON(notebookPage);
 }
 
 // Function for deserialize the notebook page from saved data
 var import_notebook = function (inputData) {
     inputData = $.parseJSON(inputData);
-    console.log(inputData);
     notebookListViewModel = deserialize_notebook(inputData);
     ko.cleanNode($('#contentDIV')[0]);
     ko.applyBindings(notebookListViewModel, document.getElementById('contentDIV'));
     setTimeout(function () {
         autosize($('textarea'));
+        load_chartPanel(inputData);
         notebook_textarea_keyboard_event_listener(); // need to do this for setup new notebook feature
     }, 500);
 }
 
 var deserialize_notebook = function (inputData) {
     var viewModel = new NotebookListViewModel();
-    load_chartPanel(viewModel, inputData);
     load_notebooks(viewModel, inputData);
     return viewModel;
 }
 
-var load_chartPanel = function (viewModel, inputData) {
+var load_chartPanel = function (inputData) {
+    function ChartSetting() {
+        var self = this;
+        self.data = null;
 
+        self.chartName = ko.observable("未命名");
+        self.supportChartTypes = ko.observableArray(['bar', 'line', 'scatter', 'area']);
+        self.chosenChartType = ko.observable(self.supportChartTypes()[0]);
+        self.availableColumnNames = ko.observableArray();
+        self.selectedColumn_x = ko.observable();
+        self.selectedColumn_y = ko.observable();
+    }
+
+    $.each(inputData.chartPanel, function (idx, c) {
+        var chartSetting = new ChartSetting();
+
+        chartSetting.data = c.data;
+        if (chartSetting.data.headers) {
+            chartSetting.availableColumnNames(c.data.headers);
+            if (chartSetting.data.headers.length > 0) {
+                chartSetting.selectedColumn_x(c.data.headers[0]);
+                chartSetting.selectedColumn_y(c.data.headers[0]);
+            }
+        }
+        charting_result_display_businessLogic(chartSetting)
+    })
 }
 var load_notebooks = function (viewModel, inputData) {
     $.each(inputData.notebooks, function (idx, notebook) {

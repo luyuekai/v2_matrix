@@ -74,7 +74,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row" data-bind="foreach:chartPanel.charts">
+                                    <div data-bind="visible:chartPanel.charts().length>0">
+                                        22222222222222222222222
+                                        <span data-bind="text:chartPanel.charts().length"></span>
+                                        <!-- ko foreach: chartPanel.charts() -->
+                                        <span>111111111111111111111111</span>
+                                        <!-- /ko -->
+                                    </div>
+                                    <div class="row" data-bind="foreach: chartPanel.charts">
                                         <div data-bind="css: chart_div_style">
                                             <div class="card summary-inline" style="min-height:380px;">
                                                 <div class="card-body">
@@ -93,7 +100,7 @@
                                                     <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
-                                                    <strong>Warning!</strong> Please initialize the chart component first!
+                                                    <strong>警告!</strong> Please initialize the chart component first!
                                                 </div>
                                                 <div data-bind="attr:{'id':'chart'+$index()}" style="height:320px">
                                                 </div>

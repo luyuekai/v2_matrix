@@ -162,7 +162,6 @@ var prepare_series_remove_businessLogic = function(chartViewModel) {
 }
 
 var charting_result_display_businessLogic = function(chartSetting) {
-
   if (chartSetting && notebookListViewModel) {
     var chartPanel = notebookListViewModel.chartPanel;
     //创建一个新的ChartViewModel
