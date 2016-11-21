@@ -112,7 +112,7 @@
                                                         <div style="width:80px">
                                                             <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_hive'},click:function(){$parent.switchBookmark($index(),'hive')}" class="matrix_bookmark bookmark_active btn  btn-inverse pull-right" style="">Hive</button>
                                                             <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_sql'},click:function(){$parent.switchBookmark($index(),'sql')}" class="matrix_bookmark bookmark_normal btn  btn-inverse pull-right" style="opacity: 0.9">SQL</button>
-                                                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_pig'},click:function(){$parent.switchBookmark($index(),'pig')}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.8">Pig</button> 
+                                                            <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_pig'},click:function(){$parent.switchBookmark($index(),'pig')}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.8">Pig</button>
                                                             <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_spark'},click:function(){$parent.switchBookmark($index(),'spark')}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.7">Spark</button>
                                                             <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_impala'},click:function(){$parent.switchBookmark($index(),'impala')}" class="matrix_bookmark bookmark_normal btn  btn-inverse  pull-right" style="opacity: 0.6">Impala</button>
                                                             <button data-bind="attr:{'id':'notebook'+$index()+'_bookmark_md'},click:function(){$parent.switchBookmark($index(),'md')}" class="matrix_bookmark bookmark_normal btn  btn-inverse pull-right" style="opacity: 0.5">MD</button>
@@ -336,7 +336,7 @@
             function failedListener() {
                 console.log("Server Failed!");
             }
-    
+
             function failedServiceListener() {
                 if (arguments && arguments[1]) {
                     var errorMessage = arguments[1].errorMessage;
