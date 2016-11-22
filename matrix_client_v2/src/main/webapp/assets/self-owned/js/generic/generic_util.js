@@ -338,3 +338,94 @@ function ensureTemplates(list,templateFolder) {
     });
   });
 }
+
+function abbreviate(str, length) {
+  if (str.length > length) {
+    str = str.substr(0, length) + '...';
+  }
+  return str;
+}
+function chmod2string(num) {
+  if (num.length === 1) {
+    num = "00" + num;
+  }
+  if (num.length === 2) {
+    num = "0" + num;
+  }
+  return chmod_i2s(num[0]) + " " + this.chmod_i2s(num[1]) + " " + this.chmod_i2s(num[2]);
+}
+function chmod_i2s(i) {
+  switch (i) {
+    case '0':
+      return '---';
+    case '1':
+      return '--x';
+    case '2':
+      return '-w-';
+    case '3':
+      return '-wx';
+    case '4':
+      return 'r--';
+    case '5':
+      return 'r-x';
+    case '6':
+      return 'rw-';
+    case '7':
+      return 'rwx';
+  }
+}
+function formatSize(size) {
+  var KByte = 1024;
+  var MByte = 1024 * 1024;
+  var GByte = 1024 * 1024 * 1024;
+  var TByte = 1024 * 1024 * 1024 * 1024;
+  var PByte = 1024 * 1024 * 1024 * 1024 * 1024;
+  if (size >= KByte && size < MByte) {
+    return (size / KByte).toFixed(1) + " KB";
+  } else if (size >= MByte && size < GByte) {
+    return (size / MByte).toFixed(1) + " MB";
+  } else if (size >= GByte && size < TByte) {
+    return (size / GByte).toFixed(1) + " GB";
+  } else if (size >= TByte && size < PByte) {
+    return (size / TByte).toFixed(1) + " TB";
+  } else {
+    return size + " Byte"
+  }
+}
+
+function clean_array(actual) {
+  var newArray = new Array();
+  for (var i = 0; i < actual.length; i++) {
+    if (actual[i] && actual[i] != null) {
+      newArray.push(actual[i]);
+    }
+  }
+  return newArray;
+}
+
+
+
+function seperateByComma(input) {
+    var arr = input.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
+    /* will match:
+
+     (
+     ".*?"       double quotes + anything but double quotes + double quotes
+     |           OR
+     [^",\s]+    1 or more characters excl. double quotes, comma or spaces of any kind
+     )
+     (?=             FOLLOWED BY
+     \s*,        0 or more empty spaces and a comma
+     |           OR
+     \s*$        0 or more empty spaces and nothing else (end of string)
+     )
+
+     */
+    arr = arr || [];
+    return arr;
+}
+
+function resetCssClass(element_id,css_class){
+  $('#'+element_id).removeClass();
+  $('#'+element_id).addClass(css_class);
+}
