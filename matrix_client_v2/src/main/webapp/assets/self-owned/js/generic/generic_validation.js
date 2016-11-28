@@ -33,7 +33,7 @@ ValidationPOJO = {
   },
   validateMustNumber: function(input) {
     try {
-      return jQuery.isNumerica(input);
+      return jQuery.isNumeric(input);
       // input = parseFloat(input);
       // if (typeof input == 'number') {
       //   return true;
