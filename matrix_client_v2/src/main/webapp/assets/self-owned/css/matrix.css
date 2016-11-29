@@ -3437,7 +3437,7 @@ a:hover {
 }
 .btn-white-pure {
   /*color: #ffffff;*/
-  background-color: #F9F9F9;
+  background-color: rgba(0, 0, 0, 0);
   margin:-6px -6px -6px -6px;
 }
 .btn-white-pure:hover, .btn-white-pure.hover, .btn-white-pure:focus, .btn-white-pure:active, .btn-white-pure.active, .open > .dropdown-toggle.btn-white-pure {
