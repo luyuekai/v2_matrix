@@ -146,8 +146,9 @@ var load_chartPanel_v2 = function(inputData) {
     if (chartSetting.data.headers) {
       chartSetting.availableColumnNames(c.data.headers);
       if (chartSetting.data.headers.length > 0) {
-        chartSetting.selectedColumn_x(c.data.headers[0]);
-        chartSetting.selectedColumn_y(c.data.headers[0]);
+          debugger
+        chartSetting.selectedColumn_x(c.selectedColumn_x);
+        chartSetting.selectedColumn_y(c.selectedColumn_y);
       }
     }
     charting_result_display_businessLogic(chartSetting);
@@ -180,8 +181,8 @@ var load_chartPanel = function(inputData) {
     if (chartSetting.data.headers) {
       chartSetting.availableColumnNames(c.data.headers);
       if (chartSetting.data.headers.length > 0) {
-        chartSetting.selectedColumn_x(c.data.headers[0]);
-        chartSetting.selectedColumn_y(c.data.headers[0]);
+        chartSetting.selectedColumn_x(c.selectedColumn_x);
+        chartSetting.selectedColumn_y(c.selectedColumn_y);
       }
     }
     charting_result_display_businessLogic(chartSetting);
