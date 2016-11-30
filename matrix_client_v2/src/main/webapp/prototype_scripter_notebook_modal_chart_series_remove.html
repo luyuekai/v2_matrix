@@ -2,7 +2,7 @@
 
   <!--RESULT DISPLAY DIV BEGIN-->
   <div id="resultDIV" data-bind="visible: hasResult,css: styleClass" class="alert fresh-color">
-    <button type="button" class="close" data-bind="click:hasResult(false)" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <button type="button" class="close" data-bind="click:hasResult(false)" aria-label="Close"><i class="fa fa-close"></i></button>
     <strong>
       <span data-bind="text:resultTitle"></span>
     </strong>
@@ -19,7 +19,7 @@
           <!--Validation DIV BEGIN-->
           <div data-bind="visible: hasError" class="alert alert-warning alert-dismissible fresh-color" role="alert">
             <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
+              <i class="fa fa-close"></i>
             </button>
             <strong>提示:</strong>
             <div id="errorMessagesDIV" data-bind="foreach:errorMessage">
