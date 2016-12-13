@@ -1,0 +1,6 @@
+[
+  {"id": 1,"file_path": "/data/xdr","file_type": "Dir","file_owner": "hdfs","Action": "cud"},
+  {"id": 2,"file_path": "/data/xdr/2016.12.10.txt","file_type": "File","file_owner": "ops","Action": "cud"},
+  {"id": 3,"file_path": "/data/xdr/2016.12.11.txt","file_type": "File","file_owner": "ops","Action": "cud"},
+  {"id": 4,"file_path": "/user/lilei","file_type": "Dir","file_owner": "lilei","Action":"cud"}
+]

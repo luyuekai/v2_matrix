@@ -1,82 +1,812 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="The Matrix Components Framework">
-  <meta name="author" content="LY">
-  <title>Matrix</title>
-  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
-  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/css/flat-ui.css">
-  <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="The Matrix Components Framework">
+        <meta name="author" content="LY">
+        <title>Matrix</title>
+        <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
+        <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/css/flat-ui.css">
+        <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
+    </head>
 
-<body>
+    <body>
 
-  <div class="flat-matrix">
-    <div class="app-container">
-      <div class="row content-container">
-        <div id="navDIV"></div>
-        <!-- 应用左侧NAV导航，可以应用与assist，帮助，过滤等辅助组件，默认自动收缩扩展，支持悬停（点击右上角按钮切换）-->
-        <div id="assistDIV"></div>
-        <div class="container-fluid">
-          <div class="side-body padding-top">
+        <div class="flat-matrix">
+            <div class="app-container">
+                <div class="row content-container">
+                    <div id="navDIV"></div>
+                    <!-- 应用左侧NAV导航，可以应用与assist，帮助，过滤等辅助组件，默认自动收缩扩展，支持悬停（点击右上角按钮切换）-->
+                    <div id="assistDIV"></div>
+                    <div class="container-fluid">
+                        <div class="side-body padding-top">
 
-            <div id="contentDIV">
-              <!-- Breadcrum Zone -->
-              <ol class="breadcrumb" style="margin-top:-30px;margin-left:-30px">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Chart</li>
-              </ol>
-              <!-- Content Header  -->
-              <h2><i class="fa fa-tasks"></i> Charts</h2>
+                            <div id="contentDIV">
+                                <!-- Breadcrum Zone -->
+                                <ol class="breadcrumb" style="margin-top:-30px;margin-left:-30px">
+                                    <li><a href="index.html">Home</a></li>                <li><a href="index.html">Home</a></li>
 
-              <div id="chartDIV"></div>
+                                    <li class="active">Chart</li>
+                                </ol>
+                                <!-- Content Header  -->
+                                <h3><i class="fa fa-tasks"></i> 天玑使用情况概览 </h3>
+
+                                <!--<div id="chartDIV"></div>-->
+
+                                <!--重点文件监控-->
+                                <div class="row"> 
+                                    <div class="col-md-6">
+                                        <div data-bind="with:tableModel" role="tabpanel"  aria-labelledby="dropdown1-tab">
+                                            <div class="panel fresh-color panel-primary">
+                                                <div class="panel-heading">重点文件管理</div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12" style="overflow: auto">
+                                                            <table class="table table-striped" cellspacing="0">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <!-- ko foreach: columnNames -->
+                                                                        <th>
+                                                                            <span data-bind="text: $data"></span>
+                                                                        </th>
+                                                                        <!-- /ko -->
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody data-bind="foreach:viewData">
+                                                                    <tr data-bind="visible:isDisplay,foreach: data">
+                                                                        <td data-bind="text: $data"></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="matrix-pager-example">
+                                                        <nav class="matrix-pager " role="navigation">
+
+                                                            <div class="collapse navbar-collapse" id="navbar-collapse-01">
+
+                                                                <ul class="nav navbar-nav navbar-right ">
+                                                                    <li><a data-bind="click:function(){toPage(1)}" href="#"><i class="fa fa-angle-double-left"></i> &nbsp;首页</a></li>
+                                                                    <li><a data-bind="click:function(){toPage(currentPageNumber()-1)}" href="#"><i class="fa fa-angle-left"></i> &nbsp;上页</a></li>
+                                                                    <li>
+                                                                        <form class="navbar-form navbar-center" action="#" role="search" style="width:68px;margin-left: -20px;">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group">
+                                                                                    <input data-bind="value:currentPageNumber" class="form-control text-center" type="search" placeholder="页数" style="width:50px;border-radius: 0px;">
+                                                                                    <span class="input-group-btn" style="padding-left: 4px;">
+                                                                                        <button data-bind="visible:false,click:function(){}" type="submit" class="btn"><span class="fui-search"></span></button>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </li>
+                                                                    <li><a data-bind="click:function(){toPage(currentPageNumber()+1)}" href="#">下页 &nbsp;<i class="fa fa-angle-right"></i></a></li>
+                                                                    <li><a data-bind="click:function(){toPage(totalPage())}" href="#"> 末页 &nbsp;<i class="fa fa-angle-double-right"></i></a></li>
+                                                                    <li class="dropup">
+                                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">每页<span data-bind="text:pageMaxSize()"></span>条<b class="caret"></b></a>
+                                                                        <span class="dropdown-arrow"></span>
+                                                                        <ul class="dropdown-menu" data-bind="foreach: pagingSizeArray">
+                                                                            <li><a data-bind="click:function(){$parent.pageMaxSize($data)}" href="#"><span data-bind="text:$data"></span></a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <!-- <li><a href="#">结果总数:2000000条</a></li> -->
+                                                                </ul>
+                                                                <ul class="nav navbar-nav">
+                                                                    <li><a href="#">结果总数:<span data-bind="text:totalCounts()?totalCounts():0"></span>条</a></li>
+                                                                </ul>
+                                                                <form class="navbar-form navbar-left" action="#" role="search">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            <input data-bind="value:searchKeyword" class="form-control text-center" type="search" placeholder="Search" style="width: 100px;border-radius: 0px;">
+                                                                            <span class="input-group-btn" style="padding-left: 3px;">
+                                                                                <button style="border-radius: 0px;" data-bind="click:function(){buildView()}" type="submit" class="btn"><span class="fui-search"></span></button>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <!-- /.navbar-collapse -->
+                                                        </nav>
+                                                        <!-- /navbar -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="panel fresh-color panel-primary">
+                                            <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;重点文件操作查看
+                                            </div>
+                                            <div class="panel-body">
+                                                <!--重点文件操作查看-->
+                                                <div class="card summary-inline" style="min-height:285px; max-height:285px;">
+                                                    <div id="hdfs_file_line_chart_div" style="height:250px">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+
+                                <!--天玑功能点监控-->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel fresh-color panel-yellow" >
+                                            <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;天玑功能点监控
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="col-md-6">
+                                                    <!--各模块使用次数-->
+                                                    <div class="card summary-inline" style="min-height:330px; max-height:330px;">
+                                                        <!--                                                        <div class="card-body">
+                                                                                                                    <i class="icon fa fa-pie-chart fa-1x"> &nbsp;Pie chart </i>
+                                                                                                                </div>-->
+                                                        <div id="scripter_module_use_pie_chart_div" style="height:320px">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <!--模块具体使用记录-->
+                                                    <div class="card summary-inline" style="min-height:330px; max-height:330px;">
+                                                        <div id="module_use_line_chart_div" style="height:300px">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--用户行为概览-->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel fresh-color panel-success" >
+                                            <div class="panel-heading"><i class="fa fa-table"></i> &nbsp;用户行为概览
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="col-md-6">
+                                                    <!--用户登录登出日志-->
+                                                    <div class="card summary-inline" style="min-height:350px; max-height:350px;">
+                                                        <div id="user_login_bar_chart_div" style="height:320px">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <!--用户操作排行榜-->
+                                                    <div class="card summary-inline" style="min-height:350px; max-height:350px;">
+                                                        <div id="user_actions_topk_bar_chart_div" style="height:320px">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!--操作日志-->
+                                <div class="row">
+                                    <div data-bind="with:tableModel2" role="tabpanel"  aria-labelledby="dropdown1-tab">
+                                        <div class="panel fresh-color panel-primary">
+                                            <div class="panel-heading">用户操作日志</div>
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-12" style="overflow: auto">
+                                                        <table class="table table-striped" cellspacing="0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <!-- ko foreach: columnNames -->
+                                                                    <th>
+                                                                        <span data-bind="text: $data"></span>
+                                                                    </th>
+                                                                    <!-- /ko -->
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody data-bind="foreach:viewData">
+                                                                <tr data-bind="visible:isDisplay,foreach: data">
+                                                                    <td data-bind="text: $data"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                                <div class="matrix-pager-example">
+                                                    <nav class="matrix-pager " role="navigation">
+
+                                                        <div class="collapse navbar-collapse" id="navbar-collapse-01">
+
+                                                            <ul class="nav navbar-nav navbar-right ">
+                                                                <li><a data-bind="click:function(){toPage(1)}" href="#"><i class="fa fa-angle-double-left"></i> &nbsp;首页</a></li>
+                                                                <li><a data-bind="click:function(){toPage(currentPageNumber()-1)}" href="#"><i class="fa fa-angle-left"></i> &nbsp;上页</a></li>
+                                                                <li>
+                                                                    <form class="navbar-form navbar-center" action="#" role="search" style="width:68px;margin-left: -20px;">
+                                                                        <div class="form-group">
+                                                                            <div class="input-group">
+                                                                                <input data-bind="value:currentPageNumber" class="form-control text-center" type="search" placeholder="页数" style="width:50px;border-radius: 0px;">
+                                                                                <span class="input-group-btn" style="padding-left: 4px;">
+                                                                                    <button data-bind="visible:false,click:function(){}" type="submit" class="btn"><span class="fui-search"></span></button>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </li>
+                                                                <li><a data-bind="click:function(){toPage(currentPageNumber()+1)}" href="#">下页 &nbsp;<i class="fa fa-angle-right"></i></a></li>
+                                                                <li><a data-bind="click:function(){toPage(totalPage())}" href="#"> 末页 &nbsp;<i class="fa fa-angle-double-right"></i></a></li>
+                                                                <li class="dropup">
+                                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">每页<span data-bind="text:pageMaxSize()"></span>条<b class="caret"></b></a>
+                                                                    <span class="dropdown-arrow"></span>
+                                                                    <ul class="dropdown-menu" data-bind="foreach: pagingSizeArray">
+                                                                        <li><a data-bind="click:function(){$parent.pageMaxSize($data)}" href="#"><span data-bind="text:$data"></span></a></li>
+                                                                    </ul>
+                                                                </li>
+                                                                <!-- <li><a href="#">结果总数:2000000条</a></li> -->
+                                                            </ul>
+                                                            <ul class="nav navbar-nav">
+                                                                <li><a href="#">结果总数:<span data-bind="text:totalCounts()?totalCounts():0"></span>条</a></li>
+                                                            </ul>
+                                                            <form class="navbar-form navbar-left" action="#" role="search">
+                                                                <div class="form-group">
+                                                                    <div class="input-group" style="width: 100%;">
+                                                                        <input data-bind="value:searchKeyword" class="form-control text-center" type="search" placeholder="Search" style="width: 100px;border-radius: 0px;">
+                                                                        <span class="input-group-btn" style="padding-left: 3px;">
+                                                                            <button style="border-radius: 0px;" data-bind="click:function(){buildView()}" type="submit" class="btn"><span class="fui-search"></span></button>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <!-- /.navbar-collapse -->
+                                                    </nav>
+                                                    <!-- /navbar -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
-          </div>
         </div>
 
-      </div>
-    </div>
-  </div>
+
+        <!-- /.container -->
 
 
-  <!-- /.container -->
+        <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+        <script src="assets/reference/jquery/jquery.json.js"></script>
+        <script src="assets/reference/knockout.js/knockout-3.3.0.js"></script>
+        <script src="assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+        <script src="assets/reference/flat-ui/js/vendor/video.js"></script>
+        <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
+        <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
+        <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
+        <script src="assets/reference/echarts/echarts-min-3.1.6.js"></script>
+        <script src="assets/reference/echarts/geo/world.js"></script>
+        <!-- Javascript for Matrix Self Owned -->
+        <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
+        <script src="assets/self-owned/js/generic/generic_cache.js"></script>
+        <script src="assets/self-owned/js/generic/generic_charting.js"></script>
+        <script src="assets/self-owned/js/generic/generic_csv.js"></script>
+        <script src="assets/self-owned/js/generic/generic_cud.js"></script>
+        <script src="assets/self-owned/js/generic/generic_modal.js"></script>
+        <script src="assets/self-owned/js/generic/generic_prototype.js"></script>
+        <script src="assets/self-owned/js/generic/generic_query.js"></script>
+        <script src="assets/self-owned/js/generic/generic_table.js"></script>
+        <script src="assets/self-owned/js/generic/generic_util.js"></script>
+        <script src="assets/self-owned/js/generic/generic_validation.js"></script>
 
 
-  <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
-  <script src="assets/reference/jquery/jquery.json.js"></script>
-  <script src="assets/reference/knockout.js/knockout-3.3.0.js"></script>
-  <script src="assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
-  <script src="assets/reference/flat-ui/js/vendor/video.js"></script>
-  <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
-  <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
-  <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
-  <script src="assets/reference/echarts/echarts-min-3.1.6.js"></script>
-  <script src="assets/reference/echarts/geo/world.js"></script>
-  <!-- Javascript for Matrix Self Owned -->
-  <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
-  <script src="assets/self-owned/js/generic/generic_cache.js"></script>
-  <script src="assets/self-owned/js/generic/generic_charting.js"></script>
-  <script src="assets/self-owned/js/generic/generic_csv.js"></script>
-  <script src="assets/self-owned/js/generic/generic_cud.js"></script>
-  <script src="assets/self-owned/js/generic/generic_modal.js"></script>
-  <script src="assets/self-owned/js/generic/generic_prototype.js"></script>
-  <script src="assets/self-owned/js/generic/generic_query.js"></script>
-  <script src="assets/self-owned/js/generic/generic_table.js"></script>
-  <script src="assets/self-owned/js/generic/generic_util.js"></script>
-  <script src="assets/self-owned/js/generic/generic_validation.js"></script>
+        <!--重点文件列表-->
+        <script>
+            function PageModel() {
+                var self = this;
+                self.tableModel = null;
+                self.tableModel2 = null;
+                self.tableModel_no_intialize = ko.observable();
+            }
+            var pageModel = new PageModel();
+            var tableModel = new ListViewModel();
+            var tableModel2 = new ListViewModel();
+            pageModel.tableModel = tableModel;
+            pageModel.tableModel2 = tableModel2;
 
-  <script>
-    $(document).ready(function() {
-      $('#chartDIV').load($.getRootPath() + '/matrix_chart_content_template.html');
-    });
-  </script>
+            ko.applyBindings(pageModel, document.getElementById('contentDIV'));
 
-</body>
+            var retrieveData_mock = function () {
+                $.ajax({
+                    url: $.getRootPath() + "/assets/self-owned/data/hdfs_file_mock_data.json",
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (json) {
+                        var serverData = json;
+                        var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
+                        tableModel.pageMaxSize(5);
+                        tableModel.buildData(tableData.result);
+                        tableModel.columnNames(tableData.header);
+                        tableModel.buildView();
+                    },
+                    error: function (xhr, status) {
+                        console.log('Sorry, there was a problem on SERVER_REQUEST_ACTION process!');
+                    },
+                    complete: function (xhr, status) {
+                    }
+                });
+            }
+            retrieveData_mock();
+            
+            var retrieveData_mock2 = function () {
+                $.ajax({
+                    url: $.getRootPath() + "/assets/self-owned/data/user_log_mock_data.json",
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (json) {
+                        var serverData = json;
+                        var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
+                        tableModel2.pageMaxSize(5);
+                        tableModel2.buildData(tableData.result);
+                        tableModel2.columnNames(tableData.header);
+                        tableModel2.buildView();
+                    },
+                    error: function (xhr, status) {
+                        console.log('Sorry, there was a problem on SERVER_REQUEST_ACTION process!');
+                    },
+                    complete: function (xhr, status) {
+                    }
+                });
+            }
+            retrieveData_mock2();
+
+
+        </script>
+
+        <!--重点文件操作查看-->
+        <script type="text/javascript">
+            // 基于准备好的dom，初始化echarts实例
+            var chart_hdfs_file = echarts.init(document.getElementById('hdfs_file_line_chart_div'));
+
+            // 指定图表的配置项和数据
+            var option_chart_hdfs_file = {
+                title: {
+                    show: true,
+                    x: 'center',
+                    padding: [10, 0, 0, 20],
+//                    textStyle: labelStyle,
+                    text: '重点文件操作查看',
+                },
+                tooltip: {},
+                legend: {
+                    orient: 'vertical',
+                    left: 'right',
+                    top: 'top',
+                    padding: [10, 20, 0, 0],
+                    data: ['危险操作', '普通操作'],
+                    textStyle: {
+                        // color: 'white',
+                        fontWeight: 'bold',
+                        fontSize: '12'
+                    },
+                },
+                grid: {
+                    left: '20%'
+                },
+                xAxis: {
+                    axisLabel: {
+                        interval: 0, // 强制显示所有标签
+                        rotate: -45,
+                        textStyle: labelStyle,
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            // color: '#fff'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                    name: '日期',
+                    data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                },
+                yAxis: {
+                    name: '操作次数',
+                    axisLabel: {
+                        rotate: 45,
+                        textStyle: labelStyle,
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            // color: '#fff'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                },
+                series: [{
+                        name: '危险操作', //暂时定义增删改为危险操作
+                        type: 'line',
+                        stack: 'server',
+                        itemStyle: {
+                            normal: {
+//                                color: '#ea62ca',
+                            }
+                        },
+                        data: [6, 2, 1, 10, 3, 1, 0]
+                    }, {
+                        name: '普通操作', //暂时定义查为普通操作
+                        type: 'line',
+                        stack: 'server',
+                        itemStyle: {
+                            normal: {
+//                                color: '#aa10c9',
+                            }
+                        },
+                        data: [18, 7, 50, 25, 3, 70, 11]
+                    }]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            chart_hdfs_file.setOption(option_chart_hdfs_file);
+        </script>
+
+        <!--各模块使用次数-->
+        <script type="text/javascript">
+            // 基于准备好的dom，初始化echarts实例
+            var chart_scripter_module_use_pie = echarts.init(document.getElementById('scripter_module_use_pie_chart_div'));
+
+            // 指定图表的配置项和数据
+            var option_chart_scripter_module_use_pie = {
+                textStyle: labelStyle,
+                title: {
+                    show: true,
+                    x: 'center',
+                    padding: [10, 0, 0, 10],
+//                    textStyle: labelStyle,
+                    text: '天玑一周各模块使用情况',
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                labelLine: {
+                    normal: {
+                        lineStyle: {
+                            // color: '#fff'
+                        }
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        // 设置扇形的颜色
+                        //color: '#aa10c9',
+                        shadowBlur: 200,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                },
+                visualMap: {
+                    // 不显示 visualMap 组件，只用于明暗度的映射
+                    show: false,
+                    // 映射的最小值为 80
+                    min: 80,
+                    // 映射的最大值为 600
+                    max: 600,
+                    inRange: {
+                        // 明暗度的范围是 0 到 1
+                        colorLightness: [0, 1]
+                    }
+                },
+                series: [{
+                        name: '使用次数',
+                        type: 'pie',
+                        radius: '55%',
+                        roseType: 'angle',
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 200,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        },
+                        data: [{
+                                value: 400,
+                                name: 'Hive'
+                            }, {
+                                value: 335,
+                                name: 'HDFS'
+                            }, {
+                                value: 310,
+                                name: 'Job'
+                            }, {
+                                value: 205,
+                                name: 'Pig'
+                            }, {
+                                value: 110,
+                                name: 'RDMS'
+                            }, {
+                                value: 80,
+                                name: 'Spark'
+                            }, {
+                                value: 235,
+                                name: 'other'
+                            }]
+                    }]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            chart_scripter_module_use_pie.setOption(option_chart_scripter_module_use_pie);
+        </script>
+
+        <!--模块具体使用记录-->
+        <script type="text/javascript">
+            // 基于准备好的dom，初始化echarts实例
+            var chart_module_use_line = echarts.init(document.getElementById('module_use_line_chart_div'));
+
+            // 指定图表的配置项和数据
+            var option_chart_module_use_line = {
+                title: {
+                    show: true,
+                    x: 'center',
+                    padding: [10, 0, 0, 20],
+//                    textStyle: labelStyle,
+                    text: 'Hive一周操作记录',
+                },
+                tooltip: {},
+                legend: {
+                    orient: 'vertical',
+                    left: 'right',
+                    top: 'top',
+                    padding: [10, 20, 0, 0],
+                    data: ['操作次数'],
+                    textStyle: {
+                        // color: 'white',
+                        fontWeight: 'bold',
+                        fontSize: '12'
+                    },
+                },
+                grid: {
+                    left: '20%'
+                },
+                xAxis: {
+                    axisLabel: {
+                        interval: 0, // 强制显示所有标签
+                        rotate: -45,
+                        textStyle: labelStyle,
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            // color: '#fff'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                    name: '日期',
+                    data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                },
+                yAxis: {
+                    name: '操作次数',
+                    axisLabel: {
+                        rotate: 45,
+                        textStyle: labelStyle,
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            // color: '#fff'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                },
+                series: [{
+                        name: '操作次数',
+                        type: 'line',
+                        stack: 'server',
+                        itemStyle: {
+                            normal: {
+//                                color: '#aa10c9',
+                            }
+                        },
+                        data: [11, 71, 5, 28, 3, 7, 31]
+                    }]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            chart_module_use_line.setOption(option_chart_module_use_line);
+        </script>
+
+        <!--用户登录登出日志-->
+        <script type="text/javascript">
+            // 基于准备好的dom，初始化echarts实例
+            var labelStyle = {
+                // // color: 'white',
+                fontWeight: 'bold',
+                fontSize: '12'
+            };
+            var chart_user_login_bar = echarts.init(document.getElementById('user_login_bar_chart_div'));
+
+            // 指定图表的配置项和数据
+            var option_chart_user_login_bar = {
+                title: {
+                    show: true,
+                    x: 'center',
+                    padding: [10, 0, 0, 20],
+//                    textStyle: labelStyle,
+                    text: '用户登入登出日志',
+                    // subtext: 'Data from scripter',
+                },
+                tooltip: {},
+                legend: {
+                    orient: 'vertical',
+                    left: 'right',
+                    top: 'top',
+                    padding: [10, 20, 0, 0],
+                    data: ['登入', '登出'],
+                    textStyle: {
+                        // // color: 'white',
+                        fontWeight: 'bold',
+                        fontSize: '12'
+                    },
+                },
+                grid: {
+                    left: '20%'
+                },
+                xAxis: {
+                    axisLabel: {
+                        interval: 0, // 强制显示所有标签
+                        rotate: -45,
+                        textStyle: labelStyle,
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            // // color: '#fff'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                    name: '日期',
+                    data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                },
+                yAxis: {
+                    axisLabel: {
+                        rotate: 45,
+                        textStyle: labelStyle,
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            // // color: '#fff'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                    name: '次数'
+                },
+                series: [{
+                        name: '登入',
+                        type: 'bar',
+                        stack: 'server',
+                        itemStyle: {
+                            normal: {
+                                //color: '#aa10c9',
+                            }
+                        },
+                        data: [38, 50, 80, 20, 100, 30, 10]
+                    }, {
+                        name: '登出',
+                        type: 'bar',
+                        stack: 'server',
+                        itemStyle: {
+                            normal: {
+                                //color: '#ea62ca',
+                            }
+                        },
+                        data: [-10, -15, -30, -5, -50, -3, -1]
+                    }]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            chart_user_login_bar.setOption(option_chart_user_login_bar);
+        </script>
+
+        <!--用户使用天玑排行榜-->
+        <script type="text/javascript">
+            // 基于准备好的dom，初始化echarts实例
+            var labelStyle = {
+                // // color: 'white',
+                fontWeight: 'bold',
+                fontSize: '12'
+            };
+            var chart_user_actions_topk_bar = echarts.init(document.getElementById('user_actions_topk_bar_chart_div'));
+
+            // 指定图表的配置项和数据
+            var option_chart_user_login_bar = {
+                title: {
+                    show: true,
+                    x: 'center',
+                    padding: [10, 0, 0, 20],
+//                    textStyle: labelStyle,
+                    text: '用户使用天玑排行榜',
+                    // subtext: 'Data from scripter',
+                },
+                tooltip: {},
+                legend: {
+                    orient: 'vertical',
+                    left: 'right',
+                    top: 'top',
+                    padding: [10, 20, 0, 0],
+                    data: ['操作次数'],
+                    textStyle: {
+                        // // color: 'white',
+                        fontWeight: 'bold',
+                        fontSize: '12'
+                    },
+                },
+                grid: {
+                    left: '20%'
+                },
+                xAxis: {
+                    axisLabel: {
+                        interval: 0, // 强制显示所有标签
+                        rotate: -45,
+                        textStyle: labelStyle,
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            // // color: '#fff'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                    name: '用户名',
+                    data: ['ops', 'hdfs', 'lilei', 'hanmeimei', 'zhouxingxing', 'xiaomao', 'songzhiji']
+                },
+                yAxis: {
+                    axisLabel: {
+                        rotate: 45,
+                        textStyle: labelStyle,
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            // // color: '#fff'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                    name: '次数'
+                },
+                series: [{
+                        name: '操作次数',
+                        type: 'bar',
+                        stack: 'server',
+                        itemStyle: {
+                            normal: {
+                                //color: '#aa10c9',
+                            }
+                        },
+                        data: [188, 110, 40, 30, 25, 5, 1]
+                    }]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            chart_user_actions_topk_bar.setOption(option_chart_user_login_bar);
+        </script>
+
+    </body>
 
 </html>

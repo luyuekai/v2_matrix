@@ -21,7 +21,7 @@ import v2.service.generic.library.model.QueryPOJO;
 import v2.service.generic.library.model.QueryResultPOJO;
 import v2.service.generic.library.model.http.HttpResponsePOJO;
 import v2.service.generic.library.utils.HttpClientUtil;
-import v2.service.generic.library.utils.HttpClientUtilV2;
+//import v2.service.generic.library.utils.HttpClientUtilV2;
 import v2.service.generic.library.utils.JsonUtil;
 
 /**
@@ -42,7 +42,7 @@ public class MockResource {
     @Produces("application/json")
     public static String test3() throws Exception {
         System.out.println("-------[BEGIN]---------");
-        HttpClientUtilV2.test2();
+//        HttpClientUtilV2.test2();
         QueryResultPOJO result = new QueryResultPOJO();
         result.setHasError(Boolean.FALSE);
         result.setStatusCode(GenericStatus.Service_Successed);
