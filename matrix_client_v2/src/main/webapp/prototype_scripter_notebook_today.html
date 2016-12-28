@@ -157,7 +157,7 @@
                         </div>
                         <div data-bind="visible: hasError" class="alert alert-warning alert-dismissible fresh-color" role="alert">
                           <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                            <i class="fa fa-close"></i>
                           </button>
                           <strong>警告!</strong> Please initialize the chart component first!
                         </div>
@@ -241,7 +241,7 @@
                       <div class="col-md-12">
                         <div data-bind="attr:{'id':'notebookAlertDIV'+$index()}">
                           <div class="alert fresh-color " data-bind="css:alerts.styleClass,visible:alerts.resultVisible">
-                            <button type="button" class="close" data-bind="click:alerts.resultVisible(false)" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <button type="button" class="close" data-bind="click:alerts.resultVisible(false)" aria-label="Close"><i class="fa fa-close"></i></button>
                             <strong>
                                 <span data-bind="text:alerts.resultTitle"></span>
                               </strong>
@@ -301,7 +301,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
+              <i class="fa fa-close"></i>
             </button>
             <i class="fa fa-send-o"></i> &nbsp; <span class="modal-title" id="popupModalLabelPro"></span>
           </div>
