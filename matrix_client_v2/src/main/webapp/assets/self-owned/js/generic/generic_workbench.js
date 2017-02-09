@@ -18,7 +18,7 @@ var create_client_table = function(header,data,parent_div_id,table_id){
     }
 
     //data bind
-    var tmp_vm = new ListViewModel();
+    var tmp_vm = new ThinListViewModel();
     ko.applyBindings(tmp_vm, document.getElementById(tmp_id));
     tmp_vm.pageMaxSize(5);
     tmp_vm.buildData(data);
