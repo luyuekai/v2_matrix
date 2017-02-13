@@ -1,4 +1,4 @@
-var create_client_table = function(header,data,parent_div_id,table_id){
+var create_client_table = function(header,data,parent_div_id,table_id,pagerDispalyFlag){
   if(!$('#client_table_template_div').length){
     return;
   }
@@ -20,10 +20,11 @@ var create_client_table = function(header,data,parent_div_id,table_id){
     //data bind
     var tmp_vm = new ThinListViewModel();
     ko.applyBindings(tmp_vm, document.getElementById(tmp_id));
-    tmp_vm.pageMaxSize(5);
+    tmp_vm.pageMaxSize(100);
     tmp_vm.buildData(data);
     tmp_vm.columnNames(header);
     tmp_vm.buildView();
+    tmp_vm.isDisplayPager(pagerDispalyFlag);
 
   }
 }

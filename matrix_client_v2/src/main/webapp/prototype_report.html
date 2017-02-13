@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Matrix Components Framework">
+  <meta name="author" content="LY">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.png">
+
+  <!-- reference CSS-->
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/flat-ui/css/flat-ui.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
+
+  <link rel="stylesheet" type="text/css" href="assets/reference/gridstack/gridstack.css" />
+  <link rel="stylesheet" type="text/css" href="assets/reference/gridstack/gridstack-extra.css" />
+
+  <!-- self-owned CSS-->
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
+</head>
+
+<body style="background-color:#EEEEEE">
+
+  <div class="flat-matrix" style="background-color:#EEEEEE">
+    <div class="app-container">
+      <div class="row content-container">
+
+        <!-- 应用顶部NAV导航，在js初始化时加载，默认为assets/html/header.html-->
+        <!-- <div id="navDIV"></div> -->
+
+        <!-- 应用左侧NAV导航，可以应用与assist，帮助，过滤等辅助组件，默认自动收缩扩展，支持悬停（点击右上角按钮切换）-->
+        <div id="assistDIV"></div>
+
+        <div class="container-fluid">
+          <div class="side-body padding-top">
+
+            <!-- 应用具体内容DIV-->
+            <div id="contentDIV">
+
+              <div id="report_content" style="width:80%;background-color:white;margin:0 auto;box-shadow: 1px 1px 3px 3px #888888;padding-bottom:50px">
+
+                <div id="report_logo_div" class="row" style="padding-top:18px;">
+                  <div class="col-xs-2 col-xs-offset-10" style="margin-bottom:2px;">
+                    <img src="assets/self-owned/img/logo-haohan.png" alt="">
+                  </div>
+                </div>
+                <div id="report_title_div" class="row">
+                  <div class="col-xs-12" style="margin-bottom:2px;text-align:center">
+                    <h4>互联网内容运营周报</h4>
+                  </div>
+                  <div class="col-xs-12" style="margin-bottom:2px;text-align:center;font-size:18px;">
+                    2017-2-9
+                  </div>
+                </div>
+
+                <div class="row report_section_div" style="padding-top:18px">
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;font-size:20px;font-weight: bold;">
+                    总述 互联网流量概述
+                  </div>
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;text-align:left;text-indent:2em;">
+                    截至2017年01月19日，我省互联网业务的周均值总流量为25171TB/天（较上周上升1.52%，较16年初增长119.63%），其中2/3/4G流量占比10.88%（其中LTE流量占比10.53%），家庭宽带流量占比77.33%，互联网专线流量占比11.23%。
+                    <span style="color:#1ABC9C;">视频流量占比39.69%，下载流量占比26.97%，网页浏览流量占比27.60%。</span>
+                    我省互联网业务流量本网率92.08%，其中IDC流量占比52.37%，Cache流量占比15.97%，省内互访流量占比2.31%，网内他省流量占比20.5%，铁通流量占比0.93%，网外流量占比7.92%（其中骨干网间4.55%，省直连+铁通1.42%，第三方1.95%）。
+                  </div>
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;text-indent:2em;">
+                    <div>互联网业务总流量16年下半年至17年初的趋势如下图所示：</div>
+                    <div id="hdfs_file_line_chart_div" style="height:250px;"></div>
+                  </div>
+                </div>
+
+
+                <div class="row report_section_div" style="padding-top:18px">
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;font-size:20px;font-weight: bold;">
+                    分述 1.网络容量和用户情况
+                  </div>
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;text-align:left;text-indent:2em;">
+                    截至17年01月12日，我省CMNET省网上联国干带宽3200G，自建宽带客户数613万（截至16年12月31日数据）。CMNET容量和业务数与同类别兄弟省份对标如下：
+                  </div>
+                  <div class="col-xs-8 col-xs-offset-2" style="margin-bottom:2px;">
+                    <div id="clone_parent_div_1"></div>
+                  </div>
+                </div>
+
+                <div class="row report_section_div" style="padding-top:18px">
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;font-size:20px;font-weight: bold;">
+                    分述 2.互联网内容关键指标
+                  </div>
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;font-size:18px;font-weight: bold;">
+                    2.1 部门组织绩效对标指标
+                  </div>
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;text-align:left;text-indent:2em;">
+                    内容本省满足率86.88%，超过集团要求60%指标；手机点击本网率96.15%，超过集团要求80%。两项指标均排名集团前列。与其他省份对标如下：
+                  </div>
+                  <div class="col-xs-8 col-xs-offset-2" style="margin-bottom:2px;">
+                    <div id="clone_parent_div_2"></div>
+                  </div>
+
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;font-size:18px;font-weight: bold;">
+                    2.2 IDC内容资源流量指标
+                  </div>
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;text-align:left;text-indent:2em;">
+                    互联网总流量中IDC流量贡献比52.37%，IDC总流量中服务本省流量占比70.08%，IDC流量贡献比指标均领先于同类别省份。与其他省份对标如下：
+                  </div>
+                  <div class="col-xs-8 col-xs-offset-2" style="margin-bottom:2px;">
+                    <div id="clone_parent_div_3"></div>
+                  </div>
+                </div>
+
+                <div class="row report_section_div" style="padding-top:18px">
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;font-size:20px;font-weight: bold;">
+                    分述 3.用户访问互联网内容资源情况
+                  </div>
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;font-size:18px;font-weight: bold;">
+                    3.1 用户访问TOP 10 ICP
+                  </div>
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;text-align:left;text-indent:2em;">
+                    <span style="color:#1ABC9C;">
+                      本周用户访问TOP 10 ICP模型与上周变动不大，流量TOP 3分别为腾讯（占比18.85%）、迅雷（13.15%）和优酷（11.56%），TOP 10访问流量占总流量比例超过60%。其中，新浪、奇虎、搜狐和网易的网外流量占比较高（超过20%），后续将持续针对用户访问热点开展资源引入和质量优化工作。
+                    </span>
+                  </div>
+                  <div class="col-xs-8 col-xs-offset-2" style="margin-bottom:2px;">
+                    <div id="clone_parent_div_4"></div>
+                  </div>
+
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;font-size:18px;font-weight: bold;">
+                    3.2 省级网间出口TOP 10 ICP
+                  </div>
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;text-align:left;text-indent:2em;">
+                    <span style="color:#1ABC9C;">
+                      本周省级网间出口TOP 10 ICP模型与上周变化不大，流量TOP 3分别为腾讯（占比13.87%）、多玩YY（占比9.29%）和迅雷（占比6.96%），TOP 10流量占比46.60%。后续将持续推动政企加强关键网外资源的引入力度。
+                    </span>
+                  </div>
+                  <div class="col-xs-8 col-xs-offset-2" style="margin-bottom:2px;">
+                    <div id="clone_parent_div_5"></div>
+                  </div>
+                </div>
+
+                <div class="row report_section_div" style="padding-top:18px">
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;font-size:20px;font-weight: bold;">
+                    分述 4.游戏业务质量
+                  </div>
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;font-size:18px;font-weight: bold;">
+                    4.1 家庭宽带客户端游戏质量
+                  </div>
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;text-align:left;text-indent:2em;">
+                    通过全省游戏质量提升小组对热门游戏的试玩体验，15款游戏中《英雄联盟》、《地下城与勇士》感知一般，《QQ仙侠》、《剑灵》和《传奇》5款游戏用户感知可接受，其余游戏用户感知满意。
+                  </div>
+                  <div class="col-xs-8 col-xs-offset-2" style="margin-bottom:2px;">
+                    <div id="clone_parent_div_6"></div>
+                  </div>
+
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;font-size:18px;font-weight: bold;">
+                    4.2 手机客户端游戏质量
+                  </div>
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;text-align:left;text-indent:2em;">
+                    通过SOC统计的4G用户手机客户端游戏访问数据，游戏访问热度排名如下表所示，整体成功率98.83%，实际访问质量良好。本周针对热门游戏中的20款进行了感知拨测，20款游戏满意率100%。
+                  </div>
+                  <div class="col-xs-8 col-xs-offset-2" style="margin-bottom:2px;">
+                    <div id="clone_parent_div_7"></div>
+                  </div>
+                </div>
+
+                <div class="row report_section_div" style="padding-top:18px">
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;font-size:20px;font-weight: bold;">
+                    分述 5.内容引入支撑
+                  </div>
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;text-align:left;text-indent:2em;">
+                    协同政企客户部多次开展招商银行、招商证券资源引入工作，通过9月中下旬和本周赴招行总行的现场交流，已完成新增招商800M互联网专线接入工作，招商银行内容资源本网率累计提升23%，增加政企年收入192万元，内容引入支撑工作受到政企客户部和招商客户的好评。
+                  </div>
+                </div>
+
+                <div class="row report_section_div" style="padding-top:18px">
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;font-size:20px;font-weight: bold;">
+                    分述 6.CDN试运营工作
+                  </div>
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;text-align:left;text-indent:2em;">
+                    目前广东CDN平台已完成与腾讯CDN视频和图片内容的对接工作并分发CDN流量111G，其中利用广东、安徽CDN边缘节点分发腾讯图片流量近22G,利用广东CDN边缘节点分发腾讯视频业务流量89G；腾讯从客户端统计视频质量达到腾讯质量要求。
+                    <span style="font-weight:bold">经过与集团沟通汇报确认，集团计划近期启动腾讯图片业务在全国范围开展CDN分发工作，具体实施方案及计划正在制定中。</span>
+                  </div>
+                </div>
+
+                <div class="row report_section_div" style="padding-top:18px">
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;font-size:20px;font-weight: bold;">
+                    分述 7.集团信息通报了广东公司开展互联网访问感知提升工作的内容
+                  </div>
+                  <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:2px;text-align:left;text-indent:2em;">
+                    <span style="font-weight:bold">中国移动信息2016年第214期-【基层动态】广东公司提升互联网访问感知</span> ---------“落实集团公司内容精细化运营要求，从业务质量、内容调度、访问热点和投诉热点四个维度寻找内容短板，通过集中专项引入提升本网率。针对网银证券类和本地Top20网站，定期分析内容调度和质量问题，推动内容提供商完善网内资源部署，双方协作进行内容调度优化，优化第三方CDN调度问题；加强缓存资源质量把控，运用探针及信令手段进行质量监测，及时做好质差内容回退。现已完成6家属地化银行证券类网站及本地Top20网站优化引入，网银证券类网站本网率平均提升23%，Top20网站本网率提升39%，用户感知明显提升。”
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- WorkBench Table Div -->
+    <div id="workbench_table_template_DIV" style="display:none"></div>
+  </div>
+
+
+  <!-- reference Javascript-->
+  <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+  <script src="assets/reference/jquery/jquery.json.js"></script>
+  <script src="assets/reference/knockout.js/knockout-3.3.0.js"></script>
+  <script src="assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+  <script src="assets/reference/flat-ui/js/vendor/video.js"></script>
+  <script src="assets/reference/flat-ui/js/flat-ui.min.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/prettify.js"></script>
+  <script src="assets/reference/flat-ui/docs/assets/js/application.js"></script>
+  <script src="assets/reference/markdown/markdown.min.js"></script>
+
+  <script src="assets/reference/jquery-ui/jquery-ui.js"></script>
+  <script src="assets/reference/lodash/lodash-4.15.0.js"></script>
+  <script src="assets/reference/gridstack/gridstack.all.js"></script>
+
+  <script src="assets/reference/echarts/echarts-min-3.1.6.js"></script>
+  <script src="assets/reference/echarts/geo/world.js"></script>
+
+  <!-- Javascript for Matrix Self Owned -->
+  <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
+  <script src="assets/self-owned/js/generic/generic_cache.js"></script>
+  <script src="assets/self-owned/js/generic/generic_charting.js"></script>
+  <script src="assets/self-owned/js/generic/generic_csv.js"></script>
+  <script src="assets/self-owned/js/generic/generic_cud.js"></script>
+  <script src="assets/self-owned/js/generic/generic_modal.js"></script>
+  <script src="assets/self-owned/js/generic/generic_prototype.js"></script>
+  <script src="assets/self-owned/js/generic/generic_query.js"></script>
+  <script src="assets/self-owned/js/generic/generic_table.js"></script>
+  <script src="assets/self-owned/js/generic/generic_util.js"></script>
+  <script src="assets/self-owned/js/generic/generic_validation.js"></script>
+  <script src="assets/self-owned/js/generic/generic_workbench.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      // $('#contentDIV').load($.getRootPath() + '/prototype_report_content.html');
+
+      $('#workbench_table_template_DIV').load($.getRootPath() + '/assets/self-owned/html/template/client_table_template.html');
+    });
+  </script>
+
+
+  <!--重点文件操作查看-->
+  <script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var chart_hdfs_file = echarts.init(document.getElementById('hdfs_file_line_chart_div'));
+
+    // 指定图表的配置项和数据
+    var option_chart_hdfs_file = {
+      title: {
+        show: true,
+        x: 'center',
+        padding: [10, 0, 0, 20],
+        //                    textStyle: labelStyle,
+        text: '业务总流量趋势',
+      },
+      tooltip: {},
+
+      grid: {
+        left: '20%'
+      },
+      xAxis: {
+        axisLabel: {
+          interval: 0, // 强制显示所有标签
+          rotate: -45,
+          textStyle: labelStyle,
+        },
+        axisLine: {
+          lineStyle: {
+            // color: '#fff'
+          }
+        },
+        splitLine: {
+          show: false
+        },
+        name: 'month',
+        data: ['201607', '201608', '201609', '201610', '201611', '201612', '201701']
+      },
+      yAxis: {
+        name: 'TB',
+        axisLabel: {
+          rotate: 45,
+          textStyle: labelStyle,
+        },
+        axisLine: {
+          lineStyle: {
+            // color: '#fff'
+          }
+        },
+        splitLine: {
+          show: false
+        },
+      },
+      series: [{
+        name: '危险操作', //暂时定义增删改为危险操作
+        type: 'line',
+        stack: 'server',
+        itemStyle: {
+          normal: {
+            //                                color: '#ea62ca',
+          }
+        },
+        data: [6, 2, 1, 10, 3, 1, 0]
+      }, {
+        name: '普通操作', //暂时定义查为普通操作
+        type: 'line',
+        stack: 'server',
+        itemStyle: {
+          normal: {
+            //                                color: '#aa10c9',
+          }
+        },
+        data: [18, 7, 50, 25, 3, 70, 11]
+      }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    chart_hdfs_file.setOption(option_chart_hdfs_file);
+  </script>
+
+
+  <script>
+    var tmp_1 = {},
+      tmp_2 = {},
+      tmp_3 = {},
+      tmp_4 = {},
+      tmp_5 = {},
+      tmp_6 = {},
+      tmp_7 = {},
+      tmp_8 = {};
+
+    var retrieveData = function(url, tmp) {
+      $.ajax({
+        url: $.getRootPath() + url,
+        type: 'GET',
+        dataType: 'json',
+        success: function(json) {
+
+          var serverData = json;
+          var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
+          if (tmp) {
+            tmp.data = tableData.result;
+            tmp.header = tableData.header;
+          }
+
+
+        },
+        error: function(xhr, status) {
+          console.log('Sorry, there was a problem on SERVER_REQUEST_ACTION process!');
+        },
+        complete: function(xhr, status) {}
+      });
+    }
+
+
+    retrieveData("/assets/self-owned/data/mock_report_data_1.json", tmp_1);
+    retrieveData("/assets/self-owned/data/mock_report_data_2.json", tmp_2);
+    retrieveData("/assets/self-owned/data/mock_report_data_3.json", tmp_3);
+    retrieveData("/assets/self-owned/data/mock_report_data_4.json", tmp_4);
+    retrieveData("/assets/self-owned/data/mock_report_data_5.json", tmp_5);
+    retrieveData("/assets/self-owned/data/mock_report_data_6.json", tmp_6);
+    retrieveData("/assets/self-owned/data/mock_report_data_7.json", tmp_7);
+
+
+    setTimeout(function() {
+      create_client_table(tmp_1.header, tmp_1.data, 'clone_parent_div_1', 'table_id_1', false);
+      create_client_table(tmp_2.header, tmp_2.data, 'clone_parent_div_2', 'table_id_2', false);
+      create_client_table(tmp_3.header, tmp_3.data, 'clone_parent_div_3', 'table_id_3', false);
+      create_client_table(tmp_4.header, tmp_4.data, 'clone_parent_div_4', 'table_id_4', false);
+      create_client_table(tmp_5.header, tmp_5.data, 'clone_parent_div_5', 'table_id_5', false);
+      create_client_table(tmp_6.header, tmp_6.data, 'clone_parent_div_6', 'table_id_6', false);
+      create_client_table(tmp_7.header, tmp_7.data, 'clone_parent_div_7', 'table_id_7', false);
+    }, 500);
+  </script>
+
+
+</body>
+
+</html>

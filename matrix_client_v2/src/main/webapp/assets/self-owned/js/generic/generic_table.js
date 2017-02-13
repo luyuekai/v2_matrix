@@ -16,6 +16,7 @@ function ThinListViewModel() {
     self.originalData = ko.observableArray();
     self.viewData = ko.observableArray();
     self.thinViewData = ko.observableArray();
+    self.isDisplayPager = ko.observable(false);
     self.columnNames = ko.observableArray();
     self.pagingSizeArray = ko.observableArray([5,10, 20, 50, 100]);
 
