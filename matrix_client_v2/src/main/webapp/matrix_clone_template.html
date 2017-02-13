@@ -40,8 +40,11 @@
               <!-- Content Header  -->
               <h5>
                 <i class="fa fa-tasks"></i> Matrix Clone Components
-                <button onclick="create_client_table(header,data,'clone_parent_div','table_id')" type="button" class=" btn btn-white btn-xs" >
+                <button onclick="create_client_table(header,data,'clone_parent_div','table_id',true)" type="button" class=" btn btn-white btn-xs" >
                   <span class="fa fa-repeat" aria-hidden="true" title="">&nbsp;Clone Client Table</span>
+                </button>
+                <button onclick="create_client_table(header,data,'clone_parent_div','table_id',false)" type="button" class=" btn btn-white btn-xs" >
+                  <span class="fa fa-repeat" aria-hidden="true" title="">&nbsp;Clone Client Table Without Pager</span>
                 </button>
               </h5>
 
@@ -107,7 +110,9 @@
     var header, data;
     var retrieveData_mock = function() {
       $.ajax({
-        url: $.getRootPath() + "/assets/self-owned/data/data_10W.json",
+        // url: $.getRootPath() + "/assets/self-owned/data/data_10W.json",
+        // url: $.getRootPath() + "/assets/self-owned/data/hdfs_file_mock_data.json",
+        url: $.getRootPath() + "/assets/self-owned/data/mock_report_data_1.json",
         type: 'GET',
         dataType: 'json',
         success: function(json) {
