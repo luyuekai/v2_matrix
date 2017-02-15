@@ -1,0 +1,25 @@
+<div>
+  <p>
+    This operation will start a new report editor, please confirm to continue...
+  </p>
+
+  <br>
+  <div class="pull-right">
+    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+    <button type="button" onclick="reset_report()" class="btn btn-sm btn-success">Confirm</button>
+  </div>
+
+  <br>
+</div>
+
+<script>
+
+  function reset_report(){
+    if(reportViewModel){
+      reportViewModel.reset();ModalUtil.modal_close('popupModalPro');
+    }else{
+      alert("The system view model is not setup correctly, please contact the system admin.")
+    }
+
+  }
+</script>
