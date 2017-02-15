@@ -24,8 +24,8 @@
     }
 
     .compile_mode_focus_in {
-      padding: 8px 20px;
-      margin: 6px 0;
+      padding: 20px;
+      margin: 20px 0;
       border: 1px solid #eee;
       border-left-width: 5px;
       border-radius: 3px;
@@ -33,13 +33,13 @@
     }
 
     .compile_mode_focus_out {
-      padding: 8px 20px 8px 25px;
-      margin: 6px 0;
+      padding: 20px 20px 20px 25px;
+      margin: 20px 0;
     }
 
     .edit_mode_focus_in {
-      padding:5px 20px;
-      margin: 6px 0;
+      padding: 20px;
+      margin: 20px 0;
       border: 1px solid #eee;
       border-left-width: 5px;
       border-radius: 3px;
@@ -47,8 +47,8 @@
     }
 
     .edit_mode_focus_out {
-      padding: 8px 20px 8px 25px;
-      margin: 6px 0;
+      padding: 20px 20px 20px 25px;
+      margin: 20px 0;
     }
   </style>
 </head>
@@ -73,13 +73,13 @@
                 <button title="New report" type="button" onclick="ModalUtil.popup_modal('New report', '/assets/self-owned/html/report/modal_content.html', null, null, null);" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-edit"></i></button>
                 <button title="Save" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-save"></i></button>
                 <button title="Save as template" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-bookmark-o"></i></button>
-                <button title="Cut selected cell" type="button" data-bind="click:cutCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-cut"></i></button>
-                <button title="Copy selected cell" type="button" data-bind="click:copyCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-copy"></i></button>
-                <button title="Paste selected cell" type="button" data-bind="click:pasteCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-paste"></i></button>
-                <button title="Insert a markdown cell below selected cell" type="button" data-bind="click:addCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-plus"></i></button>
+                <button title="Cut selected cell" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-cut"></i></button>
+                <button title="Copy selected cell" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-copy"></i></button>
+                <button title="Paste selected cell" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-paste"></i></button>
+                <button title="Insert a markdown cell" type="button" onclick="ReportPOJO.new_markdown_cell()" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-plus"></i></button>
                 <button title="Insert a chart cell" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-bar-chart"></i></button>
                 <button title="Insert a table cell" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-table"></i></button>
-                <button title="Run cell" type="button" data-bind="click:compileCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-play"></i></button>
+                <button title="Run cell" type="button" onclick="ReportPOJO.compile_markdown_cell()" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-play"></i></button>
               </div>
               <ul class="card-action">
                 <li class="dropdown">
@@ -105,12 +105,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="card card-mini">
             <div class="card-body" id="report_content_body_div" style="min-height:300px">
-              <div data-bind="foreach:cells">
-                <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" >
-                  <span class="cell_div_view" data-bind="html:code_compiled, visible:isViewMode"></span>
-                  <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id},"></textarea>
-                </div>
-              </div>
+
             </div>
           </div>
         </div>
@@ -122,7 +117,7 @@
         <textarea class="cell_div_edit" style="display:none">Please double click to edit the content...</textarea>
       </div>
 
-      <footer class="app-footer" style="position:absolute;bottom:0;margin:0 auto;">
+      <footer class="app-footer" style="margin-top:20px">
         <div class="row">
           <div class="col-xs-12">
             <div class="footer-copyright">
@@ -192,7 +187,6 @@
     <script src="assets/self-owned/js/generic/generic_workbench.js"></script>
 
     <script src="assets/self-owned/js/report/matrix_report.js"></script>
-    <script src="assets/self-owned/js/report/matrix_report_model.js"></script>
 
 
 
@@ -200,22 +194,10 @@
 
     <script>
       $(document).ready(function() {
-        $('#sidebar').load($.getRootPath() + '/assets/self-owned/html/side_content.html');
+        $('#sidebar').load($.getRootPath() + '/assets/self-owned/html/report/side_content.html');
         $('#navbar').load($.getRootPath() + '/assets/self-owned/html/report/nav_content.html');
-        setTimeout(function () {
-          resetCssClass('li_report_editor','active');
-        }, 200);
 
       });
-
-    </script>
-
-    <script>
-      var reportViewModel = new ReportViewModel();
-
-      reportViewModel.addCell();
-
-      ko.applyBindings(reportViewModel);
 
     </script>
 </body>

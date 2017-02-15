@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="../assets/self-owned/ico/favicon.ico">
+
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/vendor.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/flat-admin.css">
+  <!-- Theme -->
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue-sky.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/red.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/yellow.css">
+
+  <link rel="stylesheet" href="../assets/reference/codemirror/codemirror.css">
+
+  <style>
+    .CodeMirror {
+      border: 1px solid #eee;
+      height: auto;
+    }
+
+    .compile_mode_focus_in {
+      padding: 20px;
+      margin: 20px 0;
+      border: 1px solid #eee;
+      border-left-width: 5px;
+      border-radius: 3px;
+      border-left-color: #39c3da;
+    }
+
+    .compile_mode_focus_out {
+      padding: 20px 20px 20px 25px;
+      margin: 20px 0;
+    }
+
+    .edit_mode_focus_in {
+      padding: 20px;
+      margin: 20px 0;
+      border: 1px solid #eee;
+      border-left-width: 5px;
+      border-radius: 3px;
+      border-left-color: #1abc9c;
+    }
+
+    .edit_mode_focus_out {
+      padding: 20px 20px 20px 25px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+  <div class="app app-blue-sky">
+
+    <aside class="app-sidebar" id="sidebar"></aside>
+
+    <div class="app-container">
+
+      <nav class="navbar navbar-default" id="navbar"></nav>
+
+      <div class="row" id="report_menubar_div">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card card-mini">
+            <div class="card-header">
+              <div class="card-title">
+                <h2> Matrix Modal
+                  <button type="button" class="btn btn-default" onclick="ModalUtil.popup_modal('Hello World', '/components/modal_content.html', null, null, null);" >
+                    <span class="fa fa-repeat" aria-hidden="true" title="">&nbsp;Modal Example 1</span>
+                  </button>
+                  <button type="button" class="btn btn-default" onclick="ModalUtil.popup_modal('Matrix Modal Example', '/matrix_modal_template_context_2.html', null, null, null);">
+                    <span class="fa fa-plus" aria-hidden="true" title="">&nbsp;Modal Example 2</span>
+                  </button>
+                </h2>
+              </div>
+            </div>
+            <div class="card-body no-padding table-responsive">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="modal fade" id="popupModalPro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <i class="fa fa-power-off"></i> &nbsp; <span class="modal-title" id="popupModalLabelPro"></span>
+            </div>
+            <div class="modal-body">
+              <div id="modalContentDIVPro"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <footer class="app-footer" style="margin-top:20px">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="footer-copyright">
+              Copyright © 2016 MATRIX Company Co,Ltd.
+            </div>
+          </div>
+        </div>
+      </footer>
+
+
+      <div class="btn-floating" id="help-actions">
+        <div class="btn-bg" style="background-color:#3498db"></div>
+        <button type="button" class="btn btn-info btn-toggle" data-toggle="toggle" data-target="#help-actions">
+          <i class="icon fa fa-plus"></i>
+          <span class="help-text">Shortcut</span>
+        </button>
+        <div class="toggle-content">
+          <ul class="actions">
+            <li><a href="#">Website</a></li>
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">Issues</a></li>
+            <li><a href="#">About</a></li>
+          </ul>
+        </div>
+      </div>
+
+
+
+
+
+    </div>
+
+    <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/vendor.js"></script>
+    <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/app.js"></script>
+
+    <script src="../assets/reference/codemirror/codemirror.js"></script>
+    <script src="../assets/reference/codemirror/mode/javascript/javascript.js"></script>
+    <script src="../assets/reference/codemirror/mode/markdown/markdown.js"></script>
+
+    <script src="../assets/reference/jquery/jquery-1.11.1.min.js"></script>
+    <script src="../assets/reference/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/reference/jquery/jquery.json.js"></script>
+    <script src="../assets/reference/knockout.js/knockout-3.3.0.js"></script>
+    <script src="../assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+    <script src="../assets/reference/markdown/markdown.min.js"></script>
+
+    <!-- Javascript for Matrix Self Owned -->
+    <script src="../assets/self-owned/js/generic/generic_algorithm.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_cache.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_charting.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_csv.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_cud.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_modal.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_query.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_table.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_util.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
+
+    <script src="../assets/self-owned/js/report/matrix_report.js"></script>
+
+
+
+
+
+    <script>
+      $(document).ready(function() {
+        $('#sidebar').load($.getRootPath() + '/components/side_content.html');
+        $('#navbar').load($.getRootPath() + '/components/nav_content.html');
+
+      });
+
+    </script>
+</body>
+
+</html>
