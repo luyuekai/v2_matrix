@@ -122,7 +122,8 @@ ValidationPOJO = {
 
     } else {
       if (!inputValue) {
-        errorMessageRef.push(inputName + " 不能为空");
+        // errorMessageRef.push(inputName + " 不能为空");
+        errorMessageRef.push(inputName + " can not be empty");
         return;
       };
     }
@@ -132,57 +133,68 @@ ValidationPOJO = {
         var key = validateFunctions[i];
         if (ValidationPOJO.KEY_NOT_NULL == key) {
           if (!ValidationPOJO.validateNotNull(inputValue)) {
-            errorMessageRef.push(inputName + " 不能为空");
+            // errorMessageRef.push(inputName + " 不能为空");
+            errorMessageRef.push(inputName + " can not be empty");
           }
         };
         if (ValidationPOJO.KEY_ARRAY_NOT_NULL == key) {
           if (!ValidationPOJO.validateNotNull(inputValue)) {
-            errorMessageRef.push(inputName + " 不能为空数组");
+            // errorMessageRef.push(inputName + " 不能为空数组");
+            errorMessageRef.push(inputName + " can not be empty array");
           }
         };
         if (ValidationPOJO.KEY_TOO_LONG == key) {
           if (!ValidationPOJO.validateNoMoreThan5000(inputValue)) {
-            errorMessageRef.push(inputName + " 超过输入最大限制[5000字符]");
+            // errorMessageRef.push(inputName + " 超过输入最大限制[5000字符]");
+            errorMessageRef.push(inputName + " exceed max limit");
           }
         };
         if (ValidationPOJO.KEY_NOT_MAX == key) {
           if (!ValidationPOJO.validateNotMax(inputValue)) {
-            errorMessageRef.push(inputName + " 超过输入最大限制");
+            // errorMessageRef.push(inputName + " 超过输入最大限制");
+            errorMessageRef.push(inputName + " exceed max limit");
           }
         };
         if (ValidationPOJO.KEY_SPECIAL == key) {
           if (!ValidationPOJO.validateSpecialChars(inputValue)) {
-            errorMessageRef.push(inputName + " 含有特殊字符");
+            // errorMessageRef.push(inputName + " 含有特殊字符");
+            errorMessageRef.push(inputName + " contain special character");
           }
         };
         if (ValidationPOJO.KEY_EMAIL == key) {
           if (!ValidationPOJO.validateEmailPattern(inputValue)) {
-            errorMessageRef.push(inputName + " 不符合正确的邮箱格式");
+            // errorMessageRef.push(inputName + " 不符合正确的邮箱格式");
+            errorMessageRef.push(inputName + " is not valid email format");
           }
         };
         if (ValidationPOJO.KEY_LENGTH_SCOPE == key) {
           if (!ValidationPOJO.validateInputLength(inputValue)) {
-            errorMessageRef.push(inputName + " 长度不满足格式要求");
+            // errorMessageRef.push(inputName + " 长度不满足格式要求");
+            errorMessageRef.push(inputName + " is not in the correct length scope");
           }
         };
         if (ValidationPOJO.KEY_NOT_NEGATIVE == key) {
           if (!ValidationPOJO.validateNOTNegative(inputValue)) {
-            errorMessageRef.push(inputName + " 必须为非负数");
+            // errorMessageRef.push(inputName + " 必须为非负数");
+            errorMessageRef.push(inputName + " can not be negetive");
           }
         };
         if (ValidationPOJO.KEY_MUST_NUMBER == key) {
           if (!ValidationPOJO.validateMustNumber(inputValue)) {
-            errorMessageRef.push(inputName + " 必须是数字");
+            // errorMessageRef.push(inputName + " 必须是数字");
+            errorMessageRef.push(inputName + " must be number");
           }
         };
         if (ValidationPOJO.KEY_MUST_PHONE_NUMBER == key) {
           if (!ValidationPOJO.validatePhonePattern(inputValue)) {
-            errorMessageRef.push(inputName + " 必须是合法的电话号码");
+            // errorMessageRef.push(inputName + " 必须是合法的电话号码");
+            errorMessageRef.push(inputName + " must valid phone number");
           }
         };
         if (ValidationPOJO.KEY_FILE_PATH == key) {
           if (!ValidationPOJO.validateFilePath(inputValue)) {
-            errorMessageRef.push(inputName + " 必须是合法的文件路径");
+            // errorMessageRef.push(inputName + " 必须是合法的文件路径");
+            errorMessageRef.push(inputName + " can not be illegal file path");
           }
         };
       }

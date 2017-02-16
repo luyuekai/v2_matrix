@@ -17,6 +17,8 @@
 
   <link rel="stylesheet" href="assets/reference/codemirror/codemirror.css">
 
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix_v3.css">
+
   <style>
     .CodeMirror {
       border: 1px solid #eee;
@@ -55,8 +57,6 @@
 
 <body>
 
-
-
   <div class="app app-blue-sky">
 
     <aside class="app-sidebar" id="sidebar"></aside>
@@ -70,9 +70,9 @@
           <div class="card card-mini">
             <div class="card-header">
               <div class="card-title">
-                <button title="New report" type="button" onclick="ModalUtil.popup_modal('New report', '/assets/self-owned/html/report/modal_content.html', null, null, null);" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-edit"></i></button>
-                <button title="Save" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-save"></i></button>
-                <button title="Save as template" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-bookmark-o"></i></button>
+                <button title="New report" type="button" onclick="ModalUtil.popup_modal('New report', '/assets/self-owned/html/report/modal_content_new.html', null, null, null);" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-edit"></i></button>
+                <button title="Save" type="button" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Save report draft', '/assets/self-owned/html/report/modal_content_save_draft.html',$data);})" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-save"></i></button>
+                <button title="Save as template" onclick="ModalUtil.popup_modal('Save report as template', '/assets/self-owned/html/report/modal_content_save_template.html', null, null, null);" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-bookmark-o"></i></button>
                 <button title="Cut selected cell" type="button" data-bind="click:cutCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-cut"></i></button>
                 <button title="Copy selected cell" type="button" data-bind="click:copyCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-copy"></i></button>
                 <button title="Paste selected cell" type="button" data-bind="click:pasteCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-paste"></i></button>
@@ -80,6 +80,10 @@
                 <button title="Insert a chart cell" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-bar-chart"></i></button>
                 <button title="Insert a table cell" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-table"></i></button>
                 <button title="Run cell" type="button" data-bind="click:compileCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-play"></i></button>
+                <span class="pull-right" style="margin-right:18px">
+                  <button type="button" class="btn btn-danger" style="padding: 6px 12px;margin-bottom: 0px;display:none" data-bind="visible:!name()">Unsaved</button>
+                  <button type="button" class="btn btn-success" style="padding: 6px 12px;margin-bottom: 0px;display:none" data-bind="visible:name()">Saved as: <span data-bind="text:name"></span></button>
+                </span>
               </div>
               <ul class="card-action">
                 <li class="dropdown">
@@ -134,7 +138,7 @@
 
 
       <div class="btn-floating" id="help-actions">
-        <div class="btn-bg" style="background-color:#3498db"></div>
+        <div class="btn-bg" style="background-color:#3498db;box-shadow: 0 1px 3px #3498db;"></div>
         <button type="button" class="btn btn-info btn-toggle" data-toggle="toggle" data-target="#help-actions">
           <i class="icon fa fa-plus"></i>
           <span class="help-text">Shortcut</span>
@@ -210,6 +214,77 @@
 
     </script>
 
+
+
+    <script>
+        var SharePOJO = SharePOJO || {};
+        SharePOJO ={
+            environmentCheck : function(){
+                console.log("SHARE FUNCTION ENVIRONMENT CHECK...");
+
+                console.log("ENVIRONMENT CHECK [STEP 1: Has token flag]...[BEGIN]");
+                var tokenFlag = $.hasUrlParam('token');
+                if(tokenFlag){
+                    console.log("ENVIRONMENT CHECK [STEP 1: Has token flag]...[FINISHED & RESULT:SUCCESSED]");
+                }else{
+                    SharePOJO.redirect('NORMAL');
+                    console.log("ENVIRONMENT CHECK [STEP 1: Has token flag]...[FINISHED & RESULT:FAILED]");
+                    return;
+                }
+                console.log("ENVIRONMENT CHECK [STEP 2: Get token ]...[BEGIN]");
+                var token = $.urlParamValue('token');
+                if(token){
+                    console.log("ENVIRONMENT CHECK [STEP 2: Get token]...[FINISHED & RESULT:SUCCESSED]");
+                }else{
+                    SharePOJO.redirect('INVALID');
+                    console.log("ENVIRONMENT CHECK [STEP 2: Get token]...[FINISHED & RESULT:FAILED]");
+                }
+
+                console.log("ENVIRONMENT CHECK [STEP 3: validate token from SERVER side ... please invoke the correct URL and handle the response]...[BEGIN]");
+                $.serverRequest($.getServerRoot() + '/service_generic_query/api/share/fetch/' + token, null, "MATRIX_SHARE_SUCCESS", "MATRIX_SHARE_FAILED", "MATRIX_SHARE_SERVICE_FAILED");
+            },
+
+            redirect:function(type){
+                if(type=='INVALID'){
+                    console.log("REDIRECT TO INVALID PAGE");
+                    window.location.href="404.html";
+                }else if(type=='EXPIRED'){
+                    console.log("REDIRECT TO EXPIRED PAGE");
+                    window.location.href="404.html";
+                }else if(type=='NORMAL'){
+                    console.log("REDIRECT TO EDIT PAGE");
+                }
+            }
+        }
+        $.subscribe("MATRIX_SHARE_SUCCESS", successListener);
+        $.subscribe("MATRIX_SHARE_FAILED", failedListener);
+        $.subscribe("MATRIX_SHARE_SERVICE_FAILED", failedServiceListener);
+        function successListener() {
+            if (arguments && arguments[1]) {
+                var json = arguments[1].result[0];
+                if(reportViewModel){
+                  reportViewModel.deserialize_report(json);
+                }
+            }
+        }
+        function failedListener() {
+            console.log("Server Failed!");
+        }
+
+        function failedServiceListener() {
+            if (arguments && arguments[1]) {
+                var errorMessage = arguments[1].errorMessage;
+                if(errorMessage=="Token Invalid!"){
+                    console.log('request action invoked[request_invalid]');
+                    SharePOJO.redirect('INVALID');
+                }else if(errorMessage=="Token Expire!"){
+                    console.log('request action invoked[request_expired]');
+                    SharePOJO.redirect('EXPIRED');
+                }
+            }
+        }
+    </script>
+
     <script>
       var reportViewModel = new ReportViewModel();
 
@@ -217,6 +292,7 @@
 
       ko.applyBindings(reportViewModel);
 
+      SharePOJO.environmentCheck();
     </script>
 </body>
 

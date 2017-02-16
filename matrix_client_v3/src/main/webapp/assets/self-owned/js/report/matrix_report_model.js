@@ -5,8 +5,8 @@
 function ReportViewModel() {
   var self = this;
 
-  self.data = null;
-
+  self.data =null;
+  self.name = ko.observable();
   self.active_cell = null;
 
   self.cut_cell = null;
@@ -106,7 +106,10 @@ function ReportViewModel() {
   }
 
   self.deserialize_report = function(inputData){
-    var report = $.parseJSON(inputData);
+    var json = inputData.json;
+    self.data=inputData;
+    self.name(inputData.stringalpha);
+    var report = $.parseJSON(json);
 
     self.cells.removeAll();
     $.each(report.cells, function(idx, cellShareModel) {
@@ -130,6 +133,22 @@ function ReportViewModel() {
     cell.isViewMode(model.isViewMode);
 
     return cell;
+  }
+
+  self.persist2server = function(){
+    //'type': 'MATRIX_REPORT_DRAFT','MATRIX_REPORT_TEMPLATE','MATRIX_REPORT_FINISHED'
+    //'tag': SAVE,SHARE
+    var shareJson = {
+        'type': 'MATRIX_REPORT_DRAFT',
+        'tag':'SAVE',
+        'json':self.serialize_report(),
+        'stringalpha':'report draft demo',
+        'username':'Liu Yang'
+    }
+    var data = {
+        'shareJson': $.toJSON(shareJson)
+    };
+    $.serverRequest($.getServerRoot() + '/service_generic_query/api/share/generate/' + 10000, data, "TOKEN_SUCCESS", "TOKEN_FAILED", "TOKEN_SERVICE_FAILED");
   }
 }
 
@@ -283,4 +302,31 @@ function CellShareModel(){
   self.isActive = false;
   self.isViewMode = false;
   self.currentStyle = null;
+}
+
+
+
+$.subscribe("TOKEN_SUCCESS", successListener);
+$.subscribe("TOKEN_FAILED", failedListener);
+$.subscribe("TOKEN_SERVICE_FAILED", failedServiceListener);
+
+function successListener() {
+    if (arguments && arguments[1]) {
+      console.log("Save operation successed");
+        // console.log(arguments);
+        // genericModalViewModel.response(true, "保存操作", "[成功]", "");
+    }
+}
+
+function failedListener() {
+    if (arguments && arguments[1]) {
+      console.log("Save operation failed");
+        // var errorMessage = arguments[1].errorMessage;
+        // genericModalViewModel.response(false, "保存操作", "[失败]", errorMessage);
+    }
+}
+
+function failedServiceListener() {
+    // genericModalViewModel.response(false, "保存操作", "[失败]", "服务器异常！请联系管理员解决。");
+    console.log("Save operation service failed");
 }

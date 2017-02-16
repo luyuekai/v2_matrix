@@ -269,7 +269,7 @@
       </nav>
 
       <div class="btn-floating" id="help-actions">
-        <div class="btn-bg" style="background-color:#3498db"></div>
+        <div class="btn-bg" style="background-color:#3498db;box-shadow: 0 1px 3px #3498db;"></div>
         <button type="button" class="btn btn-info btn-toggle" data-toggle="toggle" data-target="#help-actions">
           <i class="icon fa fa-plus"></i>
           <span class="help-text">Shortcut</span>
@@ -300,6 +300,10 @@
                 <button title="Insert a chart cell" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-bar-chart"></i></button>
                 <button title="Insert a table cell" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-table"></i></button>
                 <button title="Run cell" type="button" onclick="switch_edit2view('testDiv')" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-play"></i></button>
+                <span class="pull-right" style="margin-right:18px">
+                  <button type="button" class="btn btn-danger" style="padding: 6px 12px;margin-bottom: 0px;">Unsaved</button>
+                  <button type="button" class="btn btn-success" style="padding: 6px 12px;margin-bottom: 0px;">Saved as: Hello Draft</button>
+                </span>
               </div>
               <ul class="card-action">
                 <li class="dropdown">
@@ -448,7 +452,7 @@ can [see the source for it by adding '.text' to the URL] [src].
   <script src="assets/self-owned/js/generic/generic_table.js"></script>
   <script src="assets/self-owned/js/generic/generic_util.js"></script>
   <script src="assets/self-owned/js/generic/generic_validation.js"></script>
-  
+
   <script src="assets/self-owned/js/report/matrix_report.js"></script>
 
 
