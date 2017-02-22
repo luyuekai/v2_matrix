@@ -1,0 +1,178 @@
+<div id="genericModalDiv">
+  <!--LOADER DIV BEGIN-->
+  <div class="loader-container text-center">
+    <div class="icon">
+      <div class="sk-wave">
+        <div class="sk-rect sk-rect1"></div>
+        <div class="sk-rect sk-rect2"></div>
+        <div class="sk-rect sk-rect3"></div>
+        <div class="sk-rect sk-rect4"></div>
+        <div class="sk-rect sk-rect5"></div>
+      </div>
+    </div>
+    <div class="title">Loading</div>
+  </div>
+  <!--LOADER DIV BEGIN-->
+
+  <!--RESULT DISPLAY DIV BEGIN-->
+  <div class="flat-matrix">
+    <div id="resultDIV" data-bind="visible: hasResult,css: styleClass" class="alert fresh-color">
+      <button type="button" class="close" data-bind="click:function(){hasResult(!hasResult)}" aria-label="Close"><i class="fa fa-close"></i></button>
+      <strong>
+      <span data-bind="text:resultTitle"></span>
+    </strong>
+      <span data-bind="text:resultSubTitle"></span>
+      <div data-bind="text:resultContent"></div>
+    </div>
+  </div>
+  <!--RESULT DISPLAY DIV END-->
+
+  <!--Validation DIV BEGIN-->
+  <div class="flat-matrix">
+    <div data-bind="visible: hasError" class="alert alert-warning alert-dismissible fresh-color" role="alert">
+      <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
+        <i class="fa fa-close"></i>
+      </button>
+      <strong>Warning:</strong>
+      <div id="errorMessagesDIV" data-bind="foreach:errorMessage">
+        <div data-bind="text:$data"></div>
+      </div>
+    </div>
+  </div>
+  <!--Validation DIV END-->
+
+  <div class="business_div_class" data-bind="if:businessPOJO()">
+    <div data-bind="with:businessPOJO">
+      <p>
+        This operation will remove the report draft, please confirm to continue...
+      </p>
+      <div class="row">
+        <div class="col-xs-12">
+          Report Draft Name: <span data-bind="text:report_name"></span>
+        </div>
+      </div>
+      <br>
+      <div class="pull-right">
+        <!-- <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button> -->
+        <button class="btn btn-sm btn-default" type="button" onclick="(function(){ModalUtil.modal_close('popupModalPro');location.reload();})()">Close</button>
+        <button type="button" onclick="execute()" class="btn btn-sm btn-success">Confirm</button>
+      </div>
+
+      <br>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  // Initialize the View Model
+  // Clean the paging binding nodes
+  // Binding the view Model
+  var genericModalViewModel = new GenericModalViewModel();
+  ko.cleanNode($('#genericModalDiv')[0]);
+  ko.applyBindings(genericModalViewModel, document.getElementById('genericModalDiv'));
+
+  // Setup the business model with view model
+  (function initialize() {
+    // *******YOUR SHOULD CODING IN HERE:*******
+    function BusinessPOJO() {
+      var self = this;
+      self.id = null;
+      self.report_name = ko.observable('');
+
+    }
+    var businessPOJO = new BusinessPOJO();
+    if(ModalUtil.businessPOJO){
+      console.log(ModalUtil.businessPOJO);
+      businessPOJO.id =  ModalUtil.businessPOJO.id; // Don't need observable bind!
+      businessPOJO.report_name(ModalUtil.businessPOJO.stringalpha);
+    }
+    genericModalViewModel.businessPOJO(businessPOJO);
+  })();
+
+  function execute() {
+    // validation failed
+    // show validation error message in the warning DIV...
+    if (!genericModalViewModel.validation(businessValidation)) {
+      return;
+    } else {
+      // validation correct
+      // do your business...
+      runService();
+    }
+  }
+
+  // *******YOUR SHOULD CODING IN HERE:*******
+  var businessValidation = function() {
+    var errorMessages = [];
+    //validate logic...
+
+    //validate
+    ValidationPOJO.validate("Entity ID", genericModalViewModel.businessPOJO().id, errorMessages, ['KEY_NOT_NULL']);
+    ValidationPOJO.validate("Report Name", genericModalViewModel.businessPOJO().report_name(), errorMessages, ['KEY_NOT_NULL']);
+
+    return errorMessages;
+  }
+
+  // *******YOUR SHOULD CODING IN HERE:*******
+  var runService = function() {
+    LoaderUtil.add_v3('genericModalDiv');
+    persist_report();
+  }
+  $.subscribe("SUCCESS_LISTENER", successAddListener_modal);
+  $.subscribe("FAILED_LISTENER", failedAddListener_modal);
+  $.subscribe("SERVER_FAILED_LISTENER", failedServiceListener_modal);
+
+  function successAddListener_modal() {
+    if (arguments && arguments[1]) {
+      // responseViewModel.correctResponse(arguments[1]);
+      setTimeout(function() {
+        genericModalViewModel.response(true, "Entity Operation", "[Successed]", "Operation Successed, please close the console and reload the data.");
+        LoaderUtil.remove_v3('genericModalDiv');
+      }, 2000);
+    }
+  }
+
+  function failedAddListener_modal() {
+    if (arguments && arguments[1]) {
+      console.log(arguments);
+      var errorMessage = arguments[1].errorMessage;
+      setTimeout(function() {
+        genericModalViewModel.response(false, "Entity Operation", "[Failed]", errorMessage);
+        LoaderUtil.remove_v3('genericModalDiv');
+      }, 2000);
+    }
+  }
+
+  function failedServiceListener_modal() {
+    setTimeout(function() {
+      genericModalViewModel.response(false, "Entity Operation", "[Failed]", "SERVICE 'GENERIC XXX' FAILED! Please contact with the system admin for more information...");
+      LoaderUtil.remove_v3('genericModalDiv');
+    }, 2000);
+  }
+</script>
+
+
+<script>
+  function test() {
+
+  }
+
+  function persist_report() {
+    //'type': 'MATRIX_REPORT_DRAFT','MATRIX_REPORT_TEMPLATE','MATRIX_REPORT_FINISHED'
+    //'tag': SAVE,SHARE
+
+    var requestPOJO= {
+        "className": "v2.service.generic.query.entity.Share",
+        "attributes":{
+          "type": "MATRIX_REPORT_DRAFT",
+          "id":genericModalViewModel.businessPOJO().id,
+          "deleted": true
+        }
+    };
+    var data = {
+        'queryJson': $.toJSON(requestPOJO)
+    };
+    $.serverRequest($.getServerRoot() + '/service_generic_query/api/cud/update', data, "SUCCESS_LISTENER", "FAILED_LISTENER", "SERVER_FAILED_LISTENER");
+  }
+</script>

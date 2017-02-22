@@ -15,29 +15,46 @@
   <link rel="stylesheet" type="text/css" href="assets/reference/flat-admin/assets/css/theme/red.css">
   <link rel="stylesheet" type="text/css" href="assets/reference/flat-admin/assets/css/theme/yellow.css">
 
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix_v3.css">
 
 </head>
 
 <body>
 
-
-
   <div class="app app-blue-sky">
 
     <aside class="app-sidebar" id="sidebar"></aside>
 
-    <div class="app-container">
+    <div class="app-container" id="main_div">
 
       <nav class="navbar navbar-default" id="navbar"></nav>
 
-
       <div class="row">
+        <div class="col-xs-12" style="margin-bottom:0px">
+          <div class="flat-matrix">
+            <div id="response_div">
+              <div class="alert fresh-color " data-bind="css:styleClass,visible:resultVisible">
+                <button type="button" class="close" data-bind="click:function(){resultVisible(false)}" aria-label="Close"><i class="fa fa-close"></i></button>
+                <strong>
+                <span data-bind="text:resultTitle"></span>
+              </strong>
+                <span data-bind="text:resultSubTitle"></span>
+                <div data-bind="text:resultContent"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div class="row" id="content_div">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="card card-tab card-mini">
             <div class="card-header" style="overflow-x: visible;">
               <ul class="nav nav-tabs tab-stats">
-                <li role="tab1" class="active">
+                <li role="tab4" class="active">
+                  <a href="#tab4" aria-controls="tab3" role="tab" data-toggle="tab">Drafts</a>
+                </li>
+                <!-- <li role="tab1">
                   <a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">ALL</a>
                 </li>
                 <li role="tab2">
@@ -45,14 +62,12 @@
                 </li>
                 <li role="tab3">
                   <a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Templates</a>
-                </li>
-                <li role="tab4">
-                  <a href="#tab4" aria-controls="tab3" role="tab" data-toggle="tab">Drafts</a>
-                </li>
+                </li> -->
+
               </ul>
             </div>
             <div class="card-body tab-content">
-              <div role="tabpanel" class="tab-pane active" id="tab1" style="background-color:#E7EDEE">
+              <!-- <div role="tabpanel" class="tab-pane " id="tab1" style="background-color:#E7EDEE">
                 <div class="row">
                   <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" style="margin-bottom:18px">
                     <a class="card card-banner card-green-light">
@@ -66,7 +81,7 @@
                     </a>
 
                   </div>
-                  <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12"  style="margin-bottom:18px">
+                  <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" style="margin-bottom:18px">
                     <a class="card card-banner card-blue-light">
                       <div class="card-body">
                         <i class="icon fa fa-newspaper-o fa-4x"></i>
@@ -78,7 +93,7 @@
                     </a>
 
                   </div>
-                  <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12"  style="margin-bottom:18px">
+                  <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" style="margin-bottom:18px">
                     <a class="card card-banner card-yellow-light">
                       <div class="card-body">
                         <i class="icon fa fa-edit fa-4x"></i>
@@ -89,42 +104,6 @@
                       </div>
                     </a>
                   </div>
-
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" style="margin-bottom:18px">
-                      <a class="card card-banner card-green-light">
-                        <div class="card-body">
-                          <i class="icon fa fa-book fa-4x"></i>
-                          <div class="content">
-                            <div class="title">Big Data Landscope Analyze Report</div>
-                            <div class="value"><span class="sign"></span>Report</div>
-                          </div>
-                        </div>
-                      </a>
-
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12"  style="margin-bottom:18px">
-                      <a class="card card-banner card-blue-light">
-                        <div class="card-body">
-                          <i class="icon fa fa-newspaper-o fa-4x"></i>
-                          <div class="content">
-                            <div class="title">B2C Month Report Template</div>
-                            <div class="value"><span class="sign"></span>Template</div>
-                          </div>
-                        </div>
-                      </a>
-
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12"  style="margin-bottom:18px">
-                      <a class="card card-banner card-yellow-light">
-                        <div class="card-body">
-                          <i class="icon fa fa-edit fa-4x"></i>
-                          <div class="content">
-                            <div class="title">Daily Report Draft</div>
-                            <div class="value"><span class="sign"></span>Draft</div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
                 </div>
               </div>
               <div role="tabpanel" class="tab-pane" id="tab2" style="background-color:#E7EDEE">
@@ -156,119 +135,30 @@
                     </a>
                   </div>
                 </div>
-              </div>
-              <div role="tabpanel" class="tab-pane" id="tab4" style="background-color:#E7EDEE">
+              </div> -->
+              <div role="tabpanel" class="tab-pane active" id="tab4" style="background-color:#E7EDEE">
                 <div class="row">
-                  <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12"  style="margin-bottom:18px">
-                    <a class="card card-banner card-yellow-light">
+                  <!--ko foreach: viewData-->
+                  <div class="col-xs-12" style="margin-bottom:18px;">
+                    <a class="card card-banner card-yellow-light" data-bind="event:{dblclick:function(){redirect2editor($data)}}">
                       <div class="card-body">
                         <i class="icon fa fa-edit fa-4x"></i>
                         <div class="content">
-                          <div class="title">Daily Report Draft</div>
-                          <div class="value"><span class="sign"></span>Draft</div>
+                          <div class="title">
+                            <span  data-bind="text:(function(){return new Date(parseInt(createtime)).toLocaleString()})()" style="margin-right: 8px;"></span>
+                            <button type="button" data-bind="event:{click:function(){redirect2editor($data)}}" class="btn btn-default btn-xs" style="margin-right: 3px;"><i class="fa fa-pencil "></i>&nbsp;</button>
+                            <button type="button" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Remove report draft', '/assets/self-owned/html/report/modal_content_remove_draft.html',$data);})" class="btn btn-default btn-xs" style="margin-right: 3px;"><i class="fa fa-trash "></i>&nbsp;</button>
+                          </div>
+                          <div class="value">
+
+                            <span class="sign" data-bind="text:stringalpha"></span>
+                            Draft
+                          </div>
                         </div>
                       </div>
                     </a>
                   </div>
-                  <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12"  style="margin-bottom:18px">
-                    <a class="card card-banner card-yellow-light">
-                      <div class="card-body">
-                        <i class="icon fa fa-edit fa-4x"></i>
-                        <div class="content">
-                          <div class="title">Daily Report Draft</div>
-                          <div class="value"><span class="sign"></span>Draft</div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12"  style="margin-bottom:18px">
-                    <a class="card card-banner card-yellow-light">
-                      <div class="card-body">
-                        <i class="icon fa fa-edit fa-4x"></i>
-                        <div class="content">
-                          <div class="title">Daily Report Draft</div>
-                          <div class="value"><span class="sign"></span>Draft</div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12"  style="margin-bottom:18px">
-                    <a class="card card-banner card-yellow-light">
-                      <div class="card-body">
-                        <i class="icon fa fa-edit fa-4x"></i>
-                        <div class="content">
-                          <div class="title">Daily Report Draft</div>
-                          <div class="value"><span class="sign"></span>Draft</div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12"  style="margin-bottom:18px">
-                    <a class="card card-banner card-yellow-light">
-                      <div class="card-body">
-                        <i class="icon fa fa-edit fa-4x"></i>
-                        <div class="content">
-                          <div class="title">Daily Report Draft</div>
-                          <div class="value"><span class="sign"></span>Draft</div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12"  style="margin-bottom:18px">
-                    <a class="card card-banner card-yellow-light">
-                      <div class="card-body">
-                        <i class="icon fa fa-edit fa-4x"></i>
-                        <div class="content">
-                          <div class="title">Daily Report Draft</div>
-                          <div class="value"><span class="sign"></span>Draft</div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12"  style="margin-bottom:18px">
-                    <a class="card card-banner card-yellow-light">
-                      <div class="card-body">
-                        <i class="icon fa fa-edit fa-4x"></i>
-                        <div class="content">
-                          <div class="title">Daily Report Draft</div>
-                          <div class="value"><span class="sign"></span>Draft</div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12"  style="margin-bottom:18px">
-                    <a class="card card-banner card-yellow-light">
-                      <div class="card-body">
-                        <i class="icon fa fa-edit fa-4x"></i>
-                        <div class="content">
-                          <div class="title">Daily Report Draft</div>
-                          <div class="value"><span class="sign"></span>Draft</div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12"  style="margin-bottom:18px">
-                    <a class="card card-banner card-yellow-light">
-                      <div class="card-body">
-                        <i class="icon fa fa-edit fa-4x"></i>
-                        <div class="content">
-                          <div class="title">Daily Report Draft</div>
-                          <div class="value"><span class="sign"></span>Draft</div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12"  style="margin-bottom:18px">
-                    <a class="card card-banner card-yellow-light">
-                      <div class="card-body">
-                        <i class="icon fa fa-edit fa-4x"></i>
-                        <div class="content">
-                          <div class="title">Daily Report Draft</div>
-                          <div class="value"><span class="sign"></span>Draft</div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
+                  <!-- /ko -->
                 </div>
               </div>
             </div>
@@ -279,7 +169,19 @@
 
 
 
-
+      <div class="modal fade" id="popupModalPro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <i class="fa fa-power-off"></i> &nbsp; <span class="modal-title" id="popupModalLabelPro"></span>
+            </div>
+            <div class="modal-body">
+              <div id="modalContentDIVPro"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
       <footer class="app-footer" style="position:absolute;bottom:0;margin:0 auto;">
@@ -294,7 +196,7 @@
 
 
       <div class="btn-floating" id="help-actions">
-        <div class="btn-bg" style="background-color:#3498db"></div>
+        <div class="btn-bg" style="background-color:#3498db;box-shadow: 0 1px 3px #3498db;"></div>
         <button type="button" class="btn btn-info btn-toggle" data-toggle="toggle" data-target="#help-actions">
           <i class="icon fa fa-plus"></i>
           <span class="help-text">Shortcut</span>
@@ -353,6 +255,118 @@
     </script>
 
     <script>
+      // *******Server Side Retrieve Data JS Code*******
+      var retrieveData = function(page) {
+        //        LoaderUtil.add('tableDIV');
+        var requestPOJO = {
+          "className": "Share",
+          "orderMap": {
+            "id": false
+          },
+          "pageMaxSize": pageMaxSize,
+          "currentPageNumber": page || 1,
+          "likeORMap": {
+
+          },
+          "eqMap": {
+            "type": "MATRIX_REPORT_DRAFT",
+            "deleted": false
+          },
+          "inMap": {},
+        };
+        var data = {
+          'queryJson': $.toJSON(requestPOJO)
+        };
+        $.serverRequest($.getServerRoot() + '/service_generic_query/api/query', data, "SEARCH_SUCCESS_LISTENER", "PAGING_SEARCH_FAILED", "SERVICE_GENERIC_QUERY_FAILED");
+      }
+    </script>
+
+
+
+    <script>
+      // *******Server Side Retrieve Data Listener JS Code*******
+      $.subscribe("SEARCH_SUCCESS_LISTENER", successListener);
+      $.subscribe("PAGING_SEARCH_FAILED", failedListener);
+      $.subscribe("SERVICE_GENERIC_QUERY_FAILED", failedServiceListener);
+
+      function failedServiceListener() {
+        responseViewModel.errorResponse("SERVICE 'GENERIC QUERY' FAILED! Please contact with the system admin for more information...")
+      }
+
+      function failedListener() {
+        if (arguments && arguments[1]) {
+          var errorMessage = arguments[1].errorMessage;
+          responseViewModel.errorResponse(errorMessage)
+        }
+      }
+
+      function successListener() {
+        if (arguments && arguments[1]) {
+          // var headers = AlgorithmPOJO.buildKeys(arguments[1].result);
+          // viewModel.buildSearchData(arguments[1]);
+          console.log(arguments[1]);
+          var data = arguments[1].result;
+          displayResult = displayResult.concat(data);
+          //    console.log(data.length);
+          if (data.length < pageMaxSize) {
+            hasNewData = false;
+          }
+          var history_scripts = displayResult.sort(sortTime);
+
+          viewModel.viewData(history_scripts);
+        }
+      }
+
+      function sortTime(a, b) {
+        return b.createtime - a.createtime;
+      }
+
+      function redirect2editor(currentData) {
+        if (currentData && currentData.token) {
+          window.open($.getRootPath() + '/module_report_editor.html?token=' + currentData.token);
+        }
+      }
+    </script>
+
+    <script>
+      // *******Data Bind JS Code*******
+      var responseViewModel = new ResponseViewModel();
+      ko.applyBindings(responseViewModel, document.getElementById('response_div'));
+
+      var viewModel = new ServerPagingViewModel();
+      ko.applyBindings(viewModel, document.getElementById('content_div'));
+      viewModel.retrieveData = retrieveData;
+    </script>
+
+    <script>
+      var page = 1,
+        pageMaxSize = 5,
+        hasNewData = true,
+        displayResult = [];
+
+      function initialize() {
+        $(window).bind('scroll', function() {
+          scrollListener();
+        });
+        retrieveData(1);
+      }
+      initialize();
+
+      function scrollListener() {
+        if (hasNewData) {
+          if ($(window).scrollTop() + $(window).height() >= ($(document).height() - 100)) {
+            console.log("retrieve the new data ");
+            page += 1;
+            retrieveData(page);
+          }
+        } else {
+          console.log("remove the scroll listener")
+          $(window).unbind('scroll');
+
+        }
+      }
+
+      //onclick="window.open($.getRootPath() + '/module_report_editor.html')"
     </script>
 </body>
 

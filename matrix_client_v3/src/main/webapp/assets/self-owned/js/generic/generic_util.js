@@ -277,6 +277,17 @@ LoaderUtil = {
         if ($('#' + div_id).hasClass('matrix-loading-v2')) {
             $('#' + div_id).removeClass('matrix-loading-v2');
         }
+    },
+
+    add_v3: function (div_id) {
+        if (!$('#' + div_id).hasClass('matrix-loading-v3')) {
+            $('#' + div_id).addClass('matrix-loading-v3');
+        }
+    },
+    remove_v3: function (div_id) {
+        if ($('#' + div_id).hasClass('matrix-loading-v3')) {
+            $('#' + div_id).removeClass('matrix-loading-v3');
+        }
     }
 }
 
