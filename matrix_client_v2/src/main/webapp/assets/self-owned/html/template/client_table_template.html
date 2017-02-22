@@ -8,15 +8,36 @@
     <div class="col-md-12" style="overflow: auto">
       <table class="table table-striped" cellspacing="0">
         <thead>
-          <tr data-bind="foreach:columnNames">
+          <!-- <tr data-bind="foreach:columnNames">
             <th>
               <span data-bind="text: $data"></span>
             </th>
+          </tr> -->
+
+          <tr>
+            <th>
+              <span>index</span>
+            </th>
+            <!-- ko foreach: columnNames -->
+            <th>
+              <span data-bind="text: $data"></span>
+            </th>
+            <!-- /ko -->
           </tr>
+
+
         </thead>
         <tbody data-bind="foreach:thinViewData">
-          <tr data-bind="visible:isDisplay,foreach: data">
+          <!-- <tr data-bind="visible:isDisplay,foreach: data">
             <td data-bind="text: $data"></td>
+          </tr> -->
+          <tr data-bind="visible:isDisplay">
+            <th>
+              <span data-bind="text: $index()+($parent.currentPageNumber()-1)*$parent.pageMaxSize()+1"></span>
+            </th>
+            <!-- ko foreach: data -->
+            <td data-bind="text: $data"></td>
+            <!-- /ko -->
           </tr>
         </tbody>
       </table>
