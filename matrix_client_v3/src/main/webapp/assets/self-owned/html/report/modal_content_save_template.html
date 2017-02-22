@@ -51,7 +51,21 @@
           <div class="input-group">
             <span class="input-group-addon" id="basic-addon1">
           <i class="fa fa-edit" aria-hidden="true"></i></span>
-            <input data-bind="value:report_name" type="text" class="form-control" placeholder="Name this report" aria-describedby="basic-addon1" value="">
+            <input data-bind="value:report_name" type="text" class="form-control" placeholder="Name this" aria-describedby="basic-addon1" value="">
+          </div>
+          <div>
+            <div class="checkbox">
+              <input data-bind="checked: is_share" type="checkbox" id="checkbox1">
+              <label for="checkbox1">
+                Generate sharable unique token moreover
+              </label>
+            </div>
+            <div class="checkbox" data-bind="visible:id">
+              <input data-bind="checked: is_new" type="checkbox" id="checkbox2">
+              <label for="checkbox2">
+                Save as a new template
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -80,11 +94,20 @@
     // *******YOUR SHOULD CODING IN HERE:*******
     function BusinessPOJO() {
       var self = this;
-
+      self.id = ko.observable();
       self.report_name = ko.observable('');
-
+      self.is_share = ko.observable(false);
+      self.is_new = ko.observable(true);
     }
     var businessPOJO = new BusinessPOJO();
+    if (ModalUtil.businessPOJO && ModalUtil.businessPOJO.data) {
+      var data = ModalUtil.businessPOJO.data;
+      console.log("-->" + ModalUtil.businessPOJO);
+      businessPOJO.id(data.id);
+      businessPOJO.report_name(data.stringalpha);
+      businessPOJO.is_share(data.tag == 'SHARE');
+      businessPOJO.is_new(false);
+    }
     genericModalViewModel.businessPOJO(businessPOJO);
   })();
 
@@ -106,7 +129,7 @@
     //validate logic...
 
     //validate
-    ValidationPOJO.validate("Report Name", genericModalViewModel.businessPOJO().report_name(), errorMessages, ['KEY_NOT_NULL']);
+    ValidationPOJO.validate("Template Name", genericModalViewModel.businessPOJO().report_name(), errorMessages, ['KEY_NOT_NULL']);
 
     return errorMessages;
   }
@@ -114,14 +137,20 @@
   // *******YOUR SHOULD CODING IN HERE:*******
   var runService = function() {
     LoaderUtil.add_v3('genericModalDiv');
-    persist_report();
+      persist_report();
   }
   $.subscribe("SUCCESS_LISTENER", successAddListener_modal);
+  $.subscribe("SUCCESS_LISTENER_SHARE", successAddListener_share);
   $.subscribe("FAILED_LISTENER", failedAddListener_modal);
   $.subscribe("SERVER_FAILED_LISTENER", failedServiceListener_modal);
 
   function successAddListener_modal() {
     if (arguments && arguments[1]) {
+      console.log(arguments[1]);
+      var json = arguments[1].result[0];
+      if(reportViewModel){
+        reportViewModel.deserialize_report(json);
+      }
       // responseViewModel.correctResponse(arguments[1]);
       setTimeout(function() {
         genericModalViewModel.response(true, "Entity Operation", "[Successed]", "Operation Successed, please close the console and reload the data.");
@@ -129,6 +158,16 @@
       }, 2000);
     }
   }
+
+  function successAddListener_share() {
+    if (arguments && arguments[1]) {
+      console.log(arguments[1]);
+      var token = arguments[1].result[0]; //ab38e4a4ede0768a8e1b8bde73b3e7a6a893d048a0f3882a68217733ce314240
+
+      $.serverRequest($.getServerRoot() + '/service_generic_query/api/share/fetch/' + token, null, "MATRIX_SHARE_SUCCESS", "FAILED_LISTENER", "SERVER_FAILED_LISTENER");
+    }
+  }
+
 
   function failedAddListener_modal() {
     if (arguments && arguments[1]) {
@@ -147,13 +186,27 @@
       LoaderUtil.remove_v3('genericModalDiv');
     }, 2000);
   }
+
+
+  $.subscribe("MATRIX_SHARE_SUCCESS", successListener);
+
+  function successListener() {
+      if (arguments && arguments[1]) {
+          var json = arguments[1].result[0];
+          if(reportViewModel){
+            reportViewModel.deserialize_template(json);
+          }
+          setTimeout(function() {
+            genericModalViewModel.response(true, "Entity Operation", "[Successed]", "Operation Successed, please close the console and reload the data.");
+            LoaderUtil.remove_v3('genericModalDiv');
+          }, 2000);
+      }
+  }
+
 </script>
 
 
 <script>
-  function test() {
-
-  }
 
   function persist_report() {
     if (!reportViewModel) {
@@ -162,17 +215,39 @@
     //'type': 'MATRIX_REPORT_DRAFT','MATRIX_REPORT_TEMPLATE','MATRIX_REPORT_FINISHED'
     //'tag': SAVE,SHARE
 
+    var tag = genericModalViewModel.businessPOJO().is_share() ? 'SHARE' : 'SAVE';
     var json = reportViewModel.serialize_report();
-    var shareJson = {
-      'type': 'MATRIX_REPORT_TEMPLATE',
-      'tag':  'SHARE',
-      'json': json,
-      'stringalpha': genericModalViewModel.businessPOJO().report_name(),
-      'username': 'ease'
+
+    if (!genericModalViewModel.businessPOJO().is_new() && genericModalViewModel.businessPOJO().id()) {
+      var requestPOJO= {
+          "className": "v2.service.generic.query.entity.Share",
+          "attributes": {
+            'tag': tag,
+            'json': json,
+            'stringalpha': genericModalViewModel.businessPOJO().report_name(),
+            "id":genericModalViewModel.businessPOJO().id()
+          }
+      };
+      var data = {
+          'queryJson': $.toJSON(requestPOJO)
+      };
+
+      console.log("update template");
+      $.serverRequest($.getServerRoot() + '/service_generic_query/api/cud/update',data,"SUCCESS_LISTENER", "FAILED_LISTENER", "SERVER_FAILED_LISTENER");
+    } else {
+      var shareJson = {
+        'type': 'MATRIX_REPORT_TEMPLATE',
+        'tag': tag,
+        'json': json,
+        'stringalpha': genericModalViewModel.businessPOJO().report_name(),
+        'username': 'ease'
+      }
+      var data = {
+        'shareJson': $.toJSON(shareJson)
+      };
+      console.log("save new template");
+      $.serverRequest($.getServerRoot() + '/service_generic_query/api/share/generate/' + 10000, data, "SUCCESS_LISTENER_SHARE", "FAILED_LISTENER", "SERVER_FAILED_LISTENER");
     }
-    var data = {
-      'shareJson': $.toJSON(shareJson)
-    };
-    $.serverRequest($.getServerRoot() + '/service_generic_query/api/share/generate/' + 10000, data, "SUCCESS_LISTENER", "FAILED_LISTENER", "SERVER_FAILED_LISTENER");
+
   }
 </script>

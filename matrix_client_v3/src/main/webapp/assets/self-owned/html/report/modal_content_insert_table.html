@@ -1,0 +1,177 @@
+<div id="genericModalDiv">
+  <!--LOADER DIV BEGIN-->
+  <div class="loader-container text-center">
+    <div class="icon">
+      <div class="sk-wave">
+        <div class="sk-rect sk-rect1"></div>
+        <div class="sk-rect sk-rect2"></div>
+        <div class="sk-rect sk-rect3"></div>
+        <div class="sk-rect sk-rect4"></div>
+        <div class="sk-rect sk-rect5"></div>
+      </div>
+    </div>
+    <div class="title">Loading</div>
+  </div>
+  <!--LOADER DIV BEGIN-->
+
+  <!--RESULT DISPLAY DIV BEGIN-->
+  <div class="flat-matrix">
+    <div id="resultDIV" data-bind="visible: hasResult,css: styleClass" class="alert fresh-color">
+      <button type="button" class="close" data-bind="click:function(){hasResult(!hasResult)}" aria-label="Close"><i class="fa fa-close"></i></button>
+      <strong>
+      <span data-bind="text:resultTitle"></span>
+    </strong>
+      <span data-bind="text:resultSubTitle"></span>
+      <div data-bind="text:resultContent"></div>
+    </div>
+  </div>
+  <!--RESULT DISPLAY DIV END-->
+
+  <!--Validation DIV BEGIN-->
+  <div class="flat-matrix">
+    <div data-bind="visible: hasError" class="alert alert-warning alert-dismissible fresh-color" role="alert">
+      <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
+        <i class="fa fa-close"></i>
+      </button>
+      <strong>Warning:</strong>
+      <div id="errorMessagesDIV" data-bind="foreach:errorMessage">
+        <div data-bind="text:$data"></div>
+      </div>
+    </div>
+  </div>
+  <!--Validation DIV END-->
+
+  <div class="business_div_class" data-bind="if:businessPOJO()">
+    <div data-bind="with:businessPOJO">
+      <p>
+        This operation will create a table and insert to a new cell, please fulfill the information and confirm to continue...
+      </p>
+      <div class="row">
+        <div class="col-xs-12">
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Table</label>
+              <div class="col-sm-5">
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">
+                    <i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Rows</span>
+                  <input type="text" class="form-control" placeholder="Rows" aria-describedby="basic-addon1" data-bind="value:num_row">
+                </div>
+              </div>
+              <div class="col-sm-5">
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">
+                    <i class="fa fa-bars fa-rotate-90" aria-hidden="true"></i>&nbsp;Columns</span>
+                  <input type="text" class="form-control" placeholder="Columns" aria-describedby="basic-addon1" data-bind="value:num_col">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputPassword3" class="col-sm-2 control-label">Align</label>
+              <div class="col-sm-10">
+                <div>
+                  <div class="radio radio-inline">
+                    <input type="radio" name="radio_align" id="radio1" value="DEFAULT" data-bind="checked: align_type">
+                    <label for="radio1" title="default">
+                      <i class="fa fa-align-justify" aria-hidden="true"></i>
+                    </label>
+                  </div>
+                  <div class="radio radio-inline">
+                    <input type="radio" name="radio_align" id="radio2" value="LEFT" checked="" data-bind="checked: align_type">
+                    <label for="radio2" title="left">
+                      <i class="fa fa-align-left" aria-hidden="true"></i>
+                    </label>
+                  </div>
+                  <div class="radio radio-inline">
+                    <input type="radio" name="radio_align" id="radio3" value="CENTER" data-bind="checked: align_type">
+                    <label for="radio3" title="center">
+                      <i class="fa fa-align-center" aria-hidden="true"></i>
+                    </label>
+                  </div>
+                  <div class="radio radio-inline">
+                    <input type="radio" name="radio_align" id="radio4" value="RIGHT" data-bind="checked: align_type">
+                    <label for="radio4" title="right">
+                      <i class="fa fa-align-right" aria-hidden="true"></i>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </form>
+          <div class="flat-matrix">
+            <div class="alert alert-success alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+                <i class="fa fa-book"></i>&nbsp;Please ensure the column over than 2 to build the correct table.
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="pull-right">
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+        <button type="button" onclick="execute()" class="btn btn-sm btn-success">Confirm</button>
+      </div>
+
+      <br>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  // Initialize the View Model
+  // Clean the paging binding nodes
+  // Binding the view Model
+  var genericModalViewModel = new GenericModalViewModel();
+  ko.cleanNode($('#genericModalDiv')[0]);
+  ko.applyBindings(genericModalViewModel, document.getElementById('genericModalDiv'));
+
+  // Setup the business model with view model
+  (function initialize() {
+    // *******YOUR SHOULD CODING IN HERE:*******
+    function BusinessPOJO() {
+      var self = this;
+      self.align_type = ko.observable('CENTER');
+      self.num_row = ko.observable(2);
+      self.num_col = ko.observable(2);
+    }
+    var businessPOJO = new BusinessPOJO();
+
+    genericModalViewModel.businessPOJO(businessPOJO);
+  })();
+
+  function execute() {
+    // validation failed
+    // show validation error message in the warning DIV...
+    if (!genericModalViewModel.validation(businessValidation)) {
+      return;
+    } else {
+      // validation correct
+      // do your business...
+      runService();
+    }
+  }
+
+  // *******YOUR SHOULD CODING IN HERE:*******
+  var businessValidation = function() {
+    var errorMessages = [];
+    //validate logic...
+
+    //validate
+    ValidationPOJO.validate("Row size", genericModalViewModel.businessPOJO().num_row(), errorMessages, ['KEY_NOT_NULL','KEY_MUST_NUMBER','KEY_NOT_NEGATIVE']);
+    ValidationPOJO.validate("Column size", genericModalViewModel.businessPOJO().num_col(), errorMessages, ['KEY_NOT_NULL','KEY_MUST_NUMBER','KEY_NOT_NEGATIVE']);
+    return errorMessages;
+  }
+
+  // *******YOUR SHOULD CODING IN HERE:*******
+  var runService = function() {
+    if (!reportViewModel) {
+      return;
+    }
+    var table_code = reportViewModel.generateTableCode(genericModalViewModel.businessPOJO().num_row(),genericModalViewModel.businessPOJO().num_col(),genericModalViewModel.businessPOJO().align_type());
+    reportViewModel.addCell_table(table_code);
+    ModalUtil.modal_close('popupModalPro');
+  }
+
+</script>
