@@ -30,8 +30,8 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(kg.auth.rest.AccountResource.class);
-        resources.add(kg.auth.rest.TestResource.class);
         resources.add(kg.auth.rest.MockResource.class);
+        resources.add(kg.auth.rest.TestResource.class);
     }
     
 }

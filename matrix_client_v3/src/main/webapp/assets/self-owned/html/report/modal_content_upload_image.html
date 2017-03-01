@@ -56,9 +56,12 @@
   ko.applyBindings(vm, document.getElementById('matrix_upload_div'));
   $.subscribe("SUCCESS_LISTENER", successListener);
   $.subscribe("FAILED_LISTENER", failedListener);
-  initialize_pic_upload_environment('input-id-1', vm);
+  initialize_pic_upload_environment('input-id-1', vm,"MATRIX_REPORT_UPLOAD_IMAGE_SUCCESS","MATRIX_REPORT_UPLOAD_IMAGE_FAILED");
 
-  function failedListener() {
+  $.subscribe("MATRIX_REPORT_UPLOAD_IMAGE_SUCCESS", successListener_upload);
+  $.subscribe("MATRIX_REPORT_UPLOAD_IMAGE_FAILED", failedListener_upload);
+
+  function failedListener_upload() {
     if (arguments && arguments[1]) {
       var errorMessage = arguments[1].errorMessage;
       vm.alerts.errorResponse(errorMessage, "Server Service Error!", "Please read the message below:");
@@ -66,7 +69,7 @@
     }
   }
 
-  function successListener() {
+  function successListener_upload() {
     if (arguments && arguments[1]) {
 
       var img_url_path = $.getServerRoot() + "/service_generic_query" + arguments[1].result[0].stringkappa;

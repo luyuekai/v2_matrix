@@ -3,7 +3,7 @@ var labelStyle = {
   fontWeight: 'bold',
   fontSize: '12'
 };
-var gridSupportArray = ['bar', 'line', 'scatter','area'];
+var gridSupportArray = ['bar', 'line', 'scatter', 'area'];
 
 
 var ChartPOJO = ChartPOJO || {};
@@ -138,9 +138,11 @@ ChartPOJO = {
       },
       data: series_data
     };
-    if(chart_type==='area'){
+    if (chart_type === 'area') {
       // area acutal is a line chart and has area style fill
-      series_object.areaStyle={normal: {}};
+      series_object.areaStyle = {
+        normal: {}
+      };
       series_object.type = 'line';
     }
     option_chart.series.push(series_object);
@@ -151,10 +153,21 @@ ChartPOJO = {
 
     // 使用刚指定的配置项和数据显示图表。
     chart.setOption(option_chart);
+
+    $(window).resize(function() {
+      setTimeout(function() {
+        chart.resize();
+      }, 500);
+    });
     return chart;
   },
 
-
+  reset_XAxis: function(chart, x_Axis_data) {
+    var option = chart.getOption();
+    option.xAxis[0].data = x_Axis_data;
+    chart.setOption(option);
+    return chart;
+  },
   addSeries: function(chart, series_name, series_type, series_data) {
     var option = chart.getOption();
 
@@ -163,10 +176,15 @@ ChartPOJO = {
       type: series_type,
       data: series_data
     };
-    if(series_type==='area'){
+    if (series_type === 'area') {
       // area acutal is a line chart and has area style fill
-      series_object.areaStyle={normal: {}};
+      series_object.areaStyle = {
+        normal: {}
+      };
       series_object.type = 'line';
+    }
+    if (series_type === 'bar') {
+      series_object.barGap = '10%';
     }
     option.series.push(series_object);
     option.legend[0].data.push(series_name);
@@ -204,8 +222,33 @@ ChartPOJO = {
     return chart;
   },
 
-  cloneChartOption:function(chart){
-      var option = ClonePOJO.deepClone(chart.getOption());
-      return option;
+  addStack:function(chart,stack_name,series_name){
+    var option = ClonePOJO.deepClone(chart.getOption());
+    $.each(option.series, function(index, value) {
+      if (value.name==series_name) {
+        value.stack=stack_name;
+      }
+    });
+
+    chart.clear();
+
+    chart.setOption(option);
+
+    return chart;
+  },
+
+  getStacks:function(chart){
+    var stacks = [];
+    $.each(chart.getOption().series, function(index, value) {
+      if (value.stack && stacks.indexOf(value.stack)==-1) {
+        stacks.push(value.stack);
+      }
+    });
+    return stacks;
+  },
+
+  cloneChartOption: function(chart) {
+    var option = ClonePOJO.deepClone(chart.getOption());
+    return option;
   }
 }

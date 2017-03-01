@@ -62,7 +62,7 @@
                   <label class="sr-only" for="password">Password</label>
                   <input type="password" name="password" placeholder="password" class="form-password form-control" id="password">
                 </div>
-                <button type="submit" class="btn" style="background: #3498db;">Login</button>
+                <button id="login_button" type="submit" class="btn" style="background: #3498db;">Login</button>
               </form>
             </div>
           </div>
@@ -89,6 +89,13 @@
         $('#loginFailedInfoDIV').css('display', 'none');
       }
     });
+
+    function auto_login(){
+      $('#username').val('ease');
+      $('#password').val('ease');
+      $('#login_button').click();
+    }
+    // auto_login();
   </script>
 </body>
 
