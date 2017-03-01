@@ -1,0 +1,240 @@
+<div style="margin-left:30px;margin-right:30px;margin-bottom:60px">
+  <div class="row">
+    <div class="col-md-8" style="margin-top: 30px;" id="test">
+      <div class="card card-mini" >
+        <div class="card-header">
+          Echart Demo
+        </div>
+        <div class="card-body">
+          <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+          <div id="main" style="width: 100%;height:100%;min-height:360px"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4" style="margin-top: 30px;">
+      <div class="card card-mini">
+        <div class="card-header">
+          Configuration
+        </div>
+        <div class="card-body">
+          <div>
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">X-Axis</label>
+                <div class="col-sm-6">
+                  <div class="input-group" title="From Source">
+                    <span class="input-group-addon" id="basic-addon1">
+                      <i class="fa fa-database" aria-hidden="true"></i>&nbsp;</span>
+                    <input type="text" class="form-control" placeholder="From Source" aria-describedby="basic-addon1" >
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <button onclick="ModalUtil.popup_modal('Manual input data source[X-Axis]', '/assets/self-owned/html/chart/modal_content_set_XAxis.html', null, null, null);" title="Manual input data source" type="button" class="btn btn-success btn-xs" style="padding: 6px 12px;margin-top: 3px;"><i class="fa fa-plus"></i></button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Series</label>
+                <div class="col-sm-6">
+                  <div class="input-group" title="From Source">
+                    <span class="input-group-addon" id="basic-addon2">
+                      <i class="fa fa-database" aria-hidden="true"></i>&nbsp;</span>
+                    <input type="text" class="form-control" placeholder="From Source" aria-describedby="basic-addon2" >
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <button onclick="ModalUtil.popup_modal('Manual add series', '/assets/self-owned/html/chart/modal_content_add_series.html', null, null, null);" title="Manual add series" type="button" class="btn btn-success btn-xs" style="padding: 6px 12px;margin-top: 3px;"><i class="fa fa-plus"></i></button>
+                  <button onclick="ModalUtil.popup_modal('Manual minus series', '/assets/self-owned/html/chart/modal_content_minus_series.html', null, null, null);" title="Manual minus series" type="button" class="btn btn-danger btn-xs" style="padding: 6px 12px;margin-top: 3px;"><i class="fa fa-minus"></i></button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Stack</label>
+                <div class="col-sm-6">
+                  <div class="input-group" title="From Source">
+                    <span class="input-group-addon" id="basic-addon2">
+                      <i class="fa fa-database" aria-hidden="true"></i>&nbsp;</span>
+                    <input type="text" class="form-control" placeholder="From Source" aria-describedby="basic-addon2" >
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <button onclick="ModalUtil.popup_modal('Manual add stacks', '/assets/self-owned/html/chart/modal_content_add_stack.html', null, null, null);" title="Manual add series" type="button" class="btn btn-success btn-xs" style="padding: 6px 12px;margin-top: 3px;"><i class="fa fa-plus"></i></button>
+                  <button onclick="ModalUtil.popup_modal('Manual minus series', '/assets/self-owned/html/chart/modal_content_minus_series.html', null, null, null);" title="Manual minus series" type="button" class="btn btn-danger btn-xs" style="padding: 6px 12px;margin-top: 3px;"><i class="fa fa-minus"></i></button>
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">Align</label>
+                <div class="col-sm-10">
+                  <div>
+                    <div class="radio radio-inline">
+                      <input type="radio" name="radio_align" id="radio1" value="DEFAULT" data-bind="checked: align_type">
+                      <label for="radio1" title="default">
+                        <i class="fa fa-align-justify" aria-hidden="true"></i>
+                      </label>
+                    </div>
+                    <div class="radio radio-inline">
+                      <input type="radio" name="radio_align" id="radio2" value="LEFT" checked="" data-bind="checked: align_type">
+                      <label for="radio2" title="left">
+                        <i class="fa fa-align-left" aria-hidden="true"></i>
+                      </label>
+                    </div>
+                    <div class="radio radio-inline">
+                      <input type="radio" name="radio_align" id="radio3" value="CENTER" data-bind="checked: align_type">
+                      <label for="radio3" title="center">
+                        <i class="fa fa-align-center" aria-hidden="true"></i>
+                      </label>
+                    </div>
+                    <div class="radio radio-inline">
+                      <input type="radio" name="radio_align" id="radio4" value="RIGHT" data-bind="checked: align_type">
+                      <label for="radio4" title="right">
+                        <i class="fa fa-align-right" aria-hidden="true"></i>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+
+
+  var x_Axis_data = [2013,2014,2015,2016,2017];
+  var series_name = 'GDP';
+  var series_data = [20,30,30,50,80];
+  var chart = ChartPOJO.generateGridChart('main', 'bar', 'Bar Chart Demo', false, x_Axis_data, series_name, series_data);
+
+</script>
+
+
+<script>
+// var myChart = echarts.init(document.getElementById('main'));
+// var xAxisData = [];
+// var data1 = [];
+// var data2 = [];
+// var data3 = [];
+// var data4 = [];
+// var data5 = [];
+// var data6 = [];
+// var data7 = [];
+// var data8 = [];
+// for (var i = 0; i < 1; i++) {
+//   xAxisData.push('Category' + (i + 1));
+//   data1.push(1);
+//   data2.push(1);
+//   data3.push(1);
+//   data4.push(1);
+//   data5.push(1);
+//   data6.push(1);
+//   data7.push(1);
+//   data8.push(1);
+// }
+//
+// option = {
+//   color: ['#1ABC9C', '#5DADE2', '#FFC153', '#EC7063', '#CC99CC', '#666666', '#5E5E73', '#FFBC11'],
+//   title: {
+//     // text: 'Bar Chart'
+//   },
+//   legend: {
+//     // data: ['bar', 'bar2'],
+//     // align: 'left'
+//   },
+//   toolbox: {},
+//   tooltip: {},
+//   xAxis: {
+//     data: xAxisData,
+//     silent: false,
+//     splitLine: {
+//       show: false
+//     }
+//   },
+//   yAxis: {
+//     splitLine: {
+//       show: false
+//     },
+//
+//   },
+//
+//     series: [{
+//         name: 'bar',
+//         type: 'bar',
+//         data: data1,
+//         animationDelay: function (idx) {
+//             return idx * 10;
+//         },
+//
+//     }, {
+//         name: 'bar2',
+//         type: 'bar',
+//         data: data2,
+//         animationDelay: function (idx) {
+//             return idx * 10 + 100;
+//         },
+//
+//     },
+//     {
+//         type: 'bar',
+//         data: data3,
+//         animationDelay: function (idx) {
+//             return idx * 10;
+//         },
+//
+//     },
+//     {
+//         type: 'bar',
+//         data: data4,
+//         animationDelay: function (idx) {
+//             return idx * 10;
+//         },
+//
+//     },
+//     {
+//         type: 'bar',
+//         data: data5,
+//         animationDelay: function (idx) {
+//             return idx * 10;
+//         },
+//
+//     },
+//     {
+//         type: 'bar',
+//         data: data6,
+//         animationDelay: function (idx) {
+//             return idx * 10;
+//         },
+//
+//     },
+//     {
+//         type: 'bar',
+//         data: data7,
+//         animationDelay: function (idx) {
+//             return idx * 10;
+//         },
+//
+//     },
+//     {
+//         type: 'bar',
+//         data: data8,
+//         animationDelay: function (idx) {
+//             return idx * 10;
+//         },
+//
+//     },
+//   ],
+//   animationEasing: 'elasticOut',
+//   animationDelayUpdate: function(idx) {
+//     return idx * 5;
+//   }
+// };
+//
+// // 使用刚指定的配置项和数据显示图表。
+// myChart.setOption(option);
+</script>

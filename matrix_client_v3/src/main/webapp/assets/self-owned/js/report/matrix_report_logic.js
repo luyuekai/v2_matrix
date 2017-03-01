@@ -1,20 +1,40 @@
+
+var isView = false;
+function switchMode(){
+  if(isView){
+    editMode();
+  }else{
+    viewMode();
+  }
+}
 function viewMode() {
+  if(isView){
+    return;
+  }
+  isView = true;
   console.log("2 view mode");
   $('#sidebar').css('display', 'none');
   $('#navbar').css('display', 'none');
   $('#report_menubar_div').css('display', 'none');
   $('#footer_div').css('display', 'none');
+  $('#help-actions').css('display', 'none');
+
   if(reportViewModel){
     reportViewModel.inactive_cells();
   }
 }
 
 function editMode() {
+  if(!isView){
+    return;
+  }
+  isView = false;
   console.log("2 view mode");
   $('#sidebar').css('display', '');
   $('#navbar').css('display', '');
   $('#report_menubar_div').css('display', '');
   $('#footer_div').css('display', '');
+  $('#help-actions').css('display', '');
 }
 
 
