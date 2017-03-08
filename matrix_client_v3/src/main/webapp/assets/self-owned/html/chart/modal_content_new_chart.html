@@ -1,0 +1,30 @@
+<div>
+  <p>
+    This operation will start a new chart editor, please confirm to continue...
+  </p>
+
+  <br>
+  <div class="pull-right">
+    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+    <button type="button" onclick="reset()" class="btn btn-sm btn-success">Confirm</button>
+  </div>
+
+  <br>
+</div>
+
+<script>
+
+  function reset(){
+    if(chart && chartViewModel){
+
+      // ChartPOJO.newChart('main');
+      ChartPOJO.cleanChart('main');
+      chartViewModel.chart = null;
+      chartViewModel.data = null;
+      ModalUtil.modal_close('popupModalPro');
+    }else{
+      alert("The system view model is not setup correctly, please contact the system admin.")
+    }
+
+  }
+</script>

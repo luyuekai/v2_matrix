@@ -63,7 +63,85 @@
               </div>
 
             </div>
+            <div class="form-group">
+              <label for="inputPassword3" class="col-sm-2 control-label">Type</label>
+              <div class="col-sm-10">
+                <div>
+                  <div class="radio radio-inline">
+                    <input type="radio" name="radio_align" id="radio_series_type_bar" value="bar"  data-bind="checked: series_type">
+                    <label for="radio_series_type_bar" title="left">
+                      <i class="fa fa-bar-chart" aria-hidden="true">&nbsp;bar</i>
+                    </label>
+                  </div>
+                  <div class="radio radio-inline">
+                    <input type="radio" name="radio_align" id="radio_series_type_line" value="line" data-bind="checked: series_type">
+                    <label for="radio_series_type_line" title="center">
+                      <i class="fa fa-line-chart" aria-hidden="true">&nbsp;line</i>
+                    </label>
+                  </div>
+                  <div class="radio radio-inline">
+                    <input type="radio" name="radio_align" id="radio_series_type_area" value="area" data-bind="checked: series_type">
+                    <label for="radio_series_type_area" title="right">
+                      <i class="fa fa-area-chart" aria-hidden="true">&nbsp;area</i>
+                    </label>
+                  </div>
+                  <div class="radio radio-inline">
+                    <input type="radio" name="radio_align" id="radio_series_type_scatter" value="scatter" data-bind="checked: series_type">
+                    <label for="radio_series_type_scatter" title="right">
+                      <i class="fa fa-sliders" aria-hidden="true">&nbsp;scatter</i>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            <div class="form-group" data-bind="visible:$data.series_type()=='scatter'">
+              <label for="inputPassword3" class="col-sm-2 control-label">Scale</label>
+              <div class="col-sm-10">
+                <div>
+                  <div class="radio radio-inline">
+                    <input type="radio" name="radio_scale" id="radio_scale_default" value="default"  data-bind="checked: scale_type">
+                    <label for="radio_scale_default" title="Use default">
+                      &nbsp;Use default
+                    </label>
+                  </div>
+                  <div class="radio radio-inline">
+                    <input type="radio" name="radio_scale" id="radio_scale_series" value="series" data-bind="checked: scale_type">
+                    <label for="radio_scale_series" title="Use series">
+                      &nbsp;Use series
+                    </label>
+                  </div>
+                  <div class="radio radio-inline">
+                    <input type="radio" name="radio_scale" id="radio_scale_manual" value="manual" data-bind="checked: scale_type">
+                    <label for="radio_scale_manual" title="Manual">
+                      &nbsp;Manual
+                    </label>
+                  </div>
+                  <div class="radio radio-inline">
+                    <input type="radio" name="radio_scale" id="radio_scale_disable" value="disable" data-bind="checked: scale_type">
+                    <label for="radio_scale_disable" title="Disable">
+                      &nbsp;Disable
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group" data-bind="visible:$data.scale_type()=='manual'">
+              <div class="col-sm-6">
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">
+                    <i class="fa fa-tag" aria-hidden="true"></i>&nbsp;Min</span>
+                  <input type="text" class="form-control" placeholder="Min Value" aria-describedby="basic-addon1" data-bind="value:scale_min">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">
+                    <i class="fa fa-tag" aria-hidden="true"></i>&nbsp;Max</span>
+                  <input type="text" class="form-control" placeholder="Max Value" aria-describedby="basic-addon1" data-bind="value:scale_max">
+                </div>
+              </div>
+            </div>
 
           </form>
           <div class="flat-matrix">
@@ -100,6 +178,10 @@
       var self = this;
       self.series_name = ko.observable();
       self.series_value = ko.observable();
+      self.series_type = ko.observable('bar');
+      self.scale_type = ko.observable('disable');
+      self.scale_min = ko.observable(1);
+      self.scale_max = ko.observable(10000);
     }
     var businessPOJO = new BusinessPOJO();
 
@@ -126,6 +208,14 @@
     //validate
     ValidationPOJO.validate("Series name", genericModalViewModel.businessPOJO().series_name(), errorMessages, ['KEY_NOT_NULL']);
     ValidationPOJO.validate("Series value", genericModalViewModel.businessPOJO().series_value(), errorMessages, ['KEY_NOT_NULL']);
+
+    var series_type = genericModalViewModel.businessPOJO().series_type();
+    var scale_type = genericModalViewModel.businessPOJO().scale_type();
+    if(series_type == 'scatter' && scale_type == 'manual'){
+      ValidationPOJO.validate("Scale min", genericModalViewModel.businessPOJO().scale_min(), errorMessages, ['KEY_NOT_NULL','KEY_MUST_NUMBER','KEY_NOT_NEGATIVE']);
+      ValidationPOJO.validate("Scale max", genericModalViewModel.businessPOJO().scale_max(), errorMessages, ['KEY_NOT_NULL','KEY_MUST_NUMBER','KEY_NOT_NEGATIVE']);
+    }
+
     return errorMessages;
   }
 
@@ -135,7 +225,36 @@
 
     var series_name = genericModalViewModel.businessPOJO().series_name();
     var series_array = genericModalViewModel.businessPOJO().series_value().split(',');
-    ChartPOJO.addSeries(chart,series_name,'bar',series_array);
+    var series_type = genericModalViewModel.businessPOJO().series_type();
+    var scale_type = genericModalViewModel.businessPOJO().scale_type();
+    var scale_setting = null;
+    if(series_type == 'scatter'){
+      scale_setting ={
+        enable:false,
+        useData:false,
+        min_scale:10,
+        max_scale:50,
+        min_value:1,
+        max_value:10000
+      };
+      if(scale_type == 'default' || scale_type == 'disable'){
+
+      }else if(scale_type == 'series'){
+        scale_setting.enable=true;
+        scale_setting.useData = true;
+      }else if(scale_type == 'manual'){
+        scale_setting.enable=true;
+        scale_setting.min_value = genericModalViewModel.businessPOJO().scale_min();
+        scale_setting.max_value = genericModalViewModel.businessPOJO().scale_max();
+      }
+    }
+
+    ChartPOJO.current_chart = chart;
+
+
+
+
+    ChartPOJO.addSeries(chart,series_name,series_type,series_array,scale_setting);
     setTimeout(function() {
       genericModalViewModel.response(true, "Entity Operation", "[Successed]", "Operation Successed, please close the console and reload the data.");
       LoaderUtil.remove_v3('genericModalDiv');

@@ -44,14 +44,14 @@
   <div class="business_div_class" data-bind="if:businessPOJO()">
     <div data-bind="with:businessPOJO">
       <p>
-        This operation will save the report as draft into persist layer, please fulfill the information and confirm to continue...
+        This operation will save the chart into persist layer, please fulfill the information and confirm to continue...
       </p>
       <div class="row">
         <div class="col-xs-12">
           <div class="input-group">
             <span class="input-group-addon" id="basic-addon1">
           <i class="fa fa-edit" aria-hidden="true"></i></span>
-            <input data-bind="value:report_name" type="text" class="form-control" placeholder="Name this report" aria-describedby="basic-addon1" value="">
+            <input data-bind="value:chart_name" type="text" class="form-control" placeholder="Name this chart" aria-describedby="basic-addon1" value="">
           </div>
           <div>
             <div class="checkbox">
@@ -63,7 +63,7 @@
             <div class="checkbox" data-bind="visible:id">
               <input data-bind="checked: is_new" type="checkbox" id="checkbox2">
               <label for="checkbox2">
-                Save as a new draft
+                Save as a new chart
               </label>
             </div>
           </div>
@@ -95,7 +95,7 @@
     function BusinessPOJO() {
       var self = this;
       self.id = ko.observable();
-      self.report_name = ko.observable('');
+      self.chart_name = ko.observable('');
       self.is_share = ko.observable(false);
       self.is_new = ko.observable(true);
     }
@@ -104,7 +104,7 @@
       var data = ModalUtil.businessPOJO.data;
       console.log("-->" + ModalUtil.businessPOJO);
       businessPOJO.id(data.id);
-      businessPOJO.report_name(data.stringalpha);
+      businessPOJO.chart_name(data.stringalpha);
       businessPOJO.is_share(data.tag == 'SHARE');
       businessPOJO.is_new(false);
     }
@@ -129,7 +129,7 @@
     //validate logic...
 
     //validate
-    ValidationPOJO.validate("Report Name", genericModalViewModel.businessPOJO().report_name(), errorMessages, ['KEY_NOT_NULL']);
+    ValidationPOJO.validate("Chart Name", genericModalViewModel.businessPOJO().chart_name(), errorMessages, ['KEY_NOT_NULL']);
 
     return errorMessages;
   }
@@ -137,7 +137,7 @@
   // *******YOUR SHOULD CODING IN HERE:*******
   var runService = function() {
     LoaderUtil.add_v3('genericModalDiv');
-      persist_report();
+      persist();
   }
   $.subscribe("SUCCESS_LISTENER", successAddListener_modal);
   $.subscribe("SUCCESS_LISTENER_SHARE", successAddListener_share);
@@ -148,10 +148,9 @@
     if (arguments && arguments[1]) {
       console.log(arguments[1]);
       var json = arguments[1].result[0];
-      if(reportViewModel){
-        reportViewModel.deserialize_report(json);
-        reportViewModel.hasNewContent(false);
-      }
+      // if(reportViewModel){
+      //   reportViewModel.deserialize_report(json);
+      // }
       // responseViewModel.correctResponse(arguments[1]);
       setTimeout(function() {
         genericModalViewModel.response(true, "Entity Operation", "[Successed]", "Operation Successed, please close the console and reload the data.");
@@ -194,10 +193,9 @@
   function successListener() {
       if (arguments && arguments[1]) {
           var json = arguments[1].result[0];
-          if(reportViewModel){
-            reportViewModel.deserialize_report(json);
-            reportViewModel.hasNewContent(false);
-          }
+          // if(reportViewModel){
+          //   reportViewModel.deserialize_report(json);
+          // }
           setTimeout(function() {
             genericModalViewModel.response(true, "Entity Operation", "[Successed]", "Operation Successed, please close the console and reload the data.");
             LoaderUtil.remove_v3('genericModalDiv');
@@ -210,15 +208,15 @@
 
 <script>
 
-  function persist_report() {
-    if (!reportViewModel) {
+  function persist() {
+    if (!chart) {
       return;
     }
-    //'type': 'MATRIX_REPORT_DRAFT','MATRIX_REPORT_TEMPLATE','MATRIX_REPORT_FINISHED'
+    //'type': 'MATRIX_CHART'
     //'tag': SAVE,SHARE
 
     var tag = genericModalViewModel.businessPOJO().is_share() ? 'SHARE' : 'SAVE';
-    var json = reportViewModel.serialize_report();
+    var json = ChartPOJO.serialize_chart_option(chart);
 
     if (!genericModalViewModel.businessPOJO().is_new() && genericModalViewModel.businessPOJO().id()) {
       var requestPOJO= {
@@ -226,7 +224,7 @@
           "attributes": {
             'tag': tag,
             'json': json,
-            'stringalpha': genericModalViewModel.businessPOJO().report_name(),
+            'stringalpha': genericModalViewModel.businessPOJO().chart_name(),
             "id":genericModalViewModel.businessPOJO().id()
           }
       };
@@ -238,16 +236,15 @@
       $.serverRequest($.getServerRoot() + '/service_generic_query/api/cud/update',data,"SUCCESS_LISTENER", "FAILED_LISTENER", "SERVER_FAILED_LISTENER");
     } else {
       var shareJson = {
-        'type': 'MATRIX_REPORT_DRAFT',
+        'type': 'MATRIX_CHART',
         'tag': tag,
         'json': json,
-        'stringalpha': genericModalViewModel.businessPOJO().report_name(),
+        'stringalpha': genericModalViewModel.businessPOJO().chart_name(),
         'username': 'ease'
       }
       var data = {
         'shareJson': $.toJSON(shareJson)
       };
-      console.log("save new draft");
       $.serverRequest($.getServerRoot() + '/service_generic_query/api/share/generate/' + 10000, data, "SUCCESS_LISTENER_SHARE", "FAILED_LISTENER", "SERVER_FAILED_LISTENER");
     }
 

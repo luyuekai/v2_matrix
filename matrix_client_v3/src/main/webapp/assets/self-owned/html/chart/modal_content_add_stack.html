@@ -114,17 +114,17 @@
     }
     var businessPOJO = new BusinessPOJO();
     if (chart) {
-      var currentSeries = chart.getOption().legend[0].data;
+      // var currentSeries = chart.getOption().legend[0].data;
+      var currentSeries = chart.getOption().series;
       $.each(currentSeries, function(index, value) {
-        var obj = {
-          'checkbox_id': 'checkbox_' + index,
-          'value': value,
-          'is_select': false
-        };
-        businessPOJO.availableSeriesNames.push(obj);
-
-
-
+        if(value.type=="bar"){
+          var obj = {
+            'checkbox_id': 'checkbox_' + index,
+            'value': value.name,
+            'is_select': false
+          };
+          businessPOJO.availableSeriesNames.push(obj);
+        }
       });
 
       var currentStacks = ChartPOJO.getStacks(chart);
