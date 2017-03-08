@@ -86,6 +86,7 @@ function successListener() {
     var json = arguments[1].result[0];
     if (reportViewModel) {
       reportViewModel.deserialize_report(json);
+      reportViewModel.hasNewContent(false);
     }
   }
 }
@@ -119,3 +120,85 @@ reportViewModel.addCell();
 ko.applyBindings(reportViewModel, document.getElementById('main_content_div'));
 
 SharePOJO.environmentCheck();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// *******Server Side Retrieve Data JS Code*******
+var retrieveData_chart = function(page) {
+  //        LoaderUtil.add('tableDIV');
+  var requestPOJO = {
+    "className": "Share",
+    "orderMap": {
+      "id": false
+    },
+    "pageMaxSize": pageMaxSize,
+    "currentPageNumber": page || 1,
+    "likeORMap": {
+
+    },
+    "eqMap": {
+      "type": "MATRIX_CHART",
+      "deleted": false
+    },
+    "inMap": {},
+  };
+  var data = {
+    'queryJson': $.toJSON(requestPOJO)
+  };
+  $.serverRequest($.getServerRoot() + '/service_generic_query/api/query', data, "CHART_SEARCH_SUCCESS_LISTENER", "CHART_PAGING_SEARCH_FAILED", "CHART_SERVICE_GENERIC_QUERY_FAILED");
+}
+
+
+// *******Server Side Retrieve Data Listener JS Code*******
+$.subscribe("CHART_SEARCH_SUCCESS_LISTENER", successListener_chart);
+$.subscribe("CHART_PAGING_SEARCH_FAILED", failedListener_chart);
+$.subscribe("CHART_SERVICE_GENERIC_QUERY_FAILED", failedServiceListener_chart);
+
+
+function failedServiceListener_chart() {
+  if(!genericModalViewModel){
+    return;
+  }
+  genericModalViewModel.response(false, "SERVICE 'GENERIC QUERY", "[Failed]", "SERVICE 'GENERIC CUD' FAILED! Please contact with the system admin for more information...");
+}
+
+function failedListener_chart() {
+  if(!genericModalViewModel){
+    return;
+  }
+  if (arguments && arguments[1]) {
+    var errorMessage = arguments[1].errorMessage;
+    genericModalViewModel.response(false, "SERVICE 'GENERIC QUERY", "[Failed]", errorMessage);
+  }
+}
+
+function successListener_chart() {
+  if(!genericModalViewModel){
+    return;
+  }
+  if (arguments && arguments[1]) {
+    var data = arguments[1].result;
+    displayResult = displayResult.concat(data);
+    if (data.length < pageMaxSize) {
+      hasNewData = false;
+    }
+    var history_scripts = displayResult.sort(sortTime);
+
+    genericModalViewModel.businessPOJO().serverPagingViewModel.viewData(history_scripts);
+  }
+}
+
+function sortTime(a, b) {
+  return b.createtime - a.createtime;
+}

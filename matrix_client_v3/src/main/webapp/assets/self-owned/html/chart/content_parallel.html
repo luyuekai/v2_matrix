@@ -1,0 +1,180 @@
+<div style="margin-left:30px;margin-right:30px;margin-bottom:60px">
+  <div class="row">
+    <div class="col-md-8" style="margin-top: 30px;" id="test">
+      <div class="card card-mini">
+        <div class="card-header">
+          PARALLEL
+        </div>
+        <div class="card-body">
+          <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+          <div id="main" style="width: 100%;height:100%;min-height:360px"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4" style="margin-top: 30px;">
+      <div class="card card-mini">
+        <div class="card-header">
+          Configuration
+        </div>
+        <div class="card-body">
+          <div>
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Axis</label>
+                <div class="col-sm-6">
+                  <div class="input-group" title="From Source">
+                    <span class="input-group-addon" id="basic-addon1">
+                      <i class="fa fa-database" aria-hidden="true"></i>&nbsp;</span>
+                    <input type="text" class="form-control" placeholder="From Source" aria-describedby="basic-addon1">
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <button onclick="ModalUtil.popup_modal('Manual input data source[Axis]', '/assets/self-owned/html/chart/modal_content_set_axis.html', null, null, null);" title="Manual input data source" type="button" class="btn btn-success btn-xs" style="padding: 6px 12px;margin-top: 3px;"><i class="fa fa-plus"></i></button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Series</label>
+                <div class="col-sm-6">
+                  <div class="input-group" title="From Source">
+                    <span class="input-group-addon" id="basic-addon2">
+                      <i class="fa fa-database" aria-hidden="true"></i>&nbsp;</span>
+                    <input type="text" class="form-control" placeholder="From Source" aria-describedby="basic-addon2">
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <button onclick="ModalUtil.popup_modal('Manual add series', '/assets/self-owned/html/chart/modal_content_add_series.html', null, null, null);" title="Manual add series" type="button" class="btn btn-success btn-xs" style="padding: 6px 12px;margin-top: 3px;"><i class="fa fa-plus"></i></button>
+                  <button onclick="ModalUtil.popup_modal('Manual minus series', '/assets/self-owned/html/chart/modal_content_minus_series.html', null, null, null);" title="Manual minus series" type="button" class="btn btn-danger btn-xs" style="padding: 6px 12px;margin-top: 3px;"><i class="fa fa-minus"></i></button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Stack</label>
+                <div class="col-sm-6">
+                  <div class="input-group" title="From Source">
+                    <span class="input-group-addon" id="basic-addon2">
+                      <i class="fa fa-database" aria-hidden="true"></i>&nbsp;</span>
+                    <input type="text" class="form-control" placeholder="From Source" aria-describedby="basic-addon2">
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <button onclick="ModalUtil.popup_modal('Manual add stacks', '/assets/self-owned/html/chart/modal_content_add_stack.html', null, null, null);" title="Manual add stacks" type="button" class="btn btn-success btn-xs" style="padding: 6px 12px;margin-top: 3px;"><i class="fa fa-plus"></i></button>
+                  <button onclick="ModalUtil.popup_modal('Manual minus series', '/assets/self-owned/html/chart/modal_content_minus_stack.html', null, null, null);" title="Manual minus stacks" type="button" class="btn btn-danger btn-xs" style="padding: 6px 12px;margin-top: 3px;"><i class="fa fa-minus"></i></button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+      <br>
+
+      <div data-bind="if:option.title">
+      <div class="card card-mini" data-bind="with: option.title">
+        <div class="card-header">
+          Title
+          <div class="card-title">
+            <span class="pull-right" style="margin-right:18px">
+              <button onclick="hide_div('title_content_div')" title="Refresh" type="button" class="btn btn-default btn-xs" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-minus"></i></button>
+              <button onclick="show_div('title_content_div')" title="Refresh" type="button" class="btn btn-default btn-xs" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-plus"></i></button>
+              <button data-bind="click:update" title="Refresh" type="button" class="btn btn-default btn-xs" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-refresh"></i></button>
+            </span>
+          </div>
+        </div>
+        <div class="card-body" id="title_content_div">
+          <div>
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Title</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" placeholder="Name" data-bind="value:title_name">
+                </div>
+                <div class="col-sm-4">
+                  <div class="checkbox">
+                    <input type="checkbox" id="title_name_display_checkbox" data-bind="checked:title_display">
+                    <label for="title_name_display_checkbox">
+                      Display
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Link</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" placeholder="Link" data-bind="value:title_link">
+                </div>
+                <div class="col-sm-4">
+                  <div>
+                    <div class="radio ">
+                      <input type="radio" name="title_link_open_radio" id="radio_title_link_blank" value="blank" data-bind="checked:title_target">
+                      <label for="radio_title_link_blank">
+                        Blank
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <input type="radio" name="title_link_open_radio" id="radio_title_link_self" value="self" checked="" data-bind="checked:title_target">
+                      <label for="radio_title_link_self">
+                        Self
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">Align</label>
+                <div class="col-sm-10">
+                  <div>
+                    <div class="radio radio-inline">
+                      <input type="radio" name="radio_align" id="radio_align_left" value="left"  data-bind="checked: title_align">
+                      <label for="radio_align_left" title="left">
+                        <i class="fa fa-align-left" aria-hidden="true"></i>
+                      </label>
+                    </div>
+                    <div class="radio radio-inline">
+                      <input type="radio" name="radio_align" id="radio_align_center" value="center" data-bind="checked: title_align">
+                      <label for="radio_align_center" title="center">
+                        <i class="fa fa-align-center" aria-hidden="true"></i>
+                      </label>
+                    </div>
+                    <div class="radio radio-inline">
+                      <input type="radio" name="radio_align" id="radio_align_right" value="right" data-bind="checked: title_align">
+                      <label for="radio_align_right" title="right">
+                        <i class="fa fa-align-right" aria-hidden="true"></i>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">Baseline</label>
+                <div class="col-sm-10">
+                  <div>
+                    <div class="radio radio-inline">
+                      <input type="radio" name="radio_baseline" id="radio_baseline_top" value="top"  data-bind="checked: title_baseline">
+                      <label for="radio_baseline_top" title="left">
+                        top
+                      </label>
+                    </div>
+                    <div class="radio radio-inline">
+                      <input type="radio" name="radio_baseline" id="radio_baseline_middle" value="middle" data-bind="checked: title_baseline">
+                      <label for="radio_baseline_middle" title="center">
+                        middle
+                      </label>
+                    </div>
+                    <div class="radio radio-inline">
+                      <input type="radio" name="radio_baseline" id="radio_baseline_bottom" value="bottom" data-bind="checked: title_baseline">
+                      <label for="radio_baseline_bottom" title="right">
+                        bottom
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+
+            </form>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

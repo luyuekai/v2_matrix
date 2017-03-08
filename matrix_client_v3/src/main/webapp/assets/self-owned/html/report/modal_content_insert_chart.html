@@ -1,0 +1,191 @@
+<div id="genericModalDiv">
+  <!--LOADER DIV BEGIN-->
+  <div class="loader-container text-center">
+    <div class="icon">
+      <div class="sk-wave">
+        <div class="sk-rect sk-rect1"></div>
+        <div class="sk-rect sk-rect2"></div>
+        <div class="sk-rect sk-rect3"></div>
+        <div class="sk-rect sk-rect4"></div>
+        <div class="sk-rect sk-rect5"></div>
+      </div>
+    </div>
+    <div class="title">Loading</div>
+  </div>
+  <!--LOADER DIV BEGIN-->
+
+  <!--RESULT DISPLAY DIV BEGIN-->
+  <div class="flat-matrix">
+    <div id="resultDIV" data-bind="visible: hasResult,css: styleClass" class="alert fresh-color">
+      <button type="button" class="close" data-bind="click:function(){hasResult(!hasResult)}" aria-label="Close"><i class="fa fa-close"></i></button>
+      <strong>
+      <span data-bind="text:resultTitle"></span>
+    </strong>
+      <span data-bind="text:resultSubTitle"></span>
+      <div data-bind="text:resultContent"></div>
+    </div>
+  </div>
+  <!--RESULT DISPLAY DIV END-->
+
+  <!--Validation DIV BEGIN-->
+  <div class="flat-matrix">
+    <div data-bind="visible: hasError" class="alert alert-warning alert-dismissible fresh-color" role="alert">
+      <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
+        <i class="fa fa-close"></i>
+      </button>
+      <strong>Warning:</strong>
+      <div id="errorMessagesDIV" data-bind="foreach:errorMessage">
+        <div data-bind="text:$data"></div>
+      </div>
+    </div>
+  </div>
+  <!--Validation DIV END-->
+
+  <div id="business_div" class="business_div_class" data-bind="if:businessPOJO()" style="max-height:500px;overflow:scroll;overflow-y:auto;overflow-x:hidden">
+    <div id="business_content_div"  data-bind="with:businessPOJO" >
+      <p>
+        This operation will create a saved chart and insert to a new cell, please fulfill the information and confirm to continue...
+      </p>
+
+      <div class="row"  data-bind="with:viewModel">
+        <!--ko foreach: viewData-->
+        <div class="col-xs-12" style="margin-bottom:18px;">
+          <a class="card card-banner card-green-light" data-bind="event:{dblclick:function(){redirect2editor($data)}}">
+            <div class="card-body" style="height: 80px;">
+              <i class="icon fa fa-area-chart fa-2x"></i>
+              <div class="content" style="padding: 1rem;">
+                <div class="title">
+                  <span  data-bind="text:(function(){return new Date(parseInt(createtime)).toLocaleString()})()" style="margin-right: 8px;"></span>
+                </div>
+                <div class="value" style="font-size: 2em;line-height: 0rem;">
+
+                  <span class="sign" data-bind="text:stringalpha"></span>
+                  Chart
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- /ko -->
+      </div>
+
+      <br>
+
+
+      <br>
+    </div>
+  </div>
+</div>
+
+<script>
+
+</script>
+<script>
+  // Initialize the View Model
+  // Clean the paging binding nodes
+  // Binding the view Model
+  var genericModalViewModel = new GenericModalViewModel();
+  ko.cleanNode($('#genericModalDiv')[0]);
+  ko.applyBindings(genericModalViewModel, document.getElementById('genericModalDiv'));
+
+  // Setup the business model with view model
+  (function initialize() {
+    // *******YOUR SHOULD CODING IN HERE:*******
+    function BusinessPOJO() {
+      var self = this;
+      self.serverPagingViewModel = new ServerPagingViewModel();
+      self.serverPagingViewModel.retrieveData = retrieveData_chart;
+      self.viewModel = ko.observable(self.serverPagingViewModel);
+
+    }
+    var businessPOJO = new BusinessPOJO();
+
+    genericModalViewModel.businessPOJO(businessPOJO);
+  })();
+
+  function execute() {
+    // validation failed
+    // show validation error message in the warning DIV...
+    if (!genericModalViewModel.validation(businessValidation)) {
+      return;
+    } else {
+      // validation correct
+      // do your business...
+      runService();
+    }
+  }
+
+  // *******YOUR SHOULD CODING IN HERE:*******
+  var businessValidation = function() {
+    var errorMessages = [];
+    //validate logic...
+
+    //validate
+    ValidationPOJO.validate("Row size", genericModalViewModel.businessPOJO().num_row(), errorMessages, ['KEY_NOT_NULL','KEY_MUST_NUMBER','KEY_NOT_NEGATIVE']);
+    ValidationPOJO.validate("Column size", genericModalViewModel.businessPOJO().num_col(), errorMessages, ['KEY_NOT_NULL','KEY_MUST_NUMBER','KEY_NOT_NEGATIVE']);
+    return errorMessages;
+  }
+
+  // *******YOUR SHOULD CODING IN HERE:*******
+  var runService = function() {
+    if (!reportViewModel) {
+      return;
+    }
+    var table_code = reportViewModel.generateTableCode(genericModalViewModel.businessPOJO().num_row(),genericModalViewModel.businessPOJO().num_col(),genericModalViewModel.businessPOJO().align_type());
+    reportViewModel.addCell_table(table_code);
+    ModalUtil.modal_close('popupModalPro');
+  }
+
+</script>
+
+
+
+
+<script>
+
+  function redirect2editor(currentData) {
+    if (currentData && currentData.json) {
+      reportViewModel.addCell_chart(currentData.json);
+      ModalUtil.modal_close('popupModalPro');
+    }
+  }
+
+</script>
+
+
+<script>
+  var page,pageMaxSize,hasNewData,displayResult = [];
+
+  function initialize() {
+      page = 1,
+      pageMaxSize = 5,
+      hasNewData = true,
+      displayResult = [];
+    $("#business_div").bind('scroll', function() {
+      scrollListener();
+    });
+    retrieveData_chart(1);
+  }
+  initialize();
+
+  function scrollListener() {
+    // debugger;
+    // console.log("$(#business_div).scrollTop()--->"+$("#business_div").scrollTop());
+    // console.log("$(#business_div).height()--->"+$("#business_div").height());
+    // console.log("$(#business_content_div).height()--->"+$("#business_content_div").height());
+    if (hasNewData) {
+      console.log("has new data");
+      if ($("#business_div").scrollTop()+$("#business_div").height()>= ($("#business_content_div").height()-60)) {
+        console.log("retrieve the new data ");
+        page += 1;
+        retrieveData_chart(page);
+      }
+    } else {
+      console.log("remove the scroll listener")
+      $(window).unbind('scroll');
+
+    }
+  }
+
+  //onclick="window.open($.getRootPath() + '/module_report_editor.html')"
+</script>

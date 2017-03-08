@@ -5,9 +5,10 @@
 function ReportViewModel() {
   var self = this;
 
-  self.data =null;
+  self.data = null;
   self.template = null;
   self.name = ko.observable();
+  self.hasNewContent = ko.observable(false);
   self.template_name = ko.observable();
   self.active_cell = null;
 
@@ -19,14 +20,15 @@ function ReportViewModel() {
 
 
   self.reset = function() {
-    self.data=null;
+    self.data = null;
     self.template = null;
     self.name("");
-    self.active_cell=null;
-    self.cut_cell=null;
+    self.active_cell = null;
+    self.cut_cell = null;
     self.copy_cell = null;
     self.cells.removeAll();
     self.addCell();
+    self.hasNewContent(true);
   };
 
 
@@ -35,15 +37,15 @@ function ReportViewModel() {
     var cell_id = (new Date()).getTime() + "_cell";
     cell.div_id(cell_id);
     // self.cells.push(cell);
-    if(self.active_cell){
+    if (self.active_cell) {
       var index = self.cells.indexOf(self.active_cell);
-      self.cells.splice(index+1,0,cell);
-    }else{
+      self.cells.splice(index + 1, 0, cell);
+    } else {
       self.cells.push(cell);
     }
 
     cell.listener_focus_in();
-
+    self.hasNewContent(true);
   };
 
   self.addCell_image = function(path) {
@@ -51,18 +53,19 @@ function ReportViewModel() {
     var cell_id = (new Date()).getTime() + "_cell";
     cell.div_id(cell_id);
     // self.cells.push(cell);
-    if(self.active_cell){
+    if (self.active_cell) {
       var index = self.cells.indexOf(self.active_cell);
-      self.cells.splice(index+1,0,cell);
-    }else{
+      self.cells.splice(index + 1, 0, cell);
+    } else {
       self.cells.push(cell);
     }
 
     cell.listener_focus_in();
-    var code = "!["+cell_id+"_source]("+path+")";
+    var code = "![" + cell_id + "_source](" + path + ")";
     cell.code_source(code);
     cell.listener_dbl_click();
     self.compileCell();
+    self.hasNewContent(true);
   };
 
   self.addCell_table = function(code) {
@@ -70,10 +73,10 @@ function ReportViewModel() {
     var cell_id = (new Date()).getTime() + "_cell";
     cell.div_id(cell_id);
     // self.cells.push(cell);
-    if(self.active_cell){
+    if (self.active_cell) {
       var index = self.cells.indexOf(self.active_cell);
-      self.cells.splice(index+1,0,cell);
-    }else{
+      self.cells.splice(index + 1, 0, cell);
+    } else {
       self.cells.push(cell);
     }
 
@@ -81,48 +84,73 @@ function ReportViewModel() {
     cell.code_source(code);
     cell.listener_dbl_click();
     self.compileCell();
+    self.hasNewContent(true);
   };
 
-  self.generateTableCode = function(num_row,num_col,align_type){
+  self.addCell_chart = function(json) {
+    var cell = new CellViewModel(self);
+    var cell_id = (new Date()).getTime() + "_cell";
+    cell.div_id(cell_id);
+    // self.cells.push(cell);
+    if (self.active_cell) {
+      var index = self.cells.indexOf(self.active_cell);
+      self.cells.splice(index + 1, 0, cell);
+    } else {
+      self.cells.push(cell);
+    }
+    cell.listener_focus_in();
+    var chart_div_id = cell.chart_div_id();
+    cell.isChartMode(true);
+    cell.code_compiled("");
+    cell.code_source("");
+    if (json) {
+      var option = ChartPOJO.deserialize_chart_option(json);
+      cell.chart = ChartPOJO.renderChart(chart_div_id, option);
+    }
+    self.hasNewContent(true);
+  };
+
+  self.generateTableCode = function(num_row, num_col, align_type) {
     num_row = num_row || 3;
     num_col = num_col || 3;
     align_type = align_type || 'DEFAULT'; // DEFAULT,LEFT,RIGHT,CENTER
     var _sep = "|";
-    var _sep_align ="---";
-    if(align_type == "RIGHT"){
-      _sep_align ="---:";
-    }else if(align_type == "CENTER"){
-      _sep_align =":---:";
+    var _sep_align = "---";
+    if (align_type == "RIGHT") {
+      _sep_align = "---:";
+    } else if (align_type == "CENTER") {
+      _sep_align = ":---:";
     }
     var result = "";
     // add header
     var header = "";
-    for(var i = 1; i <= num_col; i++){
-      header += _sep + "header_"+i;
+    for (var i = 1; i <= num_col; i++) {
+      header += _sep + "header_" + i;
     }
-    header +=_sep+"\n";
+    header += _sep + "\n";
     // add seperate
     var seperate = "";
-    for(var i = 1; i <= num_col; i++){
+    for (var i = 1; i <= num_col; i++) {
       seperate += _sep + _sep_align;
     }
-    seperate +=_sep+"\n";
+    seperate += _sep + "\n";
     // add content
     var content = "";
-    for(num_row; num_row > 0;num_row--){
-      for(var i = 1; i <= num_col; i++){
-        content += _sep + "content_"+i;
+    for (num_row; num_row > 0; num_row--) {
+      for (var i = 1; i <= num_col; i++) {
+        content += _sep + "content_" + i;
       }
-      content +=_sep+"\n";
+      content += _sep + "\n";
     }
     result = header + seperate + content;
     return result;
   }
 
-  self.compileCell = function(){
-    if(self.active_cell){
+  self.compileCell = function() {
+    if (self.active_cell) {
       self.active_cell.compile();
     }
+    self.hasNewContent(true);
   }
 
   self.inactive_cells = function() {
@@ -131,50 +159,93 @@ function ReportViewModel() {
         cell.isActive(false);
       }
     });
+    self.active_cell = null;
   }
 
   //cut current cell, remove it from the cells and put it in the cut cell attribute
   //focus the cell to the nearest cell
-  self.cutCell = function(){
-    if(!self.active_cell){
+  self.cutCell = function() {
+    if (!self.active_cell) {
       return;
     }
     var index = self.cells.indexOf(self.active_cell);
 
-    var nearest_cell = self.cells().length == index+1 ? (index==0? null : self.cells()[index-1]) : self.cells()[index+1];
+    var nearest_cell = self.cells().length == index + 1 ? (index == 0 ? null : self.cells()[index - 1]) : self.cells()[index + 1];
 
     self.cut_cell = self.active_cell;
     self.copy_cell = self.cut_cell.copy();
     self.cells.remove(self.cut_cell);
 
-    if(nearest_cell){
+    if (nearest_cell) {
       nearest_cell.listener_focus_in();
     }
+    self.hasNewContent(true);
   }
 
-  self.copyCell = function(){
-    if(!self.active_cell){
+  self.copyCell = function() {
+    if (!self.active_cell) {
       return;
     }
     self.copy_cell = self.active_cell;
   }
 
-  self.pasteCell = function(){
-    if(!self.copy_cell){
+  self.pasteCell = function() {
+    if (!self.copy_cell) {
       return;
     }
     var new_cell = self.copy_cell.copy();
-    var index = self.active_cell?self.cells.indexOf(self.active_cell):0;
-    self.cells.splice(index+1,0,new_cell);
+    var index = self.active_cell ? self.cells.indexOf(self.active_cell) : 0;
+    self.cells.splice(index + 1, 0, new_cell);
 
     new_cell.listener_focus_in();
 
-    if(!new_cell.isViewMode()){
+    if (!new_cell.isViewMode()) {
       new_cell.listener_dbl_click();
     }
+    self.hasNewContent(true);
   }
 
-  self.serialize_report = function(){
+  self.upCell = function() {
+    if (!self.active_cell) {
+      return;
+    }
+    var index = self.cells.indexOf(self.active_cell);
+    if (index == 0) {
+      return;
+    }
+    var splice_index = index - 1;
+    var new_cell = self.active_cell.copy();
+    self.cells.remove(self.active_cell);
+    self.cells.splice(splice_index, 0, new_cell);
+    new_cell.listener_focus_in();
+
+    if (!new_cell.isViewMode()) {
+      new_cell.listener_dbl_click();
+    }
+    self.hasNewContent(true);
+  }
+
+  self.downCell = function() {
+    if (!self.active_cell) {
+      return;
+    }
+    var index = self.cells.indexOf(self.active_cell);
+    if (index == self.cells().length-1) {
+      return;
+    }
+    var splice_index = index+1;
+    var new_cell = self.active_cell.copy();
+    self.cells.remove(self.active_cell);
+    self.cells.splice(splice_index, 0, new_cell);
+    new_cell.listener_focus_in();
+
+    if (!new_cell.isViewMode()) {
+      new_cell.listener_dbl_click();
+    }
+    self.hasNewContent(true);
+  }
+
+  self.serialize_report = function() {
     var report = {
       cells: []
     };
@@ -187,7 +258,7 @@ function ReportViewModel() {
   }
 
 
-  self.deserialize_json = function(json){
+  self.deserialize_json = function(json) {
     var report = $.parseJSON(json);
     self.cells.removeAll();
     $.each(report.cells, function(idx, cellShareModel) {
@@ -197,9 +268,9 @@ function ReportViewModel() {
     self.refreshCellsStatus();
   }
 
-  self.deserialize_report = function(inputData){
+  self.deserialize_report = function(inputData) {
     var json = inputData.json;
-    self.data=inputData;
+    self.data = inputData;
     self.name(inputData.stringalpha);
     var report = $.parseJSON(json);
 
@@ -213,9 +284,9 @@ function ReportViewModel() {
     self.inactive_cells();
   }
 
-  self.deserialize_template = function(inputData){
+  self.deserialize_template = function(inputData) {
     var json = inputData.json;
-    self.template ==inputData;
+    self.template == inputData;
     self.template_name(inputData.stringalpha);
     var report = $.parseJSON(json);
 
@@ -228,7 +299,7 @@ function ReportViewModel() {
     self.refreshCellsStatus();
   }
 
-  self.buildCell = function(model){
+  self.buildCell = function(model) {
 
     var cell = new CellViewModel(self);
     cell.div_id(model.div_id);
@@ -241,30 +312,45 @@ function ReportViewModel() {
 
     cell.isViewMode(model.isViewMode);
 
+    cell.isChartMode(model.isChartMode);
+
+    if (cell.isChartMode) {
+      cell.chartJson = model.chartJson;
+    }
+
+
+
 
     return cell;
   }
 
-  self.refreshCellsStatus = function(){
+  self.refreshCellsStatus = function() {
+
     $.each(self.cells(), function(idx, cell) {
-      if(!cell.isViewMode()){
+      if (!cell.isViewMode()) {
         cell.listener_dbl_click();
+      }
+      if (cell.isChartMode() && cell.chartJson) {
+        var chart_div_id = cell.chart_div_id();
+        var option = ChartPOJO.deserialize_chart_option(cell.chartJson);
+        var chart = ChartPOJO.renderChart(chart_div_id, option);
+        cell.chart = chart;
       }
     });
   }
 
-  self.persist2server = function(){
+  self.persist2server = function() {
     //'type': 'MATRIX_REPORT_DRAFT','MATRIX_REPORT_TEMPLATE','MATRIX_REPORT_FINISHED'
     //'tag': SAVE,SHARE
     var shareJson = {
-        'type': 'MATRIX_REPORT_DRAFT',
-        'tag':'SAVE',
-        'json':self.serialize_report(),
-        'stringalpha':'report draft demo',
-        'username':'Liu Yang'
+      'type': 'MATRIX_REPORT_DRAFT',
+      'tag': 'SAVE',
+      'json': self.serialize_report(),
+      'stringalpha': 'report draft demo',
+      'username': 'Liu Yang'
     }
     var data = {
-        'shareJson': $.toJSON(shareJson)
+      'shareJson': $.toJSON(shareJson)
     };
     $.serverRequest($.getServerRoot() + '/service_generic_query/api/share/generate/' + 10000, data, "TOKEN_SUCCESS", "TOKEN_FAILED", "TOKEN_SERVICE_FAILED");
   }
@@ -278,8 +364,14 @@ function CellViewModel(parent) {
   self.div_id = ko.observable();
 
   self.edit_div_id = ko.pureComputed(function() {
-    if(self.div_id()){
-        return self.div_id()+"_edit";
+    if (self.div_id()) {
+      return self.div_id() + "_edit";
+    }
+  }, self);
+
+  self.chart_div_id = ko.pureComputed(function() {
+    if (self.div_id()) {
+      return self.div_id() + "_chart";
     }
   }, self);
 
@@ -292,6 +384,10 @@ function CellViewModel(parent) {
   self.isActive = ko.observable(true);
 
   self.isViewMode = ko.observable(true);
+
+  self.chart = null;
+  self.chartJson = null;
+  self.isChartMode = ko.observable(false);
 
 
   self.currentStyle = ko.pureComputed(function() {
@@ -306,9 +402,9 @@ function CellViewModel(parent) {
       }
     } else {
       if (self.isActive()) {
-        result =  "edit_mode_focus_in";
+        result = "edit_mode_focus_in";
       } else {
-        result =  "edit_mode_focus_out";
+        result = "edit_mode_focus_out";
       }
     }
     return result;
@@ -323,35 +419,36 @@ function CellViewModel(parent) {
 
   self.listener_dbl_click = function() {
     // if the cell is in view mode, switch to edit mode
-    if(self.isViewMode()){
+    if (self.isViewMode()) {
       self.isViewMode(false);
     }
     // if the code mirror edit is not initialized, initialize it
-    if(!self.editor_CodeMirror){
+    if (!self.editor_CodeMirror) {
       self.create_codeMirror_component();
     }
+    self.parent.hasNewContent(true);
   }
 
-  self.compile = function(){
-    if(self.isViewMode()){
+  self.compile = function() {
+    if (self.isViewMode()) {
       return;
     }
 
-    if(self.editor_CodeMirror){
+    if (self.editor_CodeMirror) {
       var markdown_content = self.editor_CodeMirror.getValue();
       // var compile_code = markdown.toHTML(markdown_content);
-        var compile_code = converter.makeHtml(markdown_content);
-        self.code_compiled(compile_code);
-        self.code_source(markdown_content);
+      var compile_code = converter.makeHtml(markdown_content);
+      self.code_compiled(compile_code);
+      self.code_source(markdown_content);
 
-        //delete code mirror textarea
-        self.editor_CodeMirror = null;
-        $("#" + self.div_id()).find(".CodeMirror").remove();
-        self.isViewMode(true);
+      //delete code mirror textarea
+      self.editor_CodeMirror = null;
+      $("#" + self.div_id()).find(".CodeMirror").remove();
+      self.isViewMode(true);
     }
   }
 
-  self.copy = function(){
+  self.copy = function() {
 
     var cell = new CellViewModel(self.parent);
     var cell_id = (new Date()).getTime() + "_cell";
@@ -365,7 +462,7 @@ function CellViewModel(parent) {
 
     cell.isViewMode(self.isViewMode());
 
-    if(self.editor_CodeMirror){
+    if (self.editor_CodeMirror) {
       var markdown_content = self.editor_CodeMirror.getValue();
       cell.code_source(markdown_content);
     }
@@ -373,8 +470,8 @@ function CellViewModel(parent) {
     return cell;
   }
 
-  self.create_codeMirror_component = function(){
-    if(!self.div_id()){
+  self.create_codeMirror_component = function() {
+    if (!self.div_id()) {
       return;
     }
     var editor = CodeMirror.fromTextArea(document.getElementById(self.edit_div_id()), {
@@ -385,18 +482,18 @@ function CellViewModel(parent) {
         "Enter": "newlineAndIndentContinueMarkdownList"
       }
     });
-    editor.on('focus',function(){
+    editor.on('focus', function() {
       self.listener_focus_in();
     })
     self.editor_CodeMirror = editor;
   }
 
-  self.buildShareModel = function(){
+  self.buildShareModel = function() {
     var model = new CellShareModel();
     model.div_id = self.div_id();
     model.edit_div_id = self.edit_div_id();
 
-    if(self.editor_CodeMirror){
+    if (self.editor_CodeMirror) {
       var markdown_content = self.editor_CodeMirror.getValue();
       self.code_source(markdown_content);
     }
@@ -406,13 +503,20 @@ function CellViewModel(parent) {
     model.isActive = self.isActive();
     model.isViewMode = self.isViewMode();
     model.currentStyle = self.currentStyle();
+    model.isChartMode = self.isChartMode();
+
+    if (self.isChartMode() && self.chart) {
+      var json = ChartPOJO.serialize_chart_option(self.chart);
+      self.chartJson = json;
+      model.chartJson = json;
+    }
     return model;
   }
 
 }
 
 
-function CellShareModel(){
+function CellShareModel() {
   var self = this;
   self.div_id = null;
   self.edit_div_id = null;
@@ -420,6 +524,8 @@ function CellShareModel(){
   self.code_compiled = null;
   self.isActive = false;
   self.isViewMode = false;
+  self.isChartMode = false;
+  self.chartJson = null;
   self.currentStyle = null;
 }
 
@@ -430,22 +536,22 @@ $.subscribe("TOKEN_FAILED", failedListener);
 $.subscribe("TOKEN_SERVICE_FAILED", failedServiceListener);
 
 function successListener() {
-    if (arguments && arguments[1]) {
-      console.log("Save operation successed");
-        // console.log(arguments);
-        // genericModalViewModel.response(true, "保存操作", "[成功]", "");
-    }
+  if (arguments && arguments[1]) {
+    console.log("Save operation successed");
+    // console.log(arguments);
+    // genericModalViewModel.response(true, "保存操作", "[成功]", "");
+  }
 }
 
 function failedListener() {
-    if (arguments && arguments[1]) {
-      console.log("Save operation failed");
-        // var errorMessage = arguments[1].errorMessage;
-        // genericModalViewModel.response(false, "保存操作", "[失败]", errorMessage);
-    }
+  if (arguments && arguments[1]) {
+    console.log("Save operation failed");
+    // var errorMessage = arguments[1].errorMessage;
+    // genericModalViewModel.response(false, "保存操作", "[失败]", errorMessage);
+  }
 }
 
 function failedServiceListener() {
-    // genericModalViewModel.response(false, "保存操作", "[失败]", "服务器异常！请联系管理员解决。");
-    console.log("Save operation service failed");
+  // genericModalViewModel.response(false, "保存操作", "[失败]", "服务器异常！请联系管理员解决。");
+  console.log("Save operation service failed");
 }

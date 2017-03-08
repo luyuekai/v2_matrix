@@ -25,19 +25,24 @@
 
     <aside class="app-sidebar" id="sidebar"></aside>
 
-    <div class="app-container" id="main_div">
+    <div class="app-container" id="main_content_div">
       <nav class="navbar navbar-default" id="navbar"></nav>
 
-      <div class="row" id="report_menubar_div">
+      <div class="row" id="chart_menubar_div">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 0px;">
           <div class="card card-mini">
             <div class="card-header">
               <div class="card-title">
-                <select class="select2" style="width:200px;">
-                  <option value="AL">Bar Chart</option>
-                  <option value="WY">Line Chart</option>
+                <select class="select2" style="width:360px;" onchange="$('#sub_content_div').load($.getRootPath() + '/assets/self-owned/html/chart/'+this.options[this.options.selectedIndex].value+'.html');">
+                  <option value="content_axis">Chart-Descartes coordinates</option>
+                  <option value="content_polar">Chart-Polar coordinates</option>
+                  <option value="content_geo">Chart-Geo coordinatesm</option>
                 </select>
+                <button title="Clean" type="button" onclick="ModalUtil.popup_modal('New report', '/assets/self-owned/html/chart/modal_content_new_chart.html', null, null, null);" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-edit"></i></button>
 
+                <button title="New demo" type="button" onclick="initialize_chart()" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-paint-brush"></i></button>
+
+                <button title="Save" type="button" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Save chart', '/assets/self-owned/html/chart/modal_content_save_chart.html',$data);})" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-save"></i></button>
                 <span class="pull-right" style="margin-right:18px">
                   <button title="Refresh" type="button" class="btn btn-success" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-refresh"></i></button>
                 </span>
@@ -45,15 +50,18 @@
 
             </div>
             <div class="card-body no-padding table-responsive">
-
-
-
             </div>
           </div>
         </div>
       </div>
 
-      <div id="sub_content_div"></div>
+      <div id="sub_content_div">
+
+
+
+
+
+      </div>
 
 
 
@@ -114,18 +122,31 @@
     <script src="assets/self-owned/js/generic/generic_workbench.js"></script>
 
 
+    <script src="assets/self-owned/js/chart/matrix_chart_model.js"></script>
+    <script src="assets/self-owned/js/chart/matrix_chart_logic.js"></script>
+
 
 
     <script>
       $(document).ready(function() {
         $('#sidebar').load($.getRootPath() + '/assets/self-owned/html/side_content.html');
         $('#navbar').load($.getRootPath() + '/assets/self-owned/html/chart/nav_content.html');
-        $('#sub_content_div').load($.getRootPath() + '/assets/self-owned/html/chart/bar.html');
-
+        $('#sub_content_div').load($.getRootPath() + '/assets/self-owned/html/chart/content_axis.html');
         setTimeout(function() {
           resetCssClass('li_chart_prototype', 'active');
         }, 200);
       });
+
+      var chartViewModel = new ChartViewModel();
+      var chart;
+
+
+
+
+      setTimeout(function() {
+        ko.applyBindings(chartViewModel, document.getElementById('main_content_div'));
+        SharePOJO.environmentCheck();
+      }, 800);
     </script>
 
 

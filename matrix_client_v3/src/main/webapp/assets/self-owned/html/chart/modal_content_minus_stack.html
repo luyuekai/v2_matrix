@@ -47,21 +47,23 @@
         <div class="col-xs-12">
           <form class="form-horizontal">
             <div class="form-group">
-              <div class="col-sm-12">
-                <div class="input-group">
-                  <span class="input-group-addon" id="basic-addon1">
-                    <i class="fa fa-bars" aria-hidden="true"></i>&nbsp;</span>
-                  <input type="text" class="form-control" placeholder="cat,dog,bird,fish" aria-describedby="basic-addon1" data-bind="value:axis_value">
+              <label class="col-sm-2 control-label">Stack</label>
+              <div class="col-sm-4">
+                <div>
+                  <!-- ko foreach: availableStackNames -->
+                  <div class="checkbox">
+                    <input type="checkbox" data-bind="attr:{'id': checkbox_id},checked: is_select">
+                    <label data-bind="attr:{'for': checkbox_id},text:value">
+                    </label>
+                  </div>
+                  <!-- /ko -->
                 </div>
               </div>
-
             </div>
-
-
           </form>
           <div class="flat-matrix">
             <div class="alert alert-success alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
-                <i class="fa fa-book"></i>&nbsp;Please use commas to separate data
+              <i class="fa fa-book"></i>&nbsp;Please select the stack which will be removed
             </div>
           </div>
         </div>
@@ -87,16 +89,30 @@
   ko.applyBindings(genericModalViewModel, document.getElementById('genericModalDiv'));
 
   // Setup the business model with view model
+
   (function initialize() {
     // *******YOUR SHOULD CODING IN HERE:*******
     function BusinessPOJO() {
       var self = this;
-      self.axis_value = ko.observable();
+      self.availableStackNames = ko.observableArray();
     }
     var businessPOJO = new BusinessPOJO();
+    if (chart) {
+      var currentStacks = ChartPOJO.getStacks(chart);
+      $.each(currentStacks, function(index, value) {
+        var obj = {
+          'checkbox_id': 'stack_checkbox_' + index,
+          'value': value,
+          'is_select': false
+        };
+        businessPOJO.availableStackNames.push(obj);
+      });
 
-    genericModalViewModel.businessPOJO(businessPOJO);
+      genericModalViewModel.businessPOJO(businessPOJO);
+    }
+
   })();
+
 
   function execute() {
     // validation failed
@@ -116,15 +132,31 @@
     //validate logic...
 
     //validate
-    ValidationPOJO.validate("X Axis", genericModalViewModel.businessPOJO().axis_value(), errorMessages, ['KEY_NOT_NULL']);
+    var has_stack_selected = false;
+    $.each(genericModalViewModel.businessPOJO().availableStackNames(),function(index,value){
+      if(value.is_select){
+        has_stack_selected = true;
+      }
+    });
+
+    if(!has_stack_selected){
+      errorMessages.push("Please select the exist stack ");
+    }
+
     return errorMessages;
   }
 
   // *******YOUR SHOULD CODING IN HERE:*******
   var runService = function() {
     LoaderUtil.add_v3('genericModalDiv');
-    var axis_array = genericModalViewModel.businessPOJO().axis_value().split(',');
-    ChartPOJO.reset_XAxis(chart,axis_array);
+
+    $.each(genericModalViewModel.businessPOJO().availableStackNames(), function(index, value) {
+      if (value.is_select && value.value) {
+
+        ChartPOJO.removeStack(chart, value.value);
+      }
+    });
+
     setTimeout(function() {
       genericModalViewModel.response(true, "Entity Operation", "[Successed]", "Operation Successed, please close the console and reload the data.");
       LoaderUtil.remove_v3('genericModalDiv');

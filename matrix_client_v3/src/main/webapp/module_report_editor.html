@@ -75,20 +75,24 @@
           <div class="card card-mini">
             <div class="card-header">
               <div class="card-title">
-                <button title="New report" type="button" onclick="ModalUtil.popup_modal('New report', '/assets/self-owned/html/report/modal_content_new.html', null, null, null);" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-edit"></i></button>
-                <button title="Save" type="button" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Save report draft', '/assets/self-owned/html/report/modal_content_save_draft.html',$data);})" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-save"></i></button>
+                <button title="New report(shift+n)" type="button" onclick="ModalUtil.popup_modal('New report', '/assets/self-owned/html/report/modal_content_new.html', null, null, null);" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-edit"></i></button>
+                <button title="Save(shift+s)" type="button" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Save report draft', '/assets/self-owned/html/report/modal_content_save_draft.html',$data);})" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-save"></i></button>
                 <!-- <button title="Save as template" onclick="ModalUtil.popup_modal('Save report as template', '/assets/self-owned/html/report/modal_content_save_template.html', null, null, null);" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-bookmark-o"></i></button> -->
-                <button title="Cut selected cell" type="button" data-bind="click:cutCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-cut"></i></button>
-                <button title="Copy selected cell" type="button" data-bind="click:copyCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-copy"></i></button>
-                <button title="Paste selected cell" type="button" data-bind="click:pasteCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-paste"></i></button>
-                <button title="Insert a markdown cell below selected cell" type="button" data-bind="click:addCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-plus"></i></button>
-                <button title="Insert a chart cell" onclick="ModalUtil.popup_modal('Insert a new chart image', '/assets/self-owned/html/report/modal_content_upload_image.html', null, null, null);"  type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-bar-chart"></i></button>
-                <button title="Insert a table cell" onclick="ModalUtil.popup_modal('Insert a new table cell', '/assets/self-owned/html/report/modal_content_insert_table.html', null, null, null);"  type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-table"></i></button>
-                <button title="Run cell" type="button" data-bind="click:compileCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-play"></i></button>
+                <button title="Cut selected cell(shift+x)" type="button" data-bind="click:cutCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-cut"></i></button>
+                <button title="Copy selected cell(shift+c)" type="button" data-bind="click:copyCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-copy"></i></button>
+                <button title="Paste selected cell(shift+v)" type="button" data-bind="click:pasteCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-paste"></i></button>
+                <button title="Up selected cell(shift+up)" type="button" data-bind="click:upCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-arrow-up"></i></button>
+                <button title="Down selected cell(shift+down)" type="button" data-bind="click:downCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-arrow-down"></i></button>
+                <button title="Insert a markdown cell below selected cell(shift+a)" type="button" data-bind="click:addCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-plus"></i></button>
+                <button title="Insert a image cell(shift+i)" onclick="ModalUtil.popup_modal('Insert a new image', '/assets/self-owned/html/report/modal_content_upload_image.html', null, null, null);" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-image"></i></button>
+                <button title="Insert a table cell(shift+t)" onclick="ModalUtil.popup_modal('Insert a new table cell', '/assets/self-owned/html/report/modal_content_insert_table.html', null, null, null);" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-table"></i></button>
+                <button title="Insert a chart cell(shift+e)" onclick="ModalUtil.popup_modal('Insert a new chart', '/assets/self-owned/html/report/modal_content_insert_chart.html', null, null, null);" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-bar-chart"></i></button>
+
+                <button title="Run cell(shift+r)" type="button" data-bind="click:compileCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-play"></i></button>
                 <span class="pull-right" style="margin-right:18px">
                   <!-- <button type="button" class="btn btn-info" style="padding: 6px 12px;margin-bottom: 0px;display:none" data-bind="visible:!template_name()">No Template</button>
                   <button type="button" class="btn btn-info" style="padding: 6px 12px;margin-bottom: 0px;display:none" data-bind="visible:template_name()">Use Template: <span data-bind="text:template_name"></span></button> -->
-
+                <button type="button" class="btn btn-warning" style="padding: 6px 12px;margin-bottom: 0px;display:none" data-bind="visible:hasNewContent">Modified</button>
                 <button type="button" class="btn btn-danger" style="padding: 6px 12px;margin-bottom: 0px;display:none" data-bind="visible:!name()">Unsaved</button>
                 <button type="button" class="btn btn-success" style="padding: 6px 12px;margin-bottom: 0px;display:none" data-bind="visible:name()">Saved as: <span data-bind="text:name"></span></button>
                 </span>
@@ -124,6 +128,7 @@
                 <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100">
                   <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode"></span>
                   <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id},"></textarea>
+                  <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px"></div>
                 </div>
               </div>
             </div>
@@ -137,7 +142,7 @@
         <textarea class="cell_div_edit" style="display:none">Please double click to edit the content...</textarea>
       </div>
 
-      <footer id="footer_div"  class="app-footer" style="position:absolute;bottom:0;margin:0 auto;">
+      <footer id="footer_div" class="app-footer" style="position:absolute;bottom:0;margin:0 auto;">
         <div class="row">
           <div class="col-xs-12">
             <div class="footer-copyright">
@@ -190,6 +195,9 @@
     <script src="assets/reference/knockout.js/knockout-3.3.0.js"></script>
     <script src="assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
     <script src="assets/reference/markdown/showdown.js"></script>
+    <script src="assets/reference/echarts/echarts-min.js"></script>
+    <script src="assets/reference/echarts/dataTools.js"></script>
+    <script src="assets/reference/echarts/geo/world.js"></script>
 
     <script src="assets/reference/bootstrap-fileinput/js/fileinput_ly.js"></script>
     <script src="assets/reference/bootstrap-fileinput/js/locales/zh.js"></script>
@@ -197,7 +205,7 @@
     <!-- Javascript for Matrix Self Owned -->
     <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
     <script src="assets/self-owned/js/generic/generic_cache.js"></script>
-    <script src="assets/self-owned/js/generic/generic_charting.js"></script>
+    <script src="assets/self-owned/js/generic/generic_charting_v3.js"></script>
     <script src="assets/self-owned/js/generic/generic_csv.js"></script>
     <script src="assets/self-owned/js/generic/generic_cud.js"></script>
     <script src="assets/self-owned/js/generic/generic_modal.js"></script>
@@ -224,23 +232,93 @@
           resetCssClass('li_report_editor', 'active');
         }, 200);
       });
-
-
     </script>
     <script type="text/javascript">
+      document.onkeydown = keyDownSearch;
 
-        document.onkeydown=keyDownSearch;
-
-        function keyDownSearch(e) {
-            // 兼容FF和IE和Opera
-            var theEvent = e || window.event;
-            var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
-            if (code == 119) { //F8
-                switchMode();
-                // return false;
-            }
-            // return true;
+      function keyDownSearch(e) {
+        // 兼容FF和IE和Opera
+        var theEvent = e || window.event;
+        var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
+        if (code == 119) { //F8
+          switchMode();
+          // return false;
         }
+        if (event.keyCode == 38 && event.shiftKey) {
+          // shift+up
+          if(reportViewModel){
+            reportViewModel.upCell();
+          }
+        }
+        if (event.keyCode == 40 && event.shiftKey) {
+          // shift+down
+          if(reportViewModel){
+            reportViewModel.downCell();
+          }
+        }
+        if (event.keyCode == 78 && event.shiftKey) {
+          // shift+n
+          if(reportViewModel){
+            ModalUtil.popup_modal('New report', '/assets/self-owned/html/report/modal_content_new.html', null, null, null);
+          }
+        }
+        if (event.keyCode == 83 && event.shiftKey) {
+          // shift+s
+          if(reportViewModel){
+            ModalUtil.popup_modal_with_businessPOJO('Save report draft', '/assets/self-owned/html/report/modal_content_save_draft.html',reportViewModel);
+          }
+        }
+        if (event.keyCode == 88 && event.shiftKey) {
+          // shift+x
+          if(reportViewModel){
+            reportViewModel.cutCell();
+          }
+        }
+        if (event.keyCode == 67 && event.shiftKey) {
+          // shift+c
+          if(reportViewModel){
+            reportViewModel.copyCell();
+          }
+        }
+        if (event.keyCode == 86 && event.shiftKey) {
+          // shift+v
+          if(reportViewModel){
+            reportViewModel.pasteCell();
+          }
+        }
+        if (event.keyCode == 65 && event.shiftKey) {
+          // shift+a
+          if(reportViewModel){
+            reportViewModel.addCell();
+          }
+        }
+        if (event.keyCode == 73 && event.shiftKey) {
+          // shift+i
+          if(reportViewModel){
+            ModalUtil.popup_modal('Insert a new image', '/assets/self-owned/html/report/modal_content_upload_image.html', null, null, null);
+          }
+        }
+        if (event.keyCode == 84 && event.shiftKey) {
+          // shift+t
+          if(reportViewModel){
+            ModalUtil.popup_modal('Insert a new table cell', '/assets/self-owned/html/report/modal_content_insert_table.html', null, null, null);
+          }
+        }
+        if (event.keyCode == 69 && event.shiftKey) {
+          // shift+e
+          if(reportViewModel){
+            ModalUtil.popup_modal('Insert a new chart', '/assets/self-owned/html/report/modal_content_insert_chart.html', null, null, null);
+          }
+        }
+        if (event.keyCode == 82 && event.shiftKey) {
+          // shift+r
+          if(reportViewModel){
+            reportViewModel.compileCell();
+          }
+        }
+
+        // return true;
+      }
     </script>
 
 </body>
