@@ -202,34 +202,34 @@ ChartPOJO = {
     option_chart.tooltip = tooltip;
 
 
-  option_chart.series = [];
-  var series_object = {
-    name: pie_name,
-    type: 'pie',
-    data: pie_data
-  };
-  option_chart.series.push(series_object);
+    option_chart.series = [];
+    var series_object = {
+      name: pie_name,
+      type: 'pie',
+      data: pie_data
+    };
+    option_chart.series.push(series_object);
 
-  var chart = echarts.init(document.getElementById(chart_div_id));
+    var chart = echarts.init(document.getElementById(chart_div_id));
 
 
-  // 使用刚指定的配置项和数据显示图表。
-  chart.setOption(option_chart);
+    // 使用刚指定的配置项和数据显示图表。
+    chart.setOption(option_chart);
 
-  $(window).resize(function() {
-    setTimeout(function() {
-      chart.resize();
-    }, 500);
-  });
-  return chart;
+    $(window).resize(function() {
+      setTimeout(function() {
+        chart.resize();
+      }, 500);
+    });
+    return chart;
   },
 
-  addPieData: function(chart, data_name,data_value) {
+  addPieData: function(chart, data_name, data_value) {
     var option = ClonePOJO.deepClone(chart.getOption());
 
     var obj = {
-      'name':data_name,
-      'value':data_value
+      'name': data_name,
+      'value': data_value
     }
     option.series[0].data.push(obj);
 
@@ -244,17 +244,390 @@ ChartPOJO = {
     var data = [];
 
     $.each(option.series[0].data, function(index, value) {
-      if(value.name!=data_name){
+      if (value.name != data_name) {
         data.push(value);
       }
     });
 
-    option.series[0].data=data;
+    option.series[0].data = data;
 
     chart.clear();
 
     chart.setOption(option);
 
+    return chart;
+  },
+
+  generateRadarChart: function(chart_div_id, title, indicator, series_data) {
+    var option_chart = {};
+    option_chart.color = ['#1ABC9C', '#5DADE2', '#FFC153', '#EC7063', '#CC99CC', '#666666', '#5E5E73', '#FFBC11'];
+    // 初始化 Title:
+    var title = {
+      show: true,
+      x: 'left',
+      padding: [0, 0, 0, 20],
+      textStyle: labelStyle,
+      text: title || "Untitled",
+    };
+    option_chart.title = title;
+
+    //初始化 tooltip:
+    var tooltip = {
+      trigger: 'item',
+      formatter: "{a} <br/>{b} : {c}"
+    };
+    option_chart.tooltip = tooltip;
+    var radar = {
+      // shape: 'circle',
+      indicator: indicator
+    };
+    option_chart.radar = radar;
+    option_chart.series = [];
+    var series_object = {
+      type: 'radar',
+      data: series_data
+    };
+    option_chart.series.push(series_object);
+
+    var chart = echarts.init(document.getElementById(chart_div_id));
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    chart.setOption(option_chart);
+
+    $(window).resize(function() {
+      setTimeout(function() {
+        chart.resize();
+      }, 500);
+    });
+    return chart;
+  },
+  add_radar_indicator: function(chart, indicator_name, max_value) {
+    var option = ChartPOJO.cloneChartOption(chart);
+    var obj = {
+      'name': indicator_name,
+      'max': max_value
+    }
+    option.radar[0].indicator.push(obj);
+    chart.clear();
+    chart.setOption(option);
+    return chart;
+  },
+  remove_radar_indicator: function(chart, data_name) {
+    var option = ClonePOJO.deepClone(chart.getOption());
+    var data = [];
+
+    $.each(option.radar[0].indicator, function(index, value) {
+      if (value.name != data_name) {
+        data.push(value);
+      }
+    });
+
+    option.radar[0].indicator = data;
+
+    chart.clear();
+
+    chart.setOption(option);
+
+    return chart;
+  },
+
+  add_radar_data: function(chart, data_name, data_value) {
+    var option = ClonePOJO.deepClone(chart.getOption());
+
+    var obj = {
+      'name': data_name,
+      'value': data_value
+    }
+    option.series[0].data.push(obj);
+
+    chart.clear();
+
+    chart.setOption(option);
+
+    return chart;
+  },
+  remove_radar_data: function(chart, data_name) {
+    var option = ClonePOJO.deepClone(chart.getOption());
+    var data = [];
+
+    $.each(option.series[0].data, function(index, value) {
+      if (value.name != data_name) {
+        data.push(value);
+      }
+    });
+
+    option.series[0].data = data;
+
+    chart.clear();
+
+    chart.setOption(option);
+
+    return chart;
+  },
+
+  clean_radar_indicator: function(chart) {
+    var option = ChartPOJO.cloneChartOption(chart);
+    option.radar[0].indicator = [];
+    chart.clear();
+    chart.setOption(option);
+    return chart;
+  },
+
+  generateBoxplotChart: function(chart_div_id, title, origin_data) {
+    if (!echarts) {
+      return;
+    }
+    var data = echarts.dataTool.prepareBoxplotData(origin_data);
+    var option_chart = {};
+    option_chart.color = ['#1ABC9C', '#5DADE2', '#FFC153', '#EC7063', '#CC99CC', '#666666', '#5E5E73', '#FFBC11'];
+    option_chart = {
+      chart_div_id: chart_div_id,
+      origin_data: origin_data,
+      title: {
+        show: true,
+        x: 'left',
+        padding: [0, 0, 0, 20],
+        textStyle: labelStyle,
+        text: title || "Untitled",
+      },
+      tooltip: {
+        trigger: 'item',
+        axisPointer: {
+          type: 'shadow'
+        }
+      },
+      xAxis: {
+        type: 'category',
+        data: data.axisData,
+        boundaryGap: true,
+        nameGap: 30,
+        splitArea: {
+          show: false
+        },
+        axisLabel: {
+          formatter: 'boxplot {value}'
+        },
+        splitLine: {
+          show: false
+        }
+      },
+      yAxis: {
+        type: 'value',
+        splitArea: {
+          show: true
+        }
+      },
+      series: [{
+        name: 'boxplot',
+        type: 'boxplot',
+        data: data.boxData,
+        itemStyle: {
+          normal: {
+            borderColor: '#1ABC9C'
+          },
+          emphasis: {
+            borderColor: '#5DADE2'
+          }
+        },
+        tooltip: {
+          formatter: function(param) {
+            return [
+              'Boxplot: ' + param.name,
+              'upper: ' + param.data[4],
+              'Q3: ' + param.data[3],
+              'median: ' + param.data[2],
+              'Q1: ' + param.data[1],
+              'lower: ' + param.data[0]
+            ].join('<br/>')
+          }
+        }
+      }, {
+        name: 'outlier',
+        type: 'scatter',
+        itemStyle: {
+          normal: {
+            color: '#1ABC9C'
+          },
+          emphasis: {
+            color: '#5DADE2'
+          }
+        },
+        data: data.outliers
+      }]
+    };
+
+    var chart = echarts.init(document.getElementById(chart_div_id));
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    chart.setOption(option_chart);
+
+    $(window).resize(function() {
+      setTimeout(function() {
+        chart.resize();
+      }, 500);
+    });
+    return chart;
+  },
+
+  add_boxplot_data: function(chart, data_value) {
+    var option = ClonePOJO.deepClone(chart.getOption());
+    if (!option.origin_data || !option.chart_div_id) {
+      return;
+    }
+    option.origin_data.push(data_value);
+    var title = option.title.text;
+    var chart_div_id = option.chart_div_id;
+    return ChartPOJO.generateBoxplotChart(chart_div_id, title, option.origin_data);
+  },
+  remove_boxplot_data: function(chart, data_index) {
+    var option = ClonePOJO.deepClone(chart.getOption());
+    var data = [];
+    option.origin_data.splice(data_index, 1);
+    var title = option.title.text;
+    var chart_div_id = option.chart_div_id;
+    return ChartPOJO.generateBoxplotChart(chart_div_id, title, option.origin_data);
+  },
+
+  reset_grid_heatmap_x: function(chart, x) {
+    var option = ChartPOJO.cloneChartOption(chart);
+    option.xAxis[0].data = x;
+    chart.clear();
+    chart.setOption(option);
+    return chart;
+  },
+  reset_grid_heatmap_y: function(chart, x) {
+    var option = ChartPOJO.cloneChartOption(chart);
+    option.yAxis[0].data = x;
+    chart.clear();
+    chart.setOption(option);
+    return chart;
+  },
+  reset_grid_heatmap_min_max: function(chart, min,max) {
+    var option = ChartPOJO.cloneChartOption(chart);
+    option.visualMap[0].min = min;
+    option.visualMap[0].max = max;
+    chart.clear();
+    chart.setOption(option);
+    return chart;
+  },
+  reset_grid_heatmap_data: function(chart, data) {
+    var option = ChartPOJO.cloneChartOption(chart);
+    option.series[0].data = data;
+    chart.clear();
+    chart.setOption(option);
+    return chart;
+  },
+  add_grid_heatmap_data: function(chart, x,y,num) {
+    var option = ChartPOJO.cloneChartOption(chart);
+    var search_index=-1;
+    $.each(option.series[0].data,function(index,value){
+      if(value[0]==x && value[1]==y){
+        search_index = index;
+        value[2]=num;
+      }
+    });
+    if(search_index==-1){
+      var tmp = [x,y,num];
+      option.series[0].data.push(tmp);
+    }
+
+    chart.clear();
+    chart.setOption(option);
+    return chart;
+  },
+  remove_grid_heatmap_data: function(chart,x,y) {
+    var option = ChartPOJO.cloneChartOption(chart);
+    var search_index=-1;
+    $.each(option.series[0].data,function(index,value){
+      if(value[0]==x && value[1]==y){
+        search_index = index;
+      }
+    });
+    if(search_index==-1){
+      return;
+    }
+    option.series[0].data.splice(search_index,1);
+    chart.clear();
+    chart.setOption(option);
+    return chart;
+  },
+
+  generateGridHeatmapChart: function(chart_div_id, title, x,y,min,max,data) {
+    if (!echarts) {
+      return;
+    }
+    var option_chart = {};
+    option_chart.color = ['#1ABC9C', '#5DADE2', '#FFC153', '#EC7063', '#CC99CC', '#666666', '#5E5E73', '#FFBC11'];
+    option_chart = {
+      chart_div_id: chart_div_id,
+      title: {
+        show: true,
+        x: 'left',
+        padding: [0, 0, 0, 20],
+        textStyle: labelStyle,
+        text: title || "Untitled",
+      },
+      tooltip: {
+        position: 'top'
+      },
+      animation: false,
+      grid: {
+        height: '80%',
+        y: '10%'
+      },
+      xAxis: {
+        type: 'category',
+        data: x,
+        splitArea: {
+          show: true
+        }
+      },
+      yAxis: {
+        type: 'category',
+        data: y,
+        splitArea: {
+          show: true
+        }
+      },
+      visualMap: {
+        min: min||0,
+        max: max||10,
+        calculable: true,
+        orient: 'vertical',
+        left: 'right',
+        top: '5%'
+      },
+      series: [{
+        name: 'Punch Card',
+        type: 'heatmap',
+        data: data,
+        label: {
+          normal: {
+            show: true
+          }
+        },
+        itemStyle: {
+          emphasis: {
+            shadowBlur: 10,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }]
+    };
+
+    var chart = echarts.init(document.getElementById(chart_div_id));
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    chart.setOption(option_chart);
+
+    $(window).resize(function() {
+      setTimeout(function() {
+        chart.resize();
+      }, 500);
+    });
     return chart;
   },
 
@@ -446,16 +819,16 @@ ChartPOJO = {
     return stacks;
   },
 
-  updateSeriesName: function(old_name,new_name) {
+  updateSeriesName: function(old_name, new_name) {
     var stacks = [];
     var option = ClonePOJO.deepClone(chart.getOption());
     $.each(option.series, function(index, value) {
-      if(value.name==old_name){
+      if (value.name == old_name) {
         value.name = new_name;
       }
     });
     $.each(option.legend, function(index, value) {
-      if(value.name==old_name){
+      if (value.name == old_name) {
         value.name = new_name;
       }
     });
@@ -536,17 +909,17 @@ ChartPOJO = {
   cleanChart: function(parent_div_id) {
     $('#' + parent_div_id).empty();
   },
-  newChart:function(parent_div_id){
-      $('#' + parent_div_id).empty();
-      var chart = echarts.init(document.getElementById(parent_div_id));
-      var option = {};
-      chart.setOption(option);
-      $(window).resize(function() {
-        setTimeout(function() {
-          chart.resize();
-        }, 500);
-      });
-      return chart;
+  newChart: function(parent_div_id) {
+    $('#' + parent_div_id).empty();
+    var chart = echarts.init(document.getElementById(parent_div_id));
+    var option = {};
+    chart.setOption(option);
+    $(window).resize(function() {
+      setTimeout(function() {
+        chart.resize();
+      }, 500);
+    });
+    return chart;
   },
 
 
@@ -556,13 +929,21 @@ ChartPOJO = {
     return $.toJSON(option);
   },
 
+  clean_chart_data: function(chart) {
+    var option = ChartPOJO.cloneChartOption(chart);
+    option.series[0].data = [];
+    chart.clear();
+    chart.setOption(option);
+    return chart;
+  },
+
   deserialize_chart_option: function(json) {
     var option = $.parseJSON(json);
     return option;
   },
 
-  renderChart:function(parent_div_id,option){
-    if(parent_div_id&&option){
+  renderChart: function(parent_div_id, option) {
+    if (parent_div_id && option) {
       var chart = echarts.init(document.getElementById(parent_div_id));
       // 使用刚指定的配置项和数据显示图表。
       chart.setOption(option);

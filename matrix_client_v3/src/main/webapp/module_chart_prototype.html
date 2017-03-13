@@ -35,7 +35,10 @@
               <div class="card-title">
                 <select class="select2" style="width:360px;" onchange="$('#sub_content_div').load($.getRootPath() + '/assets/self-owned/html/chart/'+this.options[this.options.selectedIndex].value+'.html');">
                   <option value="content_axis">Chart-Descartes coordinates</option>
-                  <option value="content_polar">Chart-Polar coordinates</option>
+                  <option value="content_pie">Chart-Pie </option>
+                  <option value="content_radar">Chart-Radar</option>
+                  <option value="content_boxplot">Chart-BoxPlot</option>
+                  <option value="content_grid_heatmap">Chart-Descartes-Heatmap</option>
                   <option value="content_geo">Chart-Geo coordinatesm</option>
                 </select>
                 <button title="Clean" type="button" onclick="ModalUtil.popup_modal('New report', '/assets/self-owned/html/chart/modal_content_new_chart.html', null, null, null);" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-edit"></i></button>
