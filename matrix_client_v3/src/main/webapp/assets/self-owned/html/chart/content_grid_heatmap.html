@@ -1,0 +1,123 @@
+<div style="margin-left:30px;margin-right:30px;margin-bottom:60px">
+  <div class="row">
+    <div class="col-md-8" style="margin-top: 30px;" id="test">
+      <div class="card card-mini">
+        <div class="card-header">
+          Heatmap
+        </div>
+        <div class="card-body">
+          <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+          <div id="main" style="width: 100%;height:100%;min-height:360px"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4" style="margin-top: 30px;">
+      <div class="card card-mini">
+        <div class="card-header">
+          Configuration
+          <div class="card-title">
+            <span class="pull-right" style="margin-right:18px">
+              <button onclick="hide_div('configuration_content_div')" title="Refresh" type="button" class="btn btn-default btn-xs" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-arrow-up"></i></button>
+              <button onclick="show_div('configuration_content_div')" title="Refresh" type="button" class="btn btn-default btn-xs" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-arrow-down"></i></button>
+              <button onclick="chart = ChartPOJO.generateGridHeatmapChart('main','Matrix Heatmap Chart',[],[],null,null,[]);" title="Refresh" type="button" class="btn btn-default btn-xs" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-plus"></i></button>
+            </span>
+          </div>
+        </div>
+        <div class="card-body" id="configuration_content_div">
+          <div>
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">X Axis</label>
+                <div class="col-sm-8">
+                  <div class="input-group" title="From Source">
+                    <span class="input-group-addon" id="basic-addon2">
+                      <i class="fa fa-gear" aria-hidden="true"></i>&nbsp;</span>
+                    <input id="x_axis_value_input" type="text" class="form-control" placeholder="X Axis" aria-describedby="basic-addon2">
+                  </div>
+                </div>
+                <div class="col-sm-1">
+                  <button onclick="chart = ChartPOJO.reset_grid_heatmap_x(chart,$('#x_axis_value_input').val().split(','))" title="Manual add series" type="button" class="btn btn-success btn-xs" style="padding: 6px 12px;margin-top: 3px;"><i class="fa fa-refresh"></i></button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Y Axis</label>
+                <div class="col-sm-8">
+                  <div class="input-group" title="From Source">
+                    <span class="input-group-addon" id="basic-addon2">
+                      <i class="fa fa-gear" aria-hidden="true"></i>&nbsp;</span>
+                    <input id="y_axis_value_input" type="text" class="form-control" placeholder="Y Axis" aria-describedby="basic-addon2">
+                  </div>
+                </div>
+                <div class="col-sm-1">
+                  <button onclick="chart = ChartPOJO.reset_grid_heatmap_y(chart,$('#y_axis_value_input').val().split(','))" title="Manual add series" type="button" class="btn btn-success btn-xs" style="padding: 6px 12px;margin-top: 3px;"><i class="fa fa-refresh"></i></button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Scale</label>
+                <div class="col-sm-4">
+                  <input id="min_value_input" type="text" class="form-control" placeholder="min" aria-describedby="basic-addon2">
+                </div>
+                <div class="col-sm-4">
+                  <input id="max_value_input" type="text" class="form-control" placeholder="max" aria-describedby="basic-addon2">
+                </div>
+                <div class="col-sm-1">
+                  <button onclick="chart = ChartPOJO.reset_grid_heatmap_min_max(chart,Number($('#min_value_input').val()),Number($('#max_value_input').val()))" title="Manual add series" type="button" class="btn btn-success btn-xs" style="padding: 6px 12px;margin-top: 3px;"><i class="fa fa-refresh"></i></button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Add</label>
+                <div class="col-sm-3">
+                  <input id="add_x_value_input" type="text" class="form-control" placeholder="X" aria-describedby="basic-addon2">
+                </div>
+                <div class="col-sm-3">
+                  <input id="add_y_value_input" type="text" class="form-control" placeholder="Y" aria-describedby="basic-addon2">
+                </div>
+                <div class="col-sm-3">
+                  <input id="add_value_value_input" type="text" class="form-control" placeholder="Value" aria-describedby="basic-addon2">
+                </div>
+                <div class="col-sm-1">
+                  <button onclick="chart = ChartPOJO.add_grid_heatmap_data(chart,$('#add_x_value_input').val(),$('#add_y_value_input').val(),Number($('#add_value_value_input').val()))" title="Manual add series" type="button" class="btn btn-success btn-xs" style="padding: 6px 12px;margin-top: 3px;"><i class="fa fa-plus"></i></button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Remove</label>
+                <div class="col-sm-4">
+                  <input id="remove_x_value_input" type="text" class="form-control" placeholder="X" aria-describedby="basic-addon2">
+                </div>
+                <div class="col-sm-4">
+                  <input id="remove_y_value_input" type="text" class="form-control" placeholder="Y" aria-describedby="basic-addon2">
+                </div>
+                <div class="col-sm-1">
+                  <button onclick="chart = ChartPOJO.remove_grid_heatmap_data(chart,$('#remove_x_value_input').val(),$('#remove_y_value_input').val())" title="Manual add series" type="button" class="btn btn-danger btn-xs" style="padding: 6px 12px;margin-top: 3px;"><i class="fa fa-minus"></i></button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>
+
+<script>
+function mock(){
+  ChartPOJO.reset_grid_heatmap_x(chart,['12a', '1a', '2a', '3a', '4a', '5a', '6a',
+        '7a', '8a', '9a','10a','11a',
+        '12p', '1p', '2p', '3p', '4p', '5p',
+        '6p', '7p', '8p', '9p', '10p', '11p']);
+        ChartPOJO.reset_grid_heatmap_y(chart,['Saturday', 'Friday', 'Thursday',
+                'Wednesday', 'Tuesday', 'Monday', 'Sunday']);
+                var data = [[0,0,5],[0,1,1],[0,2,0],[0,3,0],[0,4,0],[0,5,0],[0,6,0],[0,7,0],[0,8,0],[0,9,0],[0,10,0],[0,11,2],[0,12,4],[0,13,1],[0,14,1],[0,15,3],[0,16,4],[0,17,6],[0,18,4],[0,19,4],[0,20,3],[0,21,3],[0,22,2],[0,23,5],[1,0,7],[1,1,0],[1,2,0],[1,3,0],[1,4,0],[1,5,0],[1,6,0],[1,7,0],[1,8,0],[1,9,0],[1,10,5],[1,11,2],[1,12,2],[1,13,6],[1,14,9],[1,15,11],[1,16,6],[1,17,7],[1,18,8],[1,19,12],[1,20,5],[1,21,5],[1,22,7],[1,23,2],[2,0,1],[2,1,1],[2,2,0],[2,3,0],[2,4,0],[2,5,0],[2,6,0],[2,7,0],[2,8,0],[2,9,0],[2,10,3],[2,11,2],[2,12,1],[2,13,9],[2,14,8],[2,15,10],[2,16,6],[2,17,5],[2,18,5],[2,19,5],[2,20,7],[2,21,4],[2,22,2],[2,23,4],[3,0,7],[3,1,3],[3,2,0],[3,3,0],[3,4,0],[3,5,0],[3,6,0],[3,7,0],[3,8,1],[3,9,0],[3,10,5],[3,11,4],[3,12,7],[3,13,14],[3,14,13],[3,15,12],[3,16,9],[3,17,5],[3,18,5],[3,19,10],[3,20,6],[3,21,4],[3,22,4],[3,23,1],[4,0,1],[4,1,3],[4,2,0],[4,3,0],[4,4,0],[4,5,1],[4,6,0],[4,7,0],[4,8,0],[4,9,2],[4,10,4],[4,11,4],[4,12,2],[4,13,4],[4,14,4],[4,15,14],[4,16,12],[4,17,1],[4,18,8],[4,19,5],[4,20,3],[4,21,7],[4,22,3],[4,23,0],[5,0,2],[5,1,1],[5,2,0],[5,3,3],[5,4,0],[5,5,0],[5,6,0],[5,7,0],[5,8,2],[5,9,0],[5,10,4],[5,11,1],[5,12,5],[5,13,10],[5,14,5],[5,15,7],[5,16,11],[5,17,6],[5,18,0],[5,19,5],[5,20,3],[5,21,4],[5,22,2],[5,23,0],[6,0,1],[6,1,0],[6,2,0],[6,3,0],[6,4,0],[6,5,0],[6,6,0],[6,7,0],[6,8,0],[6,9,0],[6,10,1],[6,11,0],[6,12,2],[6,13,1],[6,14,3],[6,15,4],[6,16,0],[6,17,0],[6,18,0],[6,19,0],[6,20,1],[6,21,2],[6,22,2],[6,23,6]];
+
+  data = data.map(function (item) {
+      return [item[1], item[0], item[2] || '-'];
+  });
+  ChartPOJO.reset_grid_heatmap_data(chart,data);
+  ChartPOJO.add_grid_heatmap_data(chart,'2a','Saturday',2);
+  ChartPOJO.add_grid_heatmap_data(chart,'2a','Saturday',8);
+  ChartPOJO.remove_grid_heatmap_data(chart,'2a','Saturday');
+}
+
+</script>
