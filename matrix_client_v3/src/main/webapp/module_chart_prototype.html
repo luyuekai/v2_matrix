@@ -35,11 +35,18 @@
               <div class="card-title">
                 <select class="select2" style="width:360px;" onchange="$('#sub_content_div').load($.getRootPath() + '/assets/self-owned/html/chart/'+this.options[this.options.selectedIndex].value+'.html');">
                   <option value="content_axis">Chart-Descartes coordinates</option>
+                  <option value="content_scatter">Chart-Scatter</option>
+                  <option value="content_parallel">Chart-Parallel </option>
+                  <option value="content_force">Chart-Force </option>
+                  <option value="content_graph">Chart-Graph </option>
+                  <option value="content_circular">Chart-Circular </option>
                   <option value="content_pie">Chart-Pie </option>
                   <option value="content_radar">Chart-Radar</option>
+                  <option value="content_river">Chart-River</option>
+                  <option value="content_treemap">Chart-TreeMap</option>
                   <option value="content_boxplot">Chart-BoxPlot</option>
+                  <option value="content_sankey">Chart-Sankey</option>
                   <option value="content_grid_heatmap">Chart-Descartes-Heatmap</option>
-                  <option value="content_geo">Chart-Geo coordinatesm</option>
                 </select>
                 <button title="Clean" type="button" onclick="ModalUtil.popup_modal('New report', '/assets/self-owned/html/chart/modal_content_new_chart.html', null, null, null);" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-edit"></i></button>
 
@@ -150,9 +157,67 @@
         ko.applyBindings(chartViewModel, document.getElementById('main_content_div'));
         SharePOJO.environmentCheck();
       }, 800);
+
+
+
     </script>
 
 
+<script>
+  var tree = [
+    {
+      'id': 1,
+      'name': 'A',
+      'value': 100,
+      "children":[
+        {
+          'id': 11,
+          'name': 'AA',
+          'value': 30,
+        },
+        {
+          'id': 12,
+          'name': 'AB',
+          'value': 70,
+        }
+      ]
+    },
+    {
+      'id': 2,
+      'name': 'B',
+      'value': 100,
+      "children":[
+        {
+          'id': 21,
+          'name': 'BA',
+          'value': 50,
+        },
+        {
+          'id': 22,
+          'name': 'BB',
+          'value': 50,
+          "children":[
+            {
+              'id': 221,
+              'name': 'BBA',
+              'value': 10,
+            },
+            {
+              'id': 222,
+              'name': 'BBB',
+              'value': 40,
+            }
+          ]
+        }
+      ]
+    },
+    {
+      'id': 3,
+      'name': 'C',
+      'value': 100,
+    }
+  ]
+</script>
 
 </body>
 
