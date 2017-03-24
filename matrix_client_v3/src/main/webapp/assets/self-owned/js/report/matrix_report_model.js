@@ -18,6 +18,36 @@ function ReportViewModel() {
 
   self.cells = ko.observableArray();
 
+  self.download_type = null;
+
+  self.getMarkdownContent = function() {
+    var title = self.name() ? self.name() : 'Report';
+    var seperate = '\n\n  \n\n';
+    var result = '% ' + title + '\n';
+    result += seperate;
+
+    $.each(self.cells(), function(idx, cell) {
+      var cellShareModel = cell.buildShareModel();
+      result += cellShareModel.code_source + seperate;
+    });
+
+    return result;
+  }
+
+  self.download = function(type) {
+    type = type || 'PDF';
+    self.download_type = type;
+    var content = self.getMarkdownContent();
+    //        console.log(UserPOJO.user)
+    var data = {
+      'content': content,
+      'filename': self.name() ? self.name() : 'Report',
+      'user': 'Liu_Yang'
+
+    };
+    $.serverRequest($.getServerRoot() + '/service_scripter_report/api/generic/download', data, "DOWNLOAD_SUCCESS", "DOWNLOAD_FAILED", "DOWNLOAD_SERVICE_GENERIC_QUERY_FAILED");
+  }
+
 
   self.reset = function() {
     self.data = null;
@@ -230,10 +260,10 @@ function ReportViewModel() {
       return;
     }
     var index = self.cells.indexOf(self.active_cell);
-    if (index == self.cells().length-1) {
+    if (index == self.cells().length - 1) {
       return;
     }
-    var splice_index = index+1;
+    var splice_index = index + 1;
     var new_cell = self.active_cell.copy();
     self.cells.remove(self.active_cell);
     self.cells.splice(splice_index, 0, new_cell);
@@ -354,6 +384,9 @@ function ReportViewModel() {
     };
     $.serverRequest($.getServerRoot() + '/service_generic_query/api/share/generate/' + 10000, data, "TOKEN_SUCCESS", "TOKEN_FAILED", "TOKEN_SERVICE_FAILED");
   }
+
+
+
 }
 
 function CellViewModel(parent) {
@@ -529,6 +562,38 @@ function CellShareModel() {
   self.currentStyle = null;
 }
 
+function DownloadModel(parent) {
+  var self = this;
+  self.parent = parent;
+  var download_file_href;
+  var download_name;
+  var filename = parent.name() ? parent.name() : "report";
+  if (parent.download_type === 'PDF') {
+    download_file_href = $.getRootPath() + "/matrix/report/" + 'Liu_Yang' + "/" + filename + ".pdf";
+    download_name = parent.name() ? parent.name() : 'report' + ".pdf";
+  } else if (parent.download_type === 'HTML') {
+    download_file_href = $.getRootPath() + "/matrix/report/" + 'Liu_Yang' + "/" + filename + ".html";
+    download_name = parent.name() ? parent.name() : 'report' + ".html";
+  } else if (parent.download_type === 'MD') {
+    download_file_href = $.getRootPath() + "/matrix/report/" + 'Liu_Yang' + "/" + filename + ".md";
+    download_name = parent.name() ? parent.name() : 'report' + ".md";
+  }
+  self.getLinkElement_v2 = function(linkText) {
+
+    return self.linkElement = self.linkElement || $('<a>' + (linkText || '') + '</a>', {
+      href: download_file_href,
+      download: download_name
+    });
+  };
+  // call with removeAfterDownload = true if you want the link to be removed after downloading
+  this.download = function(removeAfterDownload) {
+    self.getLinkElement_v2().css('display', 'none').appendTo('body');
+    self.getLinkElement_v2()[0].click();
+    if (removeAfterDownload) {
+      self.getLinkElement_v2().remove();
+    }
+  };
+}
 
 
 $.subscribe("TOKEN_SUCCESS", successListener);
@@ -554,4 +619,41 @@ function failedListener() {
 function failedServiceListener() {
   // genericModalViewModel.response(false, "保存操作", "[失败]", "服务器异常！请联系管理员解决。");
   console.log("Save operation service failed");
+}
+
+
+$.subscribe("DOWNLOAD_SUCCESS", download_success);
+$.subscribe("DOWNLOAD_FAILED", download_failed);
+$.subscribe("DOWNLOAD_SERVICE_GENERIC_QUERY_FAILED", download_service_failed);
+
+function download_failed() {
+  // self.will_block(false);
+  // self.blockCheck();
+
+  console.log('download failed')
+}
+
+function download_service_failed() {
+  // self.will_block(false);
+  // self.blockCheck();
+  console.log('download service failed')
+}
+
+function download_success() {
+  // self.will_block(false);
+  // self.blockCheck();
+  if (arguments && arguments[1]) {
+    //            console.log(arguments[1]);
+    if (arguments[1].hasError) {
+      alert('Pandoc did not setup correct, please contact administrator.');
+    }
+    if (arguments[1].result[0]) {
+      alert(arguments[1].result[0]);
+    }
+    if (reportViewModel) {
+      var download_model = new DownloadModel(reportViewModel);
+      download_model.download(true);
+    }
+
+  }
 }

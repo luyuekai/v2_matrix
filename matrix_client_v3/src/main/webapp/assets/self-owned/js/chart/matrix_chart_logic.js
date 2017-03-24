@@ -1,8 +1,4 @@
-
-
-
-
-function initialize_chart(){
+function initialize_chart() {
   var x_Axis_data = [2013, 2014, 2015, 2016, 2017];
   var series_name = 'GDP';
   var series_data = [20, 30, 30, 50, 80];
@@ -15,7 +11,7 @@ function initialize_chart(){
   chart = ChartPOJO.addStack(chart, "Economy", "GDP");
   chart = ChartPOJO.addStack(chart, "Economy", "KPI");
 
-  if(chartViewModel){
+  if (chartViewModel) {
     chartViewModel.chart = chart;
   }
 }
@@ -72,11 +68,58 @@ function successListener() {
     var json = arguments[1].result[0];
     var json_chart = json.json;
     var option = ChartPOJO.deserialize_chart_option(json_chart);
-    chart = ChartPOJO.renderChart('main',option);
-    if(chartViewModel){
-      chartViewModel.chart = chart;
-      chartViewModel.data = json;
+    var chart_type = option.series[0].type;
+    switch (chart_type) {
+
+      case 'scatter':
+        $('#sub_content_div').load($.getRootPath() + '/assets/self-owned/html/chart/content_scatter.html');
+        break;
+      case 'boxplot':
+        $('#sub_content_div').load($.getRootPath() + '/assets/self-owned/html/chart/content_boxplot.html');
+        break;
+      case 'pie':
+        $('#sub_content_div').load($.getRootPath() + '/assets/self-owned/html/chart/content_pie.html');
+        break;
+      case 'radar':
+        $('#sub_content_div').load($.getRootPath() + '/assets/self-owned/html/chart/content_radar.html');
+        break;
+      case 'treemap':
+        $('#sub_content_div').load($.getRootPath() + '/assets/self-owned/html/chart/content_treemap.html');
+        break;
+      case 'heatmap':
+        $('#sub_content_div').load($.getRootPath() + '/assets/self-owned/html/chart/content_grid_heatmap.html');
+        break;
+      case 'parallel':
+        $('#sub_content_div').load($.getRootPath() + '/assets/self-owned/html/chart/content_parallel.html');
+        break;
+      case 'themeRiver':
+        $('#sub_content_div').load($.getRootPath() + '/assets/self-owned/html/chart/content_river.html');
+        break;
+      case 'sankey':
+        $('#sub_content_div').load($.getRootPath() + '/assets/self-owned/html/chart/content_sankey.html');
+        break;
+      case 'graph':
+        var layout = option.series[0].layout;
+        if (layout == 'none') {
+          $('#sub_content_div').load($.getRootPath() + '/assets/self-owned/html/chart/content_graph.html');
+        } else if (layout == 'circular') {
+          $('#sub_content_div').load($.getRootPath() + '/assets/self-owned/html/chart/content_circular.html');
+        } else if (layout == 'force') {
+          $('#sub_content_div').load($.getRootPath() + '/assets/self-owned/html/chart/content_force.html');
+        }
+
+        break;
+      default:
     }
+    setTimeout(function() {
+      chart = ChartPOJO.renderChart('main', option);
+      if (chartViewModel) {
+        chartViewModel.chart = chart;
+        chartViewModel.data = json;
+      }
+    }, 500);
+
+
   }
 }
 

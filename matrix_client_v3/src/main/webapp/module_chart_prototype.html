@@ -53,6 +53,8 @@
                 <button title="New demo" type="button" onclick="initialize_chart()" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-paint-brush"></i></button>
 
                 <button title="Save" type="button" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Save chart', '/assets/self-owned/html/chart/modal_content_save_chart.html',$data);})" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-save"></i></button>
+                <button title="Edit" type="button" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Edit content', '/assets/self-owned/html/chart/modal_content_edit_data.html',$data);})" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-magic"></i></button>
+
                 <span class="pull-right" style="margin-right:18px">
                   <button title="Refresh" type="button" class="btn btn-success" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-refresh"></i></button>
                 </span>
@@ -156,7 +158,7 @@
       setTimeout(function() {
         ko.applyBindings(chartViewModel, document.getElementById('main_content_div'));
         SharePOJO.environmentCheck();
-      }, 800);
+      }, 500);
 
 
 
