@@ -1,0 +1,80 @@
+[
+    {
+        'id':1,
+        "value": 40,
+        "name": "Accessibility",
+    },
+    {
+        "value": 180,
+        "name": "Accounts",
+        "children": [
+            {
+                "value": 76,
+                "name": "Access",
+                "children": [
+                    {
+                        "value": 12,
+                        "name": "DefaultAccessPlugin.bundle",
+                    },
+                    {
+                        "value": 28,
+                        "name": "FacebookAccessPlugin.bundle",
+                    }
+                ]
+            },
+            {
+                "value": 92,
+                "name": "Authentication",
+                "path": "Accounts/Authentication",
+                "children": [
+                    {
+                        "value": 24,
+                        "name": "FacebookAuthenticationPlugin.bundle",
+                    }
+                ]
+            },
+            {
+                "value": 12,
+                "name": "Notification",
+                "path": "Accounts/Notification",
+                "children": [
+                    {
+                        "value": 12,
+                        "name": "SPAAccountsNotificationPlugin.bundle",
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "value": 1904,
+        "name": "AddressBook Plug-Ins",
+        "children": [
+        ]
+    },
+    {
+        "value": 36,
+        "name": "Assistant",
+        "path": "Assistant",
+        "children": [
+            {
+                "value": 36,
+                "name": "Plugins",
+                "children": [
+                    {
+                        "value": 36,
+                        "name": "AddressBook.assistantBundle",
+                    },
+                    {
+                        "value": 8,
+                        "name": "GenericAddressHandler.addresshandler",
+                    },
+                    {
+                        "value": 12,
+                        "name": "MapsRecents.addresshandler",
+                    }
+                ]
+            }
+        ]
+    }
+]

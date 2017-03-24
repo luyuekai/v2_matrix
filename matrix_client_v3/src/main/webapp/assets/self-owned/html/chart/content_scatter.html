@@ -3,7 +3,7 @@
     <div class="col-md-8" style="margin-top: 30px;" id="test">
       <div class="card card-mini">
         <div class="card-header">
-          PARALLEL
+          SCATTER
         </div>
         <div class="card-body">
           <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
@@ -19,26 +19,13 @@
             <span class="pull-right" style="margin-right:18px">
               <button onclick="hide_div('configuration_content_div')" title="Refresh" type="button" class="btn btn-default btn-xs" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-arrow-up"></i></button>
               <button onclick="show_div('configuration_content_div')" title="Refresh" type="button" class="btn btn-default btn-xs" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-arrow-down"></i></button>
-              <button onclick="chart = ChartPOJO.generateParallelChart('main','Matrix Parallel Chart',[],'',[]);" title="Refresh" type="button" class="btn btn-default btn-xs" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-plus"></i></button>
+              <button onclick="chart = ChartPOJO.generateScatterChart('main','Matrix Scatter Chart','',[]);" title="Refresh" type="button" class="btn btn-default btn-xs" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-plus"></i></button>
             </span>
           </div>
         </div>
         <div class="card-body" id="configuration_content_div">
           <div>
             <form class="form-horizontal">
-              <div class="form-group">
-                <label class="col-sm-3 control-label">Add Axis</label>
-                <div class="col-sm-7">
-                  <div class="input-group" title="From Source">
-                    <span class="input-group-addon" id="basic-addon2">
-                      <i class="fa fa-gear" aria-hidden="true"></i>&nbsp;</span>
-                    <input id="add_axis_input" type="text" class="form-control" placeholder="Axis Value" aria-describedby="basic-addon2">
-                  </div>
-                </div>
-                <div class="col-sm-2">
-                  <button onclick="chart = ChartPOJO.generateParallelChart('main','Matrix Parallel Chart',$('#add_axis_input').val().split(','),'',[]);" title="Manual add series" type="button" class="btn btn-success btn-xs" style="padding: 6px 12px;margin-top: 3px;"><i class="fa fa-plus"></i></button>
-                </div>
-              </div>
               <div class="form-group">
                 <label class="col-sm-3 control-label">Add Data</label>
                 <div class="col-sm-7">
@@ -54,7 +41,7 @@
                   </div>
                 </div>
                 <div class="col-sm-2">
-                  <button onclick="ChartPOJO.addSeries(chart,$('#add_name_input').val(),'parallel',eval($('#add_value_input').val()))" title="Manual add series" type="button" class="btn btn-success btn-xs" style="padding: 6px 12px;margin-top: 3px;"><i class="fa fa-plus"></i></button>
+                  <button onclick="ChartPOJO.addSeries(chart,$('#add_name_input').val(),'scatter',eval($('#add_value_input').val()))" title="Manual add series" type="button" class="btn btn-success btn-xs" style="padding: 6px 12px;margin-top: 3px;"><i class="fa fa-plus"></i></button>
                 </div>
               </div>
               <div class="form-group">

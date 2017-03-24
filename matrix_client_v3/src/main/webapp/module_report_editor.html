@@ -89,6 +89,11 @@
                 <button title="Insert a chart cell(shift+e)" onclick="ModalUtil.popup_modal('Insert a new chart', '/assets/self-owned/html/report/modal_content_insert_chart.html', null, null, null);" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-bar-chart"></i></button>
 
                 <button title="Run cell(shift+r)" type="button" data-bind="click:compileCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-play"></i></button>
+                <button title="Export PDF" type="button" data-bind="click:function(){reportViewModel.download('PDF')}" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-file-pdf-o"></i></button>
+                <button title="Export HTML" type="button" data-bind="click:function(){reportViewModel.download('HTML')}" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-html5"></i></button>
+                <button title="Export Markdown" type="button" data-bind="click:function(){reportViewModel.download('MD')}" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-file-code-o"></i></button>
+
+
                 <span class="pull-right" style="margin-right:18px">
                   <!-- <button type="button" class="btn btn-info" style="padding: 6px 12px;margin-bottom: 0px;display:none" data-bind="visible:!template_name()">No Template</button>
                   <button type="button" class="btn btn-info" style="padding: 6px 12px;margin-bottom: 0px;display:none" data-bind="visible:template_name()">Use Template: <span data-bind="text:template_name"></span></button> -->
@@ -97,19 +102,6 @@
                 <button type="button" class="btn btn-success" style="padding: 6px 12px;margin-bottom: 0px;display:none" data-bind="visible:name()">Saved as: <span data-bind="text:name"></span></button>
                 </span>
               </div>
-              <ul class="card-action">
-                <li class="dropdown">
-                  <a href="/" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-cogs" aria-hidden="true"></i>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#"><i class="fa fa-image"></i> &nbsp;View in report viewer</a></li>
-                    <li><a href="#"><i class="fa fa-file-o"></i> &nbsp;Download as markdown</a></li>
-                    <li><a href="#"><i class="fa fa-file-code-o"></i> &nbsp;Download as html</a></li>
-                    <li><a href="#"><i class="fa fa-file-pdf-o"></i> &nbsp;Download as pdf</a></li>
-                  </ul>
-                </li>
-              </ul>
             </div>
             <div class="card-body no-padding table-responsive">
 

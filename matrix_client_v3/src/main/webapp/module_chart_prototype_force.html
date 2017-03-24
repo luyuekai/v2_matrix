@@ -40,8 +40,8 @@
                 <button title="Copy selected cell" type="button" data-bind="click:copyCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-copy"></i></button>
                 <button title="Paste selected cell" type="button" data-bind="click:pasteCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-paste"></i></button>
                 <button title="Insert a markdown cell below selected cell" type="button" data-bind="click:addCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-plus"></i></button>
-                <button title="Insert a chart cell" onclick="ModalUtil.popup_modal('Insert a new chart image', '/assets/self-owned/html/report/modal_content_upload_image.html', null, null, null);"  type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-bar-chart"></i></button>
-                <button title="Insert a table cell" onclick="ModalUtil.popup_modal('Insert a new table cell', '/assets/self-owned/html/report/modal_content_insert_table.html', null, null, null);"  type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-table"></i></button>
+                <button title="Insert a chart cell" onclick="ModalUtil.popup_modal('Insert a new chart image', '/assets/self-owned/html/report/modal_content_upload_image.html', null, null, null);" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-bar-chart"></i></button>
+                <button title="Insert a table cell" onclick="ModalUtil.popup_modal('Insert a new table cell', '/assets/self-owned/html/report/modal_content_insert_table.html', null, null, null);" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-table"></i></button>
                 <button title="Run cell" type="button" data-bind="click:compileCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-play"></i></button>
                 <span class="pull-right" style="margin-right:18px">
                   <!-- <button type="button" class="btn btn-info" style="padding: 6px 12px;margin-bottom: 0px;display:none" data-bind="visible:!template_name()">No Template</button>
@@ -188,77 +188,69 @@
     </script>
 
     <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('main'));
+      // 基于准备好的dom，初始化echarts实例
+      var chart = echarts.init(document.getElementById('main'));
 
-        myChart.showLoading();
-        $.get('assets/self-owned/data/chart/les-miserable.gexf', function (xml) {
-            myChart.hideLoading();
 
-            var graph = echarts.dataTool.gexf.parse(xml);
-            var categories = [];
-            for (var i = 0; i < 9; i++) {
-                categories[i] = {
-                    name: '类目' + i
-                };
-            }
-            graph.nodes.forEach(function (node) {
-                node.itemStyle = null;
-                node.value = node.symbolSize;
-                node.symbolSize /= 1.5;
-                node.label = {
-                    normal: {
-                        show: node.symbolSize > 10
-                    }
-                };
-                node.category = node.attributes.modularity_class;
-            });
-            option = {
-                title: {
-                    text: 'Les Miserables',
-                    subtext: 'Circular layout',
-                    top: 'bottom',
-                    left: 'right'
-                },
-                tooltip: {},
-                legend: [{
-                    // selectedMode: 'single',
-                    data: categories.map(function (a) {
-                        return a.name;
-                    })
-                }],
-                animationDurationUpdate: 1500,
-                animationEasingUpdate: 'quinticInOut',
-                series : [
-                    {
-                        name: 'Les Miserables',
-                        type: 'graph',
-                        layout: 'circular',
-                        circular: {
-                            rotateLabel: true
-                        },
-                        data: graph.nodes,
-                        links: graph.links,
-                        categories: categories,
-                        // roam: true,
-                        label: {
-                            normal: {
-                                position: 'right',
-                                formatter: '{b}'
-                            }
-                        },
-                        lineStyle: {
-                            normal: {
-                                color: 'source',
-                                curveness: 0.3
-                            }
-                        }
-                    }
-                ]
-            };
+      chart.showLoading();
+      $.get('assets/self-owned/data/chart/les-miserable.gexf', function (xml) {
+          chart.hideLoading();
 
-            myChart.setOption(option);
-        }, 'xml');
+          var graph = echarts.dataTool.gexf.parse(xml);
+          var categories = [];
+          for (var i = 0; i < 9; i++) {
+              categories[i] = {
+                  name: '类目' + i
+              };
+          }
+          graph.nodes.forEach(function (node) {
+              node.itemStyle = null;
+              node.symbolSize = 10;
+              node.value = node.symbolSize;
+              node.category = node.attributes.modularity_class;
+              // Use random x, y
+              node.x = node.y = null;
+              node.draggable = true;
+          });
+          option = {
+              title: {
+                  text: 'Les Miserables',
+                  subtext: 'Default layout',
+                  top: 'bottom',
+                  left: 'right'
+              },
+              tooltip: {},
+              legend: [{
+                  // selectedMode: 'single',
+                  data: categories.map(function (a) {
+                      return a.name;
+                  })
+              }],
+              animation: false,
+              series : [
+                  {
+                      name: 'Les Miserables',
+                      type: 'graph',
+                      layout: 'force',
+                      data: graph.nodes,
+                      links: graph.links,
+                      categories: categories,
+                      roam: true,
+                      label: {
+                          normal: {
+                              position: 'right'
+                          }
+                      },
+                      force: {
+                          repulsion: 100
+                      }
+                  }
+              ]
+          };
+
+          chart.setOption(option);
+      }, 'xml');
+
     </script>
 
 </body>
