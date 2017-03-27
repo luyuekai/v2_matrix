@@ -1,0 +1,44 @@
+<div id="client_table_template_div" >
+  <table class="table table-striped table-hover" cellspacing="0">
+    <thead>
+      <tr>
+        <!-- ko foreach: columnNames -->
+        <th>
+          <span data-bind="text: $data"></span>
+        </th>
+        <!-- /ko -->
+      </tr>
+    </thead>
+    <tbody data-bind="foreach:thinViewData">
+      <tr data-bind="visible:isDisplay,foreach: data">
+        <td data-bind="text: $data"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="matrix-pager-v3"  data-bind="visible:isDisplayPager">
+    <form class="form-inline">
+      <nav>
+        <span class="pull-left">
+          <label class="control-label" style="margin-bottom: 12px;">Total Counts:<span data-bind="text:totalCounts()?totalCounts():0"></span></label>
+        <input data-bind="value:searchKeyword" type="text" class="form-control" placeholder="Search..." style="margin-left: 18px;">
+        <button data-bind="click:function(){buildView()}" type="submit" class="btn btn-default" style="margin-bottom:15px;padding: 10px 15px;margin-left: -4px;"><i class="fa fa-search"></i></button>
+        </span>
+        <span class="pull-right">
+        <button data-bind="click:function(){toPage(1)}" type="button" class="btn btn-default " style="padding: 10px 12px;"><i class="fa fa-angle-double-left"></i> &nbsp;First</button>
+        <button data-bind="click:function(){toPage(currentPageNumber()-1)}" type="button" class="btn btn-default " style="padding: 10px 12px;"><i class="fa fa-angle-left"></i> &nbsp;Previous</button>
+        <input data-bind="value:currentPageNumber" type="text" class="form-control" placeholder="Page" style="width:60px;margin-bottom:6px;padding:10px;text-align: center;">
+        <button data-bind="visible:false,click:function(){}" type="submit" class="btn"><span class="fui-search"></span></button>
+        <button data-bind="click:function(){toPage(currentPageNumber()+1)}" type="button" class="btn btn-default " style="padding: 10px 12px;">Next &nbsp;<i class="fa fa-angle-right"></i></button>
+        <button data-bind="click:function(){toPage(totalPage())}" type="button" class="btn btn-default " style="padding: 10px 12px;">Last &nbsp;<i class="fa fa-angle-double-right"></i></button>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span data-bind="text:pageMaxSize()"></span> <span class="caret"></span></button>
+          <ul class="dropdown-menu" role="menu" data-bind="foreach: pagingSizeArray">
+            <li><a data-bind="click:function(){$parent.pageMaxSize($data)}" href="#"><span data-bind="text:$data"></span></a></li>
+          </ul>
+        </div>
+        </span>
+      </nav>
+    </form>
+  </div>
+</div>
