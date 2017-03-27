@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.ico">
+
+  <link rel="stylesheet" type="text/css" href="assets/reference/flat-admin/assets/css/vendor.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/flat-admin/assets/css/flat-admin.css">
+  <!-- Theme -->
+  <link rel="stylesheet" type="text/css" href="assets/reference/flat-admin/assets/css/theme/blue-sky.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/flat-admin/assets/css/theme/blue.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/flat-admin/assets/css/theme/red.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/flat-admin/assets/css/theme/yellow.css">
+
+  <link rel="stylesheet" href="assets/reference/codemirror/codemirror.css">
+
+  <link rel="stylesheet" href="assets/reference/github-markdown-css/github-markdown.css">
+
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix_v3.css">
+
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap-fileinput/css/fileinput_ly.css" media="all">
+
+
+  <style>
+    .CodeMirror {
+      border: 1px solid #eee;
+      height: auto;
+    }
+
+    .compile_mode_focus_in {
+      padding: 8px 20px;
+      margin: 6px 0;
+      border: 1px solid #eee;
+      border-left-width: 5px;
+      border-radius: 3px;
+      border-left-color: #39c3da;
+    }
+
+    .compile_mode_focus_out {
+      padding: 8px 20px 8px 25px;
+      margin: 6px 0;
+    }
+
+    .edit_mode_focus_in {
+      padding: 5px 20px;
+      margin: 6px 0;
+      border: 1px solid #eee;
+      border-left-width: 5px;
+      border-radius: 3px;
+      border-left-color: #1abc9c;
+    }
+
+    .edit_mode_focus_out {
+      padding: 8px 20px 8px 25px;
+      margin: 6px 0;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="app app-blue-sky">
+
+    <aside class="app-sidebar" id="sidebar"></aside>
+    <div class="app-container" id="main_content_div">
+
+      <nav class="navbar navbar-default navbar-fixed-top" id="navbar" style="margin-left: 180px;"></nav>
+
+      <div class="seperate_div_class" style="margin-top:118px"></div>
+
+      <div class="row">
+
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+              <i class="fa fa-diamond">&nbsp;Color Scheme&nbsp;&nbsp;&nbsp;</i>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-6">
+                  <div class="colorbox">
+                    <div class="color1">
+                      <div class="color" style="background-color: #095077"></div>
+                      <div class="heading">
+                        <div class="title">#095077</div>
+                        <div class="subtitle">9, 80, 119</div>
+                      </div>
+                    </div>
+                    <div class="color2">
+                      <div class="color" style="background-color: #043D5D"></div>
+                      <div class="heading">
+                        <div class="title">#043D5D</div>
+                        <div class="subtitle">4, 61, 93</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-6">
+                  <div class="colorbox">
+                    <div class="color1">
+                      <div class="color" style="background-color: #29c75f"></div>
+                      <div class="heading">
+                        <div class="title">#29c75f</div>
+                        <div class="subtitle">41, 199, 95</div>
+                      </div>
+                    </div>
+                    <div class="color2">
+                      <div class="color" style="background-color: #18aa4a"></div>
+                      <div class="heading">
+                        <div class="title">#18aa4a</div>
+                        <div class="subtitle">24, 170, 74</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-6">
+                  <div class="colorbox">
+                    <div class="color1">
+                      <div class="color" style="background-color: #FFC153"></div>
+                      <div class="heading">
+                        <div class="title">#FFC153</div>
+                        <div class="subtitle">9, 80, 119</div>
+                      </div>
+                    </div>
+                    <div class="color2">
+                      <div class="color" style="background-color: #e9aa3a"></div>
+                      <div class="heading">
+                        <div class="title">#e9aa3a</div>
+                        <div class="subtitle">4, 61, 93</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-6">
+                  <div class="colorbox">
+                    <div class="color1">
+                      <div class="color" style="background-color: #E74C3C"></div>
+                      <div class="heading">
+                        <div class="title">#E74C3C</div>
+                        <div class="subtitle">9, 80, 119</div>
+                      </div>
+                    </div>
+                    <div class="color2">
+                      <div class="color" style="background-color: #d73727"></div>
+                      <div class="heading">
+                        <div class="title">#d73727</div>
+                        <div class="subtitle">4, 61, 93</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-6">
+                  <div class="colorbox">
+                    <div class="color1">
+                      <div class="color" style="background-color: #39c3da"></div>
+                      <div class="heading">
+                        <div class="title">#39c3da</div>
+                        <div class="subtitle">9, 80, 119</div>
+                      </div>
+                    </div>
+                    <div class="color2">
+                      <div class="color" style="background-color: #20a3b9"></div>
+                      <div class="heading">
+                        <div class="title">#20a3b9</div>
+                        <div class="subtitle">4, 61, 93</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-6">
+                  <div class="colorbox">
+                    <div class="color1">
+                      <div class="color" style="background-color: #F9F9F9"></div>
+                      <div class="heading">
+                        <div class="title">#F9F9F9</div>
+                        <div class="subtitle">9, 80, 119</div>
+                      </div>
+                    </div>
+                    <div class="color2">
+                      <div class="color" style="background-color: #EEE"></div>
+                      <div class="heading">
+                        <div class="title">#EEEEEE</div>
+                        <div class="subtitle">4, 61, 93</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Color Scheme End-->
+
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+              Button
+            </div>
+            <div class="card-body">
+              <div class="section">
+                <div class="section-body">
+                  <div>
+                    <button type="button" class="btn btn-default">Default</button>
+                    <button type="button" class="btn btn-primary">Primary</button>
+                    <button type="button" class="btn btn-success">Success</button>
+                    <button type="button" class="btn btn-info">Info</button>
+                    <button type="button" class="btn btn-warning">Warning</button>
+                    <button type="button" class="btn btn-danger">Danger</button>
+                    <button type="button" class="btn btn-link">Link</button>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Dropdown <span class="caret"></span></button>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                      </ul>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="section">
+                <div class="section-title">Sizing</div>
+                <div class="section-body">
+                  <button type="button" class="btn btn-default btn-lg">Large</button>
+                  <button type="button" class="btn btn-default">Normal</button>
+                  <button type="button" class="btn btn-default btn-sm">Small</button>
+                  <button type="button" class="btn btn-default btn-xs">Extra Small</button>
+                </div>
+              </div>
+              <div class="section">
+                <div class="section-title">Social</div>
+                <div class="section-body">
+                  <button type="button" class="btn btn-default btn-social __facebook">
+                    <div class="info">
+                      <i class="icon fa fa-facebook-official" aria-hidden="true"></i>
+                      <span class="title">Facebook</span>
+                    </div>
+                  </button>
+                  <button type="button" class="btn btn-default btn-sm btn-social __twitter">
+                    <div class="info">
+                      <i class="icon fa fa-twitter" aria-hidden="true"></i>
+                      <span class="title">Twitter</span>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Button End-->
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+              Label
+            </div>
+            <div class="card-body">
+              <span class="label label-default">Default</span>
+              <span class="label label-primary">Primary</span>
+              <span class="label label-success">Success</span>
+              <span class="label label-info">Info</span>
+              <span class="label label-warning">Warning</span>
+              <span class="label label-danger">Danger</span>
+            </div>
+          </div>
+        </div>
+        <!-- Label End-->
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+              Badge
+            </div>
+            <div class="card-body">
+              <span class="badge badge-success badge-icon"><i class="fa fa-check" aria-hidden="true"></i><span>Complete</span></span>
+              <span class="badge badge-warning badge-icon"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Pending</span></span>
+              <span class="badge badge-info badge-icon"><i class="fa fa-credit-card" aria-hidden="true"></i><span>Confirm Payment</span></span>
+              <span class="badge badge-danger badge-icon"><i class="fa fa-times" aria-hidden="true"></i><span>Cancelled</span></span>
+              <span class="badge badge-primary badge-icon"><i class="fa fa-truck" aria-hidden="true"></i><span>Shipped</span></span>
+              <span class="badge badge-info badge-icon"><i class="fa fa-credit-card" aria-hidden="true"></i><span>Confirm Payment</span></span>
+            </div>
+          </div>
+        </div>
+        <!-- Badge End-->
+      </div>
+
+
+
+
+
+      <div class="seperate_div_class" style="margin-top:58px"></div>
+
+      <footer id="footer_div" class="app-footer" style="position:absolute;bottom:0;margin:0 auto;">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="footer-copyright">
+              Copyright © 2016 MATRIX Company Co,Ltd.
+            </div>
+          </div>
+        </div>
+      </footer>
+
+
+      <div class="btn-floating" id="help-actions">
+        <div class="btn-bg" style="background-color:#3498db;box-shadow: 0 1px 3px #3498db;"></div>
+        <button type="button" class="btn btn-info btn-toggle" data-toggle="toggle" data-target="#help-actions">
+          <i class="icon fa fa-plus"></i>
+          <span class="help-text">Shortcut</span>
+        </button>
+        <div class="toggle-content">
+          <ul class="actions">
+            <li><a href="#" onclick="viewMode()">View Style(F8)</a></li>
+            <li><a href="#" onclick="editMode()">Edit Style(F8)</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="modal fade" id="popupModalPro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <i class="fa fa-power-off"></i> &nbsp; <span class="modal-title" id="popupModalLabelPro"></span>
+            </div>
+            <div class="modal-body">
+              <div id="modalContentDIVPro"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="assets/reference/flat-admin/assets/js/vendor_min.js"></script>
+    <script type="text/javascript" src="assets/reference/flat-admin/assets/js/app.js"></script>
+
+    <script src="assets/reference/codemirror/codemirror.js"></script>
+    <script src="assets/reference/codemirror/mode/javascript/javascript.js"></script>
+    <script src="assets/reference/codemirror/mode/markdown/markdown.js"></script>
+
+    <script src="assets/reference/jquery/jquery.json.js"></script>
+    <script src="assets/reference/knockout.js/knockout-3.3.0.js"></script>
+    <script src="assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+    <script src="assets/reference/markdown/markdown.min.js"></script>
+
+    <!-- Javascript for Matrix Self Owned -->
+    <script src="assets/self-owned/js/generic/generic_algorithm.js"></script>
+    <script src="assets/self-owned/js/generic/generic_cache.js"></script>
+    <script src="assets/self-owned/js/generic/generic_charting.js"></script>
+    <script src="assets/self-owned/js/generic/generic_csv.js"></script>
+    <script src="assets/self-owned/js/generic/generic_cud.js"></script>
+    <script src="assets/self-owned/js/generic/generic_modal.js"></script>
+    <script src="assets/self-owned/js/generic/generic_query.js"></script>
+    <script src="assets/self-owned/js/generic/generic_table.js"></script>
+    <script src="assets/self-owned/js/generic/generic_util.js"></script>
+    <script src="assets/self-owned/js/generic/generic_validation.js"></script>
+    <script src="assets/self-owned/js/generic/generic_workbench.js"></script>
+
+
+
+
+
+
+    <script>
+      $(document).ready(function() {
+        $('#sidebar').load($.getRootPath() + '/components/left_side.html');
+        $('#navbar').load($.getRootPath() + '/components/header.html');
+        setTimeout(function() {
+          resetCssClass('li_dashboard', 'active');
+        }, 200);
+      });
+    </script>
+
+
+</body>
+
+</html>

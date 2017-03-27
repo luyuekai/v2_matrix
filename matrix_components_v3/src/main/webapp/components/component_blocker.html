@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="../assets/self-owned/ico/favicon.ico">
+
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/vendor.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/flat-admin.css">
+  <!-- Theme -->
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue-sky.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/red.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/yellow.css">
+
+  <link rel="stylesheet" href="../assets/reference/codemirror/codemirror.css">
+
+  <link rel="stylesheet" href="../assets/reference/github-markdown-css/github-markdown.css">
+
+  <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/matrix_v3.css">
+
+  <link rel="stylesheet" type="text/css" href="../assets/reference/bootstrap-fileinput/css/fileinput_ly.css" media="all">
+
+
+
+</head>
+
+<body>
+
+  <div class="app app-blue-sky" id="contentDIV">
+
+    <aside class="app-sidebar" id="sidebar"></aside>
+    <div class="app-container" id="main_content_div">
+
+      <nav class="navbar navbar-default navbar-fixed-top" id="navbar" style="margin-left: 180px;"></nav>
+
+      <div class="seperate_div_class" style="margin-top:118px"></div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <i class="fa fa-diamond">&nbsp;Block&nbsp;&nbsp;&nbsp;</i>
+                <button onclick="$('#blockDIV').block({message: null});" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;">
+                  <span class="fa fa-plus" aria-hidden="true"></span>
+                </button>
+                <button onclick="$('#blockDIV').unblock();" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;">
+                  <span class="fa fa-minus" aria-hidden="true"></span>
+                </button>
+              </div>
+
+            </div>
+            <div class="card-body flat-matrix" id="blockDIV">
+              <!--LOADER DIV BEGIN-->
+              <div class="loader-container text-center">
+                <div class="icon">
+                  <div class="sk-wave">
+                    <div class="sk-rect sk-rect1"></div>
+                    <div class="sk-rect sk-rect2"></div>
+                    <div class="sk-rect sk-rect3"></div>
+                    <div class="sk-rect sk-rect4"></div>
+                    <div class="sk-rect sk-rect5"></div>
+                  </div>
+                </div>
+                <div class="title">Loading</div>
+              </div>
+              <!--LOADER DIV END-->
+
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex
+              ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril
+              delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
+
+      <div class="seperate_div_class" style="margin-top:58px"></div>
+
+      <footer id="footer_div" class="app-footer" style="position:absolute;bottom:0;margin:0 auto;">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="footer-copyright">
+              Copyright © 2016 MATRIX Company Co,Ltd.
+            </div>
+          </div>
+        </div>
+      </footer>
+
+
+    </div>
+
+    <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
+    <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/app.js"></script>
+
+    <script src="../assets/reference/codemirror/codemirror.js"></script>
+    <script src="../assets/reference/codemirror/mode/javascript/javascript.js"></script>
+    <script src="../assets/reference/codemirror/mode/markdown/markdown.js"></script>
+
+    <script src="../assets/reference/jquery/jquery.json.js"></script>
+    <script src="../assets/reference/jquery/jquery.blockUI.js"></script>
+    <script src="../assets/reference/knockout.js/knockout-3.3.0.js"></script>
+    <script src="../assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+    <script src="../assets/reference/markdown/markdown.min.js"></script>
+
+    <!-- Javascript for Matrix Self Owned -->
+    <script src="../assets/self-owned/js/generic/generic_algorithm.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_cache.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_charting.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_csv.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_cud.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_modal.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_query.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_table.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_util.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
+
+
+
+
+
+
+    <script>
+      $(document).ready(function() {
+        $('#sidebar').load($.getRootPath() + '/components/left_side.html');
+        $('#navbar').load($.getRootPath() + '/components/header.html');
+        setTimeout(function() {
+          // resetCssClass('li_dashboard', 'active');
+        }, 200);
+      });
+    </script>
+    <script>
+    var block = function() {
+      $('#blockDIV').block({message: null});
+    }
+    var unblock = function() {
+      $('#blockDIV').unblock();
+    }
+    </script>
+
+</body>
+
+</html>
