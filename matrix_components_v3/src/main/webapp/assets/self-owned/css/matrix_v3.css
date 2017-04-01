@@ -44,7 +44,7 @@
 .flat-matrix .alert.alert-success {
   background-color: #99e9d9;
   color: #006551;
-  border-color: #1ABC9C;
+  border-color: #29c75f;
 }
 .flat-matrix .alert.alert-success .alert-link {
   color: #006551;
@@ -56,7 +56,7 @@
 .flat-matrix .alert.alert-info {
   background-color: #91d5fb;
   color: #09486b;
-  border-color: #22A7F0;
+  border-color: #39c3da;
 }
 .flat-matrix .alert.alert-info .alert-link {
   color: #09486b;
@@ -100,13 +100,13 @@
   color: #FFF;
 }
 .flat-matrix .alert.fresh-color.alert-success {
-  background-color: #1ABC9C;
+  background-color: #29c75f;
 }
 .flat-matrix .alert.fresh-color.alert-info {
-  background-color: #22A7F0;
+  background-color: #39c3da;
 }
 .flat-matrix .alert.fresh-color.alert-warning {
-  background-color: #E67E22;
+  background-color: #FFC153;
 }
 .flat-matrix .alert.fresh-color.alert-danger {
   background-color: #E74C3C;
@@ -119,15 +119,15 @@
   color: #FFF;
 }
 .flat-matrix .card.yellow {
-  background-color: #E67E22; //#ffb400;
+  background-color: #FFC153; //#ffb400;
   color: #FFF;
 }
 .flat-matrix .card.green {
-  background-color: #1ABC9C;
+  background-color: #29c75f;
   color: #FFF;
 }
 .flat-matrix .card.blue {
-  background-color: #22A7F0;
+  background-color: #39c3da;
   color: #FFF;
 }
 .flat-matrix .card.dark {
@@ -185,19 +185,19 @@
   background-color: #09486b;
 }
 .flat-matrix .card.card-success .card-header {
-  background-color: #1ABC9C;
+  background-color: #29c75f;
 }
 .flat-matrix .card.card-success .card-header .title {
   color: #FFF;
 }
 .flat-matrix .card.card-info .card-header {
-  background-color: #22A7F0;
+  background-color: #39c3da;
 }
 .flat-matrix .card.card-info .card-header .title {
   color: #FFF;
 }
 .flat-matrix .card.card-warning .card-header {
-  background-color: #E67E22;
+  background-color: #FFC153;
   ;
 }
 .flat-matrix .card.card-warning .card-header .title {
@@ -511,7 +511,7 @@
 }
 .flat-matrix .step .nav-tabs > li.step-success {
   background-color: #99e9d9;
-  border: 1px solid #1ABC9C;
+  border: 1px solid #29c75f;
 }
 .flat-matrix .step .nav-tabs > li.step-success a {
   color: #006551;
