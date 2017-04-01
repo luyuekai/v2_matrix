@@ -29,18 +29,86 @@
 
 <body>
 
-  <div class="app app-blue-sky">
+  <div class="app app-blue-sky" id="contentDIV">
 
     <aside class="app-sidebar" id="sidebar"></aside>
     <div class="app-container" id="main_content_div">
 
       <nav class="navbar navbar-default navbar-fixed-top" id="navbar" style="margin-left: 180px;"></nav>
 
-      <div class="seperate_div_class" style="margin-top:118px"></div>
+      <div class="row" style="position:fixed;top:88px;left: 180px;right: 0px;z-index:100006;background-color: #E7EDEE;">
+        <div class="col-xs-12">
+          <button type="button" onclick="location.href = $.getRootPath() + '/index.html'" class="btn btn-link" style="padding: 6px 2px;">Home &nbsp;<i class="fa fa-angle-right"></i></button>
+          <button type="button" class="btn btn-link" style="padding: 6px 2px;">Current Topic</button>
+        </div>
+      </div>
+
+      <div class="row" id="menubar_div" style="position:fixed;top:128px;left: 180px;right: 0px;z-index:100006">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 0px;">
+          <div class="card card-mini">
+            <div class="card-header">
+              <div class="card-title">
+                <button title="New report(shift+n)" type="button" onclick="ModalUtil.popup_modal('New report', '/assets/self-owned/html/report/modal_content_new.html', null, null, null);" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-edit"></i></button>
+                <button title="Save(shift+s)" type="button" data-bind="click:(function(){ModalUtil.popup_modal_with_businessPOJO('Save report draft', '/assets/self-owned/html/report/modal_content_save_draft.html',$data);})" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-save"></i></button>
+                <!-- <button title="Save as template" onclick="ModalUtil.popup_modal('Save report as template', '/assets/self-owned/html/report/modal_content_save_template.html', null, null, null);" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-bookmark-o"></i></button> -->
+                <button title="Cut selected cell(shift+x)" type="button" data-bind="click:cutCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-cut"></i></button>
+                <button title="Copy selected cell(shift+c)" type="button" data-bind="click:copyCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-copy"></i></button>
+                <button title="Paste selected cell(shift+v)" type="button" data-bind="click:pasteCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-paste"></i></button>
+                <button title="Up selected cell(shift+up)" type="button" data-bind="click:upCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-arrow-up"></i></button>
+                <button title="Down selected cell(shift+down)" type="button" data-bind="click:downCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-arrow-down"></i></button>
+                <button title="Insert a markdown cell below selected cell(shift+a)" type="button" data-bind="click:addCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-plus"></i></button>
+                <button title="Insert a image cell(shift+i)" onclick="ModalUtil.popup_modal('Insert a new image', '/assets/self-owned/html/report/modal_content_upload_image.html', null, null, null);" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-image"></i></button>
+                <button title="Insert a table cell(shift+t)" onclick="ModalUtil.popup_modal('Insert a new table cell', '/assets/self-owned/html/report/modal_content_insert_table.html', null, null, null);" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-table"></i></button>
+                <button title="Insert a chart cell(shift+e)" onclick="ModalUtil.popup_modal('Insert a new chart', '/assets/self-owned/html/report/modal_content_insert_chart.html', null, null, null);" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-bar-chart"></i></button>
+
+                <button title="Run cell(shift+r)" type="button" data-bind="click:compileCell" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-play"></i></button>
+                <button title="Export PDF" type="button" data-bind="click:function(){reportViewModel.download('PDF')}" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-file-pdf-o"></i></button>
+                <button title="Export HTML" type="button" data-bind="click:function(){reportViewModel.download('HTML')}" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-html5"></i></button>
+                <button title="Export Markdown" type="button" data-bind="click:function(){reportViewModel.download('MD')}" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-file-code-o"></i></button>
+
+
+                <span class="pull-right" style="margin-right:18px">
+                  <!-- <button type="button" class="btn btn-info" style="padding: 6px 12px;margin-bottom: 0px;display:none" data-bind="visible:!template_name()">No Template</button>
+                  <button type="button" class="btn btn-info" style="padding: 6px 12px;margin-bottom: 0px;display:none" data-bind="visible:template_name()">Use Template: <span data-bind="text:template_name"></span></button> -->
+                <button type="button" class="btn btn-warning" style="padding: 6px 12px;margin-bottom: 0px;display:none" data-bind="visible:hasNewContent">Modified</button>
+                <button type="button" class="btn btn-danger" style="padding: 6px 12px;margin-bottom: 0px;display:none" data-bind="visible:!name()">Unsaved</button>
+                <button type="button" class="btn btn-success" style="padding: 6px 12px;margin-bottom: 0px;display:none" data-bind="visible:name()">Saved as: <span data-bind="text:name"></span></button>
+                </span>
+              </div>
+            </div>
+            <div class="card-body no-padding table-responsive">
 
 
 
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div class="seperate_div_class" style="margin-top:228px"></div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card" style="height:2000px">
+            <div class="card-header">
+              <div class="card-title">
+                <i class="fa fa-diamond">&nbsp;Page Template&nbsp;&nbsp;&nbsp;</i>
+              </div>
+
+            </div>
+            <div class="card-body flat-matrix">
+              Content
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
+
+
+      <div class="seperate_div_class" style="margin-top:58px"></div>
 
       <footer id="footer_div" class="app-footer" style="position:absolute;bottom:0;margin:0 auto;">
         <div class="row">
@@ -63,11 +131,13 @@
     <script src="../assets/reference/codemirror/mode/markdown/markdown.js"></script>
 
     <script src="../assets/reference/jquery/jquery.json.js"></script>
+    <script src="../assets/reference/jquery/jquery.blockUI.js"></script>
     <script src="../assets/reference/knockout.js/knockout-3.3.0.js"></script>
     <script src="../assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
     <script src="../assets/reference/markdown/markdown.min.js"></script>
 
     <!-- Javascript for Matrix Self Owned -->
+    <script src="../assets/self-owned/js/generic/generic_prototype.js"></script>
     <script src="../assets/self-owned/js/generic/generic_algorithm.js"></script>
     <script src="../assets/self-owned/js/generic/generic_cache.js"></script>
     <script src="../assets/self-owned/js/generic/generic_charting.js"></script>
@@ -90,11 +160,10 @@
         $('#sidebar').load($.getRootPath() + '/components/left_side.html');
         $('#navbar').load($.getRootPath() + '/components/header.html');
         setTimeout(function() {
-          // resetCssClass('li_dashboard', 'active');
+          $('#navbar_title_li').html('Matrix Report Editor');
         }, 200);
       });
     </script>
-
 
 </body>
 

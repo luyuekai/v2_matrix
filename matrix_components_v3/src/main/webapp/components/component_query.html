@@ -244,6 +244,7 @@
         // LoaderUtil.add('tableDIV');
 
         var queryPOJO = ClonePOJO.shallowClone(ServerPagingQueryPOJO.queryPOJO);
+        viewModel.pageMaxSize(5);
         $(queryPOJO).attr("pageMaxSize", viewModel.pageMaxSize());
         $(queryPOJO).attr("currentPageNumber", viewModel.currentPageNumber());
         // var headers = viewModel.columnNames();

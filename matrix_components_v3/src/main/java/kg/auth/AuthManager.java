@@ -87,7 +87,7 @@ public class AuthManager {
             flag = false;
         }
         
-        if("ease".equalsIgnoreCase(principle)&&"ease".equalsIgnoreCase(credential)){
+        if("matrix".equalsIgnoreCase(principle)&&"matrix".equalsIgnoreCase(credential)){
             flag = true;
         }
         
