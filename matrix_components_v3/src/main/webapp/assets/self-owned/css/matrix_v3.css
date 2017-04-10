@@ -115,11 +115,11 @@
 
 /*card*/
 .flat-matrix .card.red {
-  background-color: #E74C3C; // #FA2A00;
+  background-color: #E74C3C; /*#FA2A00;*/
   color: #FFF;
 }
 .flat-matrix .card.yellow {
-  background-color: #FFC153; //#ffb400;
+  background-color: #FFC153; /*#ffb400;*/
   color: #FFF;
 }
 .flat-matrix .card.green {
@@ -862,3 +862,8 @@
             margin-right: 0; }
           .step-v2-danger .nav-tabs > li > a .heading, .step-v2-danger .nav-tabs > li uib-tab-heading .heading {
             display: none; } }
+
+ 
+      aside.app-sidebar .sidebar-menu ul.sidebar-nav > li.dropdown .dropdown-menu > ul > li a:before {
+          transition: none;
+      }
