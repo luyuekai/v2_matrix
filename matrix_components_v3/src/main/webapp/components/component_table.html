@@ -51,12 +51,12 @@
 
             </div>
             <div class="card-body flat-matrix">
-              <div data-bind="if:!(tableModel_no_intialize() && tableModel_no_intialize().serverData)">
+              <div data-bind="visible:!(tableModel_no_intialize() && tableModel_no_intialize().serverData)">
                 <div class="alert alert-success alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
                   <strong><i class="fa fa-warning"></i>&nbsp;Tips:</strong> &nbsp;Table Not Initialized! Please load data first!
                 </div>
               </div>
-              <div data-bind="if:(tableModel_no_intialize() && tableModel_no_intialize().serverData)">
+              <div data-bind="visible:(tableModel_no_intialize() && tableModel_no_intialize().serverData)" style="display:none">
                 <div class="row" data-bind="with:tableModel_no_intialize">
                   <div class="col-xs-12">
                     <div id="table_parent_div"></div>
