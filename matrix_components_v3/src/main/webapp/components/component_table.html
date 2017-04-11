@@ -51,12 +51,12 @@
 
             </div>
             <div class="card-body flat-matrix">
-              <div data-bind="visible:!(tableModel_no_intialize() && tableModel_no_intialize().serverData)">
+              <div data-bind="visible:!(tableModel_no_intialize() && tableModel_no_intialize().hasResult())">
                 <div class="alert alert-success alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
                   <strong><i class="fa fa-warning"></i>&nbsp;Tips:</strong> &nbsp;Table Not Initialized! Please load data first!
                 </div>
               </div>
-              <div data-bind="visible:(tableModel_no_intialize() && tableModel_no_intialize().serverData)" style="display:none">
+              <div style="display:none" data-bind="visible:(tableModel_no_intialize() && tableModel_no_intialize().hasResult())">
                 <div class="row" data-bind="with:tableModel_no_intialize">
                   <div class="col-xs-12">
                     <div id="table_parent_div"></div>
@@ -78,20 +78,23 @@
                     </table>
 
                     <div class="matrix-pager-v3"  data-bind="visible:isDisplayPager">
-                      <form class="form-inline">
+                      <div class="form-inline">
                         <nav>
+                          <form>
                           <span class="pull-left">
                             <label class="control-label" style="margin-bottom: 12px;">Total Counts:<span data-bind="text:totalCounts()?totalCounts():0"></span></label>
+                            
                           <input data-bind="value:searchKeyword" type="text" class="form-control" placeholder="Search..." style="margin-left: 18px;">
-                          <button data-bind="click:function(){buildView()}" type="submit" class="btn btn-default" style="margin-bottom:15px;padding: 10px 15px;margin-left: -4px;"><i class="fa fa-search"></i></button>
+                          <button data-bind="click:function(){console.log('enter button!');buildView();}" type="submit" class="btn btn-default" style="margin-bottom:15px;padding: 10px 15px;margin-left: -4px;"><i class="fa fa-search"></i></button>
                           </span>
+                          </form>
                           <span class="pull-right">
-                          <button data-bind="click:function(){toPage(1)}" type="button" class="btn btn-default " style="padding: 10px 12px;"><i class="fa fa-angle-double-left"></i> &nbsp;First</button>
-                          <button data-bind="click:function(){toPage(currentPageNumber()-1)}" type="button" class="btn btn-default " style="padding: 10px 12px;"><i class="fa fa-angle-left"></i> &nbsp;Previous</button>
+                          <button data-bind="click:function(){toPage(1);}" type="button" class="btn btn-default " style="padding: 10px 12px;"><i class="fa fa-angle-double-left"></i> &nbsp;First</button>
+                          <button data-bind="click:function(){toPage(currentPageNumber()-1);}" type="button" class="btn btn-default " style="padding: 10px 12px;"><i class="fa fa-angle-left"></i> &nbsp;Previous</button>
                           <input data-bind="value:currentPageNumber" type="text" class="form-control" placeholder="Page" style="width:60px;margin-bottom:6px;padding:10px;text-align: center;">
                           <button data-bind="visible:false,click:function(){}" type="submit" class="btn"><span class="fui-search"></span></button>
-                          <button data-bind="click:function(){toPage(currentPageNumber()+1)}" type="button" class="btn btn-default " style="padding: 10px 12px;">Next &nbsp;<i class="fa fa-angle-right"></i></button>
-                          <button data-bind="click:function(){toPage(totalPage())}" type="button" class="btn btn-default " style="padding: 10px 12px;">Last &nbsp;<i class="fa fa-angle-double-right"></i></button>
+                          <button data-bind="click:function(){toPage(currentPageNumber()+1);}" type="button" class="btn btn-default " style="padding: 10px 12px;">Next &nbsp;<i class="fa fa-angle-right"></i></button>
+                          <button data-bind="click:function(){toPage(totalPage());}" type="button" class="btn btn-default " style="padding: 10px 12px;">Last &nbsp;<i class="fa fa-angle-double-right"></i></button>
                           <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span data-bind="text:pageMaxSize()"></span> <span class="caret"></span></button>
                             <ul class="dropdown-menu" role="menu" data-bind="foreach: pagingSizeArray">
@@ -100,7 +103,7 @@
                           </div>
                           </span>
                         </nav>
-                      </form>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -128,6 +131,7 @@
 
 
     </div>
+  </div>
 
     <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
     <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/app.js"></script>
@@ -189,11 +193,11 @@
           success: function(json) {
             var serverData = json;
             var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
-            tableModel.pageMaxSize(5);
             tableModel.buildData(tableData.result);
             tableModel.columnNames(tableData.header);
             tableModel.isDisplayPager(true);
             tableModel.buildView();
+            tableModel.pageMaxSize(5);
             pageModel.tableModel_no_intialize(tableModel);
           },
           error: function(xhr, status) {

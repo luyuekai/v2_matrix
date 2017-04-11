@@ -8,26 +8,60 @@ function DataModel(data, isChecked, isDisplay) {
 function ThinListViewModel() {
     var self = this;
     self.totalCounts = ko.observable();
-    self.pageMaxSize = ko.observable(10);
+    self.pageMaxSize = ko.observable(5);
     self.currentPageNumber = ko.observable();
-    self.currentPageSize = ko.observable();
     self.searchKeyword = ko.observable();
-    self.serverData = null;//TODO:used in project?
-    self.originalData = ko.observableArray();
-    self.isDisplayPager = ko.observable(false);
+    self.originalData = ko.observableArray();//存放服务器的原始数据
+    self.isDisplayPager = ko.observable(false);//是否显示翻页部件
     
     self.thinViewData = ko.observableArray();//存储显示的DataModel
     self.originViewData = ko.observableArray();//存储js原生数组
     self.columnNames = ko.observableArray();
-    self.pagingSizeArray = ko.observableArray([5, 10, 20, 50, 100]);
+    self.pagingSizeArray = ko.observableArray([5, 10, 20, 100]);
     self.selectedItems = ko.observableArray();//复选框选中的DataModel副本
     self.hasResult = ko.observable(false);
     self.searchField = ko.observable();
     
+    self.totalPage = ko.pureComputed(function () {
+        var tc = self.totalCounts();
+        var pm = self.pageMaxSize();
+        var tp = Math.ceil(tc / pm); // total page
+        return tp;
+    }, this);
+
+    self.toPage = function (pageNumber) {
+        pageNumber = pageNumber || 1;
+        self.currentPageNumber(pageNumber);
+    };
+    
+    self.pageMaxSize.subscribe(function (newValue) {
+        if (self.hasResult()) {
+            self.currentPageNumber(1);
+            self.calcuRowsToDisplay();
+        }
+    }); 
+    
     self.currentPageNumber.subscribe(function (newValue) {
         newValue = Number(newValue);
-        self.toPage(newValue);
+        newValue = newValue || 1;
+        var cp = newValue;
+        var tp = self.totalPage();
+        if (tp === 0 || cp < 1) {
+            self.currentPageNumber(1);
+        } else if (cp > tp) {
+            self.currentPageNumber(tp);
+        } else {
+            self.calcuRowsToDisplay();
+        }
     });
+    
+    self.calcuRowsToDisplay = function () {
+        var cp = self.currentPageNumber();
+        var tc = self.totalCounts();
+        var pm = self.pageMaxSize();
+        self.switchPageView(self.originViewData(), (cp - 1) * pm, cp * pm - 1 > tc ? tc : cp * pm - 1, 'display');
+        self.reset();
+    }
     
     self.enableSubscribe = ko.observable(true);//内部变量，暂时禁用下面关于多选的subscribe
 
@@ -79,9 +113,7 @@ function ThinListViewModel() {
         }
     });
     
-    self.pageMaxSize.subscribe(function (newValue) {
-        self.buildView();
-    });    
+       
 
     //由于selectedItems中存储的是副本，不与thinViewData中的一样，需要一个检查两者是否等价的方式。在业务逻辑代码中自己编写
     //参数1为选中DataModel的序列，参数2为要匹配的DataModel，返回等价的*已选中*的DataModel
@@ -128,10 +160,13 @@ function ThinListViewModel() {
 //        self.syncViewDataCheckbox();
     }
 
-    self.totalSelected = ko.computed(function () {
+    self.totalSelected = ko.pureComputed(function () {
         return self.selectedItems().length;
-    });
+    }, this);
 
+    self.totalCounts = ko.pureComputed( function () {
+        return self.originViewData().length;
+    }, this);
     //这是啥
     self.checkListener = function (current) {
         current.isChecked(!current.isChecked());
@@ -149,16 +184,15 @@ function ThinListViewModel() {
 
     self.buildData = function (serverData) {
         //build data from server
+        console.log("enter buildData");
         self.originalData(serverData);
-        self.serverData = serverData;
         self.hasResult(true);
     };
 
     self.buildView = function () {
+        console.log("enter buildView");
         //build the view data
         var keyword = self.searchKeyword();
-        var pageSize = self.pageMaxSize();
-        var currentPageNumber = 1;
 
         var tmp = [];
         $.each(self.originalData(), function (idx, val) {
@@ -189,45 +223,19 @@ function ThinListViewModel() {
 
         self.originViewData(tmp);
 
-        self.totalCounts(self.originViewData().length);
-        self.toPage(1);
-
+        
+        self.currentPageNumber(1);
+        self.calcuRowsToDisplay();
     };
 
-    self.totalPage = function () {
-        var tc = self.totalCounts();
-        var pm = self.pageMaxSize();
-        var tp = Math.ceil(tc / pm); // total page
-        return tp;
-    };
-
-    self.toPage = function (pageNumber) {
-//        if (pageNumber === self.currentPageNumber()) {
-//            console.log("escape!");
-//            return;
-//        }
-        console.log("enter toPage: " + pageNumber);
-        pageNumber = pageNumber || 1;
-        var cp = pageNumber;
-        var tc = self.totalCounts();
-        var pm = self.pageMaxSize();
-        var tp = Math.ceil(tc / pm); // total page
-        if (tp === 0 || cp < 1) {
-            cp = 1;
-        } else if (cp > tp) {
-            cp = tp;
-        }
-        self.currentPageNumber(cp);
-        self.switchPageView(self.originViewData(), (cp - 1) * pm, cp * pm - 1 > tc ? tc : cp * pm - 1, 'display');
-        console.log('navigate to the special page success...');
-        self.reset();
-    };
+    
 
     // 分页更新页面视图元素函数，逻辑如下：
     // data为表中所有数据，它包含的isDisplay属性控制是否在界面显示
     // 对data进行loop，将索引从first到last之间的元素设置为显示，其余设置为不显示
     // 注意type为(un)select时实际与data参数无关
     self.switchPageView = function (data, first, last, type) {
+        console.log("first, last, type", first, last, type);
         thinTmp = [];
         if (type === 'display') {
             for (var i = first; i < (last + 1 < data.length ? last + 1 : data.length); i++) {
@@ -269,8 +277,7 @@ function ThinListViewModel() {
         }
         self.thinViewData(thinTmp);
         self.syncViewDataCheckbox();
-    }
-    ;
+    };
 
     self.clean = function () {
         self.buildData("");
