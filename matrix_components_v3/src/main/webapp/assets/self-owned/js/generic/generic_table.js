@@ -47,10 +47,11 @@ function ThinListViewModel() {
         var cp = newValue;
         var tp = self.totalPage();
         if (tp === 0 || cp < 1) {
-            self.currentPageNumber(1);
+            self.currentPageNumber(1);//如何避免这种重复跳转？
         } else if (cp > tp) {
             self.currentPageNumber(tp);
         } else {
+            self.currentPageNumber(newValue);
             self.calcuRowsToDisplay();
         }
     });
@@ -59,7 +60,17 @@ function ThinListViewModel() {
         var cp = self.currentPageNumber();
         var tc = self.totalCounts();
         var pm = self.pageMaxSize();
-        self.switchPageView(self.originViewData(), (cp - 1) * pm, cp * pm - 1 > tc ? tc : cp * pm - 1, 'display');
+        
+        var first = (cp - 1) * pm;
+        var last = cp * pm - 1 > tc ? tc : cp * pm - 1;
+        last = last + 1 < self.originViewData().length ? last + 1 : self.originViewData().length;
+        var thinTmp = [];
+        for (var i = first; i < last; i++) {
+            var element = self.originViewData()[i];
+            thinTmp.push(new DataModel(element, false, true));
+        }
+        self.thinViewData(thinTmp);
+        self.syncViewDataCheckbox();
         self.reset();
     }
     
@@ -164,9 +175,10 @@ function ThinListViewModel() {
         return self.selectedItems().length;
     }, this);
 
-    self.totalCounts = ko.pureComputed( function () {
+    self.totalCounts = ko.pureComputed(function () {
         return self.originViewData().length;
     }, this);
+    
     //这是啥
     self.checkListener = function (current) {
         current.isChecked(!current.isChecked());
@@ -220,9 +232,7 @@ function ThinListViewModel() {
             }
 
         });
-
         self.originViewData(tmp);
-
         
         self.currentPageNumber(1);
         self.calcuRowsToDisplay();
@@ -235,46 +245,29 @@ function ThinListViewModel() {
     // 对data进行loop，将索引从first到last之间的元素设置为显示，其余设置为不显示
     // 注意type为(un)select时实际与data参数无关
     self.switchPageView = function (data, first, last, type) {
-        console.log("first, last, type", first, last, type);
-        thinTmp = [];
-        if (type === 'display') {
-            for (var i = first; i < (last + 1 < data.length ? last + 1 : data.length); i++) {
-                var element = data[i];
-                thinTmp.push(new DataModel(element, false, true));
+        thinTmp = self.thinViewData();
+        $.each(thinTmp, function (idx, val) {
+            if (type === 'unselect' && val.isChecked()) {
+                var oldDataModel = self.checkItemSelectedBefore(self.selectedItems(), val);
+                self.selectedItems.remove(oldDataModel);
+            } else if (type === 'select' && !val.isChecked()) {
+                self.selectedItems.push(val);
             }
-        } else {
-            thinTmp = self.thinViewData();
-            $.each(thinTmp, function (idx, val) {
-                if (type === 'unselect' && val.isChecked()) {
-                    var oldDataModel = self.checkItemSelectedBefore(self.selectedItems(), val);
-                    self.selectedItems.remove(oldDataModel);
-                } else if (type === 'select' && !val.isChecked()) {
-                    self.selectedItems.push(val);
-                }
-            });
-        }
+        });
         self.thinViewData(thinTmp);
         self.syncViewDataCheckbox();
     };
 
     self.switchPageViewFile = function (data, first, last, type) {
-        thinTmp = [];
-        if (type === 'display') {
-            for (var i = first; i < (last + 1 < data.length ? last + 1 : data.length); i++) {
-                var element = data[i];
-                thinTmp.push(new DataModel(element, false, true));
+        thinTmp = self.thinViewData();
+        $.each(thinTmp, function (idx, val) {
+            if (type === 'unselect' && val.isChecked()) {
+                var oldDataModel = self.checkItemSelectedBefore(self.selectedItems(), val);
+                self.selectedItems.remove(oldDataModel);
+            } else if (type === 'select' && val.data.type === 'FILE' && !val.isChecked()) {
+                self.selectedItems.push(val);
             }
-        } else {
-            thinTmp = self.thinViewData();
-            $.each(thinTmp, function (idx, val) {
-                if (type === 'unselect' && val.isChecked()) {
-                    var oldDataModel = self.checkItemSelectedBefore(self.selectedItems(), val);
-                    self.selectedItems.remove(oldDataModel);
-                } else if (type === 'select' && val.data.type === 'FILE' && !val.isChecked()) {
-                    self.selectedItems.push(val);
-                }
-            });
-        }
+        });
         self.thinViewData(thinTmp);
         self.syncViewDataCheckbox();
     };
