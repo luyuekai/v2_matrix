@@ -22,13 +22,16 @@ function ReportViewModel() {
 
   self.getMarkdownContent = function() {
     var title = self.name() ? self.name() : 'Report';
-    var seperate = '\n\n  \n\n';
+    var seperate = '\n  \n\n';
     var result = '% ' + title + '\n';
     result += seperate;
 
     $.each(self.cells(), function(idx, cell) {
       var cellShareModel = cell.buildShareModel();
       result += cellShareModel.code_source + seperate;
+      if (cellShareModel.isChartMode) {
+        result += cellShareModel.chartBase64Encode + seperate;
+      }
     });
 
     return result;
@@ -42,6 +45,7 @@ function ReportViewModel() {
     var data = {
       'content': content,
       'filename': self.name() ? self.name() : 'Report',
+      'rootpath':$.getServerRoot(),
       'user': 'Liu_Yang'
 
     };
@@ -420,6 +424,7 @@ function CellViewModel(parent) {
 
   self.chart = null;
   self.chartJson = null;
+  self.chartBase64Encode = null;
   self.isChartMode = ko.observable(false);
 
 
@@ -542,6 +547,10 @@ function CellViewModel(parent) {
       var json = ChartPOJO.serialize_chart_option(self.chart);
       self.chartJson = json;
       model.chartJson = json;
+
+      var chartBase64Encode = self.chart.getDataURL();
+      self.chartBase64Encode = chartBase64Encode;
+      model.chartBase64Encode = chartBase64Encode;
     }
     return model;
   }
@@ -559,6 +568,7 @@ function CellShareModel() {
   self.isViewMode = false;
   self.isChartMode = false;
   self.chartJson = null;
+  self.chartBase64Encode = null;
   self.currentStyle = null;
 }
 

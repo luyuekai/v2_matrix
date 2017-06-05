@@ -468,3 +468,32 @@ function resetCssClass(element_id, css_class) {
     $('#' + element_id).removeClass();
     $('#' + element_id).addClass(css_class);
 }
+
+
+
+var ScrollPOJO = {
+  listener: null,
+  page: 1,
+  pageMaxSize: 10,
+  hasNewData: true,
+  displayResult: [],
+  keywords: null,
+  search: function() {
+    if (ScrollPOJO.listener) {
+      ScrollPOJO.listener();
+    }
+  },
+  scrollListener: function() {
+    if (ScrollPOJO.hasNewData) {
+      if ($(window).scrollTop() + $(window).height() >= ($(document).height() - 100)) {
+        console.log("retrieve the new data ");
+        ScrollPOJO.page += 1;
+        ScrollPOJO.search();
+      } else {
+        // var a = $(window).scrollTop() + $(window).height();
+        // var b = $(document).height() - 100;
+        // console.log('a is ' + a + ' and b is ' + b);
+      }
+    }
+  }
+}
