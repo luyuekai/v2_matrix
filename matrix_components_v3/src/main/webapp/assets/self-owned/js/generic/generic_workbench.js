@@ -1,4 +1,17 @@
 
+
+var serialize_dom = function(dom_id){
+ var s = new XMLSerializer();
+ var d = document.getElementById(dom_id);
+ var str = s.serializeToString(d);
+ return str;
+}
+
+var deserialize_dom = function(dom_str){
+  return $.parseHTML(dom_str);
+}
+
+
 var clone_component = function(destination_parent_div_id,div_id,clone_div_id){
 
   if (div_id && destination_parent_div_id) {
@@ -16,6 +29,19 @@ var clone_component = function(destination_parent_div_id,div_id,clone_div_id){
       $div.append(context_div_clone);
     }
     return tmp_id;
+  }
+}
+
+var clone_component_v2 = function(div_id,clone_div_id){
+
+  if (div_id) {
+    // generate div
+    var context_div_clone = $('#'+div_id).clone().removeAttr('id');
+    var tmp_id = clone_div_id||(new Date()).getTime() + "DIV";
+    context_div_clone.attr('id', tmp_id);
+    context_div_clone.css('display', '');
+
+    return context_div_clone[0];
   }
 }
 
@@ -81,11 +107,50 @@ var addWidget_clientTable = function(header, data) {
   }
 }
 
+//$('.grid-stack').data('gridstack').grid.nodes[0].el[0].id
+var WorkbenchCache = {
+  prototype_element:{
+    widget_id:'12345678',
+    widget_element:{
+      "id":null,
+      "isWidget":true,
+      "widget_x":0,
+      "widget_y":0,
+      "widget_width:":6,
+      "widget_height":5,
+      "isChart":false,
+      "data":null
+    }
+  },
+  array_elements:[],
+  updateCache:function(){
+    var grid_nodes = $('.grid-stack').data('gridstack').grid.nodes;
+    var new_array = [];
+    $.each(grid_nodes,function(index,value){
+      var id = value.el[0].id;
+      $.each(WorkbenchCache.array_elements,function(i,v){
+        if(v.widget_id == id){
+          v.widget_element.widget_x = value.x;
+          v.widget_element.widget_y = value.y;
+          v.widget_element.widget_width = value.width;
+          v.widget_element.widget_height = value.height;
+          var prototype_element = {
+            'widget_id':id,
+            'widget_element':v.widget_element
+          }
+          new_array.push(prototype_element);
+        }
+      });
+    });
+    WorkbenchCache.array_elements = new_array;
+  }
+}
+
 var add_content_div = function(content,x,y,x_width,y_height){
   x = x || 0;
   y = y || 0;
   x_width = x_width || 12;
-  y_height = y_height || 4
+  y_height = y_height || 4;
   var grid = $('.grid-stack').data('gridstack');
   //clone draggableTemplate, and remove attribute of id
   var template = $('#draggableTemplate').clone().removeAttr('id');
@@ -96,10 +161,32 @@ var add_content_div = function(content,x,y,x_width,y_height){
   $draggableTemplateContext.append(content);
   //add template into grid as widget
   var widget = $('<div></div>').append(template);
-  grid.addWidget(widget, x, y, x_width, y_height);
+  widget = grid.addWidget(widget, x, y, x_width, y_height);
+  widget.attr('id', (new Date()).getTime()+'_widget');
+  var element_prototype = {
+    "id":$(content).attr('id'),
+    "isWidget":true,
+    "widget_x":x,
+    "widget_y":y,
+    "widget_width:":x_width,
+    "widget_height":y_height,
+    "isChart":false,
+    "data":serialize_dom($(content).attr('id'))
+  }
+  var widget_prototype_element={
+    widget_id:widget.attr('id'),
+    widget_element:element_prototype
+  }
+  WorkbenchCache.array_elements.push(widget_prototype_element);
+  return widget;
 }
 
-var addWidget_chart = function(option) {
+var addWidget_chart = function(option,x,y,x_width,y_height) {
+  x = x || 0;
+  y = y || 0;
+  x_width = x_width || 6;
+  y_height = y_height || 6;
+
   var grid = $('.grid-stack').data('gridstack');
 
   //step 2: clone draggableTemplate, and remove attribute of id
@@ -115,7 +202,7 @@ var addWidget_chart = function(option) {
   // template.find('.draggableTemplateContext').append(context_div_clone);
   //step 4: add template into grid as widget
   var widget = $('<div></div>').append(template);
-  grid.addWidget(widget, 0, 0, 6, 6);
+  grid.addWidget(widget,x, y, x_width, y_height);
 
   var chart = echarts.init(document.getElementById($draggableTemplateContext_id));
   // 使用刚指定的配置项和数据显示图表。
@@ -124,8 +211,29 @@ var addWidget_chart = function(option) {
   $draggableTemplateContext.attr('chart', chart);
 
   chartCache[$draggableTemplateContext_id] = chart;
+
+  widget.attr('id', (new Date()).getTime()+'_widget');
+  var element_prototype = {
+    "id":$draggableTemplateContext_id,
+    "isWidget":true,
+    "widget_x":0,
+    "widget_y":0,
+    "widget_width:":6,
+    "widget_height":6,
+    "isChart":true,
+    "data":$.toJSON(option)
+  }
+  var widget_prototype_element={
+    widget_id:widget.attr('id'),
+    widget_element:element_prototype
+  }
+  WorkbenchCache.array_elements.push(widget_prototype_element);
 }
 
+var cleanWidget = function(){
+  var grid = $('.grid-stack').data('gridstack');
+  grid.removeAll();
+}
 var setup_default_workbench = function(){
   var options = {
     cellHeight: 60,
@@ -143,6 +251,7 @@ var setup_default_workbench = function(){
 
   $('.grid-stack').gridstack(options);
   initialize_workbench();
+  WorkbenchCache.array_elements = [];
 }
 
 
@@ -150,6 +259,8 @@ var setup_default_workbench = function(){
 var chartCache={
 
 };
+
+
 var initialize_workbench = function(){
 
     $('body').on('click', '.remove-drag', function(e) {
@@ -208,5 +319,9 @@ var initialize_workbench = function(){
 
         }, 500);
       }
+    });
+
+    $('.grid-stack').on('change', function(event, items) {
+
     });
 }

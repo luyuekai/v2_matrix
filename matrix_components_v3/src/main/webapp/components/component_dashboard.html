@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="../assets/self-owned/ico/favicon.ico">
+
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/vendor.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/flat-admin.css">
+  <!-- Theme -->
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue-sky.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/red.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/yellow.css">
+
+  <link rel="stylesheet" href="../assets/reference/codemirror/codemirror.css">
+
+  <link rel="stylesheet" href="../assets/reference/github-markdown-css/github-markdown.css">
+
+  <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/matrix_v3.css">
+
+  <link rel="stylesheet" type="text/css" href="../assets/reference/bootstrap-fileinput/css/fileinput_ly.css" media="all">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/fuelux/fuelux.min.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/gridstack/gridstack.css" />
+  <link rel="stylesheet" type="text/css" href="../assets/reference/gridstack/gridstack-extra.css" />
+
+  <style>
+    .grid-stack-item-content {
+      background: white;
+      color: #2c3e50;
+    }
+
+    header a,
+    header a:hover {
+      color: #fff;
+    }
+
+    .dragContainer {
+      background: -webkit-linear-gradient(top, transparent 59px, white 60px), -webkit-linear-gradient(left, #888 59px, white 60px);
+      background-size: 60px 60px;
+      color: #fff;
+    }
+
+    .dragContainer hr.star-light::after {
+      background-color: #2c3e50;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app app-blue-sky" id="contentDIV">
+
+    <aside class="app-sidebar" id="sidebar"></aside>
+    <div class="app-container" id="main_content_div">
+
+      <nav class="navbar navbar-default navbar-fixed-top" id="navbar" style="margin-left: 180px;"></nav>
+
+      <div class="seperate_div_class" style="margin-top:118px"></div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <i class="fa fa-diamond">&nbsp;Dashboard&nbsp;&nbsp;&nbsp;</i>
+                <button title="" type="button" onclick="test_display()" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-eye"></i></button>
+                <button title="" type="button" onclick="test_undisplay()" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-eye-slash"></i></button>
+                <button title="Insert a chart cell" onclick="copy_panel()" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-cogs"></i></button>
+                <button title="Insert a chart cell" onclick="copy_table()" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-table"></i></button>
+                <button title="Insert a chart cell" onclick="copy_chart()" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-bar-chart"></i></button>
+                <button title="Serialize" onclick="se_dash()" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-cloud-download"></i></button>
+                <button title="Deserialize" onclick="dese_dash()" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-cloud-upload"></i></button>
+                <button title="Clean Widget" onclick="cleanWidget()" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-trash-o"></i></button>
+
+            </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-mini">
+            <div class="card card-mini">
+              <div class="card-body">
+                <form class="form-horizontal" id="copy_panel" style="width: 100%;height:100%;min-height:220px">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" style="text-align:right">
+                      <span style="font-weight: bold;font-size: 16px;">Name</span>
+                      <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                    </label>
+                    <div class="col-sm-4">
+                      <p class="form-control-static">Matrix Component</p>
+                    </div>
+                    <label class="col-sm-2 control-label" style="text-align:right">
+                      <span style="font-weight: bold;font-size: 16px;">Version</span>
+                      <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                    </label>
+                    <div class="col-sm-4">
+                      <p class="form-control-static">3.14</p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" style="text-align:right">
+                      <span style="font-weight: bold;font-size: 16px;">Owner</span>
+                    </label>
+                    <div class="col-sm-4">
+                      <p class="form-control-static">BUPT Scripter Team</p>
+                    </div>
+                    <label class="col-sm-2 control-label" style="text-align:right">
+                      <span style="font-weight: bold;font-size: 16px;">Description</span>
+                    </label>
+                    <div class="col-sm-4">
+                      <p class="form-control-static">团队女神多,所以产出高</p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" style="text-align:right">
+                      <span style="font-weight: bold;font-size: 16px;">Slogon</span>
+                    </label>
+                    <div class="col-sm-10">
+                      <p class="form-control-static">What you are you do not see, what you see is your shadow. I cannot choose the best. the best chooses me. That i exist is a perpetual surprise which is life. </p>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-mini">
+            <div class="card card-mini">
+              <div class="card-body">
+                <div id="copy_chart" style="width: 100%;height:100%;min-height:220px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="card card-mini">
+            <div class="card card-mini">
+              <div class="card-body" id='main_table_div'>
+                <div style="display:none" data-bind="visible:(tableModel_no_intialize() && tableModel_no_intialize().hasResult())" id="copy_table" style="width: 100%;height:100%;min-height:220px">
+                  <div class="row" data-bind="with:tableModel_no_intialize">
+                    <div class="col-xs-12">
+                      <div id="table_parent_div"></div>
+                      <table class="table table-striped table-hover" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <!-- ko foreach: columnNames -->
+                            <th>
+                              <span data-bind="text: $data"></span>
+                            </th>
+                            <!-- /ko -->
+                          </tr>
+                        </thead>
+                        <tbody data-bind="foreach:thinViewData">
+                          <tr data-bind="visible:isDisplay,foreach: data">
+                            <td data-bind="text: $data"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <div class="matrix-pager-v3" data-bind="visible:isDisplayPager">
+                        <div class="form-inline">
+                          <nav>
+                            <form>
+                              <span class="pull-left">
+                              <label class="control-label" style="margin-bottom: 12px;">Total Counts:<span data-bind="text:totalCounts()?totalCounts():0"></span></label>
+
+                              <input data-bind="value:searchKeyword" type="text" class="form-control" placeholder="Search..." style="margin-left: 18px;">
+                              <button data-bind="click:function(){buildView();}" type="submit" class="btn btn-default" style="margin-bottom:15px;padding: 10px 15px;margin-left: -4px;"><i class="fa fa-search"></i></button>
+                              </span>
+                            </form>
+                            <span class="pull-right">
+                            <button data-bind="click:function(){toPage(1);}" type="button" class="btn btn-default " style="padding: 10px 12px;"><i class="fa fa-angle-double-left"></i> &nbsp;First</button>
+                            <button data-bind="click:function(){toPage(currentPageNumber()-1);}" type="button" class="btn btn-default " style="padding: 10px 12px;"><i class="fa fa-angle-left"></i> &nbsp;Previous</button>
+                            <input data-bind="value:currentPageNumber" type="text" class="form-control" placeholder="Page" style="width:60px;margin-bottom:5px;padding:10px;text-align: center;">
+                            <button data-bind="visible:false,click:function(){}" type="submit" class="btn"><span class="fui-search"></span></button>
+                            <button data-bind="click:function(){toPage(currentPageNumber()+1);}" type="button" class="btn btn-default " style="padding: 10px 12px;">Next &nbsp;<i class="fa fa-angle-right"></i></button>
+                            <button data-bind="click:function(){toPage(totalPage());}" type="button" class="btn btn-default " style="padding: 10px 12px;">Last &nbsp;<i class="fa fa-angle-double-right"></i></button>
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span data-bind="text:pageMaxSize()"></span> <span class="caret"></span></button>
+                              <ul class="dropdown-menu" role="menu" data-bind="foreach: pagingSizeArray">
+                                <li><a data-bind="click:function(){$parent.pageMaxSize($data)}" href="#"><span data-bind="text:$data"></span></a></li>
+                              </ul>
+                            </div>
+                            </span>
+                          </nav>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="dragContainer" id='dragContainer_div'>
+            <div style="padding:0px 0px;min-height:760px">
+              <div class="grid-stack" data-gs-width="12" data-gs-animate="yes" style="margin:0px -9px">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="seperate_div_class" style="margin-top:58px"></div>
+
+      <footer id="footer_div" class="app-footer" style="position:absolute;bottom:0;margin:0 auto;">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="footer-copyright">
+              Copyright © 2016 MATRIX Company Co,Ltd.
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <div style="display:none">
+        <div class="grid-stack-item-content" id='draggableTemplate'>
+          <div class="card card-mini" style="box-shadow: none;height:90%">
+            <div class="card-header" style="padding: 8px 0px 0px 16px;">
+              <div class="card-title">
+                <i class="fa fa-plug">&nbsp;Drag Item&nbsp;</i>
+                <span class="pull-right" style="margin-right:18px">
+                <button type="button" class=" btn btn-default btn-xs pull-right remove-drag" title="" style="border-color: #fff;">
+                  <div class="title"><i class="fa fa-remove"></i></div>
+                </button>
+                <button type="button" class=" btn btn-default btn-xs pull-right lock-drag" title="" style="border-color: #fff;">
+                  <div class="title"><i class="fa fa-unlock"></i></div>
+                </button>
+                <button type="button" class=" btn btn-default btn-xs pull-right unlock-drag" title="" style="border-color: #fff;display:none">
+                  <div class="title"><i class="fa fa-lock"></i></div>
+                </button>
+                </span>
+              </div>
+            </div>
+            <div class="card-body" style="height:100%">
+              <div class="draggableTemplateContext" style="height:100%"></div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
+    <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/app.js"></script>
+
+    <script src="../assets/reference/codemirror/codemirror.js"></script>
+    <script src="../assets/reference/codemirror/mode/javascript/javascript.js"></script>
+    <script src="../assets/reference/codemirror/mode/markdown/markdown.js"></script>
+
+    <script src="../assets/reference/jquery/jquery.json.js"></script>
+    <script src="../assets/reference/jquery/jquery.blockUI.js"></script>
+    <script src="../assets/reference/knockout.js/knockout-3.3.0.js"></script>
+    <script src="../assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+    <script src="../assets/reference/markdown/markdown.min.js"></script>
+
+    <script src="../assets/reference/jquery-ui/jquery-ui.js"></script>
+    <script src="../assets/reference/lodash/lodash-4.15.0.js"></script>
+    <script src="../assets/reference/gridstack/gridstack.all.js"></script>
+
+    <script src="../assets/reference/echarts/echarts-min.js"></script>
+    <script src="../assets/reference/echarts/dataTools.js"></script>
+    <!-- Javascript for Matrix Self Owned -->
+    <script src="../assets/self-owned/js/generic/generic_algorithm.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_cache.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_charting_v4.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_csv.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_cud.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_modal.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_query.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_table.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_util.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
+
+
+
+
+
+
+    <script>
+      $(document).ready(function() {
+        $('#sidebar').load($.getRootPath() + '/components/left_side.html');
+        $('#navbar').load($.getRootPath() + '/components/header.html');
+        setTimeout(function() {
+          setup_default_workbench();
+        }, 200);
+      });
+    </script>
+    <script>
+      var data = [{
+        value: 335,
+        name: '直接访问'
+      }, {
+        value: 310,
+        name: '邮件营销'
+      }, {
+        value: 234,
+        name: '联盟广告'
+      }, {
+        value: 135,
+        name: '视频广告'
+      }, {
+        value: 1548,
+        name: '搜索引擎'
+      }];
+
+      var pie;
+
+      function initialize() {
+        var c = ChartPOJO.generate_default_chart('copy_chart');
+        pie = c = Pie_ChartPOJO.initialize_chart(c, data);
+      }
+
+      initialize();
+    </script>
+    <script>
+      function PageModel() {
+        var self = this;
+        self.tableModel_no_intialize = ko.observable();
+      }
+      var pageModel = new PageModel();
+      var tableModel = new ThinListViewModel();
+
+      pageModel.tableModel = tableModel;
+
+      ko.applyBindings(pageModel, document.getElementById('main_table_div'));
+
+      var retrieveData_mock = function() {
+        $.ajax({
+          url: $.getRootPath() + "/assets/self-owned/data/data_10W.json",
+          type: 'GET',
+          dataType: 'json',
+          success: function(json) {
+            var serverData = json;
+            var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
+            tableModel.buildData(tableData.result);
+            tableModel.columnNames(tableData.header);
+            tableModel.isDisplayPager(true);
+            tableModel.buildView();
+            tableModel.pageMaxSize(5);
+            pageModel.tableModel_no_intialize(tableModel);
+          },
+          error: function(xhr, status) {
+            console.log('Sorry, there was a problem on SERVER_REQUEST_ACTION process!');
+          },
+          complete: function(xhr, status) {}
+        });
+      }
+
+
+
+      var initialize_table = function() {
+        if (pageModel.tableModel_no_intialize() == null) {
+          retrieveData_mock();
+        }
+      }
+      initialize_table();
+    </script>
+    <script>
+      var test_display = function() {
+        add_css_class('dragContainer_div', 'dragContainer')
+      }
+      var test_undisplay = function() {
+        remove_css_class('dragContainer_div', 'dragContainer')
+      }
+
+      var copy_panel = function(){
+        var element_dom = clone_component_v2('copy_panel');
+        // generate_serializable_element(element_dom,true,0,0,6,3);
+        generate_widget_element(element_dom);
+        add_content_div(element_dom,0,0,6,3);
+      }
+      var copy_table = function(){
+
+        var element_dom = clone_component_v2('copy_table');
+        // generate_serializable_element(element_dom,true,0,0,12,6);
+        generate_widget_element(element_dom);
+        add_content_div(element_dom,0,0,12,6);
+      }
+      var copy_chart = function(){
+        if(pie){
+          var option = ClonePOJO.deepClone(pie.getOption());
+          option.id = (new Date()).getTime() + "_option";
+          // generate_serializable_element(option,true,0,0,6,3,true,option)
+          generate_widget_element(option,true,option);
+          addWidget_chart(option);
+        }
+      }
+
+
+      var array_element = [];
+      var element_prototype = {
+        "id":null,
+        "isWidget":false,
+        "widget_x":0,
+        "widget_y":0,
+        "widget_width:":6,
+        "widget_height":5,
+        "isChart":false,
+        "data":null
+      }
+      var generate_widget_element = function(element_dom,isChart,option){
+        var element_prototype = {
+          "id":null,
+          "isWidget":false,
+          "widget_x":0,
+          "widget_y":0,
+          "widget_width:":6,
+          "widget_height":5,
+          "isChart":false,
+          "data":null
+        }
+        element_prototype.id = $(element_dom).attr('id');
+        element_prototype.isWidget = true;
+        element_prototype.data = $.toJSON(element_dom);
+        if(isChart){
+          element_prototype.isChart=isChart;
+          element_prototype.data = $.toJSON(option);
+        }
+        element_dom.element_prototype=element_prototype;
+        return element_prototype;
+      }
+
+      var generate_serializable_element = function(element_dom,isWidget,widget_x,widget_y,widget_width,widget_height,isChart,option){
+        var element_prototype = {
+          "id":null,
+          "isWidget":false,
+          "widget_x":0,
+          "widget_y":0,
+          "widget_width:":6,
+          "widget_height":5,
+          "isChart":false,
+          "data":null
+        }
+
+
+        element_prototype.id = $(element_dom).attr('id');
+        element_prototype.isWidget = isWidget||false;
+        element_prototype.widget_x = widget_x||0;
+        element_prototype.widget_y = widget_y||0;
+        element_prototype.widget_width = widget_width||6;
+        element_prototype.widget_height = widget_height||5;
+        element_prototype.data = $.toJSON(element_dom);
+        if(isChart){
+          element_prototype.isChart=isChart;
+          element_prototype.data = $.toJSON(option);
+        }
+
+
+        array_element.push(element_prototype);
+      }
+      var persist_data = null;
+      var se_dash = function(){
+        persist_data = null;
+        WorkbenchCache.updateCache();
+        persist_data = WorkbenchCache.array_elements;
+        console.log(persist_data);
+      }
+      var dese_dash = function(){
+        if(persist_data){
+          cleanWidget();
+          $.each(persist_data,function(index,value){
+            if(value.widget_id){
+              var widget = value.widget_element;
+              // {
+              //   "id":null,
+              //   "isWidget":true,
+              //   "widget_x":0,
+              //   "widget_y":0,
+              //   "widget_width:":6,
+              //   "widget_height":5,
+              //   "isChart":false,
+              //   "data":null
+              // }
+              if(widget.isChart){
+                var content = $.parseJSON(widget.data);
+                addWidget_chart(content,widget.widget_x,widget.widget_y,widget.widget_width,widget.widget_height)
+              }else{
+                var content = deserialize_dom(widget.data);
+                add_content_div(content,widget.widget_x,widget.widget_y,widget.widget_width,widget.widget_height)
+              }
+            }
+          })
+        }
+      }
+    </script>
+
+</body>
+
+</html>

@@ -146,6 +146,16 @@ function show_div(div_id) {
 function hide_div(div_id) {
     $('#' + div_id).css('display', 'none');
 }
+function add_css_class(div_id,class_name) {
+    if (!$('#' + div_id).hasClass(class_name)) {
+        $('#' + div_id).addClass(class_name);
+    }
+}
+function remove_css_class(div_id,class_name) {
+    if ($('#' + div_id).hasClass(class_name)) {
+        $('#' + div_id).removeClass(class_name);
+    }
+}
 
 var UtilPOJO = UtilPOJO || {};
 UtilPOJO = {

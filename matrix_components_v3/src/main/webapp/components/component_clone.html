@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="../assets/self-owned/ico/favicon.ico">
+
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/vendor.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/flat-admin.css">
+  <!-- Theme -->
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue-sky.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/red.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/yellow.css">
+
+  <link rel="stylesheet" href="../assets/reference/codemirror/codemirror.css">
+
+  <link rel="stylesheet" href="../assets/reference/github-markdown-css/github-markdown.css">
+
+  <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/matrix_v3.css">
+
+  <link rel="stylesheet" type="text/css" href="../assets/reference/bootstrap-fileinput/css/fileinput_ly.css" media="all">
+
+
+
+</head>
+
+<body>
+
+  <div class="app app-blue-sky" id="contentDIV">
+
+    <aside class="app-sidebar" id="sidebar"></aside>
+    <div class="app-container" id="main_content_div">
+
+      <nav class="navbar navbar-default navbar-fixed-top" id="navbar" style="margin-left: 180px;"></nav>
+
+      <div class="seperate_div_class" style="margin-top:118px"></div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <i class="fa fa-diamond">&nbsp;Clone&nbsp;&nbsp;&nbsp;</i>
+              </div>
+
+            </div>
+            <div class="card-body flat-matrix">
+
+
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-mini">
+            <div class="card-body" id="report_content_body_div" style="min-height:300px">
+              <div data-bind="foreach:cells">
+                <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_in" id="1496289159293_cell">
+                  <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode"><h2 id="clonedesign">Clone Design</h2>
+<p>Clone 功能给予开发人员快速clone组件的能力</p>
+<h3 id="cloneapi">Clone相关api</h3>
+<ul>
+<li><p>引入generic_workbench.js</p></li>
+<li><p>api: </p>
+<pre><code>描述：复制一个已有的dom元素
+clone_component_v2(div_id,clone_div_id)
++  参数 div_id:准备被克隆的组件id，必填
++  参数 clone_div_id: 克隆的新组件id，选填，如果不填，系统默认生成唯一标示
++  返回值: 返回新克隆的dom，但此时注意，此元素没有被render
+</code></pre></li>
+<li><p>api: </p>
+<pre><code>描述：复制一个已有的dom元素，并将其放置到dom中的另一个元素内
+clone_component(destination_parent_div_id,div_id,clone_div_id)
++  参数 destination_parent_div_id:克隆后的组件被render到的dom元素id，必填
++  参数 div_id:准备被克隆的组件id，必填
++  参数 clone_div_id: 克隆的新组件id，选填，如果不填，系统默认生成唯一标示
++  返回值: 返回新克隆的组件id
+</code></pre></li>
+<li><p>api:</p>
+<pre><code>描述：将一个已有的dom元素放置到workbench
+add_content_div(content,x,y,x_width,y_height)
++ 参数 content： 准备copy的dom元素
++ 参数 x: workbench的x
++ 参数 y: workbench的y
++ 参数 x_width: workbench上content占用的宽度，最大为12
++ 参数 y_width: workbench上content占用的高度，最大为12
+</code></pre></li>
+</ul></span>
+                  <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1496289159293_cell_edit">## Clone Design
+
+Clone 功能给予开发人员快速clone组件的能力
+
+### Clone相关api
+ - 引入generic_workbench.js
+ - api:
+
+ ```
+ 描述：复制一个已有的dom元素
+ clone_component_v2(div_id,clone_div_id)
+    +  参数 div_id:准备被克隆的组件id，必填
+    +  参数 clone_div_id: 克隆的新组件id，选填，如果不填，系统默认生成唯一标示
+    +  返回值: 返回新克隆的dom，但此时注意，此元素没有被render
+ ```
+
+ - api:
+
+ ```
+ 描述：复制一个已有的dom元素，并将其放置到dom中的另一个元素内
+ clone_component(destination_parent_div_id,div_id,clone_div_id)
+    +  参数 destination_parent_div_id:克隆后的组件被render到的dom元素id，必填
+    +  参数 div_id:准备被克隆的组件id，必填
+    +  参数 clone_div_id: 克隆的新组件id，选填，如果不填，系统默认生成唯一标示
+    +  返回值: 返回新克隆的组件id
+ ```
+
+  - api:
+
+ ```
+ 描述：将一个已有的dom元素放置到workbench
+ add_content_div(content,x,y,x_width,y_height)
+    + 参数 content： 准备copy的dom元素
+    + 参数 x: workbench的x
+    + 参数 y: workbench的y
+    + 参数 x_width: workbench上content占用的宽度，最大为12
+    + 参数 y_width: workbench上content占用的高度，最大为12
+ ```</textarea>
+                  <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1496289159293_cell_chart"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
+
+      <div class="seperate_div_class" style="margin-top:58px"></div>
+
+      <footer id="footer_div" class="app-footer" style="position:absolute;bottom:0;margin:0 auto;">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="footer-copyright">
+              Copyright © 2016 MATRIX Company Co,Ltd.
+            </div>
+          </div>
+        </div>
+      </footer>
+
+
+    </div>
+
+    <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
+    <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/app.js"></script>
+
+    <script src="../assets/reference/codemirror/codemirror.js"></script>
+    <script src="../assets/reference/codemirror/mode/javascript/javascript.js"></script>
+    <script src="../assets/reference/codemirror/mode/markdown/markdown.js"></script>
+
+    <script src="../assets/reference/jquery/jquery.json.js"></script>
+    <script src="../assets/reference/jquery/jquery.blockUI.js"></script>
+    <script src="../assets/reference/knockout.js/knockout-3.3.0.js"></script>
+    <script src="../assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+    <script src="../assets/reference/markdown/markdown.min.js"></script>
+
+
+
+    <!-- Javascript for Matrix Self Owned -->
+    <script src="../assets/self-owned/js/generic/generic_algorithm.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_cache.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_charting.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_csv.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_cud.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_modal.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_query.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_table.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_util.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
+
+
+
+
+
+
+    <script>
+      $(document).ready(function() {
+        $('#sidebar').load($.getRootPath() + '/components/left_side.html');
+        $('#navbar').load($.getRootPath() + '/components/header.html');
+        setTimeout(function() {
+          // resetCssClass('li_dashboard', 'active');
+        }, 200);
+      });
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="../assets/self-owned/ico/favicon.ico">
+
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/vendor.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/flat-admin.css">
+  <!-- Theme -->
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue-sky.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/red.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/yellow.css">
+
+  <link rel="stylesheet" href="../assets/reference/codemirror/codemirror.css">
+
+  <link rel="stylesheet" href="../assets/reference/github-markdown-css/github-markdown.css">
+
+  <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/matrix_v3.css">
+
+  <link rel="stylesheet" type="text/css" href="../assets/reference/bootstrap-fileinput/css/fileinput_ly.css" media="all">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/fuelux/fuelux.min.css">
+
+
+</head>
+
+<body>
+
+  <div class="app app-blue-sky" id="contentDIV">
+
+    <aside class="app-sidebar" id="sidebar"></aside>
+    <div class="app-container" id="main_content_div">
+
+      <nav class="navbar navbar-default navbar-fixed-top" id="navbar" style="margin-left: 180px;"></nav>
+
+      <div class="seperate_div_class" style="margin-top:118px"></div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <i class="fa fa-diamond">&nbsp;Tree&nbsp;&nbsp;&nbsp;</i>
+              </div>
+
+            </div>
+            <div class="card-body flat-matrix">
+              <div class="row">
+                <div class="col-xs-4">
+                  <!-- tree component begin -->
+                  <!-- need fuelux/tree.js, fuelux/fuelux.min.css -->
+                  <div class="fuelux" style="color:#666">
+                    <ul class="tree tree-folder-select" role="tree" id="matrix_tree_database" style="border:0px solid #666;min-height: 250px;max-width: 100%;max-height: 300px;overflow: auto;">
+                      <li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
+                        <div class="tree-branch-header">
+                          <button type="button" class="glyphicon icon-caret glyphicon-play">
+                            <span class="sr-only">Open</span>
+                          </button>
+                          <button type="button" class="tree-branch-name">
+                            <span class="glyphicon icon-folder glyphicon-folder-close"></span>
+                            <span class="tree-label"></span>
+                          </button>
+                        </div>
+                        <ul class="tree-branch-children" role="group"></ul>
+                        <div class="tree-loader" role="alert">Loading...</div>
+                      </li>
+                      <li class="tree-item hide" data-template="treeitem" role="treeitem">
+                        <button type="button" class="tree-item-name">
+                          <span class="glyphicon icon-item fueluxicon-bullet"></span>
+                          <span class="tree-label"></span>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- tree component end -->
+                </div>
+                <div class="col-xs-4">
+                  <!-- tree component begin -->
+                  <!-- need fuelux/tree.js, fuelux/fuelux.min.css -->
+                  <div class="fuelux" style="color:#666">
+                    <ul class="tree tree-folder-select" role="tree" id="matrix_tree_table" style="border:0px solid #666;min-height: 250px;max-width: 100%;max-height: 300px;overflow: auto;">
+                      <li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
+                        <div class="tree-branch-header">
+                          <button type="button" class="glyphicon icon-caret glyphicon-play">
+                            <span class="sr-only">Open</span>
+                          </button>
+                          <button type="button" class="tree-branch-name">
+                            <span class="glyphicon icon-folder glyphicon-folder-close"></span>
+                            <span class="tree-label"></span>
+                          </button>
+                        </div>
+                        <ul class="tree-branch-children" role="group"></ul>
+                        <div class="tree-loader" role="alert">Loading...</div>
+                      </li>
+                      <li class="tree-item hide" data-template="treeitem" role="treeitem">
+                        <button type="button" class="tree-item-name">
+                          <span class="glyphicon icon-item fueluxicon-bullet"></span>
+                          <span class="tree-label"></span>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- tree component end -->
+                </div>
+                <div class="col-xs-4">
+                  <!-- tree component begin -->
+                  <!-- need fuelux/tree.js, fuelux/fuelux.min.css -->
+                  <div class="fuelux" style="color:#666">
+                    <ul class="tree tree-folder-select" role="tree" id="matrix_tree_attribute" style="border:0px solid #666;min-height: 250px;max-width: 100%;max-height: 300px;overflow: auto;">
+                      <li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
+                        <div class="tree-branch-header">
+                          <button type="button" class="glyphicon icon-caret glyphicon-play">
+                            <span class="sr-only">Open</span>
+                          </button>
+                          <button type="button" class="tree-branch-name">
+                            <span class="glyphicon icon-folder glyphicon-folder-close"></span>
+                            <span class="tree-label"></span>
+                          </button>
+                        </div>
+                        <ul class="tree-branch-children" role="group"></ul>
+                        <div class="tree-loader" role="alert">Loading...</div>
+                      </li>
+                      <li class="tree-item hide" data-template="treeitem" role="treeitem">
+                        <button type="button" class="tree-item-name">
+                          <span class="glyphicon icon-item fueluxicon-bullet"></span>
+                          <span class="tree-label"></span>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- tree component end -->
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
+
+      <div class="seperate_div_class" style="margin-top:58px"></div>
+
+      <footer id="footer_div" class="app-footer" style="position:absolute;bottom:0;margin:0 auto;">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="footer-copyright">
+              Copyright © 2016 MATRIX Company Co,Ltd.
+            </div>
+          </div>
+        </div>
+      </footer>
+
+
+    </div>
+
+    <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
+    <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/app.js"></script>
+
+    <script src="../assets/reference/codemirror/codemirror.js"></script>
+    <script src="../assets/reference/codemirror/mode/javascript/javascript.js"></script>
+    <script src="../assets/reference/codemirror/mode/markdown/markdown.js"></script>
+
+    <script src="../assets/reference/jquery/jquery.json.js"></script>
+    <script src="../assets/reference/jquery/jquery.blockUI.js"></script>
+    <script src="../assets/reference/knockout.js/knockout-3.3.0.js"></script>
+    <script src="../assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+    <script src="../assets/reference/markdown/markdown.min.js"></script>
+    <script src="../assets/reference/fuelux/tree.js"></script>
+
+    <!-- Javascript for Matrix Self Owned -->
+    <script src="../assets/self-owned/js/generic/generic_algorithm.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_cache.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_charting.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_csv.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_cud.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_modal.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_query.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_table.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_util.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
+
+
+
+
+
+
+    <script>
+      $(document).ready(function() {
+        $('#sidebar').load($.getRootPath() + '/components/left_side.html');
+        $('#navbar').load($.getRootPath() + '/components/header.html');
+        setTimeout(function() {
+          // resetCssClass('li_dashboard', 'active');
+        }, 200);
+      });
+    </script>
+    <script type="text/javascript">
+      $(function() {
+        $('#matrix_tree_database').on('selected.fu.tree', function(event) {
+          // var path = $('#matrix_tree_database').tree('selectedItems')[0].path;
+
+          console.log('touched')
+
+          // $('#matrix_tree_table .tree-item:visible').remove();
+          // delete($('#matrix_tree_table').data().tree);
+          // $('#matrix_tree_table').tree('destroy');
+          // $('#matrix_tree_table').tree({
+          //   dataSource: mock_dataSource_table,
+          //   multiSelect: false,
+          //   folderSelect: true
+          // });
+          // init_table();
+        });
+      })
+
+      init_database();
+      init_table();
+      init_att();
+      function init_database(){
+        $('#matrix_tree_database').tree({
+          dataSource: mock_dataSource_database,
+          multiSelect: false,
+          folderSelect: true
+        });
+      }
+      function init_table(){
+        $('#matrix_tree_table').tree({
+          dataSource: mock_dataSource_table,
+          multiSelect: false,
+          folderSelect: true
+        });
+      }
+      function init_att(){
+        $('#matrix_tree_attribute').tree({
+          dataSource: mock_dataSource_attribute,
+          multiSelect: false,
+          folderSelect: true
+        });
+      }
+
+
+      function mock_dataSource_database(openedParentData, callback) {
+        console.log('db ds update:'+JSON.stringify(openedParentData));
+        var array = [];
+        if (openedParentData && openedParentData.type == 'item') {
+          // console.log(openedParentData);
+        } else {
+          array = random_data('database');
+        }
+
+        callback({
+          data: array
+        });
+      }
+      function mock_dataSource_table(openedParentData, callback) {
+        console.log('table ds update:'+JSON.stringify(openedParentData));
+        var array = [];
+        if (openedParentData && openedParentData.type == 'item') {
+          // console.log(openedParentData);
+        } else {
+          array = random_data('table');
+        }
+
+        callback({
+          data: array
+        });
+      }
+      function mock_dataSource_attribute(openedParentData, callback) {
+        var array = [];
+        if (openedParentData && openedParentData.type == 'item') {
+          // console.log(openedParentData);
+        } else {
+          array = random_data('attribute');
+        }
+
+        callback({
+          data: array
+        });
+      }
+
+      function random_data(type){
+        var array = [];
+        var random = parseInt(Math.random()*10,10)+1;
+        var obj = {
+          "type": "item",
+          "attr": {
+            "id": "sky-and-water-i",
+            "data-icon": "fa fa-barcode",
+            "style": "color: rebeccapurple;"
+          }
+        };
+        for(var i=0;i<random;i++){
+          var clone_obj = ClonePOJO.deepClone(obj);
+          clone_obj.name = type+"_"+(i+1);
+          array.push(clone_obj);
+        }
+        return array;
+      }
+    </script>
+
+</body>
+
+</html>
