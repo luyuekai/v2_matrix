@@ -476,6 +476,7 @@
       var dese_dash = function(){
         if(persist_data){
           cleanWidget();
+          // charts_need_rerender = [];
           $.each(persist_data,function(index,value){
             if(value.widget_id){
               var widget = value.widget_element;
@@ -491,7 +492,8 @@
               // }
               if(widget.isChart){
                 var content = $.parseJSON(widget.data);
-                addWidget_chart(content,widget.widget_x,widget.widget_y,widget.widget_width,widget.widget_height)
+                var chart = addWidget_chart(content,widget.widget_x,widget.widget_y,widget.widget_width,widget.widget_height);
+                // charts_need_rerender.push(chart);
               }else{
                 var content = deserialize_dom(widget.data);
                 add_content_div(content,widget.widget_x,widget.widget_y,widget.widget_width,widget.widget_height)
@@ -500,6 +502,15 @@
           })
         }
       }
+      // var charts_need_rerender = [];
+      // var rerender_charts = function(){
+      //
+      //   setTimeout(function() {
+      //     $.each(charts_need_rerender,function(index,chart){
+      //       chart.resize();
+      //     });
+      //   }, 1000);
+      // }
     </script>
 
 </body>

@@ -197,8 +197,8 @@ var addWidget_chart = function(option,x,y,x_width,y_height) {
   $draggableTemplateContext.attr('id', $draggableTemplateContext_id);
   // style="min-height:380px; max-height:380px;"
   // $draggableTemplateContext.css('min-height', '320px');
-  $draggableTemplateContext.css('max-height', '960px');
-  $draggableTemplateContext.css('height', '320px');
+  // $draggableTemplateContext.css('max-height', '960px');
+  // $draggableTemplateContext.css('height', '320px');
   // template.find('.draggableTemplateContext').append(context_div_clone);
   //step 4: add template into grid as widget
   var widget = $('<div></div>').append(template);
@@ -207,6 +207,8 @@ var addWidget_chart = function(option,x,y,x_width,y_height) {
   var chart = echarts.init(document.getElementById($draggableTemplateContext_id));
   // 使用刚指定的配置项和数据显示图表。
   chart.setOption(option);
+
+
 
   $draggableTemplateContext.attr('chart', chart);
 
@@ -228,6 +230,8 @@ var addWidget_chart = function(option,x,y,x_width,y_height) {
     widget_element:element_prototype
   }
   WorkbenchCache.array_elements.push(widget_prototype_element);
+
+  return chart;
 }
 
 var cleanWidget = function(){
