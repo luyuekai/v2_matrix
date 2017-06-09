@@ -1,106 +1,103 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Matrix</title>
-  <link rel="shortcut icon" href="../assets/self-owned/ico/favicon.ico">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Matrix</title>
+    <link rel="shortcut icon" href="../assets/self-owned/ico/favicon.ico">
 
-  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/vendor.css">
-  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/flat-admin.css">
-  <!-- Theme -->
-  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue-sky.css">
-  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue.css">
-  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/red.css">
-  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/yellow.css">
+    <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/vendor.css">
+    <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/flat-admin.css">
+    <!-- Theme -->
+    <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue-sky.css">
+    <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue.css">
+    <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/red.css">
+    <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/yellow.css">
 
-  <link rel="stylesheet" href="../assets/reference/codemirror/codemirror.css">
+    <link rel="stylesheet" href="../assets/reference/codemirror/codemirror.css">
 
-  <link rel="stylesheet" href="../assets/reference/github-markdown-css/github-markdown.css">
+    <link rel="stylesheet" href="../assets/reference/github-markdown-css/github-markdown.css">
 
-  <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/matrix_v3.css">
+    <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/matrix_v3.css">
 
-  <link rel="stylesheet" type="text/css" href="../assets/reference/bootstrap-fileinput/css/fileinput_ly.css" media="all">
-  <link rel="stylesheet" type="text/css" href="../assets/reference/fuelux/fuelux.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/reference/bootstrap-fileinput/css/fileinput_ly.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../assets/reference/fuelux/fuelux.min.css">
 
 
-</head>
+  </head>
 
-<body>
+  <body>
 
-  <div class="app app-blue-sky" id="contentDIV">
+    <div class="app app-blue-sky" id="contentDIV">
 
-    <aside class="app-sidebar" id="sidebar"></aside>
-    <div class="app-container" id="main_content_div">
+      <aside class="app-sidebar" id="sidebar"></aside>
+      <div class="app-container" id="main_content_div">
 
-      <nav class="navbar navbar-default navbar-fixed-top" id="navbar" style="margin-left: 180px;"></nav>
+        <nav class="navbar navbar-default navbar-fixed-top" id="navbar" style="margin-left: 180px;"></nav>
 
-      <div class="seperate_div_class" style="margin-top:118px"></div>
+        <div class="seperate_div_class" style="margin-top:118px"></div>
 
-      <div class="row">
-        <div class="col-md-3">
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">
-                <i class="fa fa-diamond">&nbsp;Tree&nbsp;&nbsp;&nbsp;</i>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <i class="fa fa-diamond">&nbsp;Tree&nbsp;&nbsp;&nbsp;</i>
+                </div>
+
               </div>
-
-            </div>
-            <div class="card-body flat-matrix">
-              <div class="row">
-                <div class="col-xs-12">
-                  <!-- tree component begin -->
-                  <!-- need fuelux/tree.js, fuelux/fuelux.min.css -->
-                  <div class="fuelux" style="color:#666">
-                    <ul class="tree tree-folder-select" role="tree" id="matrix_tree" style="border:0px solid #666;min-height: 250px;max-width: 100%;max-height: 300px;overflow: auto;">
-                      <li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
-                        <div class="tree-branch-header">
-                          <button type="button" class="glyphicon icon-caret glyphicon-play">
-                            <span class="sr-only">Open</span>
-                          </button>
-                          <button type="button" class="tree-branch-name">
-                            <span class="glyphicon icon-folder glyphicon-folder-close"></span>
-                            <span class="tree-label"></span>
-                          </button>
-                        </div>
-                        <ul class="tree-branch-children" role="group"></ul>
-                        <div class="tree-loader" role="alert">Loading...</div>
-                      </li>
-                      <li class="tree-item hide" data-template="treeitem" role="treeitem">
-                        <button type="button" class="tree-item-name">
-                          <span class="glyphicon icon-item fueluxicon-bullet"></span>
+              <div class="card-body flat-matrix" style="padding: 0px">
+                <!-- tree component begin -->
+                <!-- need fuelux/tree.js, fuelux/fuelux.min.css -->
+                <div class="fuelux" style="color:#666">
+                  <ul class="tree tree-folder-select" role="tree" id="matrix_tree" style="border:0px solid #666; max-width: 100%; overflow: auto;">
+                    <li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
+                      <div class="tree-branch-header">
+                        <button type="button" class="glyphicon icon-caret glyphicon-play">
+                          <span class="sr-only">Open</span>
+                        </button>
+                        <button type="button" class="tree-branch-name">
+                          <span class="glyphicon icon-folder glyphicon-folder-close"></span>
                           <span class="tree-label"></span>
                         </button>
-                      </li>
-                    </ul>
-                  </div>
-                  <!-- tree component end -->
+                      </div>
+                      <ul class="tree-branch-children" role="group"></ul>
+                      <div class="tree-loader" role="alert">Loading...</div>
+                    </li>
+                    <li class="tree-item hide" data-template="treeitem" role="treeitem">
+                      <button type="button" class="tree-item-name">
+                        <span class="glyphicon icon-item fueluxicon-bullet"></span>
+                        <span class="tree-label"></span>
+                      </button>
+                    </li>
+                  </ul>
                 </div>
-              </div>
+                <!-- tree component end -->
 
+              </div>
             </div>
           </div>
+
+
+
         </div>
 
+
+        <!--<div class="seperate_div_class" style="margin-top:58px"></div>-->
+
+        <footer id="footer_div" class="app-footer" style="position:absolute;bottom:0;margin:0 auto;">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="footer-copyright">
+                Copyright © 2016 MATRIX Company Co,Ltd.
+              </div>
+            </div>
+          </div>
+        </footer>
 
 
       </div>
-
-
-      <div class="seperate_div_class" style="margin-top:58px"></div>
-
-      <footer id="footer_div" class="app-footer" style="position:absolute;bottom:0;margin:0 auto;">
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="footer-copyright">
-              Copyright © 2016 MATRIX Company Co,Ltd.
-            </div>
-          </div>
-        </div>
-      </footer>
-
-
     </div>
 
     <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
@@ -136,57 +133,66 @@
 
 
     <script>
-      $(document).ready(function() {
-        $('#sidebar').load($.getRootPath() + '/components/left_side.html');
-        $('#navbar').load($.getRootPath() + '/components/header.html');
-        setTimeout(function() {
-          // resetCssClass('li_dashboard', 'active');
-        }, 200);
+      $(document).ready(function () {
+          $('#sidebar').load($.getRootPath() + '/components/left_side.html');
+          $('#navbar').load($.getRootPath() + '/components/header.html');
+          setTimeout(function () {
+              // resetCssClass('li_dashboard', 'active');
+          }, 200);
       });
     </script>
     <script type="text/javascript">
 
-      $(function() {
-        $('#matrix_tree').on('selected.fu.tree', function(event) {
-          var path = $('#matrix_tree').tree('selectedItems')[0].path;
-          console.log(path);
-          $("#inputPath").val(path);
-        });
+      $(function () {
+          $('#matrix_tree').on('selected.fu.tree', function (event) {
+              var path = $('#matrix_tree').tree('selectedItems')[0].path;
+              console.log(path);
+              $("#inputPath").val(path);
+          });
       })
 
       initTree();
 
       function initTree() {
-        $('#matrix_tree').tree({
-          dataSource: dynamicDataSource,
-          multiSelect: false,
-          folderSelect: true
-        });
+          $('#matrix_tree').tree({
+              dataSource: dynamicDataSource,
+              multiSelect: false,
+              folderSelect: true
+          });
+          $(window).resize(function () {
+              update_tree_size();
+          });
+          update_tree_size();
       }
 
+      function update_tree_size() {
+          var height = 0;
+          height = $(window).height() - 290;//这个数可以预先计算或者通过jQuery的height方法得到上面DOM的高度再减去
+          $('#matrix_tree').height(height);
+      }
 
       function dynamicDataSource(openedParentData, callback) {
-        $.getJSON($.getRootPath() + '/assets/self-owned/data/tree_mock_data.json', function(resp) {
-          var childObjectsArray = [];
-          var parent_path = openedParentData.path || "";
-          for (var i = 0; i < resp.length; i++) {
-            childObjectsArray.push({
-              "name": resp[i].name,
-              "type": resp[i].type,
-              "path": parent_path + "/" + resp[i].name,
-              "attr": {
-                id: resp[i].attr.id,
-                "data-icon": resp[i].attr.icon
+          $.getJSON($.getRootPath() + '/assets/self-owned/data/tree_mock_data.json', function (resp) {
+              var childObjectsArray = [];
+              var parent_path = openedParentData.path || "";
+              for (var i = 0; i < resp.length; i++) {
+                  childObjectsArray.push({
+                      "name": resp[i].name,
+                      "type": resp[i].type,
+                      "path": parent_path + "/" + resp[i].name,
+                      "attr": {
+                          id: resp[i].attr.id,
+                          "data-icon": resp[i].attr.icon
+                      }
+                  });
               }
-            });
-          }
-          callback({
-            data: childObjectsArray
+              callback({
+                  data: childObjectsArray
+              });
           });
-        });
       }
     </script>
 
-</body>
+  </body>
 
 </html>
