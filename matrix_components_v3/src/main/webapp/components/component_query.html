@@ -243,8 +243,8 @@
           //     return;
           // }
           // LoaderUtil.add('tableDIV');
-
           var queryPOJO = ClonePOJO.shallowClone(ServerPagingQueryPOJO.queryPOJO);
+          $(queryPOJO).attr("pageMaxSize", viewModel.pageMaxSize());
           $(queryPOJO).attr("currentPageNumber", viewModel.currentPageNumber());
           // var headers = viewModel.columnNames();
           // var likeVar = {};
