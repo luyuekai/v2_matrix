@@ -263,7 +263,13 @@ var setup_default_workbench = function(){
 var chartCache={
 
 };
-
+var refresh_workbench = function(){
+  $.each(chartCache,function(index,chart){
+    if(chart){
+      chart.resize();
+    }
+  });
+}
 
 var initialize_workbench = function(){
 
@@ -273,6 +279,7 @@ var initialize_workbench = function(){
         el = $(this).closest('.grid-stack-item')
 
       grid.removeWidget(el);
+      $.publish("WORKBENCH_EVENT_CHANGE");
     });
     $('body').on('click', '.lock-drag', function(e) {
       e.preventDefault();
@@ -284,6 +291,7 @@ var initialize_workbench = function(){
       grid.locked(el, true);
 
       $(this).css('display', 'none');
+      $.publish("WORKBENCH_EVENT_CHANGE");
     });
 
     $('body').on('click', '.unlock-drag', function(e) {
@@ -295,6 +303,7 @@ var initialize_workbench = function(){
 
       grid.locked(el, false);
       $(this).css('display', 'none');
+      $.publish("WORKBENCH_EVENT_CHANGE");
     });
 
     $('.grid-stack').on('resizestop', function(event, ui) {
@@ -323,6 +332,7 @@ var initialize_workbench = function(){
 
         }, 500);
       }
+      $.publish("WORKBENCH_EVENT_CHANGE");
     });
 
     $('.grid-stack').on('change', function(event, items) {
