@@ -69,6 +69,7 @@
                 <button title="" type="button" onclick="test_display()" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-eye"></i></button>
                 <button title="" type="button" onclick="test_undisplay()" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-eye-slash"></i></button>
                 <button title="Insert a chart cell" onclick="copy_panel()" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-cogs"></i></button>
+                <button title="Insert a chart cell" onclick="copy_table2()" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-table"></i></button>
                 <button title="Insert a chart cell" onclick="copy_table()" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-table"></i></button>
                 <button title="Insert a chart cell" onclick="copy_chart()" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-bar-chart"></i></button>
                 <button title="Serialize" onclick="se_dash()" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-cloud-download"></i></button>
@@ -83,7 +84,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
           <div class="card card-mini">
             <div class="card card-mini">
               <div class="card-body">
@@ -135,7 +136,39 @@
           <div class="card card-mini">
             <div class="card card-mini">
               <div class="card-body">
-                <div id="copy_chart" style="width: 100%;height:100%;min-height:220px"></div>
+                <div id="copy_chart" style="width: 100%;height:100%;min-height:360px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-mini">
+            <div class="card card-mini">
+              <div class="card-body flat-matrix">
+                <div id="copy_table2">
+                  <div class="row" data-bind="with:tableModel_refresh">
+                    <div class="col-xs-12">
+                      <div id="table_parent_div"></div>
+                      <table class="table table-striped table-hover" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <!-- ko foreach: columnNames -->
+                            <th>
+                              <span data-bind="text: $data"></span>
+                            </th>
+                            <!-- /ko -->
+                          </tr>
+                        </thead>
+                        <tbody data-bind="foreach:thinViewData">
+                          <tr data-bind="visible:isDisplay,foreach: data">
+                            <td data-bind="text: $data"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -144,7 +177,7 @@
           <div class="card card-mini">
             <div class="card card-mini">
               <div class="card-body" id='main_table_div'>
-                <div style="display:none" data-bind="visible:(tableModel_no_intialize() && tableModel_no_intialize().hasResult())" id="copy_table" style="width: 100%;height:100%;min-height:220px">
+                <div style="display:none" data-bind="visible:(tableModel_no_intialize() && tableModel_no_intialize().hasResult())" id="copy_table" style="width: 100%;height:100%;min-height:360px">
                   <div class="row" data-bind="with:tableModel_no_intialize">
                     <div class="col-xs-12">
                       <div id="table_parent_div"></div>
@@ -304,43 +337,52 @@
       });
     </script>
     <script>
-      var data = [{
-        value: 335,
-        name: '直接访问'
-      }, {
-        value: 310,
-        name: '邮件营销'
-      }, {
-        value: 234,
-        name: '联盟广告'
-      }, {
-        value: 135,
-        name: '视频广告'
-      }, {
-        value: 1548,
-        name: '搜索引擎'
-      }];
-
+      var data = [{value: 335,name: '直接访问'}, {value: 310,name: '邮件营销'}, {value: 234,name: '联盟广告'}, {value: 135,name: '视频广告'}, {value: 1548,name: '搜索引擎'}];
+      var data_agg = [
+        [{value: 335,name: '直接访问'}, {value: 310,name: '邮件营销'}, {value: 134,name: '联盟广告'}, {value: 535,name: '视频广告'}, {value: 1548,name: '搜索引擎'}],
+        [{value: 35,name: '直接访问'}, {value: 210,name: '邮件营销'}, {value: 234,name: '联盟广告'}, {value: 435,name: '视频广告'}, {value: 548,name: '搜索引擎'}],
+        [{value: 135,name: '直接访问'}, {value: 110,name: '邮件营销'}, {value: 334,name: '联盟广告'}, {value: 335,name: '视频广告'}, {value: 148,name: '搜索引擎'}],
+        [{value: 235,name: '直接访问'}, {value: 410,name: '邮件营销'}, {value: 434,name: '联盟广告'}, {value: 235,name: '视频广告'}, {value: 1248,name: '搜索引擎'}],
+        [{value: 435,name: '直接访问'}, {value: 510,name: '邮件营销'}, {value: 534,name: '联盟广告'}, {value: 135,name: '视频广告'}, {value: 2548,name: '搜索引擎'}]
+      ];
       var pie;
 
       function initialize() {
         var c = ChartPOJO.generate_default_chart('copy_chart');
         pie = c = Pie_ChartPOJO.initialize_chart(c, data);
       }
+      var i =0;
+      function renderChart_interval_demo(){
+        if(i==5){
+          i=0;
+        }
+        var data_chart = data_agg[i%5];
+        pie = ChartPOJO.generate_default_chart('copy_chart');
+        pie =Pie_ChartPOJO.initialize_chart(pie, data_chart);
+        i++;
+      }
+
+      setInterval(function() {
+        renderChart_interval_demo();
+        retrieveData_mock2();
+      }, 6000);
 
       initialize();
+
+
     </script>
     <script>
       function PageModel() {
         var self = this;
         self.tableModel_no_intialize = ko.observable();
+        self.tableModel_refresh = ko.observable();
       }
       var pageModel = new PageModel();
       var tableModel = new ThinListViewModel();
 
       pageModel.tableModel = tableModel;
 
-      ko.applyBindings(pageModel, document.getElementById('main_table_div'));
+      ko.applyBindings(pageModel, document.getElementById('main_content_div'));
 
       var retrieveData_mock = function() {
         $.ajax({
@@ -363,12 +405,25 @@
           complete: function(xhr, status) {}
         });
       }
+      var retrieveData_mock2 = function() {
 
-
+        var serverData = data_agg[i%5];
+        var tableModel2 = new ThinListViewModel();
+        var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
+        tableModel2.buildData(tableData.result);
+        tableModel2.columnNames(tableData.header);
+        tableModel2.isDisplayPager(true);
+        tableModel2.buildView();
+        tableModel2.pageMaxSize(5);
+        pageModel.tableModel_refresh(tableModel2);
+      }
 
       var initialize_table = function() {
         if (pageModel.tableModel_no_intialize() == null) {
           retrieveData_mock();
+        }
+        if (pageModel.tableModel_refresh() == null) {
+          retrieveData_mock2();
         }
       }
       initialize_table();
@@ -389,10 +444,18 @@
       }
       var copy_table = function(){
 
-        var element_dom = clone_component_v2('copy_table');
+        var element_dom = clone_component_v2('copy_table','this_is_it');
         // generate_serializable_element(element_dom,true,0,0,12,6);
         generate_widget_element(element_dom);
         add_content_div(element_dom,0,0,12,6);
+      }
+      var copy_table2 = function(){
+
+        var element_dom = clone_component_v2('copy_table2','this_is_it');
+        // generate_serializable_element(element_dom,true,0,0,12,6);
+        generate_widget_element(element_dom);
+        add_content_div(element_dom,0,0,12,6);
+        ko.applyBindings(document.getElementById('copy_table2'),document.getElementById('this_is_it'));
       }
       var copy_chart = function(){
         if(pie){
