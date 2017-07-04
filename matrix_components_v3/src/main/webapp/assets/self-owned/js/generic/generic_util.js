@@ -528,12 +528,12 @@ QueryChainPOJO = {
     queryArray: [],
     currentQuery: null,
     queryResults:[],
-
     query: function() {
         if (QueryChainPOJO.queryArray.length > 0) {
             QueryChainPOJO.currentQuery = QueryChainPOJO.queryArray.pop();
             if (typeof(QueryChainPOJO.currentQuery) == 'undefined' || QueryChainPOJO.currentQuery == null) {} else {
-                $.serverRequest($.getServerRoot() + '/service_generic_query/api/query', QueryChainPOJO.currentQuery.query, "query_chain_success", "query_chain_wrong", "query_chain_exception");
+                var url = QueryChainPOJO.currentQuery.queryURL || '/service_generic_query/api/query';
+                $.serverRequest($.getServerRoot() + url, QueryChainPOJO.currentQuery.query, "query_chain_success", "query_chain_wrong", "query_chain_exception");
             }
         }else{
           $.publish("query_chain_finished", QueryChainPOJO);

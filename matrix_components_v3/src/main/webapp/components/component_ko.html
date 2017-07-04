@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matrix</title>
+  <link rel="shortcut icon" href="../assets/self-owned/ico/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/vendor.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/flat-admin.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue-sky.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/red.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/yellow.css">
+  <link rel="stylesheet" href="../assets/reference/codemirror/codemirror.css">
+  <link rel="stylesheet" href="../assets/reference/github-markdown-css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/matrix_v3.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/bootstrap-fileinput/css/fileinput_ly.css" media="all">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/fuelux/fuelux.min.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/gridstack/gridstack.css" />
+  <link rel="stylesheet" type="text/css" href="../assets/reference/gridstack/gridstack-extra.css" />
+</head>
+
+<body>
+
+  <div class="app app-blue-sky" id="contentDIV">
+
+    <aside class="app-sidebar" id="sidebar"></aside>
+    <div class="app-container" id="main_content_div">
+
+      <nav class="navbar navbar-default navbar-fixed-top" id="navbar" style="margin-left: 180px;"></nav>
+
+      <div class="seperate_div_class" style="margin-top:118px"></div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <i class="fa fa-diamond">&nbsp;KO&nbsp;&nbsp;&nbsp;</i>
+            </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-mini">
+      <div class="card card-mini">
+        <div class="card-body flat-matrix">
+          <div id="widget_div">
+            <ul data-bind="foreach: products">
+              <li class="product">
+              <strong data-bind="text: name"></strong>
+              <like-widget params="value: userRating"></like-widget>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+        <div class="col-md-6">
+          <div class="card card-mini">
+            <div class="card card-mini">
+              <div class="card-body flat-matrix">
+                <div id="table_div">
+                  <div class="row" >
+                    <div class="col-xs-12">
+                      <div id="table_parent_div"></div>
+                      <table class="table table-striped table-hover" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <!-- ko foreach: columnNames -->
+                            <th>
+                              <span data-bind="text: $data"></span>
+                            </th>
+                            <!-- /ko -->
+                          </tr>
+                        </thead>
+                        <tbody data-bind="foreach:thinViewData">
+                          <tr data-bind="visible:isDisplay,foreach: data">
+                            <td data-bind="text: $data"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-mini">
+            <div class="card card-mini">
+              <div class="card-body flat-matrix">
+                <div id="widget_div_2">
+                  <table-widget></like-widget>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      <footer id="footer_div" class="app-footer" style="position:absolute;bottom:0;margin:0 auto;">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="footer-copyright">
+              Copyright © 2017 MATRIX
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
+    <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/app.js"></script>
+    <script src="../assets/reference/codemirror/codemirror.js"></script>
+    <script src="../assets/reference/codemirror/mode/javascript/javascript.js"></script>
+    <script src="../assets/reference/codemirror/mode/markdown/markdown.js"></script>
+    <script src="../assets/reference/jquery/jquery.json.js"></script>
+    <script src="../assets/reference/jquery/jquery.blockUI.js"></script>
+    <script src="../assets/reference/knockout.js/knockout-3.3.0.js"></script>
+    <script src="../assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+    <script src="../assets/reference/markdown/markdown.min.js"></script>
+    <script src="../assets/reference/jquery-ui/jquery-ui.js"></script>
+    <script src="../assets/reference/lodash/lodash-4.15.0.js"></script>
+    <script src="../assets/reference/gridstack/gridstack.all.js"></script>
+    <script src="../assets/reference/echarts/echarts-min.js"></script>
+    <script src="../assets/reference/echarts/dataTools.js"></script>
+    <!-- Javascript for Matrix Self Owned -->
+    <script src="../assets/self-owned/js/generic/generic_algorithm.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_cache.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_charting_v4.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_csv.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_cud.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_modal.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_query.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_table.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_util.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
+
+
+
+
+
+
+    <script>
+      $(document).ready(function() {
+        $('#sidebar').load($.getRootPath() + '/components/left_side.html');
+        $('#navbar').load($.getRootPath() + '/components/header.html');
+      });
+    </script>
+    <script>
+      var data_agg = [
+        [{value: 335,name: '直接访问'}, {value: 310,name: '邮件营销'}, {value: 134,name: '联盟广告'}, {value: 535,name: '视频广告'}, {value: 1548,name: '搜索引擎'}],
+        [{value: 35,name: '直接访问'}, {value: 210,name: '邮件营销'}, {value: 234,name: '联盟广告'}, {value: 435,name: '视频广告'}, {value: 548,name: '搜索引擎'}],
+        [{value: 135,name: '直接访问'}, {value: 110,name: '邮件营销'}, {value: 334,name: '联盟广告'}, {value: 335,name: '视频广告'}, {value: 148,name: '搜索引擎'}],
+        [{value: 235,name: '直接访问'}, {value: 410,name: '邮件营销'}, {value: 434,name: '联盟广告'}, {value: 235,name: '视频广告'}, {value: 1248,name: '搜索引擎'}],
+        [{value: 435,name: '直接访问'}, {value: 510,name: '邮件营销'}, {value: 534,name: '联盟广告'}, {value: 135,name: '视频广告'}, {value: 2548,name: '搜索引擎'}]
+      ];
+
+
+
+      setInterval(function() {
+        retrieveData();
+      }, 3000);
+    </script>
+    <script>
+      var tableModel = new ThinListViewModel();
+      ko.applyBindings(tableModel, document.getElementById('table_div'));
+
+      var i =0;
+      var retrieveData = function() {
+        if(i==5){
+          i=0;
+        }
+        var serverData = data_agg[i%5];
+        var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
+        tableModel.buildData(tableData.result);
+        tableModel.columnNames(tableData.header);
+        tableModel.isDisplayPager(true);
+        tableModel.buildView();
+        tableModel.pageMaxSize(5);
+        i++;
+      }
+
+      var initialize_table = function() {
+        retrieveData();
+      }
+      initialize_table();
+
+
+      var test = function(){
+        clone_component('copy_div','table_div','hello_div');
+        ko.applyBindings(document.getElementById('table_div'),document.getElementById('hello_div'));
+      }
+
+
+      ko.components.register('like-widget', {
+          viewModel: function(params) {
+              // Data: value is either null, 'like', or 'dislike'
+              this.chosenValue = params.value;
+
+              // Behaviors
+              this.like = function() { this.chosenValue('like'); }.bind(this);
+              this.dislike = function() { this.chosenValue('dislike'); }.bind(this);
+          },
+          template:
+              '<div class="like-or-dislike" data-bind="visible: !chosenValue()">\
+                  <button data-bind="click: like">Like it</button>\
+                  <button data-bind="click: dislike">Dislike it</button>\
+              </div>\
+              <div class="result" data-bind="visible: chosenValue">\
+                  You <strong data-bind="text: chosenValue"></strong> it\
+              </div>'
+      });
+
+      function Product(name, rating) {
+          this.name = name;
+          this.userRating = ko.observable(rating || null);
+      }
+
+      function MyViewModel() {
+          this.products = [
+              new Product('Garlic bread'),
+              new Product('Pain au chocolat'),
+              new Product('Seagull spaghetti', 'like') // This one was already 'liked'
+          ];
+      }
+      var vm =new MyViewModel();
+      ko.applyBindings(vm,document.getElementById('widget_div'));
+    </script>
+
+
+    <script>
+    var vm = function(param){
+       var model = new ThinListViewModel();
+       if(param){
+         var serverData = data_agg[i%5];
+         var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
+         model.buildData(tableData.result);
+         model.columnNames(tableData.header);
+         model.isDisplayPager(true);
+         model.buildView();
+         model.pageMaxSize(5);
+       }
+       return model;
+     };
+    ko.components.register('table-widget', {
+        viewModel: function() {
+            this.tableModel = ko.observable(vm('123'));
+
+            this.rerender = function(){
+               var serverData = data_agg[i%5];
+               var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
+               tableModel.buildData(tableData.result);
+               tableModel.columnNames(tableData.header);
+               tableModel.isDisplayPager(true);
+               tableModel.buildView();
+               tableModel.pageMaxSize(5);
+               this.tableModel(tableModel);
+             }.bind(this);
+        },
+        template:
+            '<button data-bind="click: rerender">Like it</button>\
+            <div class="row" data-bind="with:tableModel">\
+              <div class="col-xs-12">\
+                <div id="table_parent_div"></div>\
+                <table class="table table-striped table-hover" cellspacing="0">\
+                  <thead>\
+                    <tr>\
+                      <!-- ko foreach: columnNames -->\
+                      <th>\
+                        <span data-bind="text: $data"></span>\
+                      </th>\
+                      <!-- /ko -->\
+                    </tr>\
+                  </thead>\
+                  <tbody data-bind="foreach:thinViewData">\
+                    <tr data-bind="visible:isDisplay,foreach: data">\
+                      <td data-bind="text: $data"></td>\
+                    </tr>\
+                  </tbody>\
+                </table>\
+              </div>\
+            </div>\
+            '
+    });
+
+    function MyViewModel2() {
+
+    }
+    var vm2 =new MyViewModel2();
+    ko.applyBindings(vm2,document.getElementById('widget_div_2'));
+
+    </script>
+
+
+</body>
+
+</html>
