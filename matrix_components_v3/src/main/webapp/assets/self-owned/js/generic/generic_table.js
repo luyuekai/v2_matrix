@@ -1,9 +1,39 @@
-function DataModel(data, isChecked, isDisplay) {
+function DataModel(data, isChecked, isDisplay,parent) {
+    // Data Model is a Row
     var self = this;
+    self.parent = parent;
+    // data is an array for store cell:[]
     self.data = data;
     self.isChecked = ko.observable(isChecked);
     self.isDisplay = ko.observable(isDisplay);
+
+    self.isDisplay_cell = function (cell_index) {
+      var flag = true;
+      if(self.parent){
+        var headerItemModel =self.parent.headerViewData()[cell_index];
+        flag = headerItemModel.isChecked();
+      }
+      return flag;
+    };
 }
+
+function HeaderItemModel(data,index,isChecked,isDisplay,parent){
+  var self = this;
+  self.parent = parent;
+  self.data = ko.observable(data);
+
+  self.data_id = ko.computed(function() {
+        return 'id_'+this.data()+ (new Date()).getTime()
+    }, this);
+  self.index = ko.observable(index);
+  self.name = ko.computed(function(){
+    return self.index()+"_"+self.data();
+  },this);
+  self.isChecked = ko.observable(isChecked);
+  self.isDisplay = ko.observable(isDisplay);
+}
+
+
 
 function ThinListViewModel() {
     var self = this;
@@ -13,15 +43,16 @@ function ThinListViewModel() {
     self.searchKeyword = ko.observable();
     self.originalData = ko.observableArray();//存放服务器的原始数据
     self.isDisplayPager = ko.observable(false);//是否显示翻页部件
-    
+
     self.thinViewData = ko.observableArray();//存储显示的DataModel
     self.originViewData = ko.observableArray();//存储js原生数组
     self.columnNames = ko.observableArray();
+    self.headerViewData = ko.observableArray();
     self.pagingSizeArray = ko.observableArray([5, 10, 20, 100]);
     self.selectedItems = ko.observableArray();//复选框选中的DataModel副本
     self.hasResult = ko.observable(false);
     self.searchField = ko.observable();
-    
+
     self.totalPage = ko.pureComputed(function () {
         var tc = self.totalCounts();
         var pm = self.pageMaxSize();
@@ -33,14 +64,14 @@ function ThinListViewModel() {
         pageNumber = pageNumber || 1;
         self.currentPageNumber(pageNumber);
     };
-    
+
     self.pageMaxSize.subscribe(function (newValue) {
         if (self.hasResult()) {
             self.currentPageNumber(1);
             self.calcuRowsToDisplay();
         }
-    }); 
-    
+    });
+
     self.currentPageNumber.subscribe(function (newValue) {
         newValue = Number(newValue);
         newValue = newValue || 1;
@@ -55,25 +86,25 @@ function ThinListViewModel() {
             self.calcuRowsToDisplay();
         }
     });
-    
+
     self.calcuRowsToDisplay = function () {
         var cp = self.currentPageNumber();
         var tc = self.totalCounts();
         var pm = self.pageMaxSize();
-        
+
         var first = (cp - 1) * pm;
         var last = cp * pm - 1 > tc ? tc : cp * pm - 1;
         last = last + 1 < self.originViewData().length ? last + 1 : self.originViewData().length;
         var thinTmp = [];
         for (var i = first; i < last; i++) {
             var element = self.originViewData()[i];
-            thinTmp.push(new DataModel(element, false, true));
+            thinTmp.push(new DataModel(element, false, true,self));
         }
         self.thinViewData(thinTmp);
         self.syncViewDataCheckbox();
         self.reset();
     }
-    
+
     self.enableSubscribe = ko.observable(true);//内部变量，暂时禁用下面关于多选的subscribe
 
     self.isSelectCurrentPage = ko.observable();
@@ -102,13 +133,13 @@ function ThinListViewModel() {
             self.selectedItems.removeAll();
             if (newValue) {
                 $.each(self.originViewData(), function (idx, val) {
-                    self.selectedItems.push(new DataModel(val, true, true));
+                    self.selectedItems.push(new DataModel(val, true, true,self));
                 });
             }
             self.syncViewDataCheckbox();
         }
     });
-    
+
     self.isSelectAllPageFile = ko.observable();
     self.isSelectAllPageFile.subscribe(function (newValue) {
         if (self.enableSubscribe()) {
@@ -116,22 +147,22 @@ function ThinListViewModel() {
             if (newValue) {
                 $.each(self.originViewData(), function (idx, val) {
                     if (val.type && val.type === 'FILE') {
-                        self.selectedItems.push(new DataModel(val, true, true));
+                        self.selectedItems.push(new DataModel(val, true, true,self));
                     }
                 });
             }
             self.syncViewDataCheckbox();
         }
     });
-    
-       
+
+
 
     //由于selectedItems中存储的是副本，不与thinViewData中的一样，需要一个检查两者是否等价的方式。在业务逻辑代码中自己编写
     //参数1为选中DataModel的序列，参数2为要匹配的DataModel，返回等价的*已选中*的DataModel
     self.checkItemSelectedBefore = function (selectedItems, item) {
 //        console.error("You should overwrite or hijack this function");
     };
-    
+
     //由于selectedItems中存储的是副本，需要保证selectedItems与thinViewData已勾选内容一致。
     //统一为对selectedItems增删，然后通过下面的函数进行勾选框的状态同步
     self.syncViewDataCheckbox = function() {
@@ -145,7 +176,7 @@ function ThinListViewModel() {
         });
         self.thinViewData(thinTmp);
     };
-    
+
     //判断selectedItems或thinViewData切换勾选状态
     self.switchItemSelection = function (dataModel) {
         if (dataModel.isChecked()) {
@@ -165,7 +196,7 @@ function ThinListViewModel() {
         return array;
 //        return self.selectedItems();
     };
-    
+
     self.clearSelectedData = function(){
         self.selectedItems.removeAll();
 //        self.syncViewDataCheckbox();
@@ -178,7 +209,7 @@ function ThinListViewModel() {
     self.totalCounts = ko.pureComputed(function () {
         return self.originViewData().length;
     }, this);
-    
+
     //这是啥
     self.checkListener = function (current) {
         current.isChecked(!current.isChecked());
@@ -233,12 +264,18 @@ function ThinListViewModel() {
 
         });
         self.originViewData(tmp);
-        
+
         self.currentPageNumber(1);
         self.calcuRowsToDisplay();
+
+        var tmp_header = [];
+        $.each(self.columnNames(), function (idx, val) {
+          tmp_header.push(new HeaderItemModel(val,idx,true, true,self));
+        });
+        self.headerViewData(tmp_header);
     };
 
-    
+
 
     // 分页更新页面视图元素函数，逻辑如下：
     // data为表中所有数据，它包含的isDisplay属性控制是否在界面显示
@@ -374,7 +411,7 @@ function ListViewModel() {
         self.reset();
         var tmp = [];
         $.each(serverData, function (idx, val) {
-            tmp.push(new DataModel(val, false, false));
+            tmp.push(new DataModel(val, false, false,self));
         });
         self.originalData(tmp);
         self.serverData = serverData;
@@ -395,7 +432,7 @@ function ListViewModel() {
                     $.each(self.searchField(), function (key,value){
                         if(jsonData[value]){
                           if(jsonData[value].toString().indexOf(keyword) >= 0){
-                              tmp.push(new DataModel(jsonData, false, false));
+                              tmp.push(new DataModel(jsonData, false, false,self));
                               return false;
                           }
                         }
@@ -403,13 +440,13 @@ function ListViewModel() {
                 }else{
                     $.each(jsonData, function (key, value) {
                         if (value && value.toString().indexOf(keyword) >= 0) {
-                            tmp.push(new DataModel(jsonData, false, false));
+                            tmp.push(new DataModel(jsonData, false, false,self));
                             return false;
                         }
                     })
                 }
             } else {
-                tmp.push(new DataModel(jsonData, false, false));
+                tmp.push(new DataModel(jsonData, false, false,self));
             }
 
         });

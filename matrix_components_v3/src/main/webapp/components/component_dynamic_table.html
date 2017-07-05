@@ -40,9 +40,8 @@
               <div class="row">
                 <div class="col-md-12" id="ko_div">
                   <h4>Dynamic Table Generation:</h4>
-                  <!-- <div data-bind='component: "matrix-dynamic-table"'></div> -->
-                  <input type="text" class="form-control" placeholder="This is the data source URL" data-bind="value:table_data_source">
-                  <matrix-dynamic-table params="value: table_data_source"></matrix-dynamic-table>
+                  <!-- <input type="text" class="form-control" placeholder="This is the data source URL" data-bind="value:table_data_source"> -->
+                  <matrix_dynamic_table params="value: table_data_source"></matrix_dynamic_table>
                 </div>
               </div>
             </div>
@@ -51,28 +50,53 @@
       </div>
     </div>
 
-    <template id='matrix-dynamic-table-template'>
-        You <strong data-bind="text: chosenValue"></strong> it
-        <input type="text" class="form-control" placeholder="This is the data source URL" data-bind="value:chosenValue">
+    <template id='matrix_dynamic_table-template'>
         <div class="table_div_class">
           <div class="row" data-bind="with:tableModel">
             <div class="col-xs-12">
               <table class="table table-striped table-hover" cellspacing="0">
                 <thead>
                   <tr>
-                    <!-- ko foreach: columnNames -->
-                    <th>
-                      <span data-bind="text: $data"></span>
+                    <!-- ko foreach: headerViewData -->
+                    <th data-bind="visible:$data.isChecked">
+                      <span data-bind="text: $data.data,visible:$data.isChecked"></span>
                     </th>
                     <!-- /ko -->
                   </tr>
                 </thead>
                 <tbody data-bind="foreach:thinViewData">
                   <tr data-bind="visible:isDisplay,foreach: data">
-                    <td data-bind="text: $data"></td>
+                    <td data-bind="visible:$parent.isDisplay_cell($index())">
+                      <span data-bind="text: $data"></span>
+                    </td>
                   </tr>
                 </tbody>
               </table>
+              <div class="matrix-pager-v3" data-bind="visible:isDisplayPager">
+                <div class="form-inline">
+                  <nav>
+                    <form>
+                      <span class="pull-left">
+                      <label class="control-label" style="margin-bottom: 12px;">Total Counts:<span data-bind="text:totalCounts()?totalCounts():0"></span></label>
+                      </span>
+                    </form>
+                    <span class="pull-right">
+                    <button data-bind="click:function(){toPage(1);}" type="button" class="btn btn-default " style="padding: 10px 12px;"><i class="fa fa-angle-double-left"></i> &nbsp;First</button>
+                    <button data-bind="click:function(){toPage(currentPageNumber()-1);}" type="button" class="btn btn-default " style="padding: 10px 12px;"><i class="fa fa-angle-left"></i> &nbsp;Previous</button>
+                    <input data-bind="value:currentPageNumber" type="text" class="form-control" placeholder="Page" style="width:60px;margin-bottom:5px;padding:10px;text-align: center;">
+                    <button data-bind="visible:false,click:function(){}" type="submit" class="btn"><span class="fui-search"></span></button>
+                    <button data-bind="click:function(){toPage(currentPageNumber()+1);}" type="button" class="btn btn-default " style="padding: 10px 12px;">Next &nbsp;<i class="fa fa-angle-right"></i></button>
+                    <button data-bind="click:function(){toPage(totalPage());}" type="button" class="btn btn-default " style="padding: 10px 12px;">Last &nbsp;<i class="fa fa-angle-double-right"></i></button>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span data-bind="text:pageMaxSize()"></span> <span class="caret"></span></button>
+                      <ul class="dropdown-menu" role="menu" data-bind="foreach: pagingSizeArray">
+                        <li><a data-bind="click:function(){$parent.pageMaxSize($data)}" href="#"><span data-bind="text:$data"></span></a></li>
+                      </ul>
+                    </div>
+                    </span>
+                  </nav>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -134,42 +158,71 @@
 
 
     <script>
-    ko.components.register('matrix-dynamic-table', {
+    ko.components.register('matrix_dynamic_table', {
         viewModel: function(params) {
             var self = this;
-            self.chosenValue = params.value;
-            self.chosenValue.subscribe(function(newValue) {
-                self.tableModel(self.update_table());
+            self.ds = params.value;
+
+            self.ds.subscribe(function(newValue) {
+                self.update_table();
             });
+            self.header = null;
             self.tableModel = ko.observable(new ThinListViewModel());
 
             self.update_table = function(){
-                var i = Number(this.chosenValue)?Number(this.chosenValue):0;
-                var data_agg = [
-                  [{value: 335,name: '直接访问'}, {value: 310,name: '邮件营销'}, {value: 134,name: '联盟广告'}, {value: 535,name: '视频广告'}, {value: 1548,name: '搜索引擎'}],
-                  [{value: 35,name: '直接访问'}, {value: 210,name: '邮件营销'}, {value: 234,name: '联盟广告'}, {value: 435,name: '视频广告'}, {value: 548,name: '搜索引擎'}],
-                  [{value: 135,name: '直接访问'}, {value: 110,name: '邮件营销'}, {value: 334,name: '联盟广告'}, {value: 335,name: '视频广告'}, {value: 148,name: '搜索引擎'}],
-                  [{value: 235,name: '直接访问'}, {value: 410,name: '邮件营销'}, {value: 434,name: '联盟广告'}, {value: 235,name: '视频广告'}, {value: 1248,name: '搜索引擎'}],
-                  [{value: 435,name: '直接访问'}, {value: 510,name: '邮件营销'}, {value: 534,name: '联盟广告'}, {value: 135,name: '视频广告'}, {value: 2548,name: '搜索引擎'}]
-                ];
-                var serverData = data_agg[i%5];
-                var tm = new ThinListViewModel();
-                var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
-                tm.buildData(tableData.result);
-                tm.columnNames(tableData.header);
-                tm.isDisplayPager(true);
-                tm.buildView();
-                tm.pageMaxSize(5);
-                return tm;
+
+              if(self.ds()){
+                var url = self.ds().ds;
+                self.header = self.ds().header;
+                $.serverRequest(url, null, "SUCCESS_LISTENER_DYNAMIC_TABLE", "FAILED_LISTENER_DYNAMIC_TABLE", "SERVER_FAILED_LISTENER_DYNAMIC_TABLE", 'POST', true,self);
+              }
             }
         },
-        template: { element: 'matrix-dynamic-table-template' }
+        template: { element: 'matrix_dynamic_table-template' }
     });
+
+    $.subscribe("SUCCESS_LISTENER_DYNAMIC_TABLE", successListener_dynamic_table);
+    $.subscribe("FAILED_LISTENER_DYNAMIC_TABLE", failedListener_dynamic_table);
+    $.subscribe("SERVER_FAILED_LISTENER_DYNAMIC_TABLE", failedServiceListener_dynamic_table);
+
+
+    function successListener_dynamic_table() {
+      if (arguments && arguments[1]) {
+        var server_data = arguments[1].response;
+        var matrix_dynamic_table = arguments[1].addtion;
+
+
+        var tableData = DataTransferPOJO.serverJsonData2TableData(server_data);
+        var tableModel = new ThinListViewModel();
+        tableModel.buildData(tableData.result);
+        tableModel.columnNames(tableData.header);
+        tableModel.isDisplayPager(true);
+        tableModel.buildView();
+        tableModel.pageMaxSize(5);
+        if(matrix_dynamic_table.header){
+          tableModel.headerViewData(matrix_dynamic_table.header);
+        }
+        matrix_dynamic_table.tableModel(tableModel);
+      }
+    }
+    function failedListener_dynamic_table() {
+      if (arguments && arguments[1]) {
+        console.log(arguments);
+        var errorMessage = arguments[1].errorMessage;
+        genericModalViewModel.response(false, "Entity Operation", "[Failed]", errorMessage);
+      }
+    }
+
+    function failedServiceListener_dynamic_table() {
+      genericModalViewModel.response(false, "Entity Operation", "[Failed]", "SERVICE 'GENERIC XXX' FAILED! Please contact with the system admin for more information...");
+    }
+
+
 
     function PageViewModel(input) {
         this.table_data_source = ko.observable(input||null);
     }
-    var pageViewModel = new PageViewModel('123');
+    var pageViewModel = new PageViewModel();
     ko.applyBindings(pageViewModel);
 
     ModalUtil.popup_modal('Dynamic Table Setting', '/components/modal_content_dynamic_table.html', null, null, null);
