@@ -99,6 +99,15 @@
                 <button onclick="check_data_source()" type="button" class="btn btn-info">Check</button>
               </div>
             </div>
+            <div class="row">
+              <div class="col-xs-2 text-right">
+                <label style="margin-top:15px;">Rules:
+                    </label>
+              </div>
+              <div class="col-xs-8" style="padding-left: 0px;padding-right: 0px;">
+                <input type="text" data-bind="value: json_rule" class="form-control" id="inputTableDes" placeholder="JSON parse rules: response.result">
+              </div>
+            </div>
 
             <div class="row flat-matrix" data-bind="visible:service_response">
               <div class="col-xs-12">
@@ -267,6 +276,41 @@
                       <!-- /ko -->
                     </div>
                   </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" style="text-align:right">
+                      <span style="font-weight: bold;font-size: 16px;">Refresh Interval:</span>
+                    </label>
+                    <div class="radio radio-inline">
+                      <input type="radio" data-bind="checked:refresh_interval" name="radio_refresh_interval" id="radio1" value="10" checked>
+                      <label for="radio1">
+                        10 Seconds
+                      </label>
+                    </div>
+                    <div class="radio radio-inline">
+                      <input type="radio" data-bind="checked:refresh_interval" name="radio_refresh_interval" id="radio2" value="30" >
+                      <label for="radio2">
+                        30 Seconds
+                      </label>
+                    </div>
+                    <div class="radio radio-inline">
+                      <input type="radio" data-bind="checked:refresh_interval" name="radio_refresh_interval" id="radio3" value="60">
+                      <label for="radio3">
+                        1 Minutes
+                      </label>
+                    </div>
+                    <div class="radio radio-inline">
+                      <input type="radio" data-bind="checked:refresh_interval" name="radio_refresh_interval" id="radio4" value="300">
+                      <label for="radio4">
+                        5 Minutes
+                      </label>
+                    </div>
+                    <div class="radio radio-inline">
+                      <input type="radio" data-bind="checked:refresh_interval" name="radio_refresh_interval" id="radio5" value="3000000">
+                      <label for="radio5">
+                        Never
+                      </label>
+                    </div>
+                  </div>
                 </form>
               </div>
             </div>
@@ -318,8 +362,10 @@
     function BusinessPOJO() {
       var self = this;
       self.service_url = ko.observable('http://localhost:8080/matrix_components_v3/assets/self-owned/data/server_mock_data.json');
+      self.json_rule = ko.observable('');
       self.service_response = ko.observable('');
       self.table_header = ko.observableArray();
+      self.refresh_interval = ko.observable('10');
       self.tableModel = ko.observable(new ThinListViewModel());
     }
     var businessPOJO = new BusinessPOJO();
@@ -367,7 +413,8 @@
     if(pageViewModel && genericModalViewModel.businessPOJO().service_url()){
       var json = {
         'ds':genericModalViewModel.businessPOJO().service_url(),
-        'header':genericModalViewModel.businessPOJO().tableModel().headerViewData()
+        'header':genericModalViewModel.businessPOJO().tableModel().headerViewData(),
+        'refresh_interval':genericModalViewModel.businessPOJO().refresh_interval()
       }
       pageViewModel.table_data_source(json);
       ModalUtil.modal_close('popupModalPro');
@@ -385,6 +432,11 @@
       var res = JSON.stringify(arguments[1].response);
       // genericModalViewModel.response(true, "Entity Operation", "[Successed]", "Operation Successed, please close the console and reload the data.\n"+res);
       genericModalViewModel.businessPOJO().service_response(res);
+      var json_rule = genericModalViewModel.businessPOJO().json_rule();
+      if(json_rule){
+        var tmp = 'server_data.'+json_rule;
+        server_data = eval(tmp);
+      }
 
       var tableData = DataTransferPOJO.serverJsonData2TableData(server_data);
       var tableModel = new ThinListViewModel();

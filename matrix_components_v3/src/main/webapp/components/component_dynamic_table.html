@@ -161,10 +161,16 @@
     ko.components.register('matrix_dynamic_table', {
         viewModel: function(params) {
             var self = this;
+            //ds:{
+            //  'ds':'ds_url',
+            //  'header':'header view model',
+            //  'refresh_interval':'30 seconds'
+            //}
             self.ds = params.value;
 
             self.ds.subscribe(function(newValue) {
                 self.update_table();
+                self.set_refresh_interval();
             });
             self.header = null;
             self.tableModel = ko.observable(new ThinListViewModel());
@@ -175,6 +181,16 @@
                 var url = self.ds().ds;
                 self.header = self.ds().header;
                 $.serverRequest(url, null, "SUCCESS_LISTENER_DYNAMIC_TABLE", "FAILED_LISTENER_DYNAMIC_TABLE", "SERVER_FAILED_LISTENER_DYNAMIC_TABLE", 'POST', true,self);
+              }
+            }
+
+            self.set_refresh_interval = function(){
+              if(self.ds()){
+                var interval = self.ds().refresh_interval || 10;
+                setInterval(function(){
+                  self.update_table();
+                  console.log('refresh dynamic table')
+                },1000*interval)
               }
             }
         },
@@ -225,7 +241,7 @@
     var pageViewModel = new PageViewModel();
     ko.applyBindings(pageViewModel);
 
-    ModalUtil.popup_modal('Dynamic Table Setting', '/components/modal_content_dynamic_table.html', null, null, null);
+    // ModalUtil.popup_modal('Dynamic Table Setting', '/components/modal_content_dynamic_table.html', null, null, null);
     </script>
 
 
