@@ -32,20 +32,23 @@
           <div class="card">
             <div class="card-header">
               <div class="card-title">
-                <i class="fa fa-diamond">&nbsp;KO&nbsp;&nbsp;&nbsp;</i>
+                <i class="fa fa-diamond">&nbsp;Dynamic Table&nbsp;&nbsp;&nbsp;</i>
+                <button title="Edit" type="button" onclick="ModalUtil.popup_modal('Dynamic Table Setting', '/components/modal_content_dynamic_table.html', null, null, null);" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-edit"></i></button>
+                <button title="Clone" type="button" onclick="t()" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-paste"></i></button>
               </div>
             </div>
             <div class="card-body flat-matrix">
               <div class="row">
                 <div class="col-md-12" id="ko_div">
-                  <h4>First instance, without parameters</h4>
-                  <div data-bind='component: "message-editor"'></div>
+                  <h4>Dynamic Table Generation:</h4>
+                  <!-- <input type="text" class="form-control" placeholder="This is the data source URL" data-bind="value:table_data_source"> -->
+                  <div id="matrix_dynamic_table_parent_div">
+                    <matrix_dynamic_table params="value: table_data_source"></matrix_dynamic_table>
 
-                  <h4>Second instance, passing parameters</h4>
-                  <div data-bind='component: {
-                      name: "message-editor",
-                      params: { initialText: "Hello, world!" }
-                  }'></div>
+                  </div>
+                </div>
+                <div class="col-md-12" id="ko_copy_div">
+
                 </div>
               </div>
             </div>
@@ -53,33 +56,24 @@
         </div>
       </div>
     </div>
+    <div id="template-matrix-dynamic-table-div"></div>
+    <div id="wrapped_matrix_dynamic_table_div" style="display:none">
+      <matrix_dynamic_table params="value: table_data_source"></matrix_dynamic_table>
+    </div>
 
-    <template id='table-template'>
-        <input type="text" class="form-control" placeholder="Input" data-bind="value:text">
-        <input type="text" class="form-control" placeholder="Input" data-bind="value:text2">
-        <div class="table_div_class">
-          <div class="row" data-bind="with:tableModel">
-            <div class="col-xs-12">
-              <table class="table table-striped table-hover" cellspacing="0">
-                <thead>
-                  <tr>
-                    <!-- ko foreach: columnNames -->
-                    <th>
-                      <span data-bind="text: $data"></span>
-                    </th>
-                    <!-- /ko -->
-                  </tr>
-                </thead>
-                <tbody data-bind="foreach:thinViewData">
-                  <tr data-bind="visible:isDisplay,foreach: data">
-                    <td data-bind="text: $data"></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+    <div class="modal fade" id="popupModalPro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog modal-lg" style="width:1000px">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-power-off"></i> &nbsp; <span class="modal-title" id="popupModalLabelPro"></span>
+          </div>
+          <div class="modal-body">
+            <div id="modalContentDIVPro"></div>
           </div>
         </div>
-    </template>
+      </div>
+    </div>
 
 
 
@@ -110,12 +104,20 @@
     <script src="../assets/self-owned/js/generic/generic_util.js"></script>
     <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
     <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
 
 
     <script>
+      var matrixTable = new MatrixTable();
       $(document).ready(function() {
         $('#sidebar').load($.getRootPath() + '/components/left_side.html');
         $('#navbar').load($.getRootPath() + '/components/header.html');
+        $('#template-matrix-dynamic-table-div').load($.getRootPath() + '/components/template-matrix-dynamic-table.html');
+
+        setTimeout(function(){
+          initialize_environment();
+          ko.applyBindings(matrixTable,document.getElementById('matrix_dynamic_table_parent_div'));
+        },1000)
       });
     </script>
 
@@ -123,40 +125,52 @@
 
 
     <script>
-    ko.components.register('message-editor', {
-        viewModel: function(params) {
-            this.text = ko.observable(params && params.initialText || '');
 
-            this.text2 = ko.computed(function() {
-                return this.text() + "-" + this.text();
-            }, this);
 
-            this.tableModel = ko.computed(function() {
-              var i = Number(this.text())?Number(this.text()):0;
-              var data_agg = [
-                [{value: 335,name: '直接访问'}, {value: 310,name: '邮件营销'}, {value: 134,name: '联盟广告'}, {value: 535,name: '视频广告'}, {value: 1548,name: '搜索引擎'}],
-                [{value: 35,name: '直接访问'}, {value: 210,name: '邮件营销'}, {value: 234,name: '联盟广告'}, {value: 435,name: '视频广告'}, {value: 548,name: '搜索引擎'}],
-                [{value: 135,name: '直接访问'}, {value: 110,name: '邮件营销'}, {value: 334,name: '联盟广告'}, {value: 335,name: '视频广告'}, {value: 148,name: '搜索引擎'}],
-                [{value: 235,name: '直接访问'}, {value: 410,name: '邮件营销'}, {value: 434,name: '联盟广告'}, {value: 235,name: '视频广告'}, {value: 1248,name: '搜索引擎'}],
-                [{value: 435,name: '直接访问'}, {value: 510,name: '邮件营销'}, {value: 534,name: '联盟广告'}, {value: 135,name: '视频广告'}, {value: 2548,name: '搜索引擎'}]
-              ];
-              var serverData = data_agg[i%5];
-              var tm = new ThinListViewModel();
-              var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
-              tm.buildData(tableData.result);
-              tm.columnNames(tableData.header);
-              tm.isDisplayPager(true);
-              tm.buildView();
-              tm.pageMaxSize(5);
-              return tm;
-            }, this);
-        },
-        template: { element: 'table-template' }
-    });
 
-    ko.applyBindings();
+
+
+
+
+
+    // ModalUtil.popup_modal('Dynamic Table Setting', '/components/modal_content_dynamic_table.html', null, null, null);
     </script>
 
+
+    <script>
+      function t(){
+        show_div('clone_div');
+        clone_table_chain('clone_table_parent_div','cloned_table_div',matrixTable);
+      }
+
+
+      function create_dynamic_table(ds){
+        show_div('clone_div');
+        var new_div_id = 'cloned_table_div';
+        //1, clone matrix table wrapper div
+        clone_component('clone_table_parent_div','wrapped_matrix_dynamic_table_div','cloned_table_div');
+
+        //2, initialize view model
+        var vm = new MatrixTable();
+        ko.cleanNode($('#'+new_div_id)[0]);
+        ko.applyBindings(vm,document.getElementById(new_div_id));
+
+        //3, data bind
+        setTimeout(function() {
+          if(ds && vm){
+            vm.table_data_source(ds);
+          }
+        }, 500);
+
+        //4, cache vm
+        var cache = {
+          'key':new_div_id,
+          'vm':vm
+        }
+
+        Matrix_Dynamic_Table_Cache.push(cache);
+      }
+    </script>
 
 </body>
 

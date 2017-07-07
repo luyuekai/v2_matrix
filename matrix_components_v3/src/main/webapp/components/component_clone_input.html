@@ -45,9 +45,9 @@
           <div class="card card-mini">
             <div class="card card-mini">
               <div class="card-body">
-                <div id='main_table_div'>
-                  <button title="Clone" type="button" data-bind="click:function(){test()}" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-paste"></i></button>
-
+                <div id="input_div">
+                  <input type="text" data-bind="value: name" class="form-control" id="inputTableDes" placeholder="Data Source Rest API URL">
+                  <p class="form-control-static" data-bind="text:name"></p>
                   <div class="row" data-bind="with:vm">
                     <div class="col-xs-12">
 
@@ -109,7 +109,7 @@
           <div class="card card-mini">
             <div class="card card-mini">
               <div class="card-body">
-                <div id='main_table_copy_div'>
+                <div id="output_div">
 
                 </div>
               </div>
@@ -170,13 +170,15 @@
         self.vm = ko.observable(); //ThinListViewModel
         self.dom = null;
         self.dom_id = null;
+
+        self.name = ko.observable('hello world');
         self.clone_table = function() {
 
         }
       }
       var vm = new Dynamic_Cloneable_ViewModel();
 
-      ko.applyBindings(vm, document.getElementById('main_table_div'));
+      ko.applyBindings(vm, document.getElementById('input_div'));
 
       var retrieveData_mock = function() {
         $.ajax({
@@ -202,37 +204,42 @@
       }
 
       retrieveData_mock();
+
     </script>
     <script>
       function clone_test() {
-        // var t = ClonePOJO.deepClone(tableModel);
-
-        clone_component('main_table_copy_div', 'main_table_div', 'cloned_table_div');
-
-        // ko.applyBindings(t, document.getElementById('main_table_copy_div'));
+        clone_component('output_div', 'input_div', 'cloned_div');
       }
       var vm2 = new Dynamic_Cloneable_ViewModel();
-      function t1() {
-        // console.log('hi')
-        // var a = ko.dataFor(document.getElementById('main_table_div'));
-        // console.log(a);
 
-        ko.applyBindings(vm2, document.getElementById('main_table_copy_div'));
+      function t1() {
+
+        ko.cleanNode($('#cloned_div')[0]);
+        ko.applyBindings(vm2, document.getElementById('cloned_div'));
 
       }
 
       function t2() {
-        
-
-        var tableModel = new ThinListViewModel();
-        var result = vm.vm().originalData();
-        var header = vm.vm().columnNames();
-        tableModel.buildData(result);
-        tableModel.columnNames(header);
-        tableModel.isDisplayPager(true);
-        tableModel.buildView();
-        tableModel.pageMaxSize(5);
-        vm2.vm(tableModel)
+        $.ajax({
+          url: $.getRootPath() + "/assets/self-owned/data/data_10W.json",
+          type: 'GET',
+          dataType: 'json',
+          success: function(json) {
+            var serverData = json;
+            var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
+            var tableModel = new ThinListViewModel();
+            tableModel.buildData(tableData.result);
+            tableModel.columnNames(tableData.header);
+            tableModel.isDisplayPager(true);
+            tableModel.buildView();
+            tableModel.pageMaxSize(5);
+            vm2.vm(tableModel)
+          },
+          error: function(xhr, status) {
+            console.log('Sorry, there was a problem on SERVER_REQUEST_ACTION process!');
+          },
+          complete: function(xhr, status) {}
+        });
       }
     </script>
 

@@ -440,14 +440,16 @@
   var runService = function() {
     console.log("run service function invoked!")
 
-    if(pageViewModel && genericModalViewModel.businessPOJO().service_url()){
+    if(genericModalViewModel.businessPOJO().service_url()){
       var json = {
         'ds':genericModalViewModel.businessPOJO().service_url(),
         'header':genericModalViewModel.businessPOJO().tableModel().headerViewData(),
         'refresh_interval':genericModalViewModel.businessPOJO().refresh_interval(),
         'json_rule':genericModalViewModel.businessPOJO().json_rule()
       }
-      pageViewModel.table_data_source(json);
+      // matrixTable.table_data_source(json);
+      // create_dynamic_table(json);
+      create_dynamic_table(json,'clone_table_parent_div','cloned_table_div');
       ModalUtil.modal_close('popupModalPro');
     }
 
