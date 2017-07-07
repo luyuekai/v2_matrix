@@ -99,16 +99,6 @@
                 <button onclick="check_data_source()" type="button" class="btn btn-info">Check</button>
               </div>
             </div>
-            <div class="row">
-              <div class="col-xs-2 text-right">
-                <label style="margin-top:15px;">Rules:
-                    </label>
-              </div>
-              <div class="col-xs-8" style="padding-left: 0px;padding-right: 0px;">
-                <input type="text" data-bind="value: json_rule" class="form-control" id="inputTableDes" placeholder="JSON parse rules: response.result">
-              </div>
-            </div>
-
             <div class="row flat-matrix" data-bind="visible:service_response">
               <div class="col-xs-12">
                 <div class="alert alert-info alert-dismissible fresh-color" role="alert" style="margin-top: 8px;">
@@ -124,7 +114,19 @@
 
           </div>
           <div role="tabpanel" class="tab-pane" id="step2-v3-horizantal">
-            <div class="row flat-matrix">
+            <div class="row">
+              <div class="col-xs-2 text-right">
+                <label style="margin-top:15px;">Rules:
+                    </label>
+              </div>
+              <div class="col-xs-8" style="padding-left: 0px;padding-right: 0px;">
+                <input type="text" data-bind="value: json_rule" class="form-control" id="inputTableDes" placeholder="JSON parse rules: response.result">
+              </div>
+              <div class="col-xs-2">
+                <button onclick="gen_table()" type="button" class="btn btn-info">Check</button>
+              </div>
+            </div>
+            <div class="row flat-matrix" data-bind="visible:showTable">
               <div class="col-xs-12">
                 <div class="alert alert-info alert-dismissible fresh-color" role="alert" style="margin-top: 8px;">
                   <strong><i class="fa fa-spinner"></i>&nbsp;Dynamic Table Setting:</strong>
@@ -364,8 +366,10 @@
       self.service_url = ko.observable('http://localhost:8080/matrix_components_v3/assets/self-owned/data/server_mock_data.json');
       self.json_rule = ko.observable('');
       self.service_response = ko.observable('');
+      self.service_response_data = null;
       self.table_header = ko.observableArray();
       self.refresh_interval = ko.observable('10');
+      self.showTable = ko.observable(false);
       self.tableModel = ko.observable(new ThinListViewModel());
     }
     var businessPOJO = new BusinessPOJO();
@@ -406,6 +410,32 @@
       $.serverRequest(genericModalViewModel.businessPOJO().service_url(), null, "SUCCESS_LISTENER_modal", "FAILED_LISTENER_modal", "SERVER_FAILED_LISTENER_modal", 'GET', true,genericModalViewModel);
     }
   }
+  var gen_table = function() {
+    var server_data = genericModalViewModel.businessPOJO().service_response_data;
+
+    var json_rule = genericModalViewModel.businessPOJO().json_rule();
+    if(!server_data){
+      return;
+    }
+    if(json_rule){
+      var tmp = 'server_data.'+json_rule;
+      server_data = eval(tmp);
+    }
+    if(!jQuery.isArray(server_data)){
+      genericModalViewModel.response(false, "Generate Table", "[Violate Validation Rules]", "The JSON fragment must be array type.");
+      return;
+    }
+    var tableData = DataTransferPOJO.serverJsonData2TableData(server_data);
+    var tableModel = new ThinListViewModel();
+    tableModel.buildData(tableData.result);
+    tableModel.columnNames(tableData.header);
+    tableModel.isDisplayPager(true);
+    tableModel.buildView();
+    tableModel.pageMaxSize(5);
+    genericModalViewModel.businessPOJO().tableModel(tableModel);
+    genericModalViewModel.businessPOJO().showTable(true);
+  }
+
 
   var runService = function() {
     console.log("run service function invoked!")
@@ -414,7 +444,8 @@
       var json = {
         'ds':genericModalViewModel.businessPOJO().service_url(),
         'header':genericModalViewModel.businessPOJO().tableModel().headerViewData(),
-        'refresh_interval':genericModalViewModel.businessPOJO().refresh_interval()
+        'refresh_interval':genericModalViewModel.businessPOJO().refresh_interval(),
+        'json_rule':genericModalViewModel.businessPOJO().json_rule()
       }
       pageViewModel.table_data_source(json);
       ModalUtil.modal_close('popupModalPro');
@@ -430,22 +461,10 @@
     if (arguments && arguments[1]) {
       var server_data = arguments[1].response;
       var res = JSON.stringify(arguments[1].response);
-      // genericModalViewModel.response(true, "Entity Operation", "[Successed]", "Operation Successed, please close the console and reload the data.\n"+res);
       genericModalViewModel.businessPOJO().service_response(res);
-      var json_rule = genericModalViewModel.businessPOJO().json_rule();
-      if(json_rule){
-        var tmp = 'server_data.'+json_rule;
-        server_data = eval(tmp);
-      }
+      genericModalViewModel.businessPOJO().service_response_data=server_data;
+      // genericModalViewModel.response(true, "Entity Operation", "[Successed]", "Operation Successed, please close the console and reload the data.\n"+res);
 
-      var tableData = DataTransferPOJO.serverJsonData2TableData(server_data);
-      var tableModel = new ThinListViewModel();
-      tableModel.buildData(tableData.result);
-      tableModel.columnNames(tableData.header);
-      tableModel.isDisplayPager(true);
-      tableModel.buildView();
-      tableModel.pageMaxSize(5);
-      genericModalViewModel.businessPOJO().tableModel(tableModel);
     }
   }
   function failedListener() {

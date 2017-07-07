@@ -169,10 +169,13 @@
             self.ds = params.value;
 
             self.ds.subscribe(function(newValue) {
+                self.json_rule = newValue.json_rule;
                 self.update_table();
                 self.set_refresh_interval();
+
             });
             self.header = null;
+            self.json_rule = null;
             self.tableModel = ko.observable(new ThinListViewModel());
 
             self.update_table = function(){
@@ -206,7 +209,10 @@
       if (arguments && arguments[1]) {
         var server_data = arguments[1].response;
         var matrix_dynamic_table = arguments[1].addtion;
-
+        if(matrix_dynamic_table.json_rule){
+          var tmp = 'server_data.'+matrix_dynamic_table.json_rule;
+          server_data = eval(tmp);
+        }
 
         var tableData = DataTransferPOJO.serverJsonData2TableData(server_data);
         var tableModel = new ThinListViewModel();
