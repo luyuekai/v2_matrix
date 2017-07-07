@@ -34,6 +34,7 @@
               <div class="card-title">
                 <i class="fa fa-diamond">&nbsp;Dynamic Table&nbsp;&nbsp;&nbsp;</i>
                 <button title="Edit" type="button" onclick="ModalUtil.popup_modal('Dynamic Table Setting', '/components/modal_content_dynamic_table.html', null, null, null);" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-edit"></i></button>
+                <button title="Clone" type="button" onclick="clone_test()" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-paste"></i></button>
               </div>
             </div>
             <div class="card-body flat-matrix">
@@ -41,7 +42,28 @@
                 <div class="col-md-12" id="ko_div">
                   <h4>Dynamic Table Generation:</h4>
                   <!-- <input type="text" class="form-control" placeholder="This is the data source URL" data-bind="value:table_data_source"> -->
-                  <matrix_dynamic_table params="value: table_data_source"></matrix_dynamic_table>
+                  <div id="matrix_dynamic_table_parent_div">
+                    <matrix_dynamic_table params="value: table_data_source"></matrix_dynamic_table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row" id="clone_div" style="display:none">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <i class="fa fa-diamond">&nbsp;Clone Table&nbsp;&nbsp;&nbsp;</i>
+              </div>
+            </div>
+            <div class="card-body flat-matrix">
+              <div class="row">
+                <div class="col-md-12" id="clone_table_parent_div">
+
                 </div>
               </div>
             </div>
@@ -164,7 +186,8 @@
             //ds:{
             //  'ds':'ds_url',
             //  'header':'header view model',
-            //  'refresh_interval':'30 seconds'
+            //  'refresh_interval':'30 seconds',
+            //  'json_rule':'response.result'
             //}
             self.ds = params.value;
 
@@ -192,7 +215,6 @@
                 var interval = self.ds().refresh_interval || 10;
                 setInterval(function(){
                   self.update_table();
-                  console.log('refresh dynamic table')
                 },1000*interval)
               }
             }
@@ -250,6 +272,13 @@
     // ModalUtil.popup_modal('Dynamic Table Setting', '/components/modal_content_dynamic_table.html', null, null, null);
     </script>
 
+
+    <script>
+      function clone_test(){
+        show_div('clone_div');
+        clone_component('clone_table_parent_div','matrix_dynamic_table_parent_div','cloned_table_div')
+      }
+    </script>
 
 </body>
 
