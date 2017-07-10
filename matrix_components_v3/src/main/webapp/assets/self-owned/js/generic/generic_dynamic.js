@@ -47,7 +47,8 @@ function initialize_environment(){
           //  'ds':'ds_url',
           //  'header':'header view model',
           //  'refresh_interval':'30 seconds',
-          //  'json_rule':'response.result'
+          //  'json_rule':'response.result',
+          //  'mock':false
           //}
           self.ds = params.value;
 
@@ -100,7 +101,12 @@ function successListener_dynamic_table() {
 
     var tableData = DataTransferPOJO.serverJsonData2TableData(server_data);
     var tableModel = new ThinListViewModel();
-    tableModel.buildData(tableData.result);
+    var data = tableData.result;
+    if(matrix_dynamic_table && matrix_dynamic_table.ds() && matrix_dynamic_table.ds().mock){
+      data = UtilPOJO.shuffleArray(data);
+    }
+
+    tableModel.buildData(data);
     tableModel.columnNames(tableData.header);
     tableModel.isDisplayPager(true);
     tableModel.buildView();

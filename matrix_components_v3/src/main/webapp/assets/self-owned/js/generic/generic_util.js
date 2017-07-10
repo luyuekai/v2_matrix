@@ -159,6 +159,15 @@ function remove_css_class(div_id,class_name) {
 
 var UtilPOJO = UtilPOJO || {};
 UtilPOJO = {
+    shuffleArray:function(arr){
+      var res = [];
+      for (var i = 0, len = arr.length; i < len; i++) {
+        var j = Math.floor(Math.random() * arr.length);
+        res[i] = arr[j];
+        arr.splice(j, 1);
+      }
+      return res;
+    },
     arrEmpty: function (file) {
         if (file == null || file.length == 0) {
             return true;
