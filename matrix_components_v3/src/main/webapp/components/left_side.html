@@ -1,11 +1,12 @@
 
   <div class="sidebar-header">
-    <a class="sidebar-brand" href="#"><span class="highlight">MATRIX V3</span> Portal</a>
+    <a class="sidebar-brand"  onclick="$('#sidebar').toggleClass('slim');$('#main_content_div').toggleClass('slim');$('#navbar').toggleClass('slim');" href="#"><span class="highlight">MATRIX V3</span> Portal</a>
+    <a class="sidebar-brand-slim" onclick="$('#sidebar').toggleClass('slim');$('#main_content_div').toggleClass('slim');$('#navbar').toggleClass('slim');" href="#"><span class="highlight" style="margin-right:0px">M</span></a>
     <button type="button" class="sidebar-toggle">
       <i class="fa fa-times"></i>
     </button>
   </div>
-  <div class="sidebar-menu">
+  <div class="sidebar-menu" style="transition: all 0.25s linear;">
     <ul class="sidebar-nav">
       <li id="li_dashboard">
         <a href="/matrix_components_v3/index.html">
@@ -26,6 +27,7 @@
           <ul>
             <li class="section"><i class="fa fa-file-o" aria-hidden="true"></i> UI Kits</li>
             <li><a href="/matrix_components_v3/components/component_header.html">Header</a></li>
+            <li><a href="/matrix_components_v3/components/component_assist.html">Assit</a></li>
             <li><a href="/matrix_components_v3/components/component_card.html">Card</a></li>
             <li><a href="/matrix_components_v3/components/component_alerts.html">Alert</a></li>
             <li><a href="/matrix_components_v3/components/component_progress.html">Progress</a></li>
