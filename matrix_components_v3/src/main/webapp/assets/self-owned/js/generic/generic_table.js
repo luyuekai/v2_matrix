@@ -278,7 +278,16 @@ function ThinListViewModel() {
         self.headerViewData(tmp_header);
     };
 
-
+    self.uncheck_all = function(){
+      $.each(self.headerViewData(), function (idx, val) {
+        val.isChecked(false);
+      });
+    }
+    self.check_all = function(){
+      $.each(self.headerViewData(), function (idx, val) {
+        val.isChecked(true);
+      });
+    }
 
     // 分页更新页面视图元素函数，逻辑如下：
     // data为表中所有数据，它包含的isDisplay属性控制是否在界面显示

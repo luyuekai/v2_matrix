@@ -28,37 +28,53 @@
       <nav class="navbar navbar-default navbar-fixed-top" id="navbar" style="margin-left: 180px;"></nav>
       <div class="seperate_div_class" style="margin-top:118px"></div>
       <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">
-                <i class="fa fa-diamond">&nbsp;Dynamic Statistic&nbsp;&nbsp;&nbsp;</i>
-                <button title="generic_statistic_chart" type="button" onclick="show_div('content_div');generic_statistic_chart()" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-pie-chart"></i></button>
-                <button title="generic_statistic_table" type="button" onclick="show_div('content_div');generic_statistic_table()" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-paste"></i></button>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <a class="card card-banner card-green-light">
+            <div class="card-body">
+              <i class="icon fa fa-cloud-download fa-4x"></i>
+              <div class="content">
+                <div class="title">Self Saved Reports</div>
+                <div class="value"><span class="sign"></span><span data-bind="text:self_saved_counts"></span></div>
               </div>
             </div>
-            <div class="card-body flat-matrix" id="content_div" style="display:none">
-              <div class="row">
-                <div class="col-md-12" id="content_div_1" style="display:none">
-                  <h4>Statistic Dynamic Table Zone:</h4>
-                  <div class="col-md-12" id="copy_table_parent_div"></div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12" id="content_div_2" style="display:none">
-                  <h4>Statistic Dynamic Chart Zone:</h4>
-                  <div class="col-md-12" id="copy_chart_parent_div" style="width: 100%;height:100%;min-height:360px"></div>
-                </div>
+          </a>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <a class="card card-banner card-blue-light">
+            <div class="card-body">
+              <i class="icon fa fa-share-square-o fa-4x"></i>
+              <div class="content">
+                <div class="title">Self Shared Reports</div>
+                <div class="value"><span class="sign"></span><span data-bind="text:self_shared_counts"></span></div>
               </div>
             </div>
-          </div>
+          </a>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <a class="card card-banner card-yellow-light">
+            <div class="card-body">
+              <i class="icon fa fa-share-alt fa-4x"></i>
+              <div class="content">
+                <div class="title">Matrix Shared Reports</div>
+                <div class="value"><span class="sign"></span><span data-bind="text:total_shared_counts"></span></div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <a class="card card-banner card-orange-light">
+            <div class="card-body">
+              <i class="icon fa fa-file-archive-o fa-4x"></i>
+              <div class="content">
+                <div class="title">Matrix Shared Templates</div>
+                <div class="value"><span class="sign"></span><span data-bind="text:total_template_counts"></span></div>
+              </div>
+            </div>
+          </a>
         </div>
       </div>
-      <hr>
     </div>
 
-    <div id="template-matrix-dynamic-table-div"></div>
-    <div id="template-matrix-modal-div"></div>
 
     <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
     <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/app.js"></script>
@@ -88,48 +104,31 @@
     <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
     <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
     <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
+    <script src="../assets/self-owned/js/components/component_query_chain_logic.js"></script>
 
 
     <script>
       $(document).ready(function() {
         $('#sidebar').load($.getRootPath() + '/components/left_side.html');
         $('#navbar').load($.getRootPath() + '/components/header.html');
-        $('#template-matrix-dynamic-table-div').load($.getRootPath() + '/components/template-matrix-dynamic-table.html');
-        $('#template-matrix-modal-div').load($.getRootPath() + '/components/template-matrix-modal.html');
-
         setTimeout(function() {
-          initialize_environment();
+          query_chain_env_setup();
         }, 1000)
       });
-      // var ds = {
-      //   "ds": "http://localhost:8080/service_generic_query/api/query/teststatistic",
-      //   "header_json": "[{\"data\":\"sum\",\"index\":0,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"name\",\"index\":1,\"isChecked\":true,\"isDisplay\":true}]",
-      //   "refresh_interval": "10",
-      //   "mock": true,
-      //   "json_rule": "result"
-      // };
-
-      var ds = {
-        "ds": "http://localhost:8080/service_generic_query/api/query",
-        "header_json": "[{\"data\":\"statistic_sum\",\"index\":0,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"type_name\",\"index\":1,\"isChecked\":true,\"isDisplay\":true}]",
-        "refresh_interval": "10",
-        "json_rule": "result",
-        "rest_mode": "POST",
-        "request_params": "{\"queryJson\":\"{\\\"className\\\":\\\"Genericentity\\\",\\\"groupMap\\\":{\\\"type\\\":\\\"type\\\"},\\\"pageMaxSize\\\":100,\\\"currentPageNumber\\\":1,\\\"eqMap\\\":{\\\"deleted\\\":false}}\"}",
-        "mock": true
-      };
-
-      function generic_statistic_table() {
-        switch_div_display('content_div_1')
-        create_dynamic_table(ds, 'copy_table_parent_div', 'copied_table_div');
-      }
-
-      function generic_statistic_chart() {
-        switch_div_display('content_div_2')
-        create_dynamic_chart_pie(ds, 'copy_chart_parent_div')
-      }
     </script>
 
+    <script>
+      function QueryChainViewModel() {
+        var self = this;
+        self.self_saved_counts = ko.observable();
+        self.self_shared_counts = ko.observable();
+        self.total_shared_counts = ko.observable();
+        self.total_template_counts = ko.observable();
+      }
+
+      var viewModel = new QueryChainViewModel();
+      ko.applyBindings(viewModel, document.getElementById('main_content_div'));
+    </script>
 
 </body>
 

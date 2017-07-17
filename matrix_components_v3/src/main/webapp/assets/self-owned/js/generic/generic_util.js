@@ -523,6 +523,14 @@ var ScrollPOJO = {
         // console.log('a is ' + a + ' and b is ' + b);
       }
     }
+  },
+  setup:function(){
+    if(ScrollPOJO.listener){
+      $(window).bind('scroll', function () {
+          ScrollPOJO.scrollListener();
+      });
+      ScrollPOJO.listener();
+    }
   }
 }
 

@@ -99,23 +99,34 @@
 
         setTimeout(function() {
           initialize_environment();
-        }, 1000)
+        }, 500)
       });
+      // var ds = {
+      //   "ds": "http://localhost:8080/service_generic_query/api/query/teststatistic",
+      //   "header_json": "[{\"data\":\"sum\",\"index\":0,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"name\",\"index\":1,\"isChecked\":true,\"isDisplay\":true}]",
+      //   "refresh_interval": "10",
+      //   "mock": true,
+      //   "json_rule": "result"
+      // };
+
       var ds = {
-        "ds": "http://localhost:8080/service_generic_query/api/query/teststatistic",
-        "header_json": "[{\"data\":\"sum\",\"index\":0,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"name\",\"index\":1,\"isChecked\":true,\"isDisplay\":true}]",
+        "ds": "http://localhost:8080/service_generic_query/api/query",
+        "header_json": "[{\"data\":\"statistic_sum\",\"index\":0,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"type_name\",\"index\":1,\"isChecked\":true,\"isDisplay\":true}]",
         "refresh_interval": "10",
-        "mock": true,
-        "json_rule": "result"
+        "json_rule": "result",
+        "rest_mode": "POST",
+        "request_params": "{\"queryJson\":\"{\\\"className\\\":\\\"Genericentity\\\",\\\"groupMap\\\":{\\\"type\\\":\\\"type\\\"},\\\"pageMaxSize\\\":100,\\\"currentPageNumber\\\":1,\\\"eqMap\\\":{\\\"deleted\\\":false}}\"}",
+        "mock": false
       };
 
+
       function generic_statistic_table() {
-        switch_div_display('content_div_1')
+        show_div('content_div_1')
         create_dynamic_table(ds, 'copy_table_parent_div', 'copied_table_div');
       }
 
       function generic_statistic_chart() {
-        switch_div_display('content_div_2')
+        show_div('content_div_2')
         create_dynamic_chart_pie(ds, 'copy_chart_parent_div')
       }
     </script>

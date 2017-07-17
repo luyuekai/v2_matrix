@@ -71,7 +71,13 @@ function initialize_environment(){
               var pageMaxSize = self.ds().pageMaxSize || 10;
               self.tableModel().pageMaxSize(pageMaxSize);
               self.header = self.tableModel().json2header(self.ds().header_json);
-              $.serverRequest(url, null, "SUCCESS_LISTENER_DYNAMIC_TABLE", "FAILED_LISTENER_DYNAMIC_TABLE", "SERVER_FAILED_LISTENER_DYNAMIC_TABLE", 'POST', true,self);
+
+              var rest_mode = self.ds().rest_mode;
+              var request_params = self.ds().request_params || null;
+              if(request_params){
+                request_params = JSON.parse(request_params);
+              }
+              $.serverRequest(url, request_params, "SUCCESS_LISTENER_DYNAMIC_TABLE", "FAILED_LISTENER_DYNAMIC_TABLE", "SERVER_FAILED_LISTENER_DYNAMIC_TABLE",rest_mode, true,self);
             }
           }
 
@@ -188,7 +194,12 @@ function initialize_chart_environment(chart,ds){
     'ds':ds
   }
   var url = wrapper.ds.ds;
-  $.serverRequest(url, null, "SUCCESS_LISTENER_DYNAMIC_CHART", "FAILED_LISTENER_DYNAMIC_CHART", "SERVER_FAILED_LISTENER_DYNAMIC_CHART", 'POST', true,wrapper);
+  var rest_mode = wrapper.ds.rest_mode;
+  var request_params = wrapper.ds.request_params || null;
+  if(request_params){
+    request_params = JSON.parse(request_params);
+  }
+  $.serverRequest(url, request_params, "SUCCESS_LISTENER_DYNAMIC_CHART", "FAILED_LISTENER_DYNAMIC_CHART", "SERVER_FAILED_LISTENER_DYNAMIC_CHART", rest_mode, true,wrapper);
 
 
   $.subscribe("SUCCESS_LISTENER_DYNAMIC_CHART", successListener_dynamic_chart);

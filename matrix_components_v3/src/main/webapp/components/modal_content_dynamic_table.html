@@ -90,7 +90,7 @@
             <div class="row">
               <div class="col-xs-2 text-right">
                 <label style="margin-top:15px;">Data Source:
-                    </label>
+                </label>
               </div>
               <div class="col-xs-10" style="padding-left: 0px;padding-right: 0px;">
                 <input type="text" data-bind="value: service_url" class="form-control" id="inputTableDes" placeholder="Data Source Rest API URL">
@@ -108,7 +108,7 @@
                 </label>
               </div>
               <div class="radio radio-inline">
-                <input type="radio" data-bind="checked:rest_mode" name="radio_rest_mode" id="radio2_rest_mode" value="POST" >
+                <input type="radio" data-bind="checked:rest_mode" name="radio_rest_mode" id="radio2_rest_mode" value="POST">
                 <label for="radio2_rest_mode">
                   POST
                 </label>
@@ -117,7 +117,7 @@
             <div class="row">
               <div class="col-xs-2 text-right">
                 <label style="margin-top:15px;">Request Params:
-                    </label>
+                </label>
               </div>
               <div class="col-xs-8" style="padding-left: 0px;padding-right: 0px;">
                 <textarea data-bind="value: request_params" rows="3" class="form-control"></textarea>
@@ -144,7 +144,7 @@
             <div class="row">
               <div class="col-xs-2 text-right">
                 <label style="margin-top:15px;">Rules:
-                    </label>
+                </label>
               </div>
               <div class="col-xs-8" style="padding-left: 0px;padding-right: 0px;">
                 <input type="text" data-bind="value: json_rule" class="form-control" id="inputTableDes" placeholder="JSON parse rules: response.result">
@@ -158,6 +158,8 @@
               <div class="col-xs-12">
                 <div class="alert alert-info alert-dismissible fresh-color" role="alert" style="margin-top: 8px;">
                   <strong><i class="fa fa-spinner"></i>&nbsp;Dynamic Table Setting:</strong>
+                  <button type="button" data-bind="click:$data.tableModel().uncheck_all()" class="btn btn-default pull-right" style="padding: 2px 12px;margin-bottom: 0px;"><i class="fa fa-square-o"> &nbsp;Uncheck ALL</i></button>
+                  <button type="button" data-bind="click:$data.tableModel().check_all()" class="btn btn-default pull-right" style="padding: 2px 12px;margin-bottom: 0px;"><i class="fa fa-check-square-o"> &nbsp;Check ALL</i></button>
                 </div>
               </div>
               <div class="col-xs-12" data-bind="visible:service_response">
@@ -166,40 +168,41 @@
                   <div>
                     <div class="row" data-bind="with:tableModel">
                       <div class="col-xs-12">
-                        <table class="table table-striped table-hover" cellspacing="0">
-                          <thead>
-                            <tr>
-                              <!-- ko foreach: headerViewData -->
-                              <th>
-                                <div class="checkbox">
-                                  <input type="checkbox" data-bind="checked: $data.isChecked,attr:{'id':$data.data_id}">
-                                  <label data-bind="text: $data.data,attr:{'for':$data.data_id}">
-                                  </label>
-                                </div>
-                              </th>
-                              <!-- /ko -->
-                            </tr>
-                          </thead>
-                          <tbody data-bind="foreach:thinViewData">
-                            <!-- <tr data-bind="visible:isDisplay,foreach: data">
+                        <div style="overflow: auto">
+                          <table class="table table-striped table-hover" cellspacing="0">
+                            <thead>
+                              <tr>
+                                <!-- ko foreach: headerViewData -->
+                                <th>
+                                  <div class="checkbox">
+                                    <input type="checkbox" data-bind="checked: $data.isChecked,attr:{'id':$data.data_id}">
+                                    <label data-bind="text: $data.data,attr:{'for':$data.data_id}">
+                                    </label>
+                                  </div>
+                                </th>
+                                <!-- /ko -->
+                              </tr>
+                            </thead>
+                            <tbody data-bind="foreach:thinViewData">
+                              <!-- <tr data-bind="visible:isDisplay,foreach: data">
                               <td data-bind="visible:$parent.isDisplay_cell($index())">
                                 <span data-bind="text: $index"></span>
                                 <span data-bind="text: $data"></span>
                               </td>
                             </tr>  -->
-                            <tr data-bind="visible:isDisplay,foreach: data">
-                              <td>
-                                <span data-bind="visible:$parent.isDisplay_cell($index()),text: $data"></span>
-                              </td>
-                            </tr>
-                            <!-- <tr data-bind="visible:isDisplay,foreach: data">
+                              <tr data-bind="visible:isDisplay,foreach: data">
+                                <td>
+                                  <span data-bind="visible:$parent.isDisplay_cell($index()),text: $data"></span>
+                                </td>
+                              </tr>
+                              <!-- <tr data-bind="visible:isDisplay,foreach: data">
                               <td>
                                 <span data-bind="text: $data"></span>
                               </td>
                             </tr>  -->
-                          </tbody>
-                        </table>
-
+                            </tbody>
+                          </table>
+                        </div>
                         <div class="matrix-pager-v3" data-bind="visible:isDisplayPager">
                           <div class="form-inline">
                             <nav>
@@ -229,7 +232,7 @@
                     </div>
 
                     <div class="row" data-bind="with:tableModel,visible:false">
-                      <div class="col-xs-12">
+                      <div class="col-xs-12" style="overflow: auto">
                         <table class="table table-striped table-hover" cellspacing="0">
                           <thead>
                             <tr>
@@ -302,7 +305,7 @@
                     </label>
                     <div class="col-sm-10" style="margin-top:7px">
                       <!-- ko foreach: tableModel().headerViewData -->
-                        <span data-bind="visible:$data.isChecked,text:$data.data"></span>
+                      <span data-bind="visible:$data.isChecked,text:$data.data"></span>
                       <!-- /ko -->
                     </div>
                   </div>
@@ -317,7 +320,7 @@
                       </label>
                     </div>
                     <div class="radio radio-inline">
-                      <input type="radio" data-bind="checked:refresh_interval" name="radio_refresh_interval" id="radio2" value="30" >
+                      <input type="radio" data-bind="checked:refresh_interval" name="radio_refresh_interval" id="radio2" value="30">
                       <label for="radio2">
                         30 Seconds
                       </label>
@@ -400,7 +403,10 @@
 <script>
   var test_url_1 = 'http://localhost:8080/matrix_components_v3/assets/self-owned/data/server_mock_data.json';
   var test_url_2 = 'http://localhost:8080/service_generic_query/api/query';
-  var test_data = '{"queryJson":"{\"className\":\"Genericentity\",\"orderMap\":{\"id\":false},\"pageMaxSize\":10,\"currentPageNumber\":1,\"likeORMap\":{},\"eqMap\":{\"type\":\"MATRIX_GENERIC_SUGGESTION\",\"deleted\":false},\"inMap\":{}}"}';
+  var test_data = {
+    "queryJson": "{\"className\":\"Genericentity\",\"orderMap\":{\"id\":false},\"pageMaxSize\":10,\"currentPageNumber\":1,\"likeORMap\":{},\"eqMap\":{\"type\":\"MATRIX_GENERIC_SUGGESTION\",\"deleted\":false},\"inMap\":{}}"
+  };
+  var test_statistic = {"queryJson":"{\"className\":\"Genericentity\",\"groupMap\":{\"type\":\"type\"},\"pageMaxSize\":100,\"currentPageNumber\":1,\"eqMap\":{\"deleted\":false}}"};
   // Setup the business model with view model
   (function initialize() {
     // *******YOUR SHOULD CODING IN HERE:*******
@@ -414,18 +420,26 @@
       self.refresh_interval = ko.observable('10');
       self.rest_mode = ko.observable('GET');
 
-      self.request_params = ko.observable(test_data);
+      self.request_params = ko.observable(JSON.stringify(test_statistic));
       self.showTable = ko.observable(false);
       self.tableModel = ko.observable(new ThinListViewModel());
-      self.ds = ko.computed(function(){
+      self.ds = ko.computed(function() {
         var json = {
-          'ds':self.service_url(),
-          'header_json':self.tableModel().header2json(),
-          'refresh_interval':self.refresh_interval(),
-          'json_rule':self.json_rule()
+          'ds': self.service_url(),
+          'header_json': self.tableModel().header2json(),
+          'refresh_interval': self.refresh_interval(),
+          'json_rule': self.json_rule(),
+          'rest_mode': self.rest_mode(),
+          'request_params':self.request_params() || null,
+          'pageMaxSize':self.tableModel().pageMaxSize(),
+          'mock':false
         }
         return JSON.stringify(json);
       });
+
+      self.uncheck_all = function(){
+        self.tableModel().uncheck_all();
+      }
     }
     var businessPOJO = new BusinessPOJO();
     genericModalViewModel.businessPOJO(businessPOJO);
@@ -433,8 +447,8 @@
 
   function execute() {
     console.log('execute invoked')
-    // validation failed
-    // show validation error message in the warning DIV...
+      // validation failed
+      // show validation error message in the warning DIV...
     if (!genericModalViewModel.validation(businessValidation)) {
       return;
     } else {
@@ -465,21 +479,21 @@
       var data = genericModalViewModel.businessPOJO().request_params() || null;
       var mode = genericModalViewModel.businessPOJO().rest_mode();
       data = JSON.parse(data);
-      $.serverRequest(genericModalViewModel.businessPOJO().service_url(), data, "SUCCESS_LISTENER_modal", "FAILED_LISTENER_modal", "SERVER_FAILED_LISTENER_modal", mode, true,genericModalViewModel);
+      $.serverRequest(genericModalViewModel.businessPOJO().service_url(), data, "SUCCESS_LISTENER_modal", "FAILED_LISTENER_modal", "SERVER_FAILED_LISTENER_modal", mode, true, genericModalViewModel);
     }
   }
   var gen_table = function() {
     var server_data = genericModalViewModel.businessPOJO().service_response_data;
 
     var json_rule = genericModalViewModel.businessPOJO().json_rule();
-    if(!server_data){
+    if (!server_data) {
       return;
     }
-    if(json_rule){
-      var tmp = 'server_data.'+json_rule;
+    if (json_rule) {
+      var tmp = 'server_data.' + json_rule;
       server_data = eval(tmp);
     }
-    if(!jQuery.isArray(server_data)){
+    if (!jQuery.isArray(server_data)) {
       genericModalViewModel.response(false, "Generate Table", "[Violate Validation Rules]", "The JSON fragment must be array type.");
       return;
     }
@@ -489,7 +503,7 @@
     tableModel.columnNames(tableData.header);
     tableModel.isDisplayPager(true);
     tableModel.buildView();
-    tableModel.pageMaxSize(5);
+    tableModel.pageMaxSize(genericModalViewModel.businessPOJO().tableModel().pageMaxSize());
     genericModalViewModel.businessPOJO().tableModel(tableModel);
     genericModalViewModel.businessPOJO().showTable(true);
   }
@@ -498,17 +512,20 @@
   var runService = function() {
     console.log("run service function invoked!")
 
-    if(genericModalViewModel.businessPOJO().service_url()){
-      var json = {
-        'ds':genericModalViewModel.businessPOJO().service_url(),
-        'header':genericModalViewModel.businessPOJO().tableModel().headerViewData(),
-        'header_json':genericModalViewModel.businessPOJO().tableModel().header2json(),
-        'refresh_interval':genericModalViewModel.businessPOJO().refresh_interval(),
-        'json_rule':genericModalViewModel.businessPOJO().json_rule()
-      }
-      // matrixTable.table_data_source(json);
-      // create_dynamic_table(json);
-      create_dynamic_table(json,'clone_table_parent_div','cloned_table_div');
+    if (genericModalViewModel.businessPOJO().service_url()) {
+      // var json = {
+      //     'ds': genericModalViewModel.businessPOJO().service_url(),
+      //     'header': genericModalViewModel.businessPOJO().tableModel().headerViewData(),
+      //     'header_json': genericModalViewModel.businessPOJO().tableModel().header2json(),
+      //     'refresh_interval': genericModalViewModel.businessPOJO().refresh_interval(),
+      //     'json_rule': genericModalViewModel.businessPOJO().json_rule(),
+      //     'rest_mode':genericModalViewModel.businessPOJO().rest_mode(),
+      //     'request_params': genericModalViewModel.businessPOJO().request_params(),
+      //   }
+        var json = JSON.parse(genericModalViewModel.businessPOJO().ds());
+        // matrixTable.table_data_source(json);
+        // create_dynamic_table(json);
+      create_dynamic_table(json, 'clone_table_parent_div', 'cloned_table_div');
       ModalUtil.modal_close('popupModalPro');
     }
 
@@ -523,11 +540,12 @@
       var server_data = arguments[1].response;
       var res = JSON.stringify(arguments[1].response);
       genericModalViewModel.businessPOJO().service_response(res);
-      genericModalViewModel.businessPOJO().service_response_data=server_data;
+      genericModalViewModel.businessPOJO().service_response_data = server_data;
       // genericModalViewModel.response(true, "Entity Operation", "[Successed]", "Operation Successed, please close the console and reload the data.\n"+res);
 
     }
   }
+
   function failedListener() {
     if (arguments && arguments[1]) {
       console.log(arguments);
@@ -539,5 +557,4 @@
   function failedServiceListener() {
     genericModalViewModel.response(false, "Entity Operation", "[Failed]", "SERVICE 'GENERIC XXX' FAILED! Please contact with the system admin for more information...");
   }
-
 </script>

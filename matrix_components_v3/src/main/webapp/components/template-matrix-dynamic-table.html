@@ -2,6 +2,7 @@
     <div class="table_div_class">
       <div class="row" data-bind="with:tableModel">
         <div class="col-xs-12">
+          <div style="overflow: auto">
           <table class="table table-striped table-hover" cellspacing="0">
             <thead>
               <tr>
@@ -20,6 +21,7 @@
               </tr>
             </tbody>
           </table>
+        </div>
           <div class="matrix-pager-v3" data-bind="visible:isDisplayPager">
             <div class="form-inline">
               <nav>
