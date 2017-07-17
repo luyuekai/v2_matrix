@@ -92,8 +92,35 @@
                 <label style="margin-top:15px;">Data Source:
                     </label>
               </div>
-              <div class="col-xs-8" style="padding-left: 0px;padding-right: 0px;">
+              <div class="col-xs-10" style="padding-left: 0px;padding-right: 0px;">
                 <input type="text" data-bind="value: service_url" class="form-control" id="inputTableDes" placeholder="Data Source Rest API URL">
+              </div>
+
+            </div>
+            <div class="row">
+              <label class="col-sm-2 control-label" style="text-align:right;margin-top:10px">
+                <span style="font-weight: bold;font-size: 16px;">REST Mode:</span>
+              </label>
+              <div class="radio radio-inline">
+                <input type="radio" data-bind="checked:rest_mode" name="radio_rest_mode" id="radio1_rest_mode" value="GET" checked>
+                <label for="radio1_rest_mode">
+                  GET
+                </label>
+              </div>
+              <div class="radio radio-inline">
+                <input type="radio" data-bind="checked:rest_mode" name="radio_rest_mode" id="radio2_rest_mode" value="POST" >
+                <label for="radio2_rest_mode">
+                  POST
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-2 text-right">
+                <label style="margin-top:15px;">Request Params:
+                    </label>
+              </div>
+              <div class="col-xs-8" style="padding-left: 0px;padding-right: 0px;">
+                <textarea data-bind="value: request_params" rows="3" class="form-control"></textarea>
               </div>
               <div class="col-xs-2">
                 <button onclick="check_data_source()" type="button" class="btn btn-info">Check</button>
@@ -126,6 +153,7 @@
                 <button onclick="gen_table()" type="button" class="btn btn-info">Check</button>
               </div>
             </div>
+
             <div class="row flat-matrix" data-bind="visible:showTable">
               <div class="col-xs-12">
                 <div class="alert alert-info alert-dismissible fresh-color" role="alert" style="margin-top: 8px;">
@@ -370,17 +398,23 @@
 </script>
 
 <script>
+  var test_url_1 = 'http://localhost:8080/matrix_components_v3/assets/self-owned/data/server_mock_data.json';
+  var test_url_2 = 'http://localhost:8080/service_generic_query/api/query';
+  var test_data = '{"queryJson":"{\"className\":\"Genericentity\",\"orderMap\":{\"id\":false},\"pageMaxSize\":10,\"currentPageNumber\":1,\"likeORMap\":{},\"eqMap\":{\"type\":\"MATRIX_GENERIC_SUGGESTION\",\"deleted\":false},\"inMap\":{}}"}';
   // Setup the business model with view model
   (function initialize() {
     // *******YOUR SHOULD CODING IN HERE:*******
     function BusinessPOJO() {
       var self = this;
-      self.service_url = ko.observable('http://localhost:8080/matrix_components_v3/assets/self-owned/data/server_mock_data.json');
+      self.service_url = ko.observable(test_url_2);
       self.json_rule = ko.observable('');
       self.service_response = ko.observable('');
       self.service_response_data = null;
       self.table_header = ko.observableArray();
       self.refresh_interval = ko.observable('10');
+      self.rest_mode = ko.observable('GET');
+
+      self.request_params = ko.observable(test_data);
       self.showTable = ko.observable(false);
       self.tableModel = ko.observable(new ThinListViewModel());
       self.ds = ko.computed(function(){
@@ -428,7 +462,10 @@
     } else {
       // validation correct
       // do your business...
-      $.serverRequest(genericModalViewModel.businessPOJO().service_url(), null, "SUCCESS_LISTENER_modal", "FAILED_LISTENER_modal", "SERVER_FAILED_LISTENER_modal", 'GET', true,genericModalViewModel);
+      var data = genericModalViewModel.businessPOJO().request_params() || null;
+      var mode = genericModalViewModel.businessPOJO().rest_mode();
+      data = JSON.parse(data);
+      $.serverRequest(genericModalViewModel.businessPOJO().service_url(), data, "SUCCESS_LISTENER_modal", "FAILED_LISTENER_modal", "SERVER_FAILED_LISTENER_modal", mode, true,genericModalViewModel);
     }
   }
   var gen_table = function() {
