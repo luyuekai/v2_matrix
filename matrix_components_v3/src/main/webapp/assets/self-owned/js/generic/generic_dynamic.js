@@ -45,9 +45,10 @@ function initialize_environment(){
           var self = this;
           //ds:{
           //  'ds':'ds_url',
-          //  'header':'header view model',
+          //  'header_json':'header view model json',
           //  'refresh_interval':'30 seconds',
           //  'json_rule':'response.result',
+          //  'pageMaxSize':10,
           //  'mock':false
           //}
           self.ds = params.value;
@@ -66,7 +67,10 @@ function initialize_environment(){
 
             if(self.ds()){
               var url = self.ds().ds;
-              self.header = self.ds().header;
+              // self.header = self.ds().header;
+              var pageMaxSize = self.ds().pageMaxSize || 10;
+              self.tableModel().pageMaxSize(pageMaxSize);
+              self.header = self.tableModel().json2header(self.ds().header_json);
               $.serverRequest(url, null, "SUCCESS_LISTENER_DYNAMIC_TABLE", "FAILED_LISTENER_DYNAMIC_TABLE", "SERVER_FAILED_LISTENER_DYNAMIC_TABLE", 'POST', true,self);
             }
           }
@@ -110,7 +114,7 @@ function successListener_dynamic_table() {
     tableModel.columnNames(tableData.header);
     tableModel.isDisplayPager(true);
     tableModel.buildView();
-    tableModel.pageMaxSize(5);
+    tableModel.pageMaxSize(matrix_dynamic_table.tableModel().pageMaxSize());
     if(matrix_dynamic_table.header){
       tableModel.headerViewData(matrix_dynamic_table.header);
     }
@@ -160,4 +164,49 @@ function create_dynamic_table(ds,destination_div_id,new_div_id){
   }
 
   Matrix_Dynamic_Table_Cache.push(cache);
+}
+
+
+function create_dynamic_chart_pie(ds,destination_div_id){
+  var chart = ChartPOJO.generate_default_chart(destination_div_id);
+
+  initialize_chart_environment(chart,ds);
+
+  var interval = ds.refresh_interval || 10;
+  setInterval(function(){
+    console.log('refresh chart');
+    initialize_chart_environment(chart,ds);
+  },1000*interval)
+
+  return chart;
+}
+
+
+function initialize_chart_environment(chart,ds){
+  var wrapper = {
+    'chart':chart,
+    'ds':ds
+  }
+  var url = wrapper.ds.ds;
+  $.serverRequest(url, null, "SUCCESS_LISTENER_DYNAMIC_CHART", "FAILED_LISTENER_DYNAMIC_CHART", "SERVER_FAILED_LISTENER_DYNAMIC_CHART", 'POST', true,wrapper);
+
+
+  $.subscribe("SUCCESS_LISTENER_DYNAMIC_CHART", successListener_dynamic_chart);
+  $.subscribe("FAILED_LISTENER_DYNAMIC_CHART", failedListener_dynamic_table);
+  $.subscribe("SERVER_FAILED_LISTENER_DYNAMIC_CHART", failedServiceListener_dynamic_table);
+}
+
+function successListener_dynamic_chart() {
+  if (arguments && arguments[1]) {
+    var server_data = arguments[1].response;
+    var ds = arguments[1].addtion.ds;
+    var chart = arguments[1].addtion.chart;
+    if(ds.json_rule){
+      var tmp = 'server_data.'+ds.json_rule;
+      server_data = eval(tmp);
+    }
+    var chart_data = DataTransferPOJO.server_data_to_chart(server_data);
+    chart = ChartPOJO.removeAllSeries(chart);
+    chart = Pie_ChartPOJO.initialize_chart(chart, chart_data);
+  }
 }
