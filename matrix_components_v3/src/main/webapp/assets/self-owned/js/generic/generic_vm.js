@@ -103,6 +103,9 @@ var default_retrive_api = function() {
   var keyword = SearchPOJO.keywords;
   var requestPOJO = SearchPOJO.build_requestPOJO();
   if (requestPOJO) {
+    if(ScrollPOJO.page>1){
+
+    }
     var data = {
       'queryJson': $.toJSON(requestPOJO)
     };
@@ -130,7 +133,7 @@ function default_retrive_server_error_listener() {
     current_vm.response_vm().errorResponse("Please contact with the system admin for more information...", "[MATRIX SERVER RESPONSE]", "***SERVER ERROR***");
     setTimeout(function() {
       vm.response_vm().reset();
-    }, 3000);
+    }, 10000);
   }
 }
 
@@ -145,7 +148,7 @@ function default_retrive_service_failed_listener() {
     current_vm.response_vm().errorResponse(errorMessage, "[MATRIX SERVER RESPONSE]", "***SERVICE FAILED***");
     setTimeout(function() {
       vm.response_vm().reset();
-    }, 3000);
+    }, 10000);
   }
 }
 
@@ -239,9 +242,9 @@ function UNIT_TEST_SUITE() {
 }
 
 function DOM_ENV_SETUP() {
-  $('input').keypress(function(event) {
-    if (event.keyCode == 13) {
-      event.preventDefault();
-    }
-  });
+  // $('input').keypress(function(event) {
+  //   if (event.keyCode == 13) {
+  //     event.preventDefault();
+  //   }
+  // });
 }

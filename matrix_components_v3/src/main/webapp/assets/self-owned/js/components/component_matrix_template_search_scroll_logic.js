@@ -1,12 +1,19 @@
 // *******Data Bind JS Code*******
 var vm = new GenericPageViewModel();
-ko.cleanNode($('#contentDIV')[0]);
-ko.applyBindings(vm, document.getElementById('contentDIV'));
+ko.cleanNode($('#template-matrix-main-div')[0]);
+// Apply data bind in view model and the whole dom
+ko.applyBindings(vm, document.getElementById('template-matrix-main-div'));
 current_vm = vm;
 
+function env_setup() {
+  vm_env_setup();
+  search_env_setup();
+  scroll_env_setup();
+}
 
 // Setup the business model with view model
 function vm_env_setup() {
+
   // *******YOUR SHOULD CODING IN HERE:*******
   // function BusinessPOJO() {
   //   var self = this;
@@ -17,18 +24,18 @@ function vm_env_setup() {
 };
 function search_env_setup(){
   SearchPOJO.listener = default_search_data;
-  SearchPOJO.likeOrMap = ["stringalpha","username"];
+  SearchPOJO.likeOrMap = ["creator","stringalpha","name","description"];
   SearchPOJO.sortKey = ['numberalpha'];
   SearchPOJO.build_requestPOJO_prototype = function(){
     var result = {
-      "className": "Share",
+      "className": "Genericentity",
       "orderMap": {
         "id": false
       },
       "pageMaxSize": ScrollPOJO.pageMaxSize,
       "currentPageNumber": ScrollPOJO.page || 1,
       "eqMap": {
-        "type": "MATRIX_REPORT_DRAFT",
+        "type": "MATRIX_TEMPLATE_ADD",
         "deleted": false
       },
       "inMap": {},

@@ -39,7 +39,7 @@ function MatrixTable(input) {
 }
 
 
-function initialize_environment(){
+function MATRIX_DYNAMIC_TABLE_ENV_SETUP(){
   ko.components.register('matrix_dynamic_table', {
       viewModel: function(params) {
           var self = this;

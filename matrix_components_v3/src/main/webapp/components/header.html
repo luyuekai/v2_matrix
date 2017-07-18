@@ -178,7 +178,8 @@
   var SearchPOJO = {
     listener: null,
     keywords: null,
-    requestPOJO_prototype:null,
+    build_requestPOJO_prototype:null,
+    // requestPOJO_prototype:null,
     likeOrMap:[],
     sortKey:[],
     search: function() {
@@ -196,14 +197,16 @@
       }
     },
     build_requestPOJO:function(){
-      if(SearchPOJO.requestPOJO_prototype && SearchPOJO.likeOrMap.length>0){
-        var requestPOJO = SearchPOJO.requestPOJO_prototype;
+      if(SearchPOJO.build_requestPOJO_prototype){
+        var requestPOJO = SearchPOJO.build_requestPOJO_prototype();
         var keyword = SearchPOJO.keywords;
         var likeOrMap = {};
-        if (keyword) {
-          $.each(SearchPOJO.likeOrMap,function(i,v){
-            likeOrMap[v] = keyword;
-          });
+        if(SearchPOJO.likeOrMap.length>0){
+          if (keyword) {
+            $.each(SearchPOJO.likeOrMap,function(i,v){
+              likeOrMap[v] = keyword;
+            });
+          }
         }
         requestPOJO.likeORMap = likeOrMap;
         return requestPOJO;

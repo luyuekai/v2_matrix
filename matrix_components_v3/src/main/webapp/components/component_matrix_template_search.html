@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Matrix</title>
+  <title>Matrix Template</title>
   <link rel="shortcut icon" href="../assets/self-owned/ico/favicon.ico">
   <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/vendor.css">
   <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/flat-admin.css">
@@ -12,8 +12,8 @@
   <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue.css">
   <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/red.css">
   <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/yellow.css">
-  <link rel="stylesheet" href="../assets/reference/codemirror/codemirror.css">
-  <link rel="stylesheet" href="../assets/reference/github-markdown-css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/codemirror/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/github-markdown-css/github-markdown.css">
   <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/matrix_v3.css">
   <link rel="stylesheet" type="text/css" href="../assets/reference/bootstrap-fileinput/css/fileinput_ly.css" media="all">
   <link rel="stylesheet" type="text/css" href="../assets/reference/fuelux/fuelux.min.css">
@@ -22,26 +22,74 @@
 </head>
 
 <body>
-  <div class="app app-blue-sky" id="contentDIV">
+  <div class="app app-blue-sky" id="template-matrix-main-div">
     <aside class="app-sidebar" id="sidebar"></aside>
     <div class="app-container" id="main_content_div">
-      <nav class="navbar navbar-default navbar-fixed-top" id="navbar" style="margin-left: 180px;"></nav>
+      <nav class="navbar navbar-default navbar-fixed-top" id="navbar"></nav>
       <div class="seperate_div_class" style="margin-top:118px"></div>
+
+      <!--LOADER DIV BEGIN-->
+      <div class="loader-container text-center">
+        <div class="icon">
+          <div class="sk-wave">
+            <div class="sk-rect sk-rect1"></div>
+            <div class="sk-rect sk-rect2"></div>
+            <div class="sk-rect sk-rect3"></div>
+            <div class="sk-rect sk-rect4"></div>
+            <div class="sk-rect sk-rect5"></div>
+          </div>
+        </div>
+        <div class="title">Loading</div>
+      </div>
+      <!--LOADER DIV FINISHED-->
+
+      <!--RESPONSE DIV BEGIN-->
+      <div class="row" data-bind="with:response_vm">
+        <div class="col-sm-12" style="margin-bottom:12px" style="display:none" data-bind="visible: resultVisible">
+          <div class="flat-matrix">
+            <div class="alert fresh-color " data-bind="css:styleClass,visible: resultVisible" style="display:none">
+              <button type="button" class="close" data-bind="click:function(){resultVisible(false)}" aria-label="Close"><i class="fa fa-close"></i></button>
+              <strong>
+                  <span data-bind="text:resultTitle"></span>
+                </strong>
+              <span data-bind="text:resultSubTitle"></span>
+              <div data-bind="text:resultContent"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--RESPONSE DIV FINISHED-->
+
+      <!--VALIDATION DIV BEGIN-->
       <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">
-                <i class="fa fa-diamond">&nbsp;Dynamic Table&nbsp;&nbsp;&nbsp;</i>
-                <button title="Edit" type="button" onclick="ModalUtil.popup_modal('Dynamic Table Setting', '/components/modal_content_dynamic_table.html', null, null, null);" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-edit"></i></button>
-                <button title="Clone" type="button" onclick="copy()" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-paste"></i></button>
+        <div class="col-sm-12" style="margin-bottom:12px" style="display:none" data-bind="visible: hasError">
+          <div id="validation_div">
+            <div class="flat-matrix">
+              <div class="alert alert-warning alert-dismissible fresh-color" role="alert" style="display:none" data-bind="visible: hasError">
+                <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
+                  <i class="fa fa-close"></i>
+                </button>
+                <strong>Warning:</strong>
+                <div id="errorMessagesDIV" data-bind="foreach:errorMessage">
+                  <div data-bind="text:$data"></div>
+                </div>
               </div>
             </div>
-            <div class="card-body flat-matrix">
+          </div>
+        </div>
+      </div>
+      <!--VALIDATION DIV FINISHED-->
+
+      <!--BUSINESS DIV BEGIN-->
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card card-mini">
+            <div class="card-header">
+              <i class="fa fa-diamond">&nbsp;MATRIX SEARCH Entity Template &nbsp;&nbsp;&nbsp;</i>
+            </div>
+            <div class="card-body" style="padding: 20px 30px 0px 30px;">
               <div class="row">
-                <div class="col-md-12" id="ko_div">
-                  <h4>Dynamic Table Generation:</h4>
-                  <div class="col-md-12" id="clone_table_parent_div"></div>
+                <div class="col-md-12">
                   <div class="col-md-12" id="copy_table_parent_div"></div>
                 </div>
               </div>
@@ -49,14 +97,19 @@
           </div>
         </div>
       </div>
-      <hr>
+      <!--BUSINESS DIV BEGIN-->
+
+
+      <!--TEMPLATE DIV BEGIN-->
+      <div id="template-matrix-dynamic-table-div"></div>
+      <div id="template-matrix-modal-div"></div>
+      <div id="template-matrix-footer-div"></div>
+      <!--TEMPLATE DIV BEGIN-->
     </div>
 
-    <div id="template-matrix-dynamic-table-div"></div>
-    <div id="template-matrix-modal-div"></div>
-
-    <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
-    <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/app.js"></script>
+    <!-- Javascript for Matrix Referenced -->
+    <script src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
+    <script src="../assets/reference/flat-admin/assets/js/app.js"></script>
     <script src="../assets/reference/codemirror/codemirror.js"></script>
     <script src="../assets/reference/codemirror/mode/javascript/javascript.js"></script>
     <script src="../assets/reference/codemirror/mode/markdown/markdown.js"></script>
@@ -83,31 +136,24 @@
     <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
     <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
     <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
-
-
+    <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
+    <script src="../assets/self-owned/js/components/component_matrix_template_search_logic.js"></script>
     <script>
       $(document).ready(function() {
         $('#sidebar').load($.getRootPath() + '/components/left_side.html');
         $('#navbar').load($.getRootPath() + '/components/header.html');
         $('#template-matrix-dynamic-table-div').load($.getRootPath() + '/components/template-matrix-dynamic-table.html');
         $('#template-matrix-modal-div').load($.getRootPath() + '/components/template-matrix-modal.html');
+        $('#template-matrix-footer-div').load($.getRootPath() + '/components/footer.html');
 
-        setTimeout(function(){
+        setTimeout(function() {
           MATRIX_DYNAMIC_TABLE_ENV_SETUP();
-        },1000)
+          env_setup();
+        }, 1000)
+
+
+
       });
-
-      function copy(){
-        var vm = getViewModelFromCache('cloned_table_div');
-        if(vm){
-          var json = ClonePOJO.deepClone(vm.table_data_source());
-          json.mock = true;
-          create_dynamic_table(json,'copy_table_parent_div','copied_table_div');
-        }
-      }
     </script>
-
-
 </body>
-
 </html>

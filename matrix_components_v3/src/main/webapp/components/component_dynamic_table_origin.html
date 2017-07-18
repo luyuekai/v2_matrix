@@ -115,7 +115,7 @@
         $('#template-matrix-dynamic-table-div').load($.getRootPath() + '/components/template-matrix-dynamic-table.html');
 
         setTimeout(function(){
-          initialize_environment();
+          MATRIX_DYNAMIC_TABLE_ENV_SETUP();
           ko.applyBindings(matrixTable,document.getElementById('matrix_dynamic_table_parent_div'));
         },1000)
       });

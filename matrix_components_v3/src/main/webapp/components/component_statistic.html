@@ -98,7 +98,7 @@
         $('#template-matrix-modal-div').load($.getRootPath() + '/components/template-matrix-modal.html');
 
         setTimeout(function() {
-          initialize_environment();
+          MATRIX_DYNAMIC_TABLE_ENV_SETUP();
         }, 1000)
       });
       // var ds = {
@@ -122,7 +122,7 @@
 
       // var ds = {"ds":"http://localhost:8080/service_generic_query/api/query","header_json":"[{\"data\":\"total\",\"index\":0,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"type\",\"index\":1,\"isChecked\":true,\"isDisplay\":true}]","refresh_interval":"10","json_rule":"result","rest_mode":"POST","request_params":"{\"queryJson\":\"{\\\"className\\\":\\\"Share\\\",\\\"groupMap\\\":{\\\"type\\\":\\\"type\\\"},\\\"pageMaxSize\\\":100,\\\"currentPageNumber\\\":1,\\\"eqMap\\\":{\\\"deleted\\\":false}}\"}","pageMaxSize":100,"mock":false};
 
-    var ds = {"ds":"http://localhost:8080/service_generic_query/api/query","header_json":"[{\"data\":\"lj_sum\",\"index\":0,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"lj_type\",\"index\":1,\"isChecked\":true,\"isDisplay\":true}]","refresh_interval":"10","json_rule":"result","rest_mode":"POST","request_params":"{\"queryJson\":\"{\\\"className\\\":\\\"Share\\\",\\\"groupMap\\\":{\\\"type\\\":\\\"type\\\"},\\\"pageMaxSize\\\":100,\\\"currentPageNumber\\\":1,\\\"eqMap\\\":{\\\"deleted\\\":false}}\"}","pageMaxSize":100,"mock":false};  
+    var ds = {"ds":"http://localhost:8080/service_generic_query/api/query","header_json":"[{\"data\":\"lj_sum\",\"index\":0,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"lj_type\",\"index\":1,\"isChecked\":true,\"isDisplay\":true}]","refresh_interval":"10","json_rule":"result","rest_mode":"POST","request_params":"{\"queryJson\":\"{\\\"className\\\":\\\"Share\\\",\\\"groupMap\\\":{\\\"type\\\":\\\"type\\\"},\\\"pageMaxSize\\\":100,\\\"currentPageNumber\\\":1,\\\"eqMap\\\":{\\\"deleted\\\":false}}\"}","pageMaxSize":100,"mock":false};
       function generic_statistic_table() {
         switch_div_display('content_div_1')
         create_dynamic_table(ds, 'copy_table_parent_div', 'copied_table_div');

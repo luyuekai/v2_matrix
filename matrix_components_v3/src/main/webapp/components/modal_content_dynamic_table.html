@@ -95,7 +95,18 @@
               <div class="col-xs-10" style="padding-left: 0px;padding-right: 0px;">
                 <input type="text" data-bind="value: service_url" class="form-control" id="inputTableDes" placeholder="Data Source Rest API URL">
               </div>
-
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="flat-matrix">
+                  <div class="alert alert-info fresh-color">
+                    <span> [Mock Data API:] http://localhost:8080/matrix_components_v3/assets/self-owned/data/server_mock_data.json</span>
+                    <br>
+                    <span> [Generic Query API:] http://localhost:8080/service_generic_query/api/query</span>
+                    <br>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="row">
               <label class="col-sm-2 control-label" style="text-align:right;margin-top:10px">
@@ -124,6 +135,37 @@
               </div>
               <div class="col-xs-2">
                 <button onclick="check_data_source()" type="button" class="btn btn-info">Check</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="flat-matrix">
+                  <div class="alert alert-success fresh-color">
+                    <strong>
+                      <span>Query Parameter Example:</span>
+                    </strong>
+                    <br>
+                    <span>
+                    {
+                      "queryJson": "{\"className\":\"Genericentity\",\"orderMap\":{\"id\":false},\"pageMaxSize\":10,\"currentPageNumber\":1,\"likeORMap\":{},\"eqMap\":{\"type\":\"MATRIX_TEMPLATE_ADD\",\"deleted\":false},\"inMap\":{}}"
+                    }
+                   </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="flat-matrix">
+                  <div class="alert alert-warning fresh-color">
+                    <strong>
+                      <span>Statistic Parameter Example:</span>
+                    </strong>
+                    <br>
+                    <span> {"queryJson":"{\"className\":\"Genericentity\",\"groupMap\":{\"type\":\"type\"},\"pageMaxSize\":100,\"currentPageNumber\":1,\"eqMap\":{\"deleted\":false}}"}
+                   </span>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="row flat-matrix" data-bind="visible:service_response">
