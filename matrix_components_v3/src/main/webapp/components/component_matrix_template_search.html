@@ -146,12 +146,13 @@
         $('#template-matrix-modal-div').load($.getRootPath() + '/components/template-matrix-modal.html');
         $('#template-matrix-footer-div').load($.getRootPath() + '/components/footer.html');
 
+
         setTimeout(function() {
-          MATRIX_DYNAMIC_TABLE_ENV_SETUP();
+          DOM_ENV_SETUP();
           env_setup();
-        }, 1000)
-
-
+          //Entire page unit test suite
+          // UNIT_TEST_SUITE();
+        }, 200)
 
       });
     </script>
