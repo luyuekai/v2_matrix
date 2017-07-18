@@ -22,7 +22,6 @@ $.serverRequest = function(request_url, request_data, listener_response_success,
   if (request_type.toUpperCase() == 'GET') {
     default_contentType = get_contentType;
   }
-  console.log(JSON.stringify(request_data));
   $.ajax({
     url: request_url,
     data: request_data,
@@ -31,7 +30,7 @@ $.serverRequest = function(request_url, request_data, listener_response_success,
     dataType: 'json',
     success: function(json) {
       if (json.hasError) {
-        console.log("SERVER_REQUEST_ACTION get error: " + json.errorMessage);
+        // console.log("SERVER_REQUEST_ACTION get error: " + json.errorMessage);
         if (needWrap) {
           var wrapJson = {
             'response': json,
@@ -52,7 +51,7 @@ $.serverRequest = function(request_url, request_data, listener_response_success,
       }
     },
     error: function(xhr, status) {
-      console.log('Sorry, there was a problem on SERVER_REQUEST_ACTION process!');
+      // console.log('Sorry, there was a problem on SERVER_REQUEST_ACTION process!');
       if (needWrap) {
         var wrapJson = {
           'addtion': addtion

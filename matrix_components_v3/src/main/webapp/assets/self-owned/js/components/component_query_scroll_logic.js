@@ -17,7 +17,7 @@ function vm_env_setup() {
 };
 function search_env_setup(){
   SearchPOJO.listener = default_search_data;
-  SearchPOJO.likeOrMap = ["stringalpha"];
+  SearchPOJO.likeOrMap = ["stringalpha","username"];
   SearchPOJO.sortKey = ['numberalpha'];
   SearchPOJO.requestPOJO_prototype = {
     "className": "Share",
