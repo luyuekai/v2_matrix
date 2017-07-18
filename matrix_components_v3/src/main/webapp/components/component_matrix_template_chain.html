@@ -81,20 +81,50 @@
       <!--VALIDATION DIV FINISHED-->
 
       <!--BUSINESS DIV BEGIN-->
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="card card-mini">
-            <div class="card-header">
-              <i class="fa fa-diamond">&nbsp;MATRIX SEARCH Entity Template &nbsp;&nbsp;&nbsp;</i>
-            </div>
-            <div class="card-body" style="padding: 20px 30px 0px 30px;">
-              <div class="row">
-                <div class="col-md-12">
-                  <div id="copy_table_parent_div"></div>
-                </div>
+      <div class="row" data-bind="with:businessPOJO">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <a class="card card-banner card-green-light">
+            <div class="card-body">
+              <i class="icon fa fa-cloud-download fa-4x"></i>
+              <div class="content">
+                <div class="title">Self Saved Reports</div>
+                <div class="value"><span class="sign"></span><span data-bind="text:self_saved_counts"></span></div>
               </div>
             </div>
-          </div>
+          </a>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <a class="card card-banner card-blue-light">
+            <div class="card-body">
+              <i class="icon fa fa-share-square-o fa-4x"></i>
+              <div class="content">
+                <div class="title">Self Shared Reports</div>
+                <div class="value"><span class="sign"></span><span data-bind="text:self_shared_counts"></span></div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <a class="card card-banner card-yellow-light">
+            <div class="card-body">
+              <i class="icon fa fa-share-alt fa-4x"></i>
+              <div class="content">
+                <div class="title">Matrix Shared Reports</div>
+                <div class="value"><span class="sign"></span><span data-bind="text:total_shared_counts"></span></div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <a class="card card-banner card-orange-light">
+            <div class="card-body">
+              <i class="icon fa fa-file-archive-o fa-4x"></i>
+              <div class="content">
+                <div class="title">Matrix Shared Templates</div>
+                <div class="value"><span class="sign"></span><span data-bind="text:total_template_counts"></span></div>
+              </div>
+            </div>
+          </a>
         </div>
       </div>
       <!--BUSINESS DIV BEGIN-->
@@ -137,7 +167,7 @@
     <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
     <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
     <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
-    <script src="../assets/self-owned/js/components/component_matrix_template_search_logic.js"></script>
+    <script src="../assets/self-owned/js/components/component_matrix_template_chain_logic.js"></script>
     <script>
       $(document).ready(function() {
         $('#sidebar').load($.getRootPath() + '/components/left_side.html');
