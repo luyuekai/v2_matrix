@@ -81,7 +81,83 @@
       <!--VALIDATION DIV FINISHED-->
 
       <!--BUSINESS DIV BEGIN-->
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card card-mini">
+            <div class="card-header">
+              <i class="fa fa-diamond">&nbsp;MATRIX Add Entity Template &nbsp;&nbsp;&nbsp;</i>
+            </div>
+            <div class="card-body" style="padding: 20px 30px 0px 30px;">
+              <div class="flat-matrix" data-bind="with:businessPOJO">
+                <p class="text-center" id="show_scalable_region_div" style="display:none">
+                  <button type="button" onclick="show_configuration_panel()" class="btn btn-default" style="border: 0px solid;box-shadow: none;"><i class="fa fa-angle-double-down"></i></button>
+                </p>
+                <div class="row" id="scalable_region_div" style="display:">
+                  <form class="form-horizontal">
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label" style="text-align:right">
+                        <span style="font-weight: bold;font-size: 16px;">Name</span>
+                        <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                      </label>
+                      <div class="col-sm-4">
+                        <p class="form-control-static" data-bind="text:user"></p>
+                      </div>
+                      <label class="col-sm-2 control-label" style="text-align:right">
+                        <span style="font-weight: bold;font-size: 16px;">Date</span>
+                        <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                      </label>
+                      <div class="col-sm-4">
+                        <p class="form-control-static" data-bind="text:formatTime"></p>
+                      </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 15px;">
+                      <div class="col-xs-2 text-right">
+                        <label class="control-label" style="text-align:right">
+                          <span style="font-weight: bold;font-size: 16px;">Title:</span>
+                          <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                        </label>
+                      </div>
+                      <div class="col-xs-8" style="padding-left: 0px;padding-right: 0px;">
+                        <input type="text" data-bind="value: title" class="form-control" id="input_title" placeholder="">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-xs-2 text-right">
+                        <label style="margin-top:15px;">Description:
+                        </label>
+                      </div>
+                      <div class="col-xs-8" style="padding-left: 0px;padding-right: 0px;">
+                        <textarea name="name" rows="3" class="form-control" data-bind="value:description"></textarea>
+                      </div>
+                      <div class="col-xs-2">
+                        <button onclick="default_execute()" type="button" class="btn btn-info">Submit</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <p class="text-center" id="hide_scalable_region_div" style="display:">
+                  <button type="button" onclick="hide_configuration_panel()" class="btn btn-default" style="border: 0px solid;box-shadow: none;"><i class="fa fa-angle-double-up"></i></button>
+                </p>
+                <script>
+                  function hide_configuration_panel() {
+                    hide_div('scalable_region_div');
+                    show_div('show_scalable_region_div');
+                    hide_div('hide_scalable_region_div');
+                  }
 
+                  function show_configuration_panel() {
+                    show_div('scalable_region_div');
+                    hide_div('show_scalable_region_div');
+                    show_div('hide_scalable_region_div');
+                  }
+                </script>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
       <!--BUSINESS DIV BEGIN-->
 
 
@@ -122,8 +198,7 @@
     <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
     <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
     <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
-
-
+    <script src="../assets/self-owned/js/components/component_matrix_template_add_logic.js"></script>
     <script>
       $(document).ready(function() {
         $('#sidebar').load($.getRootPath() + '/components/left_side.html');
@@ -133,25 +208,14 @@
         $('#template-matrix-footer-div').load($.getRootPath() + '/components/footer.html');
 
         setTimeout(function() {
-          $('#navbar_search_li').css('display', '');
-        }, 1000)
+          DOM_ENV_SETUP();
+          //Entire page unit test suite
+          // UNIT_TEST_SUITE();
+        }, 600)
+
+        env_setup();
+
       });
     </script>
-
-    <script>
-      // *******Data Bind JS Code*******
-      // Initialize Generic Page View Model as entire page data bind parent element
-      var vm = new GenericPageViewModel();
-      // Clean Data Bind Node
-      ko.cleanNode($('#template-matrix-main-div')[0]);
-      // Apply data bind in view model and the whole dom
-      ko.applyBindings(vm, document.getElementById('template-matrix-main-div'));
-      // Refrence the entire page view model to current view model as cache
-      current_vm = vm;
-      //Entire page unit test suite
-      UNIT_TEST_SUITE();
-    </script>
-
 </body>
-
 </html>

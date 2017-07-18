@@ -50,19 +50,19 @@ function ResponseViewModel() {
   self.resultSubTitle = ko.observable("[General Search]");
   self.resultContent = ko.observable("This is the result content...");
 
-  self.errorResponse = function(content,title,subTitle) {
-    self.response("alert-danger",content||"",title||'Error',subTitle||"");
+  self.errorResponse = function(content, title, subTitle) {
+    self.response("alert-danger", content || "", title || 'Error', subTitle || "");
   };
 
-  self.correctResponse = function(content,title,subTitle) {
-    self.response("alert-success",content||"",title||'Success',subTitle||"");
+  self.correctResponse = function(content, title, subTitle) {
+    self.response("alert-success", content || "", title || 'Success', subTitle || "");
   };
 
-  self.warningResponse = function(content,title,subTitle) {
-    self.response("alert-warning",content||"",title||'Warning',subTitle||"");
+  self.warningResponse = function(content, title, subTitle) {
+    self.response("alert-warning", content || "", title || 'Warning', subTitle || "");
   }
 
-  self.response = function(response_level,content,title,subTitle) {
+  self.response = function(response_level, content, title, subTitle) {
     self.styleClass(response_level);
     self.resultTitle(title);
     self.resultSubTitle(subTitle);
@@ -70,13 +70,27 @@ function ResponseViewModel() {
     self.resultVisible(true);
   };
 
-  self.reset = function(){
+  self.reset = function() {
     self.resultVisible(false);
     self.resultTitle(":");
     self.resultSubTitle("");
     self.resultContent("");
   }
 }
+
+function default_execute() {
+  // validation failed
+  // show validation error message in the warning DIV...
+  if (!vm.validation(businessValidation)) {
+    return;
+  } else {
+    // validation correct
+    // do your business...
+    runService();
+  }
+}
+
+
 
 function default_search_data() {
   if (ScrollPOJO) {
@@ -92,44 +106,81 @@ var default_retrive_api = function() {
     var data = {
       'queryJson': $.toJSON(requestPOJO)
     };
-    $.serverRequest($.getServerRoot() + '/service_generic_query/api/query', data, "DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER");
+    $.serverRequest($.getServerRoot() + '/service_generic_query/api/query', data, "DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER","POST",true,{'TAG':'MATRIX_SEARCH'});
   }
 }
 
+var default_add_logic = function() {
+  LoaderUtil.add_v3('template-matrix-main-div');
+  default_add_api(vm.businessPOJO().build_requestPOJO());
+}
+
+var default_add_api = function(requestPOJO) {
+  if (requestPOJO) {
+    var data = {
+      'queryJson': $.toJSON(requestPOJO)
+    };
+    $.serverRequest($.getServerRoot() + '/service_generic_query/api/cud/add', data, "DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER","POST",true,{'TAG':'MATRIX_ADD'});
+  }
+}
 
 function default_retrive_server_error_listener() {
+  LoaderUtil.remove_v3('template-matrix-main-div');
   if (current_vm) {
     current_vm.response_vm().errorResponse("Please contact with the system admin for more information...", "[MATRIX SERVER RESPONSE]", "***SERVER ERROR***");
+    setTimeout(function() {
+      vm.response_vm().reset();
+    }, 3000);
   }
 }
 
 function default_retrive_service_failed_listener() {
+  LoaderUtil.remove_v3('template-matrix-main-div');
   if (current_vm && arguments && arguments[1]) {
     var response = arguments[1];
-    if(arguments[1].response){
+    if (arguments[1].response) {
       response = arguments[1].response;
     }
     var errorMessage = response.errorMessage;
     current_vm.response_vm().errorResponse(errorMessage, "[MATRIX SERVER RESPONSE]", "***SERVICE FAILED***");
+    setTimeout(function() {
+      vm.response_vm().reset();
+    }, 3000);
   }
 }
 
 function default_retrive_service_success_listener() {
+  LoaderUtil.remove_v3('template-matrix-main-div');
   if (current_vm && arguments && arguments[1]) {
     var response = arguments[1];
-    if(arguments[1].response){
+    var addtion = null;
+    if (arguments[1].response) {
       response = arguments[1].response;
+      addtion = arguments[1].addtion;
     }
-    if(response.result){
+    if (response.result) {
       var data = response.result;
-      ScrollPOJO.displayResult = ScrollPOJO.displayResult.concat(data);
-      if (data.length < ScrollPOJO.pageMaxSize) {
-        ScrollPOJO.hasNewData = false;
+      if(addtion){
+        if(addtion['TAG']=='MATRIX_SEARCH'){
+          //MATRIX SEARCH DEFAULT HANDLER
+          if(current_vm.businessPOJO()&&current_vm.businessPOJO().elements){
+            ScrollPOJO.displayResult = ScrollPOJO.displayResult.concat(data);
+            if (data.length < ScrollPOJO.pageMaxSize) {
+              ScrollPOJO.hasNewData = false;
+            }
+            var results = ScrollPOJO.displayResult.sort(SearchPOJO.sort);
+            current_vm.businessPOJO().elements.viewData(results);
+          }
+        }else if(addtion['TAG']=='MATRIX_ADD'){
+
+        }
       }
-      var results = ScrollPOJO.displayResult.sort(SearchPOJO.sort);
-      current_vm.businessPOJO().elements.viewData(results);
     }
     current_vm.response_vm().correctResponse("CONGRATULATIONS", "[MATRIX SERVER RESPONSE]", "***SERVICE SUCCESSED***");
+    setTimeout(function() {
+      vm.response_vm().reset();
+    }, 3000);
+    $.publish("MATRIX_API_SUCCESS_EVENT", response);
   }
 }
 
@@ -137,8 +188,6 @@ function default_retrive_service_success_listener() {
 $.subscribe("DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", default_retrive_service_success_listener);
 $.subscribe("DEFAULT_RETRIEVE_API_FAILED_LISTENER", default_retrive_service_failed_listener);
 $.subscribe("DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER", default_retrive_server_error_listener);
-
-
 
 function UNIT_TEST_FOR_CLIENT_VALIDATION() {
   //scenario for the success validation
@@ -169,7 +218,7 @@ function UNIT_TEST_FOR_MASKER_AND_LOADER() {
   console.log("***Applause***[MATRIX UNIT_TEST_FOR_MASKER_AND_LOADER PASSED!]");
 }
 
-function UNIT_TEST_ENVIRONMENT_RESET(){
+function UNIT_TEST_ENVIRONMENT_RESET() {
   setTimeout(function() {
     //reset the client validation environment
     vm.clearMessageDIV();
@@ -178,4 +227,21 @@ function UNIT_TEST_ENVIRONMENT_RESET(){
     //reset the loader environment
     LoaderUtil.remove_v3('template-matrix-main-div');
   }, 500)
+}
+
+function UNIT_TEST_SUITE() {
+  setTimeout(function() {
+    UNIT_TEST_FOR_CLIENT_VALIDATION();
+    UNIT_TEST_FOR_SERVER_RESPONSE();
+    UNIT_TEST_FOR_MASKER_AND_LOADER();
+    UNIT_TEST_ENVIRONMENT_RESET();
+  }, 1000)
+}
+
+function DOM_ENV_SETUP() {
+  $('input').keypress(function(event) {
+    if (event.keyCode == 13) {
+      event.preventDefault();
+    }
+  });
 }
