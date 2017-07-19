@@ -16,6 +16,18 @@ function env_setup() {
   scroll_env_setup();
 }
 
+function env_refresh(){
+  //refresh statistic
+  query_chain_env_setup();
+
+  //refresh charts
+  // create_dynamic_chart_pie(ds_statistic_by_date, 'copy_chart_parent_div1');
+  // create_dynamic_chart_pie(ds_statistic_by_business, 'copy_chart_parent_div2');
+  // create_dynamic_chart_pie(ds_statistic_by_user, 'copy_chart_parent_div3');
+
+  //refresh scroll
+  ScrollPOJO.setup();
+}
 
 // Setup the business model with view model
 function vm_env_setup() {
@@ -87,8 +99,15 @@ var runService = function() {
 }
 
 
-$.subscribe("MATRIX_API_SUCCESS_EVENT", function(){console.log("MATRIX_API_SUCCESS_EVENT INVOKED!")});
+$.subscribe("MATRIX_API_SUCCESS_EVENT", MATRIX_API_SUCCESS_EVENT_HANDLER);
 
+function MATRIX_API_SUCCESS_EVENT_HANDLER() {
+  if (arguments && arguments[1]) {
+    if(arguments[1].addtion && arguments[1].addtion['TAG']=='MATRIX_ADD'){
+      env_refresh();
+    }
+  }
+}
 
 function query_chain_env_setup() {
   var statistic_self_counts={

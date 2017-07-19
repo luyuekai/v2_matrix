@@ -183,7 +183,7 @@ function default_retrive_service_success_listener() {
     setTimeout(function() {
       vm.response_vm().reset();
     }, 3000);
-    $.publish("MATRIX_API_SUCCESS_EVENT", response);
+    $.publish("MATRIX_API_SUCCESS_EVENT", arguments[1]);
   }
 }
 
