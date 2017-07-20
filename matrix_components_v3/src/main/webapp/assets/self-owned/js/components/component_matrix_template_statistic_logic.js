@@ -6,7 +6,7 @@ var ds = {
   "rest_mode": "POST",
   "request_params": "{\"queryJson\":\"{\\\"className\\\":\\\"Genericentity\\\",\\\"groupMap\\\":{\\\"stringalpha\\\":\\\"stringalpha\\\"},\\\"pageMaxSize\\\":100000,\\\"currentPageNumber\\\":1,\\\"eqMap\\\":{\\\"type\\\":\\\"MATRIX_TEMPLATE_ADD\\\",\\\"deleted\\\":false}}\"}",
   "pageMaxSize": 10,
-  "mock": false
+  "mock": true
 };
 var vm = new GenericPageViewModel();
 

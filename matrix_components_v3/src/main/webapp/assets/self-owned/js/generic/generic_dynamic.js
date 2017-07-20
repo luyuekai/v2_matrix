@@ -201,13 +201,14 @@ function initialize_chart_environment(chart,ds){
   }
   $.serverRequest(url, request_params, "SUCCESS_LISTENER_DYNAMIC_CHART", "FAILED_LISTENER_DYNAMIC_CHART", "SERVER_FAILED_LISTENER_DYNAMIC_CHART", rest_mode, true,wrapper);
 
-
-  $.subscribe("SUCCESS_LISTENER_DYNAMIC_CHART", successListener_dynamic_chart);
-  $.subscribe("FAILED_LISTENER_DYNAMIC_CHART", failedListener_dynamic_table);
-  $.subscribe("SERVER_FAILED_LISTENER_DYNAMIC_CHART", failedServiceListener_dynamic_table);
 }
 
+$.subscribe("SUCCESS_LISTENER_DYNAMIC_CHART", successListener_dynamic_chart);
+$.subscribe("FAILED_LISTENER_DYNAMIC_CHART", failedListener_dynamic_table);
+$.subscribe("SERVER_FAILED_LISTENER_DYNAMIC_CHART", failedServiceListener_dynamic_table);
+
 function successListener_dynamic_chart() {
+  console.log(1)
   if (arguments && arguments[1]) {
     var server_data = arguments[1].response;
     var ds = arguments[1].addtion.ds;

@@ -210,7 +210,7 @@ function UNIT_TEST_FOR_SERVER_RESPONSE() {
   $.serverRequest($.getServerRoot() + '/matrix_components_v3/api/mock/success', null, "DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER", 'GET');
   //scenario for the failed response
   $.serverRequest($.getServerRoot() + '/matrix_components_v3/api/mock/service_error', null, "DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER", 'GET');
-  //scenario for the failed response
+  //scenario for the server exception response
   $.serverRequest($.getServerRoot() + '/matrix_components_v3/api/mock/server_error', null, "DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER", 'GET');
 
   console.log("***Applause***[MATRIX UNIT_TEST_FOR_SERVER_RESPONSE PASSED!]");
