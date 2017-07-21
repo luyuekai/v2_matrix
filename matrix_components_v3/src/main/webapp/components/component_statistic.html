@@ -32,56 +32,33 @@
           <div class="card">
             <div class="card-header">
               <div class="card-title">
-                <i class="fa fa-diamond">&nbsp;KO&nbsp;&nbsp;&nbsp;</i>
+                <i class="fa fa-diamond">&nbsp;Dynamic Statistic&nbsp;&nbsp;&nbsp;</i>
+                <button title="generic_statistic_chart" type="button" onclick="show_div('content_div');generic_statistic_chart()" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-pie-chart"></i></button>
+                <button title="generic_statistic_table" type="button" onclick="show_div('content_div');generic_statistic_table()" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-paste"></i></button>
               </div>
             </div>
-            <div class="card-body flat-matrix">
+            <div class="card-body flat-matrix" id="content_div" style="display:none">
               <div class="row">
-                <div class="col-md-12" id="ko_div">
-                  <h4>First instance, without parameters</h4>
-                  <div data-bind='component: "message-editor"'></div>
-
-                  <h4>Second instance, passing parameters</h4>
-                  <div data-bind='component: {
-                      name: "message-editor",
-                      params: { initialText: "Hello, world!" }
-                  }'></div>
+                <div class="col-md-12" id="content_div_1" style="display:none">
+                  <h4>Statistic Dynamic Table Zone:</h4>
+                  <div class="col-md-12" id="copy_table_parent_div"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12" id="content_div_2" style="display:none">
+                  <h4>Statistic Dynamic Chart Zone:</h4>
+                  <div class="col-md-12" id="copy_chart_parent_div" style="width: 100%;height:100%;min-height:360px"></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <hr>
     </div>
 
-    <template id='table-template'>
-        <input type="text" class="form-control" placeholder="Input" data-bind="value:text">
-        <input type="text" class="form-control" placeholder="Input" data-bind="value:text2">
-        <div class="table_div_class">
-          <div class="row" data-bind="with:tableModel">
-            <div class="col-xs-12">
-              <table class="table table-striped table-hover" cellspacing="0">
-                <thead>
-                  <tr>
-                    <!-- ko foreach: columnNames -->
-                    <th>
-                      <span data-bind="text: $data"></span>
-                    </th>
-                    <!-- /ko -->
-                  </tr>
-                </thead>
-                <tbody data-bind="foreach:thinViewData">
-                  <tr data-bind="visible:isDisplay,foreach: data">
-                    <td data-bind="text: $data"></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-    </template>
-
-
+    <div id="template-matrix-dynamic-table-div"></div>
+    <div id="template-matrix-modal-div"></div>
 
     <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
     <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/app.js"></script>
@@ -110,51 +87,51 @@
     <script src="../assets/self-owned/js/generic/generic_util.js"></script>
     <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
     <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
 
 
     <script>
       $(document).ready(function() {
         $('#sidebar').load($.getRootPath() + '/components/left_side.html');
         $('#navbar').load($.getRootPath() + '/components/header.html');
+        $('#template-matrix-dynamic-table-div').load($.getRootPath() + '/components/template-matrix-dynamic-table.html');
+        $('#template-matrix-modal-div').load($.getRootPath() + '/components/template-matrix-modal.html');
+
+        setTimeout(function() {
+          MATRIX_DYNAMIC_TABLE_ENV_SETUP();
+        }, 1000)
       });
-    </script>
+      // var ds = {
+      //   "ds": "http://localhost:8080/service_generic_query/api/query/teststatistic",
+      //   "header_json": "[{\"data\":\"sum\",\"index\":0,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"name\",\"index\":1,\"isChecked\":true,\"isDisplay\":true}]",
+      //   "refresh_interval": "10",
+      //   "mock": true,
+      //   "json_rule": "result"
+      // };
+
+      // var ds = {
+      //   "ds": "http://localhost:8080/service_generic_query/api/query",
+      //   "header_json": "[{\"data\":\"statistic_sum\",\"index\":0,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"type_name\",\"index\":1,\"isChecked\":true,\"isDisplay\":true}]",
+      //   "refresh_interval": "10",
+      //   "json_rule": "result",
+      //   "rest_mode": "POST",
+      //   "request_params": "{\"queryJson\":\"{\\\"className\\\":\\\"Genericentity\\\",\\\"groupMap\\\":{\\\"type\\\":\\\"type\\\"},\\\"pageMaxSize\\\":100,\\\"currentPageNumber\\\":1,\\\"eqMap\\\":{\\\"deleted\\\":false}}\"}",
+      //   "mock": true
+      // };
 
 
+      // var ds = {"ds":"http://localhost:8080/service_generic_query/api/query","header_json":"[{\"data\":\"total\",\"index\":0,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"type\",\"index\":1,\"isChecked\":true,\"isDisplay\":true}]","refresh_interval":"10","json_rule":"result","rest_mode":"POST","request_params":"{\"queryJson\":\"{\\\"className\\\":\\\"Share\\\",\\\"groupMap\\\":{\\\"type\\\":\\\"type\\\"},\\\"pageMaxSize\\\":100,\\\"currentPageNumber\\\":1,\\\"eqMap\\\":{\\\"deleted\\\":false}}\"}","pageMaxSize":100,"mock":false};
 
+    var ds = {"ds":"http://localhost:8080/service_generic_query/api/query","header_json":"[{\"data\":\"lj_sum\",\"index\":0,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"lj_type\",\"index\":1,\"isChecked\":true,\"isDisplay\":true}]","refresh_interval":"10","json_rule":"result","rest_mode":"POST","request_params":"{\"queryJson\":\"{\\\"className\\\":\\\"Share\\\",\\\"groupMap\\\":{\\\"type\\\":\\\"type\\\"},\\\"pageMaxSize\\\":100,\\\"currentPageNumber\\\":1,\\\"eqMap\\\":{\\\"deleted\\\":false}}\"}","pageMaxSize":100,"mock":false};
+      function generic_statistic_table() {
+        switch_div_display('content_div_1')
+        create_dynamic_table(ds, 'copy_table_parent_div', 'copied_table_div');
+      }
 
-    <script>
-    ko.components.register('message-editor', {
-        viewModel: function(params) {
-            this.text = ko.observable(params && params.initialText || '');
-
-            this.text2 = ko.computed(function() {
-                return this.text() + "-" + this.text();
-            }, this);
-
-            this.tableModel = ko.computed(function() {
-              var i = Number(this.text())?Number(this.text()):0;
-              var data_agg = [
-                [{value: 335,name: '直接访问'}, {value: 310,name: '邮件营销'}, {value: 134,name: '联盟广告'}, {value: 535,name: '视频广告'}, {value: 1548,name: '搜索引擎'}],
-                [{value: 35,name: '直接访问'}, {value: 210,name: '邮件营销'}, {value: 234,name: '联盟广告'}, {value: 435,name: '视频广告'}, {value: 548,name: '搜索引擎'}],
-                [{value: 135,name: '直接访问'}, {value: 110,name: '邮件营销'}, {value: 334,name: '联盟广告'}, {value: 335,name: '视频广告'}, {value: 148,name: '搜索引擎'}],
-                [{value: 235,name: '直接访问'}, {value: 410,name: '邮件营销'}, {value: 434,name: '联盟广告'}, {value: 235,name: '视频广告'}, {value: 1248,name: '搜索引擎'}],
-                [{value: 435,name: '直接访问'}, {value: 510,name: '邮件营销'}, {value: 534,name: '联盟广告'}, {value: 135,name: '视频广告'}, {value: 2548,name: '搜索引擎'}]
-              ];
-              var serverData = data_agg[i%5];
-              var tm = new ThinListViewModel();
-              var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
-              tm.buildData(tableData.result);
-              tm.columnNames(tableData.header);
-              tm.isDisplayPager(true);
-              tm.buildView();
-              tm.pageMaxSize(5);
-              return tm;
-            }, this);
-        },
-        template: { element: 'table-template' }
-    });
-
-    ko.applyBindings();
+      function generic_statistic_chart() {
+        switch_div_display('content_div_2')
+        create_dynamic_chart_pie(ds, 'copy_chart_parent_div')
+      }
     </script>
 
 

@@ -54,6 +54,7 @@
             <ul data-bind="foreach: products">
               <li class="product">
               <strong data-bind="text: name"></strong>
+              <input type="text" class="form-control" placeholder="This is the data source URL" data-bind="value:userRating">
               <like-widget params="value: userRating"></like-widget>
               </li>
             </ul>

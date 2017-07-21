@@ -618,7 +618,7 @@ DataTransferPOJO={
       return resultArray;
     },
     tableData2PieChartData:function(tableHeaderArray,tableDataArray,wantedColumnHeader){
-      
+
       var resultArray = [];
       var index = tableHeaderArray.indexOf(wantedColumnHeader);
       if(index>-1){
@@ -655,4 +655,27 @@ DataTransferPOJO={
       })
       return resultArray;
     },
+
+    chart_to_server_data:function(data){
+      var arr = [];
+      $.each(data,function(i,v){
+        var tmp = [];
+        tmp.push(v.value);
+        tmp.push(v.name);
+        arr.push(tmp);
+      })
+      return arr;
+    },
+
+    server_data_to_chart:function(data){
+      var arr = [];
+      $.each(data,function(i,v){
+        var tmp = {
+          'value':v[0],
+          'name':v[1]
+        };
+        arr.push(tmp);
+      })
+      return arr;
+    }
 }

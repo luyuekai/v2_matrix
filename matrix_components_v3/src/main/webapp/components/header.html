@@ -16,10 +16,10 @@
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-left">
-      <li class="navbar-title">UI Component Kits</li>
-      <li class="navbar-search hidden-sm">
-        <input id="search" type="text" placeholder="Search..">
-        <button class="btn-search"><i class="fa fa-search"></i></button>
+      <li class="navbar-title" id="navbar_title_li">UI Component Kits</li>
+      <li class="navbar-search hidden-sm" id="navbar_search_li" style="display:none">
+        <input id="search_input" type="text" placeholder="Search..">
+        <button class="btn-search" onclick="SearchPOJO.search()" type="submit"><i class="fa fa-search"></i></button>
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
@@ -167,4 +167,52 @@
   var src = $.getRootPath() + '/assets/reference/flat-admin/assets/images/profile.png';
   $("#logo-img").attr("src", src);
   $("#logo-img-profile").attr("src", src);
+</script>
+
+<script>
+  $('#search_input').on('keypress', function(event) {
+    if (event.keyCode == 13){
+      SearchPOJO.search();
+    }
+  });
+  var SearchPOJO = {
+    listener: null,
+    keywords: null,
+    build_requestPOJO_prototype:null,
+    // requestPOJO_prototype:null,
+    likeOrMap:[],
+    sortKey:[],
+    search: function() {
+      if (SearchPOJO.listener) {
+        SearchPOJO.keywords = $('#search_input').val();
+        SearchPOJO.listener();
+      }
+    },
+    sort:function(a, b){
+      if(SearchPOJO.sortKey.length>0){
+        var sort_key = SearchPOJO.sortKey[0];
+        return b[sort_key] - a[sort_key];
+      }else{
+        return 0;
+      }
+    },
+    build_requestPOJO:function(){
+      if(SearchPOJO.build_requestPOJO_prototype){
+        var requestPOJO = SearchPOJO.build_requestPOJO_prototype();
+        var keyword = SearchPOJO.keywords;
+        var likeOrMap = {};
+        if(SearchPOJO.likeOrMap.length>0){
+          if (keyword) {
+            $.each(SearchPOJO.likeOrMap,function(i,v){
+              likeOrMap[v] = keyword;
+            });
+          }
+        }
+        requestPOJO.likeORMap = likeOrMap;
+        return requestPOJO;
+      }else{
+        return null;
+      }
+    }
+  }
 </script>

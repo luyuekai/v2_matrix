@@ -28,59 +28,52 @@
       <nav class="navbar navbar-default navbar-fixed-top" id="navbar" style="margin-left: 180px;"></nav>
       <div class="seperate_div_class" style="margin-top:118px"></div>
       <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">
-                <i class="fa fa-diamond">&nbsp;KO&nbsp;&nbsp;&nbsp;</i>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <a class="card card-banner card-green-light">
+            <div class="card-body">
+              <i class="icon fa fa-cloud-download fa-4x"></i>
+              <div class="content">
+                <div class="title">Self Saved Reports</div>
+                <div class="value"><span class="sign"></span><span data-bind="text:self_saved_counts"></span></div>
               </div>
             </div>
-            <div class="card-body flat-matrix">
-              <div class="row">
-                <div class="col-md-12" id="ko_div">
-                  <h4>First instance, without parameters</h4>
-                  <div data-bind='component: "message-editor"'></div>
-
-                  <h4>Second instance, passing parameters</h4>
-                  <div data-bind='component: {
-                      name: "message-editor",
-                      params: { initialText: "Hello, world!" }
-                  }'></div>
-                </div>
+          </a>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <a class="card card-banner card-blue-light">
+            <div class="card-body">
+              <i class="icon fa fa-share-square-o fa-4x"></i>
+              <div class="content">
+                <div class="title">Self Shared Reports</div>
+                <div class="value"><span class="sign"></span><span data-bind="text:self_shared_counts"></span></div>
               </div>
             </div>
-          </div>
+          </a>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <a class="card card-banner card-yellow-light">
+            <div class="card-body">
+              <i class="icon fa fa-share-alt fa-4x"></i>
+              <div class="content">
+                <div class="title">Matrix Shared Reports</div>
+                <div class="value"><span class="sign"></span><span data-bind="text:total_shared_counts"></span></div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <a class="card card-banner card-orange-light">
+            <div class="card-body">
+              <i class="icon fa fa-file-archive-o fa-4x"></i>
+              <div class="content">
+                <div class="title">Matrix Shared Templates</div>
+                <div class="value"><span class="sign"></span><span data-bind="text:total_template_counts"></span></div>
+              </div>
+            </div>
+          </a>
         </div>
       </div>
     </div>
-
-    <template id='table-template'>
-        <input type="text" class="form-control" placeholder="Input" data-bind="value:text">
-        <input type="text" class="form-control" placeholder="Input" data-bind="value:text2">
-        <div class="table_div_class">
-          <div class="row" data-bind="with:tableModel">
-            <div class="col-xs-12">
-              <table class="table table-striped table-hover" cellspacing="0">
-                <thead>
-                  <tr>
-                    <!-- ko foreach: columnNames -->
-                    <th>
-                      <span data-bind="text: $data"></span>
-                    </th>
-                    <!-- /ko -->
-                  </tr>
-                </thead>
-                <tbody data-bind="foreach:thinViewData">
-                  <tr data-bind="visible:isDisplay,foreach: data">
-                    <td data-bind="text: $data"></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-    </template>
-
 
 
     <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
@@ -110,53 +103,32 @@
     <script src="../assets/self-owned/js/generic/generic_util.js"></script>
     <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
     <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
+    <script src="../assets/self-owned/js/components/component_query_chain_logic.js"></script>
 
 
     <script>
       $(document).ready(function() {
         $('#sidebar').load($.getRootPath() + '/components/left_side.html');
         $('#navbar').load($.getRootPath() + '/components/header.html');
+        setTimeout(function() {
+          query_chain_env_setup();
+        }, 1000)
       });
     </script>
 
-
-
-
     <script>
-    ko.components.register('message-editor', {
-        viewModel: function(params) {
-            this.text = ko.observable(params && params.initialText || '');
+      function QueryChainViewModel() {
+        var self = this;
+        self.self_saved_counts = ko.observable();
+        self.self_shared_counts = ko.observable();
+        self.total_shared_counts = ko.observable();
+        self.total_template_counts = ko.observable();
+      }
 
-            this.text2 = ko.computed(function() {
-                return this.text() + "-" + this.text();
-            }, this);
-
-            this.tableModel = ko.computed(function() {
-              var i = Number(this.text())?Number(this.text()):0;
-              var data_agg = [
-                [{value: 335,name: '直接访问'}, {value: 310,name: '邮件营销'}, {value: 134,name: '联盟广告'}, {value: 535,name: '视频广告'}, {value: 1548,name: '搜索引擎'}],
-                [{value: 35,name: '直接访问'}, {value: 210,name: '邮件营销'}, {value: 234,name: '联盟广告'}, {value: 435,name: '视频广告'}, {value: 548,name: '搜索引擎'}],
-                [{value: 135,name: '直接访问'}, {value: 110,name: '邮件营销'}, {value: 334,name: '联盟广告'}, {value: 335,name: '视频广告'}, {value: 148,name: '搜索引擎'}],
-                [{value: 235,name: '直接访问'}, {value: 410,name: '邮件营销'}, {value: 434,name: '联盟广告'}, {value: 235,name: '视频广告'}, {value: 1248,name: '搜索引擎'}],
-                [{value: 435,name: '直接访问'}, {value: 510,name: '邮件营销'}, {value: 534,name: '联盟广告'}, {value: 135,name: '视频广告'}, {value: 2548,name: '搜索引擎'}]
-              ];
-              var serverData = data_agg[i%5];
-              var tm = new ThinListViewModel();
-              var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
-              tm.buildData(tableData.result);
-              tm.columnNames(tableData.header);
-              tm.isDisplayPager(true);
-              tm.buildView();
-              tm.pageMaxSize(5);
-              return tm;
-            }, this);
-        },
-        template: { element: 'table-template' }
-    });
-
-    ko.applyBindings();
+      var viewModel = new QueryChainViewModel();
+      ko.applyBindings(viewModel, document.getElementById('main_content_div'));
     </script>
-
 
 </body>
 

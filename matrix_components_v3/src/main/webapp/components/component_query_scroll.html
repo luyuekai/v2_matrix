@@ -28,59 +28,36 @@
       <nav class="navbar navbar-default navbar-fixed-top" id="navbar" style="margin-left: 180px;"></nav>
       <div class="seperate_div_class" style="margin-top:118px"></div>
       <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">
-                <i class="fa fa-diamond">&nbsp;KO&nbsp;&nbsp;&nbsp;</i>
+          <div data-bind="if:businessPOJO()">
+              <div data-bind="with:businessPOJO().elements">
+                  <!--ko foreach: viewData-->
+                  <div class="col-xs-12" style="margin-bottom:18px;">
+                      <a class="card card-banner card-blue-light" data-bind="event:{dblclick:function(){alert(JSON.stringify($data));}}">
+                        <div class="card-body">
+                          <i class="icon fa fa-edit fa-4x"></i>
+                          <div class="content">
+                            <div class="title">
+                              <span data-bind="if:stringbeta">
+                                <!-- ko foreach: stringbeta.split(',') -->
+                                <span class="label label-info" data-bind="text:$data"></span> &nbsp;
+                                <!-- /ko -->
+                              </span>
+                              <span data-bind="text:(function(){return new Date(parseInt(createtime)).toLocaleString()})()" style="margin-right: 8px;"></span>
+                              <button type="button" data-bind="event:{click:function(){alert('Edit Function Invoked')}}" class="btn btn-default btn-xs" style="margin-right: 3px;"><i class="fa fa-pencil "></i>&nbsp;</button>
+                              <button type="button" data-bind="event:{click:function(){alert('Remove Function Invoked')}}" class="btn btn-default btn-xs" style="margin-right: 3px;"><i class="fa fa-trash "></i>&nbsp;</button>
+                            </div>
+                            <div class="value">
+                              <span data-bind="text:stringalpha" style="font-size:28px"></span>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                  </div>
+                  <!-- /ko -->
               </div>
-            </div>
-            <div class="card-body flat-matrix">
-              <div class="row">
-                <div class="col-md-12" id="ko_div">
-                  <h4>First instance, without parameters</h4>
-                  <div data-bind='component: "message-editor"'></div>
-
-                  <h4>Second instance, passing parameters</h4>
-                  <div data-bind='component: {
-                      name: "message-editor",
-                      params: { initialText: "Hello, world!" }
-                  }'></div>
-                </div>
-              </div>
-            </div>
           </div>
-        </div>
       </div>
     </div>
-
-    <template id='table-template'>
-        <input type="text" class="form-control" placeholder="Input" data-bind="value:text">
-        <input type="text" class="form-control" placeholder="Input" data-bind="value:text2">
-        <div class="table_div_class">
-          <div class="row" data-bind="with:tableModel">
-            <div class="col-xs-12">
-              <table class="table table-striped table-hover" cellspacing="0">
-                <thead>
-                  <tr>
-                    <!-- ko foreach: columnNames -->
-                    <th>
-                      <span data-bind="text: $data"></span>
-                    </th>
-                    <!-- /ko -->
-                  </tr>
-                </thead>
-                <tbody data-bind="foreach:thinViewData">
-                  <tr data-bind="visible:isDisplay,foreach: data">
-                    <td data-bind="text: $data"></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-    </template>
-
 
 
     <script type="text/javascript" src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
@@ -110,53 +87,24 @@
     <script src="../assets/self-owned/js/generic/generic_util.js"></script>
     <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
     <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
+    <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
+    <script src="../assets/self-owned/js/components/component_query_scroll_logic.js"></script>
 
 
     <script>
       $(document).ready(function() {
         $('#sidebar').load($.getRootPath() + '/components/left_side.html');
         $('#navbar').load($.getRootPath() + '/components/header.html');
+        setTimeout(function() {
+          $('#navbar_search_li').css('display', '');
+          vm_env_setup();
+          search_env_setup();
+          scroll_env_setup();
+        }, 1000)
       });
+
     </script>
-
-
-
-
-    <script>
-    ko.components.register('message-editor', {
-        viewModel: function(params) {
-            this.text = ko.observable(params && params.initialText || '');
-
-            this.text2 = ko.computed(function() {
-                return this.text() + "-" + this.text();
-            }, this);
-
-            this.tableModel = ko.computed(function() {
-              var i = Number(this.text())?Number(this.text()):0;
-              var data_agg = [
-                [{value: 335,name: '直接访问'}, {value: 310,name: '邮件营销'}, {value: 134,name: '联盟广告'}, {value: 535,name: '视频广告'}, {value: 1548,name: '搜索引擎'}],
-                [{value: 35,name: '直接访问'}, {value: 210,name: '邮件营销'}, {value: 234,name: '联盟广告'}, {value: 435,name: '视频广告'}, {value: 548,name: '搜索引擎'}],
-                [{value: 135,name: '直接访问'}, {value: 110,name: '邮件营销'}, {value: 334,name: '联盟广告'}, {value: 335,name: '视频广告'}, {value: 148,name: '搜索引擎'}],
-                [{value: 235,name: '直接访问'}, {value: 410,name: '邮件营销'}, {value: 434,name: '联盟广告'}, {value: 235,name: '视频广告'}, {value: 1248,name: '搜索引擎'}],
-                [{value: 435,name: '直接访问'}, {value: 510,name: '邮件营销'}, {value: 534,name: '联盟广告'}, {value: 135,name: '视频广告'}, {value: 2548,name: '搜索引擎'}]
-              ];
-              var serverData = data_agg[i%5];
-              var tm = new ThinListViewModel();
-              var tableData = DataTransferPOJO.serverJsonData2TableData(serverData);
-              tm.buildData(tableData.result);
-              tm.columnNames(tableData.header);
-              tm.isDisplayPager(true);
-              tm.buildView();
-              tm.pageMaxSize(5);
-              return tm;
-            }, this);
-        },
-        template: { element: 'table-template' }
-    });
-
-    ko.applyBindings();
-    </script>
-
 
 </body>
 

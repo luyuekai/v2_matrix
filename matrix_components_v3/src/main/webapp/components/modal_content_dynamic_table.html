@@ -1,0 +1,602 @@
+<style>
+  .compile_mode_focus_in {
+    padding: 8px 20px;
+    margin: 6px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+    border-left-color: #39c3da;
+  }
+</style>
+<div id="genericModalDiv">
+  <!--LOADER DIV BEGIN-->
+  <div class="loader-container text-center">
+    <div class="icon">
+      <div class="sk-wave">
+        <div class="sk-rect sk-rect1"></div>
+        <div class="sk-rect sk-rect2"></div>
+        <div class="sk-rect sk-rect3"></div>
+        <div class="sk-rect sk-rect4"></div>
+        <div class="sk-rect sk-rect5"></div>
+      </div>
+    </div>
+    <div class="title">Loading</div>
+  </div>
+  <!--LOADER DIV BEGIN-->
+
+  <!--RESULT DISPLAY DIV BEGIN-->
+  <div class="flat-matrix">
+    <div id="resultDIV" data-bind="visible: hasResult,css: styleClass" class="alert fresh-color">
+      <button type="button" class="close" data-bind="click:function(){hasResult(!hasResult)}" aria-label="Close"><i class="fa fa-close"></i></button>
+      <strong>
+      <span data-bind="text:resultTitle"></span>
+    </strong>
+      <span data-bind="text:resultSubTitle"></span>
+      <div data-bind="text:resultContent"></div>
+    </div>
+  </div>
+  <!--RESULT DISPLAY DIV END-->
+
+  <!--Validation DIV BEGIN-->
+  <div class="flat-matrix">
+    <div data-bind="visible: hasError" class="alert alert-warning alert-dismissible fresh-color" role="alert">
+      <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
+        <i class="fa fa-close"></i>
+      </button>
+      <strong>Warning:</strong>
+      <div id="errorMessagesDIV" data-bind="foreach:errorMessage">
+        <div data-bind="text:$data"></div>
+      </div>
+    </div>
+  </div>
+  <!--Validation DIV END-->
+
+  <div class="business_div_class" data-bind="if:businessPOJO()">
+    <div data-bind="with:businessPOJO">
+      <div class="step-v2-success">
+        <ul class="nav nav-tabs nav-justified" role="tablist">
+          <li role="step" class="active">
+            <a href="#step1-v3-horizantal" id="step1-tab-v3-horizantal" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+              <div class="icon fa fa-key"></div>
+              <div class="heading">
+                <div class="title">Data Source</div>
+                <div class="description">Setting and Testing</div>
+              </div>
+            </a>
+          </li>
+          <li role="step">
+            <a href="#step2-v3-horizantal" role="tab" id="step2-tab-v3-horizantal" data-toggle="tab" aria-controls="profile">
+              <div class="icon fa fa-filter"></div>
+              <div class="heading">
+                <div class="title">Dynamic Table</div>
+                <div class="description">Configuration</div>
+              </div>
+            </a>
+          </li>
+          <li role="step">
+            <a href="#step3-v3-horizantal" role="tab" id="step3-tab-v3-horizantal" data-toggle="tab" aria-controls="profile">
+              <div class="icon fa fa-flag-checkered"></div>
+              <div class="heading">
+                <div class="title">Confirm</div>
+                <div class="description">Confirmation your informations.</div>
+              </div>
+            </a>
+          </li>
+
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="step1-v3-horizantal">
+            <div class="row">
+              <div class="col-xs-2 text-right">
+                <label style="margin-top:15px;">Data Source:
+                </label>
+              </div>
+              <div class="col-xs-10" style="padding-left: 0px;padding-right: 0px;">
+                <input type="text" data-bind="value: service_url" class="form-control" id="inputTableDes" placeholder="Data Source Rest API URL">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="flat-matrix">
+                  <div class="alert alert-info fresh-color">
+                    <span> [Mock Data API:] http://localhost:8080/matrix_components_v3/assets/self-owned/data/server_mock_data.json</span>
+                    <br>
+                    <span> [Generic Query API:] http://localhost:8080/service_generic_query/api/query</span>
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-sm-2 control-label" style="text-align:right;margin-top:10px">
+                <span style="font-weight: bold;font-size: 16px;">REST Mode:</span>
+              </label>
+              <div class="radio radio-inline">
+                <input type="radio" data-bind="checked:rest_mode" name="radio_rest_mode" id="radio1_rest_mode" value="GET" checked>
+                <label for="radio1_rest_mode">
+                  GET
+                </label>
+              </div>
+              <div class="radio radio-inline">
+                <input type="radio" data-bind="checked:rest_mode" name="radio_rest_mode" id="radio2_rest_mode" value="POST">
+                <label for="radio2_rest_mode">
+                  POST
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-2 text-right">
+                <label style="margin-top:15px;">Request Params:
+                </label>
+              </div>
+              <div class="col-xs-8" style="padding-left: 0px;padding-right: 0px;">
+                <textarea data-bind="value: request_params" rows="3" class="form-control"></textarea>
+              </div>
+              <div class="col-xs-2">
+                <button onclick="check_data_source()" type="button" class="btn btn-info">Check</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="flat-matrix">
+                  <div class="alert alert-success fresh-color">
+                    <strong>
+                      <span>Query Parameter Example:</span>
+                    </strong>
+                    <br>
+                    <span>
+                    {
+                      "queryJson": "{\"className\":\"Genericentity\",\"orderMap\":{\"id\":false},\"pageMaxSize\":10,\"currentPageNumber\":1,\"likeORMap\":{},\"eqMap\":{\"type\":\"MATRIX_TEMPLATE_ADD\",\"deleted\":false},\"inMap\":{}}"
+                    }
+                   </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="flat-matrix">
+                  <div class="alert alert-warning fresh-color">
+                    <strong>
+                      <span>Statistic Parameter Example:</span>
+                    </strong>
+                    <br>
+                    <span> {"queryJson":"{\"className\":\"Genericentity\",\"groupMap\":{\"type\":\"type\"},\"pageMaxSize\":100,\"currentPageNumber\":1,\"eqMap\":{\"deleted\":false}}"}
+                   </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row flat-matrix" data-bind="visible:service_response">
+              <div class="col-xs-12">
+                <div class="alert alert-info alert-dismissible fresh-color" role="alert" style="margin-top: 8px;">
+                  <strong><i class="fa fa-spinner"></i>&nbsp;Data Response:</strong>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="compile_mode_focus_in" tabindex="100">
+                  <span class="cell_div_view markdown-body" data-bind="html:service_response"></span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div role="tabpanel" class="tab-pane" id="step2-v3-horizantal">
+            <div class="row">
+              <div class="col-xs-2 text-right">
+                <label style="margin-top:15px;">Rules:
+                </label>
+              </div>
+              <div class="col-xs-8" style="padding-left: 0px;padding-right: 0px;">
+                <input type="text" data-bind="value: json_rule" class="form-control" id="inputTableDes" placeholder="JSON parse rules: response.result">
+              </div>
+              <div class="col-xs-2">
+                <button onclick="gen_table()" type="button" class="btn btn-info">Check</button>
+              </div>
+            </div>
+
+            <div class="row flat-matrix" data-bind="visible:showTable">
+              <div class="col-xs-12">
+                <div class="alert alert-info alert-dismissible fresh-color" role="alert" style="margin-top: 8px;">
+                  <strong><i class="fa fa-spinner"></i>&nbsp;Dynamic Table Setting:</strong>
+                  <button type="button" data-bind="click:$data.tableModel().uncheck_all()" class="btn btn-default pull-right" style="padding: 2px 12px;margin-bottom: 0px;"><i class="fa fa-square-o"> &nbsp;Uncheck ALL</i></button>
+                  <button type="button" data-bind="click:$data.tableModel().check_all()" class="btn btn-default pull-right" style="padding: 2px 12px;margin-bottom: 0px;"><i class="fa fa-check-square-o"> &nbsp;Check ALL</i></button>
+                </div>
+              </div>
+              <div class="col-xs-12" data-bind="visible:service_response">
+                <div class="compile_mode_focus_in" tabindex="100">
+
+                  <div>
+                    <div class="row" data-bind="with:tableModel">
+                      <div class="col-xs-12">
+                        <div style="overflow: auto">
+                          <table class="table table-striped table-hover" cellspacing="0">
+                            <thead>
+                              <tr>
+                                <!-- ko foreach: headerViewData -->
+                                <th>
+                                  <div class="checkbox">
+                                    <input type="checkbox" data-bind="checked: $data.isChecked,attr:{'id':$data.data_id}">
+                                    <label data-bind="text: $data.data,attr:{'for':$data.data_id}">
+                                    </label>
+                                  </div>
+                                </th>
+                                <!-- /ko -->
+                              </tr>
+                            </thead>
+                            <tbody data-bind="foreach:thinViewData">
+                              <!-- <tr data-bind="visible:isDisplay,foreach: data">
+                              <td data-bind="visible:$parent.isDisplay_cell($index())">
+                                <span data-bind="text: $index"></span>
+                                <span data-bind="text: $data"></span>
+                              </td>
+                            </tr>  -->
+                              <tr data-bind="visible:isDisplay,foreach: data">
+                                <td>
+                                  <span data-bind="visible:$parent.isDisplay_cell($index()),text: $data"></span>
+                                </td>
+                              </tr>
+                              <!-- <tr data-bind="visible:isDisplay,foreach: data">
+                              <td>
+                                <span data-bind="text: $data"></span>
+                              </td>
+                            </tr>  -->
+                            </tbody>
+                          </table>
+                        </div>
+                        <div class="matrix-pager-v3" data-bind="visible:isDisplayPager">
+                          <div class="form-inline">
+                            <nav>
+                              <form>
+                                <span class="pull-left">
+                                <label class="control-label" style="margin-bottom: 12px;">Total Counts:<span data-bind="text:totalCounts()?totalCounts():0"></span></label>
+                                </span>
+                              </form>
+                              <span class="pull-right">
+                              <button data-bind="click:function(){toPage(1);}" type="button" class="btn btn-default " style="padding: 10px 12px;"><i class="fa fa-angle-double-left"></i> &nbsp;First</button>
+                              <button data-bind="click:function(){toPage(currentPageNumber()-1);}" type="button" class="btn btn-default " style="padding: 10px 12px;"><i class="fa fa-angle-left"></i> &nbsp;Previous</button>
+                              <input data-bind="value:currentPageNumber" type="text" class="form-control" placeholder="Page" style="width:60px;margin-bottom:5px;padding:10px;text-align: center;">
+                              <button data-bind="visible:false,click:function(){}" type="submit" class="btn"><span class="fui-search"></span></button>
+                              <button data-bind="click:function(){toPage(currentPageNumber()+1);}" type="button" class="btn btn-default " style="padding: 10px 12px;">Next &nbsp;<i class="fa fa-angle-right"></i></button>
+                              <button data-bind="click:function(){toPage(totalPage());}" type="button" class="btn btn-default " style="padding: 10px 12px;">Last &nbsp;<i class="fa fa-angle-double-right"></i></button>
+                              <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span data-bind="text:pageMaxSize()"></span> <span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu" data-bind="foreach: pagingSizeArray">
+                                  <li><a data-bind="click:function(){$parent.pageMaxSize($data)}" href="#"><span data-bind="text:$data"></span></a></li>
+                                </ul>
+                              </div>
+                              </span>
+                            </nav>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row" data-bind="with:tableModel,visible:false">
+                      <div class="col-xs-12" style="overflow: auto">
+                        <table class="table table-striped table-hover" cellspacing="0">
+                          <thead>
+                            <tr>
+                              <!-- ko foreach: headerViewData -->
+                              <th data-bind="visible:$data.isChecked">
+                                <span data-bind="text: $data.data,visible:$data.isChecked"></span>
+                              </th>
+                              <!-- /ko -->
+                            </tr>
+                          </thead>
+                          <tbody data-bind="foreach:thinViewData">
+                            <tr data-bind="visible:isDisplay,foreach: data">
+                              <td data-bind="visible:$parent.isDisplay_cell($index())">
+                                <span data-bind="text: $data"></span>
+                              </td>
+                            </tr>
+
+                          </tbody>
+                        </table>
+
+                        <div class="matrix-pager-v3" data-bind="visible:isDisplayPager">
+                          <div class="form-inline">
+                            <nav>
+                              <form>
+                                <span class="pull-left">
+                                <label class="control-label" style="margin-bottom: 12px;">Total Counts:<span data-bind="text:totalCounts()?totalCounts():0"></span></label>
+                                </span>
+                              </form>
+                              <span class="pull-right">
+                              <button data-bind="click:function(){toPage(1);}" type="button" class="btn btn-default " style="padding: 10px 12px;"><i class="fa fa-angle-double-left"></i> &nbsp;First</button>
+                              <button data-bind="click:function(){toPage(currentPageNumber()-1);}" type="button" class="btn btn-default " style="padding: 10px 12px;"><i class="fa fa-angle-left"></i> &nbsp;Previous</button>
+                              <input data-bind="value:currentPageNumber" type="text" class="form-control" placeholder="Page" style="width:60px;margin-bottom:5px;padding:10px;text-align: center;">
+                              <button data-bind="visible:false,click:function(){}" type="submit" class="btn"><span class="fui-search"></span></button>
+                              <button data-bind="click:function(){toPage(currentPageNumber()+1);}" type="button" class="btn btn-default " style="padding: 10px 12px;">Next &nbsp;<i class="fa fa-angle-right"></i></button>
+                              <button data-bind="click:function(){toPage(totalPage());}" type="button" class="btn btn-default " style="padding: 10px 12px;">Last &nbsp;<i class="fa fa-angle-double-right"></i></button>
+                              <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span data-bind="text:pageMaxSize()"></span> <span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu" data-bind="foreach: pagingSizeArray">
+                                  <li><a data-bind="click:function(){$parent.pageMaxSize($data)}" href="#"><span data-bind="text:$data"></span></a></li>
+                                </ul>
+                              </div>
+                              </span>
+                            </nav>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="step3-v3-horizantal">
+            <div class="row">
+              <div class="col-xs-12">
+                <form class="form-horizontal">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" style="text-align:right">
+                      <span style="font-weight: bold;font-size: 16px;">Data Source:</span>
+                      <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                    </label>
+                    <div class="col-sm-10">
+                      <p class="form-control-static" data-bind="text:service_url"></p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" style="text-align:right">
+                      <span style="font-weight: bold;font-size: 16px;">Data Header:</span>
+                      <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                    </label>
+                    <div class="col-sm-10" style="margin-top:7px">
+                      <!-- ko foreach: tableModel().headerViewData -->
+                      <span data-bind="visible:$data.isChecked,text:$data.data"></span>
+                      <!-- /ko -->
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" style="text-align:right">
+                      <span style="font-weight: bold;font-size: 16px;">Refresh Interval:</span>
+                    </label>
+                    <div class="radio radio-inline">
+                      <input type="radio" data-bind="checked:refresh_interval" name="radio_refresh_interval" id="radio1" value="10" checked>
+                      <label for="radio1">
+                        10 Seconds
+                      </label>
+                    </div>
+                    <div class="radio radio-inline">
+                      <input type="radio" data-bind="checked:refresh_interval" name="radio_refresh_interval" id="radio2" value="30">
+                      <label for="radio2">
+                        30 Seconds
+                      </label>
+                    </div>
+                    <div class="radio radio-inline">
+                      <input type="radio" data-bind="checked:refresh_interval" name="radio_refresh_interval" id="radio3" value="60">
+                      <label for="radio3">
+                        1 Minutes
+                      </label>
+                    </div>
+                    <div class="radio radio-inline">
+                      <input type="radio" data-bind="checked:refresh_interval" name="radio_refresh_interval" id="radio4" value="300">
+                      <label for="radio4">
+                        5 Minutes
+                      </label>
+                    </div>
+                    <div class="radio radio-inline">
+                      <input type="radio" data-bind="checked:refresh_interval" name="radio_refresh_interval" id="radio5" value="3000000">
+                      <label for="radio5">
+                        Never
+                      </label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" style="text-align:right">
+                      <span style="font-weight: bold;font-size: 16px;">DS JSON:</span>
+                      <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                    </label>
+                    <div class="col-sm-10 flat-matrix">
+                      <div class="compile_mode_focus_in" tabindex="100">
+                        <span class="cell_div_view markdown-body" data-bind="html:ds"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="flat-matrix">
+                  <div class="alert alert-info fresh-color">
+                    <strong>
+                      <span>请注意:</span>
+                    </strong>
+                    <br>
+                    <span> 1, 请设置好数据源并检查是否返回正确的数据结果集</span>
+                    <br>
+                    <span> 2, 选择数据结果集中想要显示的具体列，<code><strong>这些列名</strong></code>将会显示到新建的Table组件中</span>
+                    <br>
+                    <span> 3, 点击执行按钮，系统会将数据源绑定到动态Table组件中并将其渲染到DOM中</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="pull-right">
+              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+              <button id='execute-button' type="button" class="btn btn-sm btn-success" onclick="execute()">Execute</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+</div>
+<script>
+  // Initialize the View Model
+  // Clean the paging binding nodes
+  // Binding the view Model
+  var genericModalViewModel = new GenericModalViewModel();
+  ko.cleanNode($('#genericModalDiv')[0]);
+  ko.applyBindings(genericModalViewModel, document.getElementById('genericModalDiv'));
+</script>
+
+<script>
+  var test_url_1 = 'http://localhost:8080/matrix_components_v3/assets/self-owned/data/server_mock_data.json';
+  var test_url_2 = 'http://localhost:8080/service_generic_query/api/query';
+  var test_data = {
+    "queryJson": "{\"className\":\"Genericentity\",\"orderMap\":{\"id\":false},\"pageMaxSize\":10,\"currentPageNumber\":1,\"likeORMap\":{},\"eqMap\":{\"type\":\"MATRIX_GENERIC_SUGGESTION\",\"deleted\":false},\"inMap\":{}}"
+  };
+  var test_statistic = {"queryJson":"{\"className\":\"Genericentity\",\"groupMap\":{\"type\":\"type\"},\"pageMaxSize\":100,\"currentPageNumber\":1,\"eqMap\":{\"deleted\":false}}"};
+  // Setup the business model with view model
+  (function initialize() {
+    // *******YOUR SHOULD CODING IN HERE:*******
+    function BusinessPOJO() {
+      var self = this;
+      self.service_url = ko.observable(test_url_2);
+      self.json_rule = ko.observable('');
+      self.service_response = ko.observable('');
+      self.service_response_data = null;
+      self.table_header = ko.observableArray();
+      self.refresh_interval = ko.observable('10');
+      self.rest_mode = ko.observable('GET');
+
+      self.request_params = ko.observable(JSON.stringify(test_statistic));
+      self.showTable = ko.observable(false);
+      self.tableModel = ko.observable(new ThinListViewModel());
+      self.ds = ko.computed(function() {
+        var json = {
+          'ds': self.service_url(),
+          'header_json': self.tableModel().header2json(),
+          'refresh_interval': self.refresh_interval(),
+          'json_rule': self.json_rule(),
+          'rest_mode': self.rest_mode(),
+          'request_params':self.request_params() || null,
+          'pageMaxSize':self.tableModel().pageMaxSize(),
+          'mock':false
+        }
+        return JSON.stringify(json);
+      });
+
+      self.uncheck_all = function(){
+        self.tableModel().uncheck_all();
+      }
+    }
+    var businessPOJO = new BusinessPOJO();
+    genericModalViewModel.businessPOJO(businessPOJO);
+  })();
+
+  function execute() {
+    console.log('execute invoked')
+      // validation failed
+      // show validation error message in the warning DIV...
+    if (!genericModalViewModel.validation(businessValidation)) {
+      return;
+    } else {
+      // validation correct
+      // do your business...
+      runService();
+    }
+  }
+
+  // *******YOUR SHOULD CODING IN HERE:*******
+  var businessValidation = function() {
+    var errorMessages = [];
+    //validate logic...
+
+    //validate
+    ValidationPOJO.validate("Data Source", genericModalViewModel.businessPOJO().service_url(), errorMessages, ['KEY_NOT_NULL']);
+
+    return errorMessages;
+  }
+
+  // *******YOUR SHOULD CODING IN HERE:*******
+  var check_data_source = function() {
+    if (!genericModalViewModel.validation(businessValidation)) {
+      return;
+    } else {
+      // validation correct
+      // do your business...
+      var data = genericModalViewModel.businessPOJO().request_params() || null;
+      var mode = genericModalViewModel.businessPOJO().rest_mode();
+      data = JSON.parse(data);
+      $.serverRequest(genericModalViewModel.businessPOJO().service_url(), data, "SUCCESS_LISTENER_modal", "FAILED_LISTENER_modal", "SERVER_FAILED_LISTENER_modal", mode, true, genericModalViewModel);
+    }
+  }
+  var gen_table = function() {
+    var server_data = genericModalViewModel.businessPOJO().service_response_data;
+
+    var json_rule = genericModalViewModel.businessPOJO().json_rule();
+    if (!server_data) {
+      return;
+    }
+    if (json_rule) {
+      var tmp = 'server_data.' + json_rule;
+      server_data = eval(tmp);
+    }
+    if (!jQuery.isArray(server_data)) {
+      genericModalViewModel.response(false, "Generate Table", "[Violate Validation Rules]", "The JSON fragment must be array type.");
+      return;
+    }
+    var tableData = DataTransferPOJO.serverJsonData2TableData(server_data);
+    var tableModel = new ThinListViewModel();
+    tableModel.buildData(tableData.result);
+    tableModel.columnNames(tableData.header);
+    tableModel.isDisplayPager(true);
+    tableModel.buildView();
+    tableModel.pageMaxSize(genericModalViewModel.businessPOJO().tableModel().pageMaxSize());
+    genericModalViewModel.businessPOJO().tableModel(tableModel);
+    genericModalViewModel.businessPOJO().showTable(true);
+  }
+
+
+  var runService = function() {
+    console.log("run service function invoked!")
+
+    if (genericModalViewModel.businessPOJO().service_url()) {
+      // var json = {
+      //     'ds': genericModalViewModel.businessPOJO().service_url(),
+      //     'header': genericModalViewModel.businessPOJO().tableModel().headerViewData(),
+      //     'header_json': genericModalViewModel.businessPOJO().tableModel().header2json(),
+      //     'refresh_interval': genericModalViewModel.businessPOJO().refresh_interval(),
+      //     'json_rule': genericModalViewModel.businessPOJO().json_rule(),
+      //     'rest_mode':genericModalViewModel.businessPOJO().rest_mode(),
+      //     'request_params': genericModalViewModel.businessPOJO().request_params(),
+      //   }
+        var json = JSON.parse(genericModalViewModel.businessPOJO().ds());
+        // matrixTable.table_data_source(json);
+        // create_dynamic_table(json);
+      create_dynamic_table(json, 'clone_table_parent_div', 'cloned_table_div');
+      ModalUtil.modal_close('popupModalPro');
+    }
+
+  }
+  $.subscribe("SUCCESS_LISTENER_modal", successListener_testConnection);
+  $.subscribe("FAILED_LISTENER_modal", failedListener);
+  $.subscribe("SERVER_FAILED_LISTENER_modal", failedServiceListener);
+
+
+  function successListener_testConnection() {
+    if (arguments && arguments[1]) {
+      var server_data = arguments[1].response;
+      var res = JSON.stringify(arguments[1].response);
+      genericModalViewModel.businessPOJO().service_response(res);
+      genericModalViewModel.businessPOJO().service_response_data = server_data;
+      // genericModalViewModel.response(true, "Entity Operation", "[Successed]", "Operation Successed, please close the console and reload the data.\n"+res);
+
+    }
+  }
+
+  function failedListener() {
+    if (arguments && arguments[1]) {
+      console.log(arguments);
+      var errorMessage = arguments[1].errorMessage;
+      genericModalViewModel.response(false, "Entity Operation", "[Failed]", errorMessage);
+    }
+  }
+
+  function failedServiceListener() {
+    genericModalViewModel.response(false, "Entity Operation", "[Failed]", "SERVICE 'GENERIC XXX' FAILED! Please contact with the system admin for more information...");
+  }
+</script>
