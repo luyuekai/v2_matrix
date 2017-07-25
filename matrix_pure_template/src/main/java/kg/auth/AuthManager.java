@@ -95,7 +95,7 @@ public class AuthManager {
             List<GrantedAuthority> AUTHORITIES = new ArrayList<GrantedAuthority>();
             AUTHORITIES.add(new SimpleGrantedAuthority("ROLE_MATRIX_USER"));
             Logger.getLogger(AuthManager.class.getName()).log(Level.INFO, "Into mock auth");
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken("ops", "ops", AUTHORITIES);
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken("matrix", "matrix", AUTHORITIES);
             return authToken;
         }else{
             throw new BadCredentialsException("Bad Credentials");

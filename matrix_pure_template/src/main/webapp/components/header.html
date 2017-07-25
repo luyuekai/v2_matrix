@@ -50,7 +50,70 @@
   $("#logo-img").attr("src", src);
   $("#logo-img-profile").attr("src", src);
 </script>
+<script>
+var UserPOJO = UserPOJO || {};
+UserPOJO = {
+    user: undefined,
+    getCurrentUser: function (successListener) {
 
+        $.ajax({
+            url: $.getRootPath() + '/api/account/current_user',
+            data: {},
+            type: 'GET',
+            dataType: 'json',
+            success: function (json) {
+                if (json.name === "EXCEPTION") {
+//                    console.log(json.description);
+                    $.publish("GET_USER_DETAIL_FAILED");
+                    return;
+                } else {
+                    //JSON result should be like this:
+                    // {"groups":["ROLE_SCRIPTER_PIG","ROLE_SCRIPTER_RDMS","ROLE_SCRIPTER_CLUSTER","ROLE_SCRIPTER_HDFS","ROLE_SCRIPTER_FILE","ROLE_SCRIPTER_CONFIG","ROLE_SCRIPTER_HIVE"],"lastTime":0,"logined":true,"userName":"ops"}
+                    UserPOJO.user = json;
+//                    console.log("Get response from server side for function[get user detail]:")
+//                    console.log(UserPOJO.user);
+                    if (typeof (successListener) != 'undefind' && successListener != null) {
+                        $.publish(successListener, json);
+                    } else {
+                        $.publish("GET_USER_DETAIL_SUCCESS");
+                    }
+                }
+            },
+            error: function (xhr, status) {
+                console.log('Sorry, there was a problem on page check status!');
+                location.href = $.getRootPath() + "/login.html";
+            },
+            complete: function (xhr, status) {
+            }
+        });
+    },
+}
+
+  var userNameModel = {
+    userName: ko.observable(""),
+    getUserDetail: function() {
+      if (typeof(UserPOJO.user) != 'undefind' && UserPOJO.user != null) {
+        //                console.log("get data from cache")
+        userNameModel.reloadData();
+      } else {
+        //                console.log("get data from server")
+        UserPOJO.getCurrentUser("RELOAD_USER_DETAIL_SUCCESS");
+      }
+    },
+    getUserDetailSuccessHandler: function() {
+      userNameModel.reloadData();
+      $.publish("get_user_detail_chain_finished");
+    },
+    reloadData: function() {
+      userNameModel.userName(UserPOJO.user.userName);
+    },
+  }
+
+  ko.applyBindings(userNameModel, document.getElementById('user_info_div'));
+
+  userNameModel.getUserDetail();
+  $.subscribe("RELOAD_USER_DETAIL_SUCCESS", userNameModel.getUserDetailSuccessHandler);
+</script>
 <script>
   $('#search_input').on('keypress', function(event) {
     if (event.keyCode == 13){
