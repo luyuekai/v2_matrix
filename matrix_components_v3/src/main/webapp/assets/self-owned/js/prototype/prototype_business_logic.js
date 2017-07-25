@@ -26,6 +26,7 @@ function env_refresh(){
   // create_dynamic_chart_pie(ds_statistic_by_user, 'copy_chart_parent_div3');
 
   //refresh scroll
+  ScrollPOJO.reset();
   ScrollPOJO.setup();
 }
 
