@@ -122,6 +122,7 @@
   <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
   <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
   <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
+  <script src="component_matrix_template.js"></script>
 
 
   <script>
@@ -134,22 +135,11 @@
 
       setTimeout(function() {
         $('#navbar_search_li').css('display', '');
+        $('#navbar_title_li').text('[#Your Components Title#]');
       }, 1000)
     });
-  </script>
-
-  <script>
-    // *******Data Bind JS Code*******
-    // Initialize Generic Page View Model as entire page data bind parent element
-    var vm = new GenericPageViewModel();
-    // Clean Data Bind Node
-    ko.cleanNode($('#template-matrix-main-div')[0]);
-    // Apply data bind in view model and the whole dom
-    ko.applyBindings(vm, document.getElementById('template-matrix-main-div'));
-    // Refrence the entire page view model to current view model as cache
-    current_vm = vm;
-    //Entire page unit test suite
     UNIT_TEST_SUITE();
+    $.subscribe("get_user_detail_chain_finished", env_setup);
   </script>
 
 </body>
