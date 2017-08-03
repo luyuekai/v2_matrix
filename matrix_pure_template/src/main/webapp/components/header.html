@@ -22,8 +22,11 @@
         <button class="btn-search" onclick="SearchPOJO.search()" type="submit"><i class="fa fa-search"></i></button>
       </li>
     </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown profile" id="user_info_div">
+    <ul class="nav navbar-nav navbar-right" id="user_info_div">
+      <li class="logo" data-bind="visible:!hasLogin()">
+        <a class="navbar-brand" href="login.html"><span class="highlight"  style="margin-right: 18px;">Sign In</span></a>
+      </li>
+      <li class="dropdown profile" data-bind="visible:hasLogin">
         <a href="/html/pages/profile.html" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 18px;">
           <img id="logo-img-profile" class="profile-img">
           <div class="title">Profile</div>
@@ -90,6 +93,7 @@ UserPOJO = {
 }
 
   var userNameModel = {
+    hasLogin: ko.observable(false),
     userName: ko.observable(""),
     getUserDetail: function() {
       if (typeof(UserPOJO.user) != 'undefind' && UserPOJO.user != null) {
@@ -110,8 +114,11 @@ UserPOJO = {
   }
 
   ko.applyBindings(userNameModel, document.getElementById('user_info_div'));
+  userNameModel.hasLogin(true);
+  if(userNameModel.hasLogin()){
+    userNameModel.getUserDetail();
+  }
 
-  userNameModel.getUserDetail();
   $.subscribe("RELOAD_USER_DETAIL_SUCCESS", userNameModel.getUserDetailSuccessHandler);
 </script>
 <script>
