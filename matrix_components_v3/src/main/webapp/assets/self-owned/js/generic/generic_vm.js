@@ -118,6 +118,16 @@ var default_add_logic = function() {
   default_add_api(vm.businessPOJO().build_requestPOJO());
 }
 
+var default_update_logic = function() {
+  LoaderUtil.add_v3('template-matrix-main-div');
+  default_update_api(vm.businessPOJO().build_requestPOJO());
+}
+
+var default_remove_logic = function() {
+  LoaderUtil.add_v3('template-matrix-main-div');
+  default_update_api(vm.businessPOJO().build_requestPOJO());
+}
+
 var default_add_api = function(requestPOJO) {
   if (requestPOJO) {
     var data = {
@@ -127,6 +137,22 @@ var default_add_api = function(requestPOJO) {
   }
 }
 
+var default_update_api = function(requestPOJO) {
+  if (requestPOJO) {
+    var data = {
+      'queryJson': $.toJSON(requestPOJO)
+    };
+    $.serverRequest($.getServerRoot() + '/service_generic_query/api/cud/update', data, "DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER","POST",true,{'TAG':'MATRIX_UPDATE'});
+  }
+}
+var default_remove_api = function(requestPOJO) {
+  if (requestPOJO) {
+    var data = {
+      'queryJson': $.toJSON(requestPOJO)
+    };
+    $.serverRequest($.getServerRoot() + '/service_generic_query/api/cud/remove', data, "DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER","POST",true,{'TAG':'MATRIX_REMOVE'});
+  }
+}
 function default_retrive_server_error_listener() {
   LoaderUtil.remove_v3('template-matrix-main-div');
   if (current_vm) {
@@ -176,6 +202,10 @@ function default_retrive_service_success_listener() {
           }
         }else if(addtion['TAG']=='MATRIX_ADD'){
 
+        }else if(addtion['TAG']=='MATRIX_UPDATE'){
+
+        }else if(addtion['TAG']=='MATRIX_REMOVE'){
+
         }
       }
     }
@@ -184,6 +214,19 @@ function default_retrive_service_success_listener() {
       vm.response_vm().reset();
     }, 3000);
     $.publish("MATRIX_API_SUCCESS_EVENT", arguments[1]);
+  }
+}
+
+function default_switch2detail_page($data,page_url,status,type){
+  if($data && page_url && status && type){
+    UtilPOJO.setCookie(type,JSON.stringify($data),1);
+    window.open($.getRootPath() + page_url+'?status='+status+'&type='+type);
+  }
+}
+
+function default_backfill_data($data){
+  if(vm && vm.businessPOJO() && vm.businessPOJO().fulfill){
+    vm.businessPOJO().fulfill($data);
   }
 }
 
