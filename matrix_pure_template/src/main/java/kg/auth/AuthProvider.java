@@ -29,9 +29,13 @@ public class AuthProvider implements AuthenticationProvider {
         
         boolean mock = true;
         if(mock){
-            return authManager.mockAuth(auth);
+            try{
+               return authManager.mockAuth(auth); 
+            }catch(AuthenticationException ex){
+               // not pass the mock auth, to normal access auth
+            }
+            
         }
-        
         if (!authManager.envCheck()||!authManager.remoteServerCheck()) {
             return null;
         }

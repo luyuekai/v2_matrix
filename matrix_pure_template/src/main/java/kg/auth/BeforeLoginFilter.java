@@ -20,14 +20,15 @@ import org.springframework.web.filter.GenericFilterBean;
  */
 public class BeforeLoginFilter extends GenericFilterBean {
 
-    private boolean doSSOFlag = false;
+    private boolean doSSOFlag = true;
 
     @Autowired
     AuthManager authManager;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        if(doSSOFlag){
+        System.out.println("-----------------------------------");
+        if (doSSOFlag) {
             doSSOChain(request);
         }
         scripterExtraLogic(request);
@@ -42,33 +43,44 @@ public class BeforeLoginFilter extends GenericFilterBean {
         }
     }
 
-    private void doSSOChain(ServletRequest request) {
+    private void doSSOChain(ServletRequest request) throws IOException {
         if (!hasAuth()) {
 //          Logger.getLogger(BeforeLoginFilter.class.getName()).log(Level.INFO, "A anouymous user request for accessing the resource...System try to find whether it can be auto login for token...");
-            HttpServletRequest req = (HttpServletRequest) request;
-            Cookie[] cookies = req.getCookies();
-            if (cookies != null) {
-                for (Cookie cookie : cookies) {
-                    if ("iPlanetDirectoryPro".equalsIgnoreCase(cookie.getName())) {
-                        String token = cookie.getValue();
-                        Logger.getLogger(BeforeLoginFilter.class.getName()).log(Level.INFO, "Find the SSO token[" + token + "], will use this token to authenticate.");
-                        if (authManager.envCheck() && authManager.remoteServerCheck()) {
-                            tryToAuth(token);
-                        }
-                    } else {
-//                        Logger.getLogger(BeforeLoginFilter.class.getName()).log(Level.INFO, "Didn't find the token exist, will processing with the login request...");
-                    }
+
+            String token = authManager.getSSOToken();
+            if (token != null) {
+                Logger.getLogger(BeforeLoginFilter.class.getName()).log(Level.INFO, "Find the SSO token[" + token + "], will use this token to authenticate.");
+                if (authManager.envCheck() && authManager.remoteServerCheck()) {
+                    tryToAuth(token, request);
                 }
             }
+//            HttpServletRequest req = (HttpServletRequest) request;
+//            Cookie[] cookies = req.getCookies();
+//            if (cookies != null) {
+//                for (Cookie cookie : cookies) {
+//                    if ("iPlanetDirectoryPro".equalsIgnoreCase(cookie.getName())) {
+//                        String token = cookie.getValue();
+//                        Logger.getLogger(BeforeLoginFilter.class.getName()).log(Level.INFO, "Find the SSO token[" + token + "], will use this token to authenticate.");
+//                        if (authManager.envCheck() && authManager.remoteServerCheck()) {
+//                            tryToAuth(token);
+//                        }
+//                    } else {
+////                        Logger.getLogger(BeforeLoginFilter.class.getName()).log(Level.INFO, "Didn't find the token exist, will processing with the login request...");
+//                    }
+//                }
+//            }
         } else {
 //             Logger.getLogger(BeforeLoginFilter.class.getName()).log(Level.INFO, "User has been granted, don't need authenticate anymore...");           
         }
     }
 
-    private void tryToAuth(String token) {
+    private void tryToAuth(String token, ServletRequest request) {
         try {
             UsernamePasswordAuthenticationToken authToken = (UsernamePasswordAuthenticationToken) authManager.tryToAuth(token, null, null);
             SecurityContextHolder.getContext().setAuthentication(authToken);
+            if (authManager != null) {
+                authManager.extraLogic((HttpServletRequest)request);
+            }
         } catch (Exception ex) {
             Logger.getLogger(BeforeLoginFilter.class.getName()).log(Level.SEVERE, ex.getMessage());
         }
