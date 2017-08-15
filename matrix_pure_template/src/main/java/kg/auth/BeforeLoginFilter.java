@@ -47,6 +47,9 @@ public class BeforeLoginFilter extends GenericFilterBean {
 
             String token = authManager.getSSOToken((HttpServletRequest) request);
             if (token != null) {
+                if(token.contains("org.springframework.security.web.authentication.WebAuthenticationDetails")){
+                    return;
+                }
                 Logger.getLogger(BeforeLoginFilter.class.getName()).log(Level.INFO, "Find the SSO token[" + token + "], will use this token to authenticate.");
                 if (authManager.envCheck() && authManager.remoteServerCheck()) {
                     tryToAuth(token, request);
