@@ -7,7 +7,6 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,11 +26,10 @@ public class BeforeLoginFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        System.out.println("-----------------------------------");
         if (doSSOFlag) {
             doSSOChain(request);
         }
-        scripterExtraLogic(request);
+//        scripterExtraLogic(request);
         chain.doFilter(request, response);
     }
 
@@ -47,12 +45,15 @@ public class BeforeLoginFilter extends GenericFilterBean {
         if (!hasAuth()) {
 //          Logger.getLogger(BeforeLoginFilter.class.getName()).log(Level.INFO, "A anouymous user request for accessing the resource...System try to find whether it can be auto login for token...");
 
-            String token = authManager.getSSOToken();
+            String token = authManager.getSSOToken((HttpServletRequest) request);
             if (token != null) {
                 Logger.getLogger(BeforeLoginFilter.class.getName()).log(Level.INFO, "Find the SSO token[" + token + "], will use this token to authenticate.");
                 if (authManager.envCheck() && authManager.remoteServerCheck()) {
                     tryToAuth(token, request);
                 }
+            }else {
+//                HttpServletRequest req = (HttpServletRequest) request;
+//                UserContext.removeCurrentUser(req);
             }
 //            HttpServletRequest req = (HttpServletRequest) request;
 //            Cookie[] cookies = req.getCookies();
@@ -76,6 +77,7 @@ public class BeforeLoginFilter extends GenericFilterBean {
 
     private void tryToAuth(String token, ServletRequest request) {
         try {
+
             UsernamePasswordAuthenticationToken authToken = (UsernamePasswordAuthenticationToken) authManager.tryToAuth(token, null, null);
             SecurityContextHolder.getContext().setAuthentication(authToken);
             if (authManager != null) {

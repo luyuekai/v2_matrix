@@ -36,6 +36,7 @@ public class AuthProvider implements AuthenticationProvider {
             }
             
         }
+        
         if (!authManager.envCheck()||!authManager.remoteServerCheck()) {
             return null;
         }

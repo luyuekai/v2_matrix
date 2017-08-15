@@ -6,8 +6,11 @@
 package kg.auth.rest;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
@@ -16,6 +19,8 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Cookie;
+import javax.ws.rs.core.HttpHeaders;
 import v2.service.generic.library.constants.GenericStatus;
 import v2.service.generic.library.model.QueryPOJO;
 import v2.service.generic.library.model.QueryResultPOJO;
@@ -109,5 +114,44 @@ public class MockResource {
     @Produces("application/json")
     public String server_error() throws IOException {
         throw new UnsupportedOperationException();
+    }
+    
+    @GET
+    @Path("cookie")
+    @Produces("application/json")
+    public String cookie(@Context HttpHeaders headers) throws IOException {
+        
+        Map<String, Cookie> pathParams = headers.getCookies();
+        QueryResultPOJO result = new QueryResultPOJO();
+        result.setHasError(Boolean.FALSE);
+        result.setStatusCode(GenericStatus.Service_Successed);
+        result.setResult(new ArrayList());
+        result.getResult().add(pathParams);
+        return JsonUtil.toJson(result);
+    }
+    @GET
+    @Path("cookie/{cookieName}")
+    @Produces("application/json")
+    public String cookie(@Context HttpHeaders headers,@PathParam("cookieName") String cookieName,@Context HttpServletRequest request,@Context HttpServletResponse response) throws IOException {
+        if(cookieName!=null && (!"".equalsIgnoreCase(cookieName))){
+            javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie(cookieName, cookieName);
+            String cookiePath = "/";
+            cookie.setPath(cookiePath);
+            response.addCookie(cookie);
+        }
+        
+        javax.servlet.http.Cookie[] cookies = request.getCookies();
+        Map<String, Object> request_cookie = new HashMap<>();
+        request_cookie.put("request_cookie",cookies);
+        Map<String, Cookie> pathParams = headers.getCookies();
+        QueryResultPOJO result = new QueryResultPOJO();
+        result.setHasError(Boolean.FALSE);
+        result.setStatusCode(GenericStatus.Service_Successed);
+        result.setResult(new ArrayList());
+        result.getResult().add(pathParams);
+        result.getResult().add(request_cookie);
+        
+        
+        return JsonUtil.toJson(result);
     }
 }
