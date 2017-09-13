@@ -1,0 +1,170 @@
+<div class="container-fluid">
+  <div class="navbar-collapse collapse in">
+    <ul class="nav navbar-nav navbar-mobile">
+      <li>
+        <button type="button" class="sidebar-toggle">
+          <i class="fa fa-bars"></i>
+        </button>
+      </li>
+      <li class="logo">
+        <a class="navbar-brand" href="#"><span class="highlight">MATRIX V3</span> Portal</a>
+      </li>
+      <li>
+        <button type="button" class="navbar-toggle">
+          <img id="logo-img" class="profile-img">
+        </button>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-left">
+      <li class="navbar-title" id="navbar_title_li">UI Component Kits</li>
+      <li class="navbar-search hidden-sm" id="navbar_search_li" style="display:none">
+        <input id="search_input" type="text" placeholder="Search..">
+        <button class="btn-search" onclick="SearchPOJO.search()" type="submit"><i class="fa fa-search"></i></button>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right" id="user_info_div">
+      <li class="logo" data-bind="visible:!hasLogin()">
+        <a class="navbar-brand" href="login.html"><span class="highlight"  style="margin-right: 18px;">Sign In</span></a>
+      </li>
+      <li class="dropdown profile" data-bind="visible:hasLogin">
+        <a href="/html/pages/profile.html" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 18px;">
+          <img id="logo-img-profile" class="profile-img">
+          <div class="title">Profile</div>
+        </a>
+        <div class="dropdown-menu" style="margin-right: 15px;">
+          <div class="profile-info">
+            <h4 class="username"><span class="hidden-sm" data-bind="text: userName"></span></h4>
+          </div>
+          <ul class="action">
+            <li>
+              <a onclick="location.href = $.getRootPath() + '/logout'" href="#">
+                Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  var src = $.getRootPath() + '/assets/reference/flat-admin/assets/images/profile.png';
+  $("#logo-img").attr("src", src);
+  $("#logo-img-profile").attr("src", src);
+</script>
+<script>
+var UserPOJO = UserPOJO || {};
+UserPOJO = {
+    user: undefined,
+    getCurrentUser: function (successListener) {
+
+        $.ajax({
+            url: $.getRootPath() + '/api/account/current_user',
+            data: {},
+            type: 'GET',
+            dataType: 'json',
+            success: function (json) {
+                if (json.name === "EXCEPTION") {
+//                    console.log(json.description);
+                    $.publish("GET_USER_DETAIL_FAILED");
+                    return;
+                } else {
+                    //JSON result should be like this:
+                    // {"groups":["ROLE_SCRIPTER_PIG","ROLE_SCRIPTER_RDMS","ROLE_SCRIPTER_CLUSTER","ROLE_SCRIPTER_HDFS","ROLE_SCRIPTER_FILE","ROLE_SCRIPTER_CONFIG","ROLE_SCRIPTER_HIVE"],"lastTime":0,"logined":true,"userName":"ops"}
+                    UserPOJO.user = json;
+//                    console.log("Get response from server side for function[get user detail]:")
+//                    console.log(UserPOJO.user);
+                    if (typeof (successListener) != 'undefind' && successListener != null) {
+                        $.publish(successListener, json);
+                    } else {
+                        $.publish("GET_USER_DETAIL_SUCCESS");
+                    }
+                }
+            },
+            error: function (xhr, status) {
+                console.log('Sorry, there was a problem on page check status!');
+                location.href = $.getRootPath() + "/login.html";
+            },
+            complete: function (xhr, status) {
+            }
+        });
+    },
+}
+
+  var userNameModel = {
+    hasLogin: ko.observable(false),
+    userName: ko.observable(""),
+    getUserDetail: function() {
+      if (typeof(UserPOJO.user) != 'undefind' && UserPOJO.user != null) {
+        //                console.log("get data from cache")
+        userNameModel.reloadData();
+      } else {
+        //                console.log("get data from server")
+        UserPOJO.getCurrentUser("RELOAD_USER_DETAIL_SUCCESS");
+      }
+    },
+    getUserDetailSuccessHandler: function() {
+      userNameModel.reloadData();
+      $.publish("get_user_detail_chain_finished");
+    },
+    reloadData: function() {
+      userNameModel.userName(UserPOJO.user.userName);
+    },
+  }
+
+  ko.applyBindings(userNameModel, document.getElementById('user_info_div'));
+  userNameModel.hasLogin(true);
+  if(userNameModel.hasLogin()){
+    userNameModel.getUserDetail();
+  }
+
+  $.subscribe("RELOAD_USER_DETAIL_SUCCESS", userNameModel.getUserDetailSuccessHandler);
+</script>
+<script>
+  $('#search_input').on('keypress', function(event) {
+    if (event.keyCode == 13){
+      SearchPOJO.search();
+    }
+  });
+  var SearchPOJO = {
+    listener: null,
+    keywords: null,
+    build_requestPOJO_prototype:null,
+    // requestPOJO_prototype:null,
+    likeOrMap:[],
+    sortKey:[],
+    search: function() {
+      if (SearchPOJO.listener) {
+        SearchPOJO.keywords = $('#search_input').val();
+        SearchPOJO.listener();
+      }
+    },
+    sort:function(a, b){
+      if(SearchPOJO.sortKey.length>0){
+        var sort_key = SearchPOJO.sortKey[0];
+        return b[sort_key] - a[sort_key];
+      }else{
+        return 0;
+      }
+    },
+    build_requestPOJO:function(){
+      if(SearchPOJO.build_requestPOJO_prototype){
+        var requestPOJO = SearchPOJO.build_requestPOJO_prototype();
+        var keyword = SearchPOJO.keywords;
+        var likeOrMap = {};
+        if(SearchPOJO.likeOrMap.length>0){
+          if (keyword) {
+            $.each(SearchPOJO.likeOrMap,function(i,v){
+              likeOrMap[v] = keyword;
+            });
+          }
+        }
+        requestPOJO.likeORMap = likeOrMap;
+        return requestPOJO;
+      }else{
+        return null;
+      }
+    }
+  }
+</script>

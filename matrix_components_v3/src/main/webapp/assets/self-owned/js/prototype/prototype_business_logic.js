@@ -26,7 +26,11 @@ function env_refresh(){
   // create_dynamic_chart_pie(ds_statistic_by_user, 'copy_chart_parent_div3');
 
   //refresh scroll
+  ScrollPOJO.reset();
   ScrollPOJO.setup();
+
+  //refresh form
+  vm.businessPOJO().clear()
 }
 
 // Setup the business model with view model
@@ -35,7 +39,7 @@ function vm_env_setup() {
   // *******YOUR SHOULD CODING IN HERE:*******
   function BusinessPOJO() {
     var self = this;
-
+    self.id=null;
     self.total_counts = ko.observable();
     self.total_active_counts = ko.observable();
     self.total_finished_counts = ko.computed(function() {
@@ -71,7 +75,30 @@ function vm_env_setup() {
               "deleted": false,
           }
       };
+      if(self.id){
+        requestPOJO.attributes.id=self.id;
+      }
       return requestPOJO;
+    };
+
+    self.fulfill = function(data){
+      CachePOJO.businessPOJO = data;
+      if(CachePOJO.businessPOJO){
+        self.id = CachePOJO.businessPOJO.id;
+        self.user(CachePOJO.businessPOJO.creator);
+        self.title(CachePOJO.businessPOJO.name);
+        self.description(CachePOJO.businessPOJO.description);
+        self.time(CachePOJO.businessPOJO.numberalpha);
+      }
+    }
+
+    self.clear = function(){
+      CachePOJO.businessPOJO = null;
+      self.id=null;
+      self.user('MATRIX');
+      self.title('');
+      self.description('');
+      self.time((new Date()).getTime());
     }
 
     self.elements = new ServerPagingViewModel();
@@ -95,7 +122,11 @@ var businessValidation = function() {
 
 // *******YOUR SHOULD CODING IN HERE:*******
 var runService = function() {
-  default_add_logic();
+  if(vm.businessPOJO().id){
+    default_update_logic();
+  }else{
+    default_add_logic();
+  }
 }
 
 
@@ -103,7 +134,7 @@ $.subscribe("MATRIX_API_SUCCESS_EVENT", MATRIX_API_SUCCESS_EVENT_HANDLER);
 
 function MATRIX_API_SUCCESS_EVENT_HANDLER() {
   if (arguments && arguments[1]) {
-    if(arguments[1].addtion && arguments[1].addtion['TAG']=='MATRIX_ADD'){
+    if(arguments[1].addtion && (arguments[1].addtion['TAG']=='MATRIX_ADD' || arguments[1].addtion['TAG']=='MATRIX_UPDATE')){
       env_refresh();
     }
   }
