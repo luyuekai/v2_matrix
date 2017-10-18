@@ -147,6 +147,17 @@ function hide_div(div_id) {
     $('#' + div_id).css('display', 'none');
 }
 
+function add_css_class(div_id,class_name) {
+    if (!$('#' + div_id).hasClass(class_name)) {
+        $('#' + div_id).addClass(class_name);
+    }
+}
+function remove_css_class(div_id,class_name) {
+    if ($('#' + div_id).hasClass(class_name)) {
+        $('#' + div_id).removeClass(class_name);
+    }
+}
+
 var UtilPOJO = UtilPOJO || {};
 UtilPOJO = {
     arrEmpty: function (file) {
@@ -234,7 +245,26 @@ ClonePOJO = {
         return jQuery.extend({}, oldObject);
     },
     deepClone: function (oldObject) {
-        return jQuery.extend(true, {}, oldObject);
+        if(jQuery.isArray(oldObject)){
+          var result = [];
+          $.each(oldObject, function (index, value) {
+              if (value) {
+                result.push(jQuery.extend(true, {}, value));
+              }
+          });
+          return result;
+        }else{
+          return jQuery.extend(true, {}, oldObject);
+        }
+    },
+    deepCloneTwoDimentionArray: function(oldArray){
+        var result = [];
+        $.each(oldArray, function (index, value) {
+            if (value) {
+                result.push(jQuery.extend(true, [], value));
+            }
+        });
+        return result;
     }
 };
 
@@ -470,7 +500,6 @@ function resetCssClass(element_id, css_class) {
 }
 
 
-
 var ScrollPOJO = {
   listener: null,
   page: 1,
@@ -478,6 +507,11 @@ var ScrollPOJO = {
   hasNewData: true,
   displayResult: [],
   keywords: null,
+  reset:function(){
+    ScrollPOJO.hasNewData = true;
+    ScrollPOJO.page = 1;
+    ScrollPOJO.displayResult = [];
+  },
   search: function() {
     if (ScrollPOJO.listener) {
       ScrollPOJO.listener();
@@ -497,3 +531,155 @@ var ScrollPOJO = {
     }
   }
 }
+
+
+var QueryChainPOJO = QueryChainPOJO || {};
+QueryChainPOJO = {
+    query_prototype:{
+      'id':null,
+      'tag':null,
+      'query':null
+    },
+    query_result_prototype:{
+      'query':'',
+      'status':'',
+      'response':null
+    },
+    queryArray: [],
+    currentQuery: null,
+    queryResults:[],
+
+    query: function() {
+        if (QueryChainPOJO.queryArray.length > 0) {
+            QueryChainPOJO.currentQuery = QueryChainPOJO.queryArray.pop();
+            if (typeof(QueryChainPOJO.currentQuery) == 'undefined' || QueryChainPOJO.currentQuery == null) {} else {
+                $.serverRequest($.getServerRoot() + '/service_generic_query/api/query', QueryChainPOJO.currentQuery.query, "query_chain_success", "query_chain_wrong", "query_chain_exception");
+            }
+        }else{
+          $.publish("query_chain_finished", QueryChainPOJO);
+        }
+    },
+    query_chain_success: function() {
+        if (arguments && arguments[1] && QueryChainPOJO.currentQuery != null) {
+            var result = {
+              'query':QueryChainPOJO.currentQuery,
+              'status':'success',
+              'response':arguments[1]
+            };
+            QueryChainPOJO.queryResults.push(result);
+            QueryChainPOJO.currentQuery = null;
+            QueryChainPOJO.query();
+        }
+    },
+    query_chain_wrong: function() {
+      if (arguments && arguments[1] && QueryChainPOJO.currentQuery != null) {
+          var result = {
+            'query':QueryChainPOJO.currentQuery,
+            'status':'wrong',
+            'response':arguments[1]
+          };
+          QueryChainPOJO.queryResults.push(result);
+          QueryChainPOJO.currentQuery = null;
+          QueryChainPOJO.query();
+      }
+    },
+    query_chain_exception: function() {
+      if (QueryChainPOJO.currentQuery != null) {
+          var result = {
+            'query':QueryChainPOJO.currentQuery,
+            'status':'exception',
+            'response':null
+          };
+          QueryChainPOJO.queryResults.push(result);
+          QueryChainPOJO.currentQuery = null;
+          QueryChainPOJO.query();
+      }
+    },
+
+}
+
+$.subscribe("query_chain_success", QueryChainPOJO.query_chain_success);
+$.subscribe("query_chain_wrong", QueryChainPOJO.query_chain_wrong);
+$.subscribe("query_chain_exception", QueryChainPOJO.query_chain_exception);
+
+
+var QueryChainTestPOJO ={
+
+  query1:{
+    'queryJson': $.toJSON({
+      "className": "Share",
+      "pageMaxSize": 1,
+      "currentPageNumber": 1,
+      "eqMap": {
+        "username": 'matrix',
+        "type": "MATRIX_REPORT_DRAFT",
+        "tag":"SHARE",
+        "deleted": false
+      },
+      "inMap": {},
+    })
+  },
+
+  query2:{
+    'queryJson': $.toJSON({
+      "className": "Share",
+      "pageMaxSize": 1,
+      "currentPageNumber": 1,
+      "eqMap": {
+        "username": 'matrix',
+        "type": "MATRIX_REPORT_DRAFT",
+        "deleted": false
+      },
+      "inMap": {},
+    })
+  },
+
+  query3:{
+    'queryJson': $.toJSON({
+      "className": "Share",
+      "pageMaxSize": 1,
+      "currentPageNumber": 1,
+      "eqMap": {
+        "type": "MATRIX_REPORT_DRAFT",
+        "tag":"SHARE",
+        "deleted": false
+      },
+      "inMap": {},
+    })
+  },
+
+  query4:{
+    'queryJson': $.toJSON({
+      "className": "Share",
+      "pageMaxSize": 1,
+      "currentPageNumber": 1,
+      "likeORMap": {
+        "stringbeta":'TEMPLATE'
+      },
+      "eqMap": {
+        "type": "MATRIX_REPORT_DRAFT",
+        "tag":"SHARE",
+        "deleted": false
+      },
+      "inMap": {},
+    })
+  },
+
+  chain_query_test:function(){
+    QueryChainPOJO.queryArray = [];
+    QueryChainPOJO.queryArray.push({'id':1,'query':QueryChainTestPOJO.query1});
+    QueryChainPOJO.queryArray.push({'id':2,'query':QueryChainTestPOJO.query2});
+    QueryChainPOJO.queryArray.push({'id':3,'query':QueryChainTestPOJO.query3});
+    QueryChainPOJO.queryArray.push({'id':4,'query':QueryChainTestPOJO.query4});
+
+    QueryChainPOJO.query();
+  },
+  query_result_listener: function() {
+    var results = QueryChainPOJO.queryResults;
+    $.each(results,function(index,value){
+      console.log(value);
+    })
+  }
+}
+
+$.subscribe("query_chain_finished", QueryChainTestPOJO.query_result_listener);

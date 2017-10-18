@@ -50,7 +50,7 @@ function ServerPagingViewModel() {
 
     var self = this;
     self.totalCounts = ko.observable();
-    self.pageMaxSize = ko.observable(10);
+    self.pageMaxSize = ko.observable(5);
     self.currentPageNumber = ko.observable(1);
     self.currentPageSize = ko.observable();
     self.searchKeyword = ko.observable();
@@ -58,7 +58,7 @@ function ServerPagingViewModel() {
     self.serverData = null;
     self.viewData = ko.observableArray();
     self.columnNames = ko.observableArray();
-    self.pagingSizeArray = ko.observableArray([10, 20, 50, 100]);
+    self.pagingSizeArray = ko.observableArray([5, 10, 20, 100]);
     self.entityClassName = ko.observable();
     self.hasServerResponse = ko.observable(false);
 
