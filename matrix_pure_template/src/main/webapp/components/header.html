@@ -1,66 +1,57 @@
-<div class="container-fluid" style="padding-left:0px;padding-right:0px">
-    <div class="navbar-collapse collapse in">
-        <ul class="nav navbar-nav navbar-mobile">
+<div class="container-fluid">
+  <div class="navbar-collapse collapse in">
+    <ul class="nav navbar-nav navbar-mobile">
+      <li>
+        <button type="button" class="sidebar-toggle">
+          <i class="fa fa-bars"></i>
+        </button>
+      </li>
+      <li class="logo">
+        <a class="navbar-brand" href="#"><span class="highlight">MATRIX V3</span> Portal</a>
+      </li>
+      <li>
+        <button type="button" class="navbar-toggle">
+          <img id="logo-img" class="profile-img">
+        </button>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-left">
+      <li class="navbar-title" id="navbar_title_li">UI Component Kits</li>
+      <li class="navbar-search hidden-sm" id="navbar_search_li" style="display:none">
+        <input id="search_input" type="text" placeholder="Search..">
+        <button class="btn-search" onclick="SearchPOJO.search()" type="submit"><i class="fa fa-search"></i></button>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right" id="user_info_div">
+      <li class="logo" data-bind="visible:!hasLogin()">
+        <a class="navbar-brand" href="login.html"><span class="highlight"  style="margin-right: 18px;">Sign In</span></a>
+      </li>
+      <li class="dropdown profile" data-bind="visible:hasLogin">
+        <a href="/html/pages/profile.html" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 18px;">
+          <img id="logo-img-profile" class="profile-img">
+          <div class="title">Profile</div>
+        </a>
+        <div class="dropdown-menu" style="margin-right: 15px;">
+          <div class="profile-info">
+            <h4 class="username"><span class="hidden-sm" data-bind="text: userName"></span></h4>
+          </div>
+          <ul class="action">
             <li>
-                <button type="button" class="sidebar-toggle">
-                    <i class="fa fa-bars"></i>
-                </button>
+              <a onclick="location.href = $.getRootPath() + '/logout'" href="#">
+                Logout
+              </a>
             </li>
-            <li class="logo">
-                <a class="navbar-brand" href="#"><span class="highlight">Matrix</span></a>
-            </li>
-            <li>
-                <button type="button" class="navbar-toggle">
-                    <img id="logo-img" class="profile-img">
-                </button>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-left">
-            <li class="navbar-title" id="navbar_title_li"><a href="index.html"><img id="navbar_title_img" src="" onclick="window.location.href = $.getRootPath();" style="width:100px"></a>
-
-            </li>
-            <li class="navbar-search hidden-sm" id="navbar_search_li" style="display:none">
-                <input id="search_input" type="text" placeholder="Search..">
-                <button class="btn-search" onclick="SearchPOJO.search()" type="submit"><i class="fa fa-search"></i></button>
-            </li>
-            <li id="nav_header" style="margin-left: 50px">
-                <a class="navbar-brand" href="#"><span class="highlight"  style="margin-left: 28px;font-size: 18px;">Dashboard</span></a>
-                <a class="navbar-brand" href="#"><span class="highlight"  style="margin-left: 28px;font-size: 18px;">Kits</span></a>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right" id="user_info_div">
-
-            <li class="logo" data-bind="visible:!hasLogin()">
-                <a class="navbar-brand" href="login.html"><span class="highlight"  style="margin-right: 18px;">登录</span></a>
-            </li>
-            <li class="dropdown profile" data-bind="visible:hasLogin">
-                <a href="/html/pages/profile.html" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 18px;">
-                    <img id="logo-img-profile" class="profile-img">
-                    <div class="title">Profile</div>
-                </a>
-                <div class="dropdown-menu" style="margin-right: 15px;">
-                    <div class="profile-info">
-                        <h4 class="username"><span class="hidden-sm" data-bind="text: userName"></span></h4>
-                    </div>
-                    <ul class="action">
-                        <li>
-                            <a onclick="location.href = $.getRootPath() + '/logout'" href="#">
-                                注销
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
-    </div>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
 
 <script>
-    var src = $.getRootPath() + '/assets/reference/flat-admin/assets/images/profile.png';
-    $("#logo-img-profile").attr("src", src);
-
-    $("#navbar_title_img").attr("src", "assets/self-owned/ico/site-logo.png");
-    $("#logo-img").attr("src", "assets/self-owned/ico/site-logo.png");
+  var src = $.getRootPath() + '/assets/reference/flat-admin/assets/images/profile.png';
+  $("#logo-img").attr("src", src);
+  $("#logo-img-profile").attr("src", src);
 </script>
 <script>
     var UserPOJO = UserPOJO || {};
