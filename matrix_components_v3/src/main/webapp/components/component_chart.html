@@ -82,34 +82,59 @@
 
       <!--BUSINESS DIV BEGIN-->
       <div class="row">
+
+
         <div class="col-md-4">
-          <div class="card card-mini">
-            <div class="card card-mini">
-              <div class="card-body">
-                <div id="chartParentDiv">
-                  Chart Container
-                  <div id="chartDiv" class="matrix_chart_container" style="width: 100%;height:100%;min-height:360px"></div>
+          <div id="c0p" class="card card-mini" style="background-color:#333;box-shadow:none;color: #E9E9E9;">
+            <div class="card-header" style="padding: 8px 20px;font-size: 0.8em;border-bottom: 1.5px solid #454646;color: #E9E9E9;">
+              Chart
+            </div>
+            <div class="card-body">
+              <div id="c0" class="matrix_chart_container" style="width: 100%;height:100%;min-height:220px"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div id="c1p" class="card card-mini" style="background-color:#333;box-shadow:none;color: #E9E9E9;">
+            <div class="card-header" style="padding: 8px 20px;font-size: 0.8em;border-bottom: 1.5px solid #454646;color: #E9E9E9;">
+              Accounts
+            </div>
+            <div class="card-body" style="padding: 10px 20px;">
+              <span style="font-size: 0.8em;">Environment</span>
+              <div class="row" style="margin-top: 10px;">
+                <div class="col-md-4 text-right" style="padding-left:6px;pdding-right:6px">
+                  <div style="font-size:1.8em">1</div>
+                  <div style="color:#686868">RDS</div>
+                  <div style="color:#686868;padding-bottom: 6px;border-bottom: 1.5px solid #454646;">instances</div>
+                </div>
+                <div class="col-md-4 text-right" style="padding-left:6px;pdding-right:6px">
+                  <div style="font-size:1.8em">1</div>
+                  <div style="color:#686868">Load</div>
+                  <div style="color:#686868;padding-bottom: 6px;border-bottom: 1.5px solid #454646;">balancers</div>
+                </div>
+                <div class="col-md-4 text-right" style="padding-left:6px;pdding-right:6px">
+                  <div style="font-size:1.8em">12</div>
+                  <div style="color:#686868">EC2</div>
+                  <div style="color:#686868;padding-bottom: 6px;border-bottom: 1.5px solid #454646;">instances</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <div class="row">
         <div class="col-md-4">
           <div class="card card-mini">
-            <div class="card card-mini">
-              <div class="card-body">
-                <div id="chartDiv2" style="width: 100%;height:100%;min-height:360px"></div>
-              </div>
+            <div class="card-body">
+              <div id="v1" style="width: 100%;height:100%;min-height:260px"></div>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card card-mini">
-            <div class="card card-mini">
-              <div class="card-body" id="card_div" style="min-height:360px">
-              </div>
-            </div>
-          </div>
+        <div class="col-md-4" id="v2" style="min-height:260px">
+
+        </div>
+        <div class="col-md-4" id="v3" style="min-height:0px">
+
         </div>
       </div>
       <!--BUSINESS DIV BEGIN-->
@@ -121,139 +146,94 @@
       <div id="template-matrix-footer-div"></div>
       <!--TEMPLATE DIV BEGIN-->
     </div>
-</div>
-    <!-- Javascript for Matrix Referenced -->
-    <script src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
-    <script src="../assets/reference/flat-admin/assets/js/app.js"></script>
-    <script src="../assets/reference/codemirror/codemirror.js"></script>
-    <script src="../assets/reference/codemirror/mode/javascript/javascript.js"></script>
-    <script src="../assets/reference/codemirror/mode/markdown/markdown.js"></script>
-    <script src="../assets/reference/jquery/jquery.json.js"></script>
-    <script src="../assets/reference/jquery/jquery.blockUI.js"></script>
-    <script src="../assets/reference/knockout.js/knockout-3.3.0.js"></script>
-    <script src="../assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
-    <script src="../assets/reference/markdown/markdown.min.js"></script>
-    <script src="../assets/reference/jquery-ui/jquery-ui.js"></script>
-    <script src="../assets/reference/lodash/lodash-4.15.0.js"></script>
-    <script src="../assets/reference/gridstack/gridstack.all.js"></script>
-    <script src="../assets/reference/echarts/echarts-min.js"></script>
-    <script src="../assets/reference/echarts/dataTools.js"></script>
-    <!-- Javascript for Matrix Self Owned -->
-    <script src="../assets/self-owned/js/generic/generic_algorithm.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_cache.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_charting_v4.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_csv.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_cud.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_modal.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_query.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_table.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_util.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
+  </div>
+  <!-- Javascript for Matrix Referenced -->
+  <script src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
+  <script src="../assets/reference/flat-admin/assets/js/app.js"></script>
+  <script src="../assets/reference/codemirror/codemirror.js"></script>
+  <script src="../assets/reference/codemirror/mode/javascript/javascript.js"></script>
+  <script src="../assets/reference/codemirror/mode/markdown/markdown.js"></script>
+  <script src="../assets/reference/jquery/jquery.json.js"></script>
+  <script src="../assets/reference/jquery/jquery.blockUI.js"></script>
+  <script src="../assets/reference/knockout.js/knockout-3.3.0.js"></script>
+  <script src="../assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+  <script src="../assets/reference/markdown/markdown.min.js"></script>
+  <script src="../assets/reference/jquery-ui/jquery-ui.js"></script>
+  <script src="../assets/reference/lodash/lodash-4.15.0.js"></script>
+  <script src="../assets/reference/gridstack/gridstack.all.js"></script>
+  <script src="../assets/reference/echarts/echarts-min.js"></script>
+  <script src="../assets/reference/echarts/dataTools.js"></script>
+  <!-- Javascript for Matrix Self Owned -->
+  <script src="../assets/self-owned/js/generic/generic_algorithm.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_cache.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_charting_v4.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_csv.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_cud.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_modal.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_query.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_table.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_util.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
 
-    <script src="../assets/self-owned/js/refine/matrix_util.js"></script>
-
-
-    <script>
-      $(document).ready(function() {
-        $('#sidebar').load($.getRootPath() + '/components/left_side.html');
-        $('#navbar').load($.getRootPath() + '/components/header.html');
-        $('#template-matrix-dynamic-table-div').load($.getRootPath() + '/components/template-matrix-dynamic-table.html');
-        $('#template-matrix-modal-div').load($.getRootPath() + '/components/template-matrix-modal.html');
-        $('#template-matrix-footer-div').load($.getRootPath() + '/components/footer.html');
-
-        setTimeout(function() {
-          $('#navbar_search_li').css('display', '');
-
-          // initialize();
-        }, 1000)
-      });
-    </script>
-
-    <script>
-      // *******Data Bind JS Code*******
-      // Initialize Generic Page View Model as entire page data bind parent element
-      var vm = new GenericPageViewModel();
-      // Clean Data Bind Node
-      ko.cleanNode($('#template-matrix-main-div')[0]);
-      // Apply data bind in view model and the whole dom
-      ko.applyBindings(vm, document.getElementById('template-matrix-main-div'));
-      // Refrence the entire page view model to current view model as cache
-      current_vm = vm;
-      //Entire page unit test suite
-      // UNIT_TEST_SUITE();
+  <script src="../assets/self-owned/js/refine/matrix_util.js"></script>
 
 
-      var ds = {
-        "ds": "http://localhost:8080/service_generic_query/api/data/mock1",
-        "header_json": "[{\"data\":\"name\",\"index\":0,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"numberalpha\",\"index\":1,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"children\",\"index\":2,\"isChecked\":false,\"isDisplay\":true}]",
-        "refresh_interval": "5",
-        "json_rule": "result",
-        "rest_mode": "GET",
-        "request_params": "{\"queryJson\":\"{\\\"className\\\":\\\"Genericentity\\\",\\\"groupMap\\\":{\\\"type\\\":\\\"type\\\"},\\\"pageMaxSize\\\":100,\\\"currentPageNumber\\\":1,\\\"eqMap\\\":{\\\"deleted\\\":false}}\"}",
-        "pageMaxSize": 5,
-        "mock": false
-      };
-      var chart;
-      setTimeout(function() {
-        // chart = create_dynamic_chart_pie(ds, 'chartDiv');
-        chart = ChartPOJO.generate_default_chart('chartDiv');
-        Matrix_Chart_Util.reset_chart_ds(chart,ds,'pie');
-      }, 600)
-
+  <script>
+    $(document).ready(function() {
+      $('#sidebar').load($.getRootPath() + '/components/left_side.html');
+      $('#navbar').load($.getRootPath() + '/components/header.html');
+      $('#template-matrix-dynamic-table-div').load($.getRootPath() + '/components/template-matrix-dynamic-table.html');
+      $('#template-matrix-modal-div').load($.getRootPath() + '/components/template-matrix-modal.html');
+      $('#template-matrix-footer-div').load($.getRootPath() + '/components/footer.html');
 
       setTimeout(function() {
+        $('#navbar_search_li').css('display', '');
 
-        // test();
-      }, 2000);
+        // initialize();
+      }, 1000)
+    });
+  </script>
 
-      function test(){
-        if(chart){
-          var chart_setting_info = {
-            'chart_ds':ds,
-            'chart_type':'pie'
-          }
-          var c = Matrix_DOM_Util.clone_chart('chartDiv2',chart.getOption(),chart_setting_info);
-          // Matrix_Chart_Util.reset_chart_ds(c,ds,'pie');
-        }
+  <script>
+    // *******Data Bind JS Code*******
+    // Initialize Generic Page View Model as entire page data bind parent element
+    var vm = new GenericPageViewModel();
+    // Clean Data Bind Node
+    ko.cleanNode($('#template-matrix-main-div')[0]);
+    // Apply data bind in view model and the whole dom
+    ko.applyBindings(vm, document.getElementById('template-matrix-main-div'));
+    // Refrence the entire page view model to current view model as cache
+    current_vm = vm;
+    //Entire page unit test suite
+    // UNIT_TEST_SUITE();
 
-        // Matrix_DOM_Util.clone_chart('chartDiv3',option_json);
-      }
 
-      function test2(){
-        var dom = Matrix_DOM_Util.copy_dom('chartDiv','new_chartDiv');
-        $(dom).empty();
-        Matrix_DOM_Util.paste_dom('card_div',dom);
-        var chart_setting_info = {
-          'chart_ds':ds,
-          'chart_type':'pie'
-        }
-        var c = Matrix_DOM_Util.clone_chart('new_chartDiv',chart.getOption(),chart_setting_info);
-      }
+    var ds = {
+      "ds": "http://localhost:8080/service_generic_query/api/data/mock1",
+      "header_json": "[{\"data\":\"name\",\"index\":0,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"numberalpha\",\"index\":1,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"children\",\"index\":2,\"isChecked\":false,\"isDisplay\":true}]",
+      "refresh_interval": "30",
+      "json_rule": "result",
+      "rest_mode": "GET",
+      "request_params": "{\"queryJson\":\"{\\\"className\\\":\\\"Genericentity\\\",\\\"groupMap\\\":{\\\"type\\\":\\\"type\\\"},\\\"pageMaxSize\\\":100,\\\"currentPageNumber\\\":1,\\\"eqMap\\\":{\\\"deleted\\\":false}}\"}",
+      "pageMaxSize": 5,
+      "mock": false
+    };
+    var chart;
+    var chart_setting_info = {
+      'chart_ds': ds,
+      'chart_type': 'pie'
+    };
+    setTimeout(function() {
+      // chart = create_dynamic_chart_pie(ds, 'chartDiv');
+      chart = Matrix_Chart_Util.gen_chart('c0',null,chart_setting_info);
 
-      function test3(){
-        var dom = Matrix_DOM_Util.copy_dom('chartParentDiv','new_chartParentDiv');
-        var chart_container_div = $(dom).find('.matrix_chart_container');
-        chart_container_div.attr('id', 'new_chartDiv');
-        chart_container_div.empty();
-        Matrix_DOM_Util.paste_dom('card_div',dom);
-        var chart_setting_info = {
-          'chart_ds':ds,
-          'chart_type':'pie'
-        }
-        var c = Matrix_DOM_Util.clone_chart('new_chartDiv',chart.getOption(),chart_setting_info);
-      }
+    }, 600)
 
-      function test4(){
-        var chart_setting_info = {
-          'chart_ds':ds,
-          'chart_type':'pie'
-        }
-        Matrix_DOM_Util.clone_chart_container('card_div',chart.getOption(),chart_setting_info,'chartParentDiv','new_chartParentDiv','new_chartDiv');
-      }
-    </script>
+    // Matrix_DOM_Util.clone_dom('v1','c0p')
+  </script>
 
 
 
