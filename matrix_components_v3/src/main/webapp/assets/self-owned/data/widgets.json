@@ -1,0 +1,155 @@
+[
+    {
+        "id": "common-counter",
+        "category": "",
+        "name": "",
+        "icon": "",
+        "width": 1,
+        "height": 1,
+        "description": ""
+    },
+    {
+        "id": "common-markdown",
+        "category": "",
+        "name": "",
+        "icon": "",
+        "width": 1,
+        "height": 1,
+        "description": ""
+    },
+    {
+        "id": "common-line-chart",
+        "category": "",
+        "name": "",
+        "icon": "",
+        "width": 1,
+        "height": 1,
+        "description": ""
+    },
+    {
+        "id": "common-bar-chart",
+        "category": "",
+        "name": "",
+        "icon": "",
+        "width": 1,
+        "height": 1,
+        "description": ""
+    },
+    {
+        "id": "common-pie-chart",
+        "category": "",
+        "name": "",
+        "icon": "",
+        "width": 1,
+        "height": 1,
+        "description": ""
+    },
+    {
+        "id": "common-column-chart",
+        "category": "",
+        "name": "",
+        "icon": "",
+        "width": 1,
+        "height": 1,
+        "description": ""
+    },
+    {
+        "id": "common-radar-chart",
+        "category": "",
+        "name": "",
+        "icon": "",
+        "width": 1,
+        "height": 1,
+        "description": ""
+    },
+    {
+        "id": "common-ring-chart",
+        "category": "",
+        "name": "",
+        "icon": "",
+        "width": 1,
+        "height": 1,
+        "description": ""
+    },
+    {
+        "id": "common-histogram-chart",
+        "category": "",
+        "name": "",
+        "icon": "",
+        "width": 1,
+        "height": 1,
+        "description": ""
+    },
+    {
+        "id": "common-area-chart",
+        "category": "",
+        "name": "",
+        "icon": "",
+        "width": 1,
+        "height": 1,
+        "description": ""
+    },
+    {
+        "id": "common-tree-map",
+        "category": "",
+        "name": "",
+        "icon": "",
+        "width": 1,
+        "height": 1,
+        "description": ""
+    },
+    {
+        "id": "common-heat-map",
+        "category": "",
+        "name": "",
+        "icon": "",
+        "width": 1,
+        "height": 1,
+        "description": ""
+    },
+    {
+        "id": "common-scatter-chart",
+        "category": "",
+        "name": "",
+        "icon": "",
+        "width": 1,
+        "height": 1,
+        "description": ""
+    },
+    {
+        "id": "common-flight-map",
+        "category": "",
+        "name": "",
+        "icon": "",
+        "width": 1,
+        "height": 1,
+        "description": ""
+    },
+    {
+        "id": "common-tag-cloud",
+        "category": "",
+        "name": "",
+        "icon": "",
+        "width": 1,
+        "height": 1,
+        "description": ""
+    },
+    {
+        "id": "common-map",
+        "category": "",
+        "name": "",
+        "icon": "",
+        "width": 1,
+        "height": 1,
+        "description": ""
+    },
+    {
+        "id": "common-datagrid",
+        "category": "",
+        "name": "",
+        "icon": "",
+        "width": 1,
+        "height": 1,
+        "description": ""
+    }
+]

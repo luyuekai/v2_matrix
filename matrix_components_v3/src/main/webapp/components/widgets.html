@@ -82,9 +82,107 @@
 
       <!--BUSINESS DIV BEGIN-->
 
+      <div class="row" id="common-main-window">
+        <div class="col-md-12">
+          <div id="widgets_parent_div" style="background-color:#242324;min-height:360px">
+
+            <div class="row" style="padding:20px">
+              <div class="col-md-2">
+                <div class="card card-mini" data-bind="datasource: {url: 'http://localhost:8080/service_generic_query/api/data/mock2',interval: 5,}" style="min-height: 110px;background-color:#333433;box-shadow: 0 1px 2px #363736;color: #E9E9E9;">
+                  <div class="card-header" style="padding: 8px 20px;font-size: 0.8em;border-bottom: 1.5px solid #454646;color: #E9E9E9;">
+                    Hosts
+                  </div>
+                  <div class="card-body" data-bind="with:response" style="padding: 10px 10px;">
+                    <div style="display: flex;flex-direction: column;flex-wrap: nowrap;align-items: flex-end;justify-content: flex-end;position: relative;">
+                      <div>
+                        <span data-bind="text:result[0].numberalpha" style="font-size:2.8em;color:#E74C3C"></span>
+                        <span>/</span>
+                        <span data-bind="text:result[1].numberalpha"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card card-banner card-red-light" data-bind="datasource: {url: 'http://localhost:8080/service_generic_query/api/data/mock2',interval: 5,}" style="min-height: 110px;background-color:#333433;box-shadow: 0 1px 2px #363736;color: #E9E9E9;">
+                  <div class="card-body" data-bind="with:response">
+                    <i class="icon fa fa-bomb fa-3x" style="background-color: rgba(255, 255, 255, 0.05);min-width: 60px;font-size:3em;height:100%"></i>
+                    <div class="content" style="padding: 0.6rem;">
+                      <div class="title">Problems</div>
+                      <div class="value" style="font-size: 3em;">
+                        <span data-bind="text:result[2].numberalpha"></span><span class="sign" style="color:#E9E9E9;">/<span data-bind="text:result[3].numberalpha"></span></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card card-mini" data-bind="datasource: {url: 'http://localhost:8080/service_generic_query/api/data/mock2',interval: 5,}" style="min-height: 110px;background-color:#333433;box-shadow: 0 1px 2px #363736;color: #E9E9E9;">
+                  <div class="card-header" style="padding: 8px 20px;font-size: 0.8em;border-bottom: 1.5px solid #454646;color: #E9E9E9;">
+                    Services
+                  </div>
+                  <div class="card-body" style="padding: 10px 20px;" data-bind="with:response">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div style="font-size:1.8em;color:#39c3da" data-bind="text:result[0].numberalpha"></div>
+                        <div style="color:#686868">Web</div>
+                      </div>
+                      <div class="col-md-4" style="border-left: 1.5px solid #454646;">
+                        <div style="font-size:1.8em;color:#29c75f" data-bind="text:result[1].numberalpha"></div>
+                        <div style="color:#686868">Messaging</div>
+                      </div>
+                      <div class="col-md-4" style="border-left: 1.5px solid #454646;">
+                        <div style="font-size:1.8em;color:#E74C3C" data-bind="text:result[2].numberalpha"></div>
+                        <div style="color:#686868">RMI/Custom</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card card-mini" data-bind="datasource: {url: 'http://localhost:8080/service_generic_query/api/data/mock2',interval: 5,}" style="background-color:#333433;box-shadow: 0 1px 2px #363736;color: #E9E9E9;">
+                  <div class="card-header" style="padding: 8px 20px;font-size: 0.8em;border-bottom: 1.5px solid #454646;color: #E9E9E9;">
+                    Accounts
+                  </div>
+                  <div class="card-body" style="padding: 10px 20px;" data-bind="with:response">
+                    <span style="font-size: 0.8em;color:#39c3da">Environment</span>
+                    <div class="row" style="margin-top: 10px;">
+                      <div class="col-md-4 text-right" style="padding-left:6px;pdding-right:6px">
+                        <div style="font-size:1.8em" data-bind="text:result[0].numberalpha"></div>
+                        <div style="color:#686868">RDS</div>
+                        <div style="color:#686868;padding-bottom: 6px;border-bottom: 1.5px solid #454646;">instances</div>
+                      </div>
+                      <div class="col-md-4 text-right" style="padding-left:6px;pdding-right:6px">
+                        <div style="font-size:1.8em" data-bind="text:result[1].numberalpha"></div>
+                        <div style="color:#686868">Load</div>
+                        <div style="color:#686868;padding-bottom: 6px;border-bottom: 1.5px solid #454646;">balancers</div>
+                      </div>
+                      <div class="col-md-4 text-right" style="padding-left:6px;pdding-right:6px">
+                        <div style="font-size:1.8em" data-bind="text:result[2].numberalpha"></div>
+                        <div style="color:#686868">EC2</div>
+                        <div style="color:#686868;padding-bottom: 6px;border-bottom: 1.5px solid #454646;">instances</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div id="c0p" class="card card-mini" style="background-color:#333;box-shadow:none;color: #E9E9E9;">
+                  <div class="card-header" style="padding: 8px 20px;font-size: 0.8em;border-bottom: 1.5px solid #454646;color: #E9E9E9;">
+                    Chart
+                  </div>
+                  <div class="card-body">
+                    <div id="c0" class="matrix_chart_container" style="width: 100%;height:100%;min-height:220px"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-md-12">
-          <div id="widgets_parent_div" style="background-color:#242324;min-height:800px">
+          <div style="background-color:#242324;min-height:360px">
 
             <div class="row" style="padding:20px">
               <div class="col-md-2">
@@ -106,10 +204,13 @@
               <div class="col-md-3">
                 <div class="card card-banner card-red-light" style="background-color:#333433;box-shadow: 0 1px 2px #363736;color: #E9E9E9;">
                   <div class="card-body">
-                    <i class="icon fa fa-bomb fa-3x" style="min-width: 60px;font-size:3em"></i>
+                    <i class="icon fa fa-bomb fa-3x" style="background-color: rgba(255, 255, 255, 0.05);min-width: 60px;font-size:3em;height:100%"></i>
                     <div class="content" style="padding: 0.6rem;">
                       <div class="title">Problems</div>
-                      <div class="value" style="font-size: 3em;">50<span class="sign" style="color:#E9E9E9;">/122</span></div>
+                      <div class="value" style="font-size: 3em;">
+                        <!-- <span class="sign" style="color:#E9E9E9;">/128</span> -->
+                        <span>58</span><span class="sign" style="color:#E9E9E9;">/1</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -145,7 +246,7 @@
                   <div class="card-body" style="padding: 10px 20px;">
                     <span style="font-size: 0.8em;">Environment</span>
                     <div class="row" style="margin-top: 10px;">
-                      <div class="col-md-4 text-right"  style="padding-left:6px;pdding-right:6px">
+                      <div class="col-md-4 text-right" style="padding-left:6px;pdding-right:6px">
                         <div style="font-size:1.8em">1</div>
                         <div style="color:#686868">RDS</div>
                         <div style="color:#686868;padding-bottom: 6px;border-bottom: 1.5px solid #454646;">instances</div>
@@ -209,6 +310,9 @@
   <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
   <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
 
+  <script src="../assets/self-owned/js/refine/matrix_util.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_components.js"></script>
+
 
   <script>
     $(document).ready(function() {
@@ -220,21 +324,45 @@
 
       setTimeout(function() {
         $('#navbar_search_li').css('display', '');
-      }, 1000)
+        chart = Matrix_Chart_Util.gen_chart('c0', null, chart_setting_info);
+      }, 1000);
+      ko.applyBindings({}, $('#common-main-window')[0]);
     });
   </script>
 
   <script>
-    // *******Data Bind JS Code*******
-    // Initialize Generic Page View Model as entire page data bind parent element
-    var vm = new GenericPageViewModel();
-    // Clean Data Bind Node
-    ko.cleanNode($('#template-matrix-main-div')[0]);
-    // Apply data bind in view model and the whole dom
-    ko.applyBindings(vm, document.getElementById('template-matrix-main-div'));
-    // Refrence the entire page view model to current view model as cache
-    current_vm = vm;
-    //Entire page unit test suite
+    var ds = {
+      "ds": "http://localhost:8080/service_generic_query/api/data/mock1",
+      "header_json": "[{\"data\":\"name\",\"index\":0,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"numberalpha\",\"index\":1,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"children\",\"index\":2,\"isChecked\":false,\"isDisplay\":true}]",
+      "refresh_interval": "30",
+      "json_rule": "result",
+      "rest_mode": "GET",
+      "request_params": "{\"queryJson\":\"{\\\"className\\\":\\\"Genericentity\\\",\\\"groupMap\\\":{\\\"type\\\":\\\"type\\\"},\\\"pageMaxSize\\\":100,\\\"currentPageNumber\\\":1,\\\"eqMap\\\":{\\\"deleted\\\":false}}\"}",
+      "pageMaxSize": 5,
+      "mock": false
+    };
+    var chart;
+    var chart_setting_info = {
+      'chart_ds': ds,
+      'chart_type': 'pie'
+    };
+
+
+    function test(){
+      $.serverRequest("../assets/self-owned/data/line_chart.json", null, "MATRIX_API_SUCCESS_EVENT_HANDLER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER", "GET");
+    }
+
+    $.subscribe("MATRIX_API_SUCCESS_EVENT_HANDLER", MATRIX_API_SUCCESS_EVENT_HANDLER);
+
+    function MATRIX_API_SUCCESS_EVENT_HANDLER() {
+      if (arguments && arguments[1]) {
+        // var result = arguments[1].result;
+        var json = arguments[1].result[0];
+        var json_chart = json.json;
+        var option = ChartPOJO.deserialize_chart_option(json_chart);
+      }
+    }
+    test();
   </script>
 
 </body>
