@@ -1,12 +1,24 @@
+// var ds = {
+//   "ds": "http://localhost:8080/service_generic_query/api/query",
+//   "header_json": "[{\"data\":\"SUM_NUMBER\",\"index\":0,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"CREATE_TIME\",\"index\":1,\"isChecked\":true,\"isDisplay\":true}]",
+//   "refresh_interval": "10",
+//   "json_rule": "result",
+//   "rest_mode": "POST",
+//   "request_params": "{\"queryJson\":\"{\\\"className\\\":\\\"Genericentity\\\",\\\"groupMap\\\":{\\\"stringalpha\\\":\\\"stringalpha\\\"},\\\"pageMaxSize\\\":100000,\\\"currentPageNumber\\\":1,\\\"eqMap\\\":{\\\"type\\\":\\\"MATRIX_TEMPLATE_ADD\\\",\\\"deleted\\\":false}}\"}",
+//   "pageMaxSize": 10,
+//   "mock": true
+// };
+
+
 var ds = {
-  "ds": "http://localhost:8080/service_generic_query/api/query",
-  "header_json": "[{\"data\":\"SUM_NUMBER\",\"index\":0,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"CREATE_TIME\",\"index\":1,\"isChecked\":true,\"isDisplay\":true}]",
+  "ds": "http://localhost:8080/service_generic_query/api/data/mock1",
+  "header_json": "[{\"data\":\"name\",\"index\":0,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"numberalpha\",\"index\":1,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"children\",\"index\":2,\"isChecked\":false,\"isDisplay\":true}]",
   "refresh_interval": "10",
   "json_rule": "result",
-  "rest_mode": "POST",
-  "request_params": "{\"queryJson\":\"{\\\"className\\\":\\\"Genericentity\\\",\\\"groupMap\\\":{\\\"stringalpha\\\":\\\"stringalpha\\\"},\\\"pageMaxSize\\\":100000,\\\"currentPageNumber\\\":1,\\\"eqMap\\\":{\\\"type\\\":\\\"MATRIX_TEMPLATE_ADD\\\",\\\"deleted\\\":false}}\"}",
-  "pageMaxSize": 10,
-  "mock": true
+  "rest_mode": "GET",
+  "request_params": "{\"queryJson\":\"{\\\"className\\\":\\\"Genericentity\\\",\\\"groupMap\\\":{\\\"type\\\":\\\"type\\\"},\\\"pageMaxSize\\\":100,\\\"currentPageNumber\\\":1,\\\"eqMap\\\":{\\\"deleted\\\":false}}\"}",
+  "pageMaxSize": 5,
+  "mock": false
 };
 var vm = new GenericPageViewModel();
 

@@ -82,34 +82,79 @@
 
       <!--BUSINESS DIV BEGIN-->
       <div class="row">
-        <div class="col-md-12">
-          <div class="card card-mini">
-            <div class="card card-mini">
-              <div class="card-body">
-                <div id="chartDiv" style="width: 100%;height:100%;min-height:360px"></div>
+        <div class="col-md-4">
+          <div id="common-main-window">
+            <!-- <div data-bind="datasource: {url: '../assets/self-owned/data/widgets.json',
+                                        interval: 5,
+                                        params :{
+                                          first : 'response()[0]',
+                                        }}"> -->
+            <div data-bind="datasource: {url: 'http://localhost:8080/service_generic_query/api/data/mock2',
+                                                                    interval: 5,
+                                                                    params :{
+                                                                      first : 'response() && response().result[0]',
+                                                                    }}">
+              <div data-bind="with:response">
+                <div data-bind="text:result[0].name"></div>
+                <div data-bind="text:result[0].numberalpha"></div>
+                <!-- <div data-bind="text:statusCode"></div>
+                <div data-bind="text:result[0].name"></div>
+                <div data-bind="text:result[0].numberalpha"></div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div id="c0p" class="card card-mini" style="background-color:#333;box-shadow:none;color: #E9E9E9;">
+            <div class="card-header" style="padding: 8px 20px;font-size: 0.8em;border-bottom: 1.5px solid #454646;color: #E9E9E9;">
+              Chart
+            </div>
+            <div class="card-body">
+              <div id="c0" class="matrix_chart_container" style="width: 100%;height:100%;min-height:220px"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div id="c1p" class="card card-mini" style="background-color:#333;box-shadow:none;color: #E9E9E9;">
+            <div class="card-header" style="padding: 8px 20px;font-size: 0.8em;border-bottom: 1.5px solid #454646;color: #E9E9E9;">
+              Accounts
+            </div>
+            <div class="card-body" style="padding: 10px 20px;">
+              <span style="font-size: 0.8em;">Environment</span>
+              <div class="row" style="margin-top: 10px;">
+                <div class="col-md-4 text-right" style="padding-left:6px;pdding-right:6px">
+                  <div style="font-size:1.8em">1</div>
+                  <div style="color:#686868">RDS</div>
+                  <div style="color:#686868;padding-bottom: 6px;border-bottom: 1.5px solid #454646;">instances</div>
+                </div>
+                <div class="col-md-4 text-right" style="padding-left:6px;pdding-right:6px">
+                  <div style="font-size:1.8em">1</div>
+                  <div style="color:#686868">Load</div>
+                  <div style="color:#686868;padding-bottom: 6px;border-bottom: 1.5px solid #454646;">balancers</div>
+                </div>
+                <div class="col-md-4 text-right" style="padding-left:6px;pdding-right:6px">
+                  <div style="font-size:1.8em">12</div>
+                  <div style="color:#686868">EC2</div>
+                  <div style="color:#686868;padding-bottom: 6px;border-bottom: 1.5px solid #454646;">instances</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="card card-mini">
-            <div class="card card-mini">
-              <div class="card-body">
-                <div id="chartDiv2" style="width: 100%;height:100%;min-height:360px"></div>
-              </div>
+            <div class="card-body">
+              <div id="v1" style="width: 100%;height:100%;min-height:260px"></div>
             </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="card card-mini">
-            <div class="card card-mini">
-              <div class="card-body">
-                <div id="chartDiv3" style="width: 100%;height:100%;min-height:360px"></div>
-              </div>
-            </div>
-          </div>
+        <div class="col-md-4" id="v2" style="min-height:260px">
+
+        </div>
+        <div class="col-md-4" id="v3" style="min-height:0px">
+
         </div>
       </div>
       <!--BUSINESS DIV BEGIN-->
@@ -121,107 +166,104 @@
       <div id="template-matrix-footer-div"></div>
       <!--TEMPLATE DIV BEGIN-->
     </div>
-</div>
-    <!-- Javascript for Matrix Referenced -->
-    <script src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
-    <script src="../assets/reference/flat-admin/assets/js/app.js"></script>
-    <script src="../assets/reference/codemirror/codemirror.js"></script>
-    <script src="../assets/reference/codemirror/mode/javascript/javascript.js"></script>
-    <script src="../assets/reference/codemirror/mode/markdown/markdown.js"></script>
-    <script src="../assets/reference/jquery/jquery.json.js"></script>
-    <script src="../assets/reference/jquery/jquery.blockUI.js"></script>
-    <script src="../assets/reference/knockout.js/knockout-3.3.0.js"></script>
-    <script src="../assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
-    <script src="../assets/reference/markdown/markdown.min.js"></script>
-    <script src="../assets/reference/jquery-ui/jquery-ui.js"></script>
-    <script src="../assets/reference/lodash/lodash-4.15.0.js"></script>
-    <script src="../assets/reference/gridstack/gridstack.all.js"></script>
-    <script src="../assets/reference/echarts/echarts-min.js"></script>
-    <script src="../assets/reference/echarts/dataTools.js"></script>
-    <!-- Javascript for Matrix Self Owned -->
-    <script src="../assets/self-owned/js/generic/generic_algorithm.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_cache.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_charting_v4.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_csv.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_cud.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_modal.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_query.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_table.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_util.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
-    <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
+  </div>
+  <!-- Javascript for Matrix Referenced -->
+  <script src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
+  <script src="../assets/reference/flat-admin/assets/js/app.js"></script>
+  <script src="../assets/reference/codemirror/codemirror.js"></script>
+  <script src="../assets/reference/codemirror/mode/javascript/javascript.js"></script>
+  <script src="../assets/reference/codemirror/mode/markdown/markdown.js"></script>
+  <script src="../assets/reference/jquery/jquery.json.js"></script>
+  <script src="../assets/reference/jquery/jquery.blockUI.js"></script>
+  <script src="../assets/reference/knockout.js/knockout-3.3.0.js"></script>
+  <script src="../assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+  <script src="../assets/reference/markdown/markdown.min.js"></script>
+  <script src="../assets/reference/jquery-ui/jquery-ui.js"></script>
+  <script src="../assets/reference/lodash/lodash-4.15.0.js"></script>
+  <script src="../assets/reference/gridstack/gridstack.all.js"></script>
+  <script src="../assets/reference/echarts/echarts-min.js"></script>
+  <script src="../assets/reference/echarts/dataTools.js"></script>
+  <!-- Javascript for Matrix Self Owned -->
+  <script src="../assets/self-owned/js/generic/generic_algorithm.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_cache.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_charting_v4.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_csv.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_cud.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_modal.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_query.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_table.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_util.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
 
-    <script src="../assets/self-owned/js/refine/matrix_util.js"></script>
-
-
-    <script>
-      $(document).ready(function() {
-        $('#sidebar').load($.getRootPath() + '/components/left_side.html');
-        $('#navbar').load($.getRootPath() + '/components/header.html');
-        $('#template-matrix-dynamic-table-div').load($.getRootPath() + '/components/template-matrix-dynamic-table.html');
-        $('#template-matrix-modal-div').load($.getRootPath() + '/components/template-matrix-modal.html');
-        $('#template-matrix-footer-div').load($.getRootPath() + '/components/footer.html');
-
-        setTimeout(function() {
-          $('#navbar_search_li').css('display', '');
-
-          initialize();
-        }, 1000)
-      });
-    </script>
-
-    <script>
-      // *******Data Bind JS Code*******
-      // Initialize Generic Page View Model as entire page data bind parent element
-      var vm = new GenericPageViewModel();
-      // Clean Data Bind Node
-      ko.cleanNode($('#template-matrix-main-div')[0]);
-      // Apply data bind in view model and the whole dom
-      ko.applyBindings(vm, document.getElementById('template-matrix-main-div'));
-      // Refrence the entire page view model to current view model as cache
-      current_vm = vm;
-      //Entire page unit test suite
-      // UNIT_TEST_SUITE();
+  <script src="../assets/self-owned/js/refine/matrix_util.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_components.js"></script>
 
 
-
-
-
-
-
-      var data = [{value: 335,name: '直接访问'}, {value: 310,name: '邮件营销'}, {value: 234,name: '联盟广告'}, {value: 135,name: '视频广告'}, {value: 1548,name: '搜索引擎'}];
-      var data_agg = [
-        [{value: 335,name: '直接访问'}, {value: 310,name: '邮件营销'}, {value: 134,name: '联盟广告'}, {value: 535,name: '视频广告'}, {value: 1548,name: '搜索引擎'}],
-        [{value: 35,name: '直接访问'}, {value: 210,name: '邮件营销'}, {value: 234,name: '联盟广告'}, {value: 435,name: '视频广告'}, {value: 548,name: '搜索引擎'}],
-        [{value: 135,name: '直接访问'}, {value: 110,name: '邮件营销'}, {value: 334,name: '联盟广告'}, {value: 335,name: '视频广告'}, {value: 148,name: '搜索引擎'}],
-        [{value: 235,name: '直接访问'}, {value: 410,name: '邮件营销'}, {value: 434,name: '联盟广告'}, {value: 235,name: '视频广告'}, {value: 1248,name: '搜索引擎'}],
-        [{value: 435,name: '直接访问'}, {value: 510,name: '邮件营销'}, {value: 534,name: '联盟广告'}, {value: 135,name: '视频广告'}, {value: 2548,name: '搜索引擎'}]
-      ];
-      var pie;
-      var option;
-      var option_json;
-      function initialize() {
-        var c = ChartPOJO.generate_default_chart('chartDiv');
-        pie = c = Pie_ChartPOJO.initialize_chart(c, data);
-
-        option = ClonePOJO.deepClone(pie.getOption());
-        option.id = (new Date()).getTime() + "_option";
-
-        option_json = ChartPOJO.serialize_chart_option(option);
-      }
+  <script>
+    $(document).ready(function() {
+      $('#sidebar').load($.getRootPath() + '/components/left_side.html');
+      $('#navbar').load($.getRootPath() + '/components/header.html');
+      $('#template-matrix-dynamic-table-div').load($.getRootPath() + '/components/template-matrix-dynamic-table.html');
+      $('#template-matrix-modal-div').load($.getRootPath() + '/components/template-matrix-modal.html');
+      $('#template-matrix-footer-div').load($.getRootPath() + '/components/footer.html');
 
       setTimeout(function() {
+        $('#navbar_search_li').css('display', '');
 
-        test();
-      }, 2000);
+        // initialize();
+      }, 1000);
 
-      function test(){
-        Matrix_DOM_Util.clone_chart('chartDiv2',option);
-        Matrix_DOM_Util.clone_chart('chartDiv3',option_json);
-      }
-    </script>
+      ko.applyBindings({}, $('#common-main-window')[0]);
+    });
+  </script>
+
+  <script>
+    // *******Data Bind JS Code*******
+    // Initialize Generic Page View Model as entire page data bind parent element
+    // var vm = new GenericPageViewModel();
+    // Clean Data Bind Node
+    // ko.cleanNode($('#template-matrix-main-div')[0]);
+    // Apply data bind in view model and the whole dom
+    // ko.applyBindings(vm, document.getElementById('template-matrix-main-div'));
+    // Refrence the entire page view model to current view model as cache
+    // current_vm = vm;
+    //Entire page unit test suite
+    // UNIT_TEST_SUITE();
+
+
+    var ds = {
+      "ds": "http://localhost:8080/service_generic_query/api/data/mock1",
+      "header_json": "[{\"data\":\"name\",\"index\":0,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"numberalpha\",\"index\":1,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"children\",\"index\":2,\"isChecked\":false,\"isDisplay\":true}]",
+      "refresh_interval": "30",
+      "json_rule": "result",
+      "rest_mode": "GET",
+      "request_params": "{\"queryJson\":\"{\\\"className\\\":\\\"Genericentity\\\",\\\"groupMap\\\":{\\\"type\\\":\\\"type\\\"},\\\"pageMaxSize\\\":100,\\\"currentPageNumber\\\":1,\\\"eqMap\\\":{\\\"deleted\\\":false}}\"}",
+      "pageMaxSize": 5,
+      "mock": false
+    };
+    var chart;
+    var chart_setting_info = {
+      'chart_ds': ds,
+      'chart_type': 'pie'
+    };
+    setTimeout(function() {
+      // chart = create_dynamic_chart_pie(ds, 'chartDiv');
+      chart = Matrix_Chart_Util.gen_chart('c0', null, chart_setting_info);
+
+    }, 600)
+
+    // Matrix_DOM_Util.clone_dom('v1','c0p')
+    //
+    //
+    //
+    //
+
+    var option_string =
+      "{'color':['#1ABC9C','#5DADE2','#FFC153','#EC7063','#CC99CC','#666666','#5E5E73','#FFBC11'],'textStyle':{'fontFamily':'sans-serif','fontSize':12,'fontStyle':'normal','fontWeight':'normal'},'animation':'auto','animationDuration':1000,'animationDurationUpdate':300,'animationEasing':'exponentialOut','animationEasingUpdate':'cubicOut','animationThreshold':2000,'progressiveThreshold':3000,'progressive':400,'hoverLayerThreshold':3000,'useUTC':false,'title':[{'show':true,'x':'left','padding':[0,0,0,20],'textStyle':{'fontWeight':'bold','fontSize':'12','color':'#333'},'text':'Matrix Chart','left':'left','zlevel':0,'z':6,'target':'blank','subtext':'','subtarget':'blank','top':0,'backgroundColor':'rgba(0,0,0,0)','borderColor':'#ccc','borderWidth':0,'itemGap':10,'subtextStyle':{'color':'#aaa'},'right':null,'bottom':null}],'axisPointer':[{'show':'auto','triggerOn':null,'zlevel':0,'z':50,'type':'line','snap':false,'triggerTooltip':true,'value':null,'status':null,'link':[],'animation':null,'animationDurationUpdate':200,'lineStyle':{'color':'#aaa','width':1,'type':'solid'},'shadowStyle':{'color':'rgba(150,150,150,0.3)'},'label':{'show':true,'formatter':null,'precision':'auto','margin':3,'color':'#fff','padding':[5,7,5,7],'backgroundColor':'auto','borderColor':null,'borderWidth':0,'shadowBlur':3,'shadowColor':'#aaa'},'handle':{'show':false,'icon':'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z','size':45,'margin':50,'color':'#333','shadowBlur':3,'shadowColor':'#aaa','shadowOffsetX':0,'shadowOffsetY':2,'throttle':40}}],'tooltip':[{'position':'top','trigger':'item','zlevel':0,'z':8,'show':true,'showContent':true,'triggerOn':'mousemove|click','alwaysShowContent':false,'displayMode':'single','confine':false,'showDelay':0,'hideDelay':100,'transitionDuration':0.4,'enterable':false,'backgroundColor':'rgba(50,50,50,0.7)','borderColor':'#333','borderRadius':4,'borderWidth':0,'padding':5,'extraCssText':'','axisPointer':{'type':'line','axis':'auto','animation':'auto','animationDurationUpdate':200,'animationEasingUpdate':'exponentialOut','crossStyle':{'color':'#999','width':1,'type':'dashed','textStyle':{}}},'textStyle':{'color':'#fff','fontSize':14}}],'series':[{'name':'GDP','type':'line','data':[20,30,30,50,80],'zlevel':0,'z':2,'coordinateSystem':'cartesian2d','legendHoverLink':true,'hoverAnimation':true,'clipOverflow':true,'label':{'normal':{'position':'top'},'emphasis':{}},'lineStyle':{'normal':{'width':2,'type':'solid'}},'step':false,'smooth':false,'smoothMonotone':null,'symbol':'emptyCircle','symbolSize':4,'symbolRotate':null,'showSymbol':true,'showAllSymbol':false,'connectNulls':false,'sampling':'none','animationEasing':'linear','progressive':0,'hoverLayerThreshold':null},{'name':'KPI','type':'line','data':[60,90,10,80,70],'zlevel':0,'z':2,'coordinateSystem':'cartesian2d','legendHoverLink':true,'hoverAnimation':true,'clipOverflow':true,'label':{'normal':{'position':'top'},'emphasis':{}},'lineStyle':{'normal':{'width':2,'type':'solid'}},'step':false,'smooth':false,'smoothMonotone':null,'symbol':'emptyCircle','symbolSize':4,'symbolRotate':null,'showSymbol':true,'showAllSymbol':false,'connectNulls':false,'sampling':'none','animationEasing':'linear','progressive':0,'hoverLayerThreshold':null},{'name':'AI','type':'line','data':[10,20,30,40,50],'zlevel':0,'z':2,'coordinateSystem':'cartesian2d','legendHoverLink':true,'hoverAnimation':true,'clipOverflow':true,'label':{'normal':{'position':'top'},'emphasis':{}},'lineStyle':{'normal':{'width':2,'type':'solid'}},'step':false,'smooth':false,'smoothMonotone':null,'symbol':'emptyCircle','symbolSize':4,'symbolRotate':null,'showSymbol':true,'showAllSymbol':false,'connectNulls':false,'sampling':'none','animationEasing':'linear','progressive':0,'hoverLayerThreshold':null},{'name':'BI','type':'line','data':[10,20,30,40,50],'zlevel':0,'z':2,'coordinateSystem':'cartesian2d','legendHoverLink':true,'hoverAnimation':true,'clipOverflow':true,'label':{'normal':{'position':'top'},'emphasis':{}},'lineStyle':{'normal':{'width':2,'type':'solid'}},'step':false,'smooth':false,'smoothMonotone':null,'symbol':'emptyCircle','symbolSize':4,'symbolRotate':null,'showSymbol':true,'showAllSymbol':false,'connectNulls':false,'sampling':'none','animationEasing':'linear','progressive':0,'hoverLayerThreshold':null}],'markArea':[{'zlevel':0,'z':1,'tooltip':{'trigger':'item'},'animation':false,'label':{'normal':{'show':true,'position':'top'},'emphasis':{'show':true,'position':'top'}},'itemStyle':{'normal':{'borderWidth':0}}}],'markLine':[{'zlevel':0,'z':5,'symbol':['circle','arrow'],'symbolSize':[8,16],'precision':2,'tooltip':{'trigger':'item'},'label':{'normal':{'show':true,'position':'end'},'emphasis':{'show':true}},'lineStyle':{'normal':{'type':'dashed'},'emphasis':{'width':3}},'animationEasing':'linear'}],'markPoint':[{'zlevel':0,'z':5,'symbol':'pin','symbolSize':50,'tooltip':{'trigger':'item'},'label':{'normal':{'show':true,'position':'inside'},'emphasis':{'show':true}},'itemStyle':{'normal':{'borderWidth':2}}}],'marker':[],'visualMap':[],'dataZoom':[{'type':'slider','orient':'horizontal','left':'center','textStyle':{'fontWeight':'bold','fontSize':'12','color':'#333'},'start':0,'end':100,'zlevel':0,'z':4,'xAxisIndex':[0],'yAxisIndex':[],'filterMode':'filter','throttle':100,'startValue':0,'endValue':4,'minSpan':null,'maxSpan':null,'minValueSpan':null,'maxValueSpan':null,'rangeMode':null,'show':true,'top':'ph','width':'ph','height':'ph','bottom':null,'backgroundColor':'rgba(47,69,84,0)','dataBackground':{'lineStyle':{'color':'#2f4554','width':0.5,'opacity':0.3},'areaStyle':{'color':'rgba(47,69,84,0.3)','opacity':0.3}},'borderColor':'#ddd','fillerColor':'rgba(167,183,204,0.4)','handleIcon':'M8.2,13.6V3.9H6.3v9.7H3.1v14.9h3.3v9.7h1.8v-9.7h3.3V13.6H8.2z M9.7,24.4H4.8v-1.4h4.9V24.4z M9.7,19.1H4.8v-1.4h4.9V19.1z','handleSize':'100%','handleStyle':{'color':'#a7b7cc'},'labelPrecision':null,'labelFormatter':null,'showDetail':true,'showDataShadow':'auto','realtime':true,'zoomLock':false,'zAxisIndex':[],'radiusAxisIndex':[],'angleAxisIndex':[],'singleAxisIndex':[]},{'type':'inside','orient':'horizontal','textStyle':{'fontWeight':'bold','fontSize':'12'},'start':0,'end':100,'zlevel':0,'z':4,'xAxisIndex':[0],'yAxisIndex':[],'filterMode':'filter','throttle':100,'startValue':0,'endValue':4,'minSpan':null,'maxSpan':null,'minValueSpan':null,'maxValueSpan':null,'rangeMode':null,'disabled':false,'zoomLock':false,'zoomOnMouseWheel':true,'moveOnMouseMove':true,'preventDefaultMouseMove':true,'zAxisIndex':[],'radiusAxisIndex':[],'angleAxisIndex':[],'singleAxisIndex':[]}],'brush':[],'legend':[{'type':'scroll','orient':'vertical','left':'right','top':'top','padding':[0,20,0,0],'data':['GDP','KPI','AI','BI'],'textStyle':{'fontWeight':'bold','fontSize':'12','color':'#333'},'zlevel':0,'z':4,'show':true,'align':'auto','backgroundColor':'rgba(0,0,0,0)','borderColor':'#ccc','borderRadius':0,'borderWidth':0,'itemGap':10,'itemWidth':25,'itemHeight':14,'inactiveColor':'#ccc','selectedMode':true,'tooltip':{'show':false},'scrollDataIndex':0,'pageButtonItemGap':5,'pageButtonGap':null,'pageButtonPosition':'end','pageFormatter':'{current}/{total}','pageIcons':{'horizontal':['M0,0L12,-10L12,10z','M0,0L-12,-10L-12,10z'],'vertical':['M0,0L20,0L10,-20z','M0,0L20,0L10,20z']},'pageIconColor':'#2f4554','pageIconInactiveColor':'#aaa','pageIconSize':15,'pageTextStyle':{'color':'#333'},'animationDurationUpdate':800,'right':null,'selected':{}}],'yAxis':[{'data':null,'axisLabel':{'textStyle':{'fontWeight':'bold','fontSize':'12'},'fontWeight':'bold','fontSize':'12','show':true,'inside':false,'rotate':0,'showMinLabel':null,'showMaxLabel':null,'margin':8},'axisLine':{'lineStyle':{'color':'#333','width':1,'type':'solid'},'show':true,'onZero':true,'onZeroAxisIndex':null},'splitLine':{'show':false,'lineStyle':{'color':['#ccc'],'width':1,'type':'solid'}},'boundaryGap':[0,0],'splitNumber':5,'show':true,'zlevel':0,'z':0,'inverse':false,'name':'','nameLocation':'end','nameRotate':null,'nameTruncate':{'maxWidth':null,'ellipsis':'...','placeholder':'.'},'nameTextStyle':{},'nameGap':15,'silent':false,'triggerEvent':false,'tooltip':{'show':false},'axisPointer':{},'axisTick':{'show':true,'inside':false,'length':5,'lineStyle':{'width':1}},'splitArea':{'show':false,'areaStyle':{'color':['rgba(250,250,250,0.3)','rgba(200,200,200,0.3)']}},'offset':0,'type':'value','rangeEnd':null,'rangeStart':null}],'xAxis':[{'data':[2013,2014,2015,2016,2017],'axisLabel':{'textStyle':{'fontWeight':'bold','fontSize':'12'},'fontWeight':'bold','fontSize':'12','interval':'auto','show':true,'inside':false,'rotate':0,'showMinLabel':null,'showMaxLabel':null,'margin':8},'axisLine':{'lineStyle':{'color':'#333','width':1,'type':'solid'},'show':true,'onZero':true,'onZeroAxisIndex':null},'splitLine':{'show':false,'lineStyle':{'color':['#ccc'],'width':1,'type':'solid'}},'boundaryGap':true,'axisTick':{'alignWithLabel':false,'interval':'auto','show':true,'inside':false,'length':5,'lineStyle':{'width':1}},'show':true,'zlevel':0,'z':0,'inverse':false,'name':'','nameLocation':'end','nameRotate':null,'nameTruncate':{'maxWidth':null,'ellipsis':'...','placeholder':'.'},'nameTextStyle':{},'nameGap':15,'silent':false,'triggerEvent':false,'tooltip':{'show':false},'axisPointer':{},'splitArea':{'show':false,'areaStyle':{'color':['rgba(250,250,250,0.3)','rgba(200,200,200,0.3)']}},'offset':0,'type':'category','rangeEnd':null,'rangeStart':null}],'grid':[{'left':'10%','right':'10%','show':false,'zlevel':0,'z':0,'top':60,'bottom':60,'containLabel':false,'backgroundColor':'rgba(0,0,0,0)','borderWidth':1,'borderColor':'#ccc'}]};"
+  </script>
 
 
 
