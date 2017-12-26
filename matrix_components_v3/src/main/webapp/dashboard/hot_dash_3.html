@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Matrix Template</title>
+        <link rel="shortcut icon" href="../assets/self-owned/ico/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/vendor.css">
+        <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/flat-admin.css">
+        <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue-sky.css">
+        <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue.css">
+        <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/red.css">
+        <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/yellow.css">
+        <link rel="stylesheet" type="text/css" href="../assets/reference/codemirror/codemirror.css">
+        <link rel="stylesheet" type="text/css" href="../assets/reference/github-markdown-css/github-markdown.css">
+        <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/matrix_v3.css">
+        <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/matrix_ui_refine.css">
+        <link rel="stylesheet" type="text/css" href="../assets/reference/bootstrap-fileinput/css/fileinput_ly.css" media="all">
+        <link rel="stylesheet" type="text/css" href="../assets/reference/fuelux/fuelux.min.css">
+        <link rel="stylesheet" type="text/css" href="../assets/reference/gridstack/gridstack.css" />
+        <link rel="stylesheet" type="text/css" href="../assets/reference/gridstack/gridstack-extra.css" />
+        <style>
+
+        </style>
+    </head>
+
+    <body>
+        <div class="app app-blue-sky" id="template-matrix-main-div">
+            <aside class="app-sidebar" id="sidebar"></aside>
+            <div class="app-container" id="main_content_div">
+                <nav class="navbar navbar-default navbar-fixed-top" id="navbar"></nav>
+                <div class="seperate_div_class" style="margin-top:118px"></div>
+
+                <!--LOADER DIV BEGIN-->
+                <div class="loader-container text-center">
+                    <div class="icon">
+                        <div class="sk-wave">
+                            <div class="sk-rect sk-rect1"></div>
+                            <div class="sk-rect sk-rect2"></div>
+                            <div class="sk-rect sk-rect3"></div>
+                            <div class="sk-rect sk-rect4"></div>
+                            <div class="sk-rect sk-rect5"></div>
+                        </div>
+                    </div>
+                    <div class="title">Loading</div>
+                </div>
+                <!--LOADER DIV FINISHED-->
+
+                <!--RESPONSE DIV BEGIN-->
+                <div class="row" data-bind="with:response_vm">
+                    <div class="col-sm-12" style="margin-bottom:12px" style="display:none" data-bind="visible: resultVisible">
+                        <div class="flat-matrix">
+                            <div class="alert fresh-color " data-bind="css:styleClass,visible: resultVisible" style="display:none">
+                                <button type="button" class="close" data-bind="click:function(){resultVisible(false)}" aria-label="Close"><i class="fa fa-close"></i></button>
+                                <strong>
+                                    <span data-bind="text:resultTitle"></span>
+                                </strong>
+                                <span data-bind="text:resultSubTitle"></span>
+                                <div data-bind="text:resultContent"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--RESPONSE DIV FINISHED-->
+
+                <!--VALIDATION DIV BEGIN-->
+                <div class="row">
+                    <div class="col-sm-12" style="margin-bottom:12px" style="display:none" data-bind="visible: hasError">
+                        <div id="validation_div">
+                            <div class="flat-matrix">
+                                <div class="alert alert-warning alert-dismissible fresh-color" role="alert" style="display:none" data-bind="visible: hasError">
+                                    <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
+                                        <i class="fa fa-close"></i>
+                                    </button>
+                                    <strong>Warning:</strong>
+                                    <div id="errorMessagesDIV" data-bind="foreach:errorMessage">
+                                        <div data-bind="text:$data"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--VALIDATION DIV FINISHED-->
+
+                <!--BUSINESS DIV BEGIN-->
+<!--
+-->                <ol class="breadcrumb" style="background-color:black;margin-bottom: 0px;">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="active">深圳西部热环境脆弱性评价及其空间分布</li>
+                </ol>
+                 <!--breadcrumb finished-->
+
+
+
+                <div class="row">
+                    <div class="col-md-12" style="margin-bottom: 0px;">
+                        <h1 style="color:#fff">ASTER地表温度反演及医疗敏捷度制图</h1>
+                    </div>
+                </div>
+                <!-- Title finished-->
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-12">                                
+                                <h4 style="color:#fff"> 深圳西部地表最高温大于45℃街道 </h4>
+                                <div style="background-color: rgba(255,255,255,0.05);padding: 7px 15px;" >
+                                    <div id="bar2_chart" style="min-height:810px; max-height:822px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">    
+                        <div class="row" style="margin-bottom: 20px;">
+                            <div class="col-md-12">
+                                
+                            <h4 style="color:#fff">  深圳西部各街道地表温度统计 </h4>
+                                <a onclick="void(0);" style="cursor:pointer">
+                                    <div class="matrix-card green summary-inline" style="min-height:125px; max-height:135px;background-color:rgb(24,49,82)">
+                                        <div class="card-body" style="font-size:34px">
+                                            <i class="icon fa fa-circle fa-1x"> 最高温 </i>
+
+                                        </div>
+                                        <div class='text-left' style="position:absolute;right:30px;bottom:18px;font-size:28px"> 54.69℃ </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 20px;">
+                            <div class="col-md-12">                                
+                                <div class="matrix-card yellow summary-inline" style="min-height:125px; max-height:135px;background-color: rgb(33,133,197);">
+                                    <div class="card-body" style="font-size:34px">
+                                        <i class="icon fa fa-circle-o fa-1x" aria-hidden="true"> 最低温 </i>
+                                    </div>
+                                    <div class='text-right' style="position:absolute;right:30px;bottom:18px;font-size:28px"> 6.80℃ </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 20px;">
+                            <div class="col-md-12">
+                                <a onclick="void(0);" style="cursor:pointer">
+                                    <div class="matrix-card blue summary-inline" style="min-height:125px; max-height:135px;background-color: rgb(126,206,253)">
+                                        <div class="card-body" style="font-size:34px">
+                                            <i class="icon fa fa-circle-thin fa-1x"> 平均温度 </i>
+                                        </div>
+                                        <div class='text-right' style="position:absolute;right:30px;bottom:18px;font-size:28px"> 27.15℃ </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>                        
+                        <div class="row"  style="margin-bottom: 20px;">
+                            <div class="col-md-12">
+                                <h4 style="color:#fff"> 深圳西部地区地表温度（LST）反演结果 </h4>
+                                <div >                                    
+                                    <div class="matrix-card white summary-inline" style="min-height:158px; max-height:800px;">
+                                        <div style="padding:5px 40px">
+                                            <img src="pic/3-3.jpg" style="width:377px"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                     
+
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                        <div class="row" style="margin-bottom: 20px;">
+                            <div class="col-md-12">                                
+                                <h4 style="color:#fff"> 深圳西部二、三级医院信息 </h4>
+                                <div style="background-color: rgba(255,255,255,0.05);padding: 10px 5px;" >
+                                    <div id="pie_chart" style="min-height:394px; max-height:822px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 20px;">
+                            <div class="col-md-12">
+                                <h4 style="color:#fff">  医疗便捷度空间分布 </h4>
+                                <div >                                    
+                                    <div class="matrix-card white summary-inline" style="min-height:158px; max-height:800px;">
+                                        <div style="padding:5px 40px">
+                                            <img src="pic/3-12.jpg" style="width:388px"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>      
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                        <div class="row" style="margin-bottom: 20px;">
+                            <div class="col-md-12">
+                                <h4 style="color:#fff">  土地利用耗费阻力面 </h4>
+                                <div >                                    
+                                    <div class="matrix-card white summary-inline" style="min-height:158px; max-height:800px;">
+                                        <div style="padding:5px 5px">
+                                            <img src="pic/3-10.jpg" style="width:451px"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="row" style="margin-bottom: 20px;">
+                            <div class="col-md-12">
+                                <h4 style="color:#fff">  深圳西部二、三级医院空间分布 </h4>
+                                <div >                                    
+                                    <div class="matrix-card white summary-inline" style="min-height:158px; max-height:800px;">
+                                        <div style="padding:5px 40px">
+                                            <img src="pic/3-11.jpg" style="width:388px"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
+
+                    </div>
+
+                </div>
+                <!--BUSINESS DIV FINISHED-->
+
+
+                <!--TEMPLATE DIV BEGIN-->
+                <div id="template-matrix-dynamic-table-div"></div>
+                <div id="template-matrix-modal-div"></div>
+                <div id="template-matrix-footer-div"></div>
+                <!--TEMPLATE DIV BEGIN-->
+            </div>
+        </div>
+        <!-- Javascript for Matrix Referenced -->
+        <script src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
+        <script src="../assets/reference/flat-admin/assets/js/app.js"></script>
+        <script src="../assets/reference/codemirror/codemirror.js"></script>
+        <script src="../assets/reference/codemirror/mode/javascript/javascript.js"></script>
+        <script src="../assets/reference/codemirror/mode/markdown/markdown.js"></script>
+        <script src="../assets/reference/jquery/jquery.json.js"></script>
+        <script src="../assets/reference/jquery/jquery.blockUI.js"></script>
+        <script src="../assets/reference/knockout.js/knockout-3.3.0.js"></script>
+        <script src="../assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+        <script src="../assets/reference/markdown/markdown.min.js"></script>
+        <script src="../assets/reference/jquery-ui/jquery-ui.js"></script>
+        <script src="../assets/reference/lodash/lodash-4.15.0.js"></script>
+        <script src="../assets/reference/gridstack/gridstack.all.js"></script>
+        <script src="../assets/reference/echarts/echarts-min.js"></script>
+        <script src="../assets/reference/echarts/dataTools.js"></script>
+        <!-- Javascript for Matrix Self Owned -->
+        <script src="../assets/self-owned/js/generic/generic_algorithm.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_cache.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_charting_v4.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_csv.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_cud.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_modal.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_query.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_table.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_util.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
+
+        <script src="../assets/self-owned/js/refine/matrix_ui.js"></script>
+        <script src="js/hot_dash_3.js"></script>
+
+        <script>
+                                    $(document).ready(function () {
+                                        $('#sidebar').load($.getRootPath() + '/components/left_side.html');
+                                        $('#navbar').load($.getRootPath() + '/components/header.html');
+                                        $('#template-matrix-dynamic-table-div').load($.getRootPath() + '/components/template-matrix-dynamic-table.html');
+                                        $('#template-matrix-modal-div').load($.getRootPath() + '/components/template-matrix-modal.html');
+                                        $('#template-matrix-footer-div').load($.getRootPath() + '/components/footer.html');
+
+                                        setTimeout(function () {
+                                            $('#navbar_search_li').css('display', '');
+                                            $('#navbar_title_li').text('[#Your Components Title#]');
+                                        }, 1000)
+                                    });
+
+                                    init_ui(true, true);
+        </script>
+
+    </body>
+
+</html>

@@ -26,6 +26,9 @@ function dashboardMode() {
   Matrix_UI.isDashboardMode = true;
   if(Matrix_UI.isDarkTheme){
     $('#main_content_div').css('background-color','#242324');
+//    $('#main_content_div').css('background','url(pic/bj2.jpeg)');
+//    $('#main_content_div').css('background-size','cover');
+//    $('#main_content_div').css('width','100%');
   }
   $('.grid-stack-item-header').css('display','none');
   $('#main_content_div').css('padding-left','0px');
