@@ -34,6 +34,7 @@ function vm_env_setup() {
     self.current_year_data.subscribe(function (newValue) {
       self.refresh_table();
       self.refresh_scatter_chart();
+      self.refresh_axis_bar_chart();
     });
 
     self.refresh_table = function(){
@@ -86,6 +87,9 @@ function vm_env_setup() {
         opt_scatter.series[0].data = self.chart_data_scatter[current_year];
         chart_scatter.setOption(opt_scatter);
       }
+    };
+    self.refresh_axis_bar_chart = function(){
+
     };
   }
   var businessPOJO = new BusinessPOJO();
