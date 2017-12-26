@@ -230,13 +230,13 @@ function ThinListViewModel() {
 
     self.buildData = function (serverData) {
         //build data from server
-        console.log("enter buildData");
+        // console.log("enter buildData");
         self.originalData(serverData);
         self.hasResult(true);
     };
 
     self.buildView = function () {
-        console.log("enter buildView");
+        // console.log("enter buildView");
         //build the view data
         var keyword = self.searchKeyword();
 
