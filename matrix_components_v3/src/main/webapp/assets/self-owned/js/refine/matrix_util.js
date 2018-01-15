@@ -1,6 +1,36 @@
 var Matrix_Util = {
+  get_server_path:function(){
+    return $.getServerRoot();
+  },
+  get_project_path:function(){
+    return $.getRootPath();
+  },
   gen_id: function() {
     return Math.round(Math.random() * 100) + "_" + (new Date()).getTime() + "_" + (new Date()).getTime();
+  },
+  request_local:function(url,handler){
+    $.ajax({
+      url: url,
+      type: 'GET',
+      dataType: 'json',
+      success: function(json) {
+        if(handler){
+          handler(json);
+        }
+      },
+      error: function(xhr, status) {
+        console.log('Sorry, there was a problem on SERVER_REQUEST_ACTION process!');
+      },
+      complete: function(xhr, status) {}
+    });
+  },
+
+  default_handerl:function(json){
+      console.log(json);
+  },
+
+  request_remote:function(){
+
   }
 };
 

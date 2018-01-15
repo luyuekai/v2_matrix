@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matrix Template</title>
+  <link rel="shortcut icon" href="../assets/self-owned/ico/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/vendor.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/flat-admin.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue-sky.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/red.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/yellow.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/codemirror/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/github-markdown-css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/matrix_v3.css">
+  <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/matrix_ui_refine.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/bootstrap-fileinput/css/fileinput_ly.css" media="all">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/fuelux/fuelux.min.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/gridstack/gridstack.css" />
+  <link rel="stylesheet" type="text/css" href="../assets/reference/gridstack/gridstack-extra.css" />
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <div class="app app-blue-sky" id="template-matrix-main-div">
+    <aside class="app-sidebar" id="sidebar"></aside>
+    <div class="app-container" id="main_content_div">
+      <nav class="navbar navbar-default navbar-fixed-top" id="navbar"></nav>
+      <div class="seperate_div_class" style="margin-top:118px"></div>
+
+      <!--LOADER DIV BEGIN-->
+      <div class="loader-container text-center">
+        <div class="icon">
+          <div class="sk-wave">
+            <div class="sk-rect sk-rect1"></div>
+            <div class="sk-rect sk-rect2"></div>
+            <div class="sk-rect sk-rect3"></div>
+            <div class="sk-rect sk-rect4"></div>
+            <div class="sk-rect sk-rect5"></div>
+          </div>
+        </div>
+        <div class="title">Loading</div>
+      </div>
+      <!--LOADER DIV FINISHED-->
+
+      <!--RESPONSE DIV BEGIN-->
+      <div class="row" data-bind="with:response_vm">
+        <div class="col-sm-12" style="margin-bottom:12px" style="display:none" data-bind="visible: resultVisible">
+          <div class="flat-matrix">
+            <div class="alert fresh-color " data-bind="css:styleClass,visible: resultVisible" style="display:none">
+              <button type="button" class="close" data-bind="click:function(){resultVisible(false)}" aria-label="Close"><i class="fa fa-close"></i></button>
+              <strong>
+                  <span data-bind="text:resultTitle"></span>
+                </strong>
+              <span data-bind="text:resultSubTitle"></span>
+              <div data-bind="text:resultContent"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--RESPONSE DIV FINISHED-->
+
+      <!--VALIDATION DIV BEGIN-->
+      <div class="row">
+        <div class="col-sm-12" style="margin-bottom:12px" style="display:none" data-bind="visible: hasError">
+          <div id="validation_div">
+            <div class="flat-matrix">
+              <div class="alert alert-warning alert-dismissible fresh-color" role="alert" style="display:none" data-bind="visible: hasError">
+                <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
+                  <i class="fa fa-close"></i>
+                </button>
+                <strong>Warning:</strong>
+                <div id="errorMessagesDIV" data-bind="foreach:errorMessage">
+                  <div data-bind="text:$data"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--VALIDATION DIV FINISHED-->
+
+      <!--BUSINESS DIV BEGIN-->
+
+      <ol class="breadcrumb" style="background-color:black;margin-bottom: 0px;">
+        <li><a href="index.html">Home</a></li>
+        <li class="active">青岛</li>
+      </ol>
+      <!-- breadcrumb finished-->
+
+
+
+      <div class="row" data-bind="with:businessPOJO">
+        <div class="col-md-12" style="margin-bottom: 0px;" data-bind="if:current_year_data">
+          <h1 style="color:#ffffff">青岛GDP概览 <span style="color:#E74C3C" data-bind="text:current_year_data()[0]"></span></h1>
+        </div>
+      </div>
+
+      <!-- Title finished-->
+
+      <div class="row" >
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <h4 style="color:#777">Top N Overview</h4>
+          <div class="row" style="margin-bottom: 20px;">
+
+            <div class="col-md-6" data-bind="with:businessPOJO" >
+              <div class="matrix-card dark summary-inline" style="min-height:166px; max-height:180px;" data-bind="if:current_year_data">
+                <div class="card-body">
+                  <i class="icon fa fa-pencil fa-1x">&nbsp;</i>
+                  <div class="content">
+                    <div class="title" style="font-size:28px">全国占比</div>
+                  </div>
+                </div>
+                <div class='text-right' style="position:absolute;right:30px;bottom:18px;font-size:56px">
+                  <span data-bind="text:current_year_data()[12]"></span>%
+                  <span class="sign" style="font-size:12px" >
+                    /
+                    <span data-bind="text:current_year_data()[14]"></span>
+                    (排名)
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6" data-bind="with:businessPOJO">
+              <div class="matrix-card dark summary-inline" style="min-height:166px; max-height:180px;" data-bind="if:current_year_data">
+                <div class="card-body">
+                  <i class="icon fa fa-pencil fa-1x">&nbsp;</i>
+                  <div class="content">
+                    <div class="title" style="font-size:28px">全省占比</div>
+                  </div>
+                </div>
+                <div class='text-right' style="position:absolute;right:30px;bottom:18px;font-size:56px">
+                  <span data-bind="text:current_year_data()[13]"></span>%
+                  <span class="sign" style="font-size:12px" >
+                    /
+                    <span data-bind="text:current_year_data()[15]"></span>
+                    (排名)
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h4 style="color:#777">Quick Overview</h4>
+          <div class="row" style="margin-bottom: 20px;">
+            <div class="col-md-12" data-bind="with:businessPOJO">
+              <div class="matrix-card red summary-inline" style="min-height:158px; max-height:180px;" data-bind="if:current_year_data">
+                <div class="card-body">
+                  <i class="icon fa fa-database fa-1x"> &nbsp;</i>
+                  <a href="#" style="color:#fff">
+                    <div class="content">
+                      <div class="title">最具有上升潜力的市区</div>
+                    </div>
+                  </a>
+                </div>
+                <div class="clear-both"></div>
+                <br>
+                <div class="row text-center">
+                  <div class="col-md-3" style="margin-bottom: 18px;">
+                    <span style="font-size:28px" data-bind="text:current_year_data()[16]"></span>
+                    <br> &nbsp;整体
+                  </div>
+                  <div class="col-md-3" style="margin-bottom: 18px;">
+                    <span style="font-size:28px" data-bind="text:current_year_data()[17]"></span>
+                    <br> &nbsp;第一产业
+                  </div>
+                  <div class="col-md-3" style="margin-bottom: 18px;">
+                    <span style="font-size:28px" data-bind="text:current_year_data()[18]"></span>
+                    <br> &nbsp;第二产业
+                  </div>
+                  <div class="col-md-3" style="margin-bottom: 18px;">
+                    <span style="font-size:28px" data-bind="text:current_year_data()[19]"></span>
+                    <br> &nbsp;第三产业
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <h4 style="color:#777">GDP Charts</h4>
+
+          <div class="row" style="margin-bottom: 20px;">
+            <div class="col-md-12">
+              <div class="matrix-card dark summary-inline">
+                <div class="card-body">
+                  <i class="icon fa fa-bug fa-1x"> &nbsp;青岛历年GDP变化趋势(包含整体,三产,人均)</i>
+                </div>
+                <div class="row text-center">
+                  <div class="col-md-12" style="margin-bottom: 18px;">
+                    <div id="c0" class="matrix_chart_container" style="width: 100%;height:100%;min-height:500px"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <h4 style="color:#777">Kooza Dashboard</h4>
+
+          <div class="row" style="margin-bottom: 20px;">
+            <div class="col-md-6">
+              <div class="matrix-card dark summary-inline" style="min-height:540px">
+                <div class="card-body">
+                  <i class="icon fa fa-pie-chart fa-1x"> &nbsp;青岛各市区历年GDP变化趋势(包含整体,三产)</i>
+                </div>
+                <div class="row text-center">
+                  <div class="col-md-12" style="margin-bottom: 18px;">
+                    <div id="main" style="width: 100%;height:100%;min-height:460px"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="matrix-card dark summary-inline" style="min-height:540px">
+                <div class="card-body">
+                  <i class="icon fa fa-pie-chart fa-1x"> &nbsp;各市区GDP数据</i>
+                </div>
+                <div class="card-body flat-matrix" style="padding: 0px 30px;">
+                  <div data-bind="with:businessPOJO">
+                    <div class="row" data-bind="with:tableModel">
+                      <div class="col-xs-12" >
+                        <table class="table table-hover table-condensed" cellspacing="0" style="color:#686868;margin-bottom:8px">
+                          <thead>
+
+                            <tr>
+                              <th style="width:50%;border-bottom: 1px solid #E74C3C;padding-top:8px;padding-bottom:8px;color:#E74C3C">地区</th>
+                              <th style="width:50%;border-bottom: 1px solid #E74C3C;padding-top:8px;padding-bottom:8px;color:#E74C3C">GDP总产值</th>
+                            </tr>
+                          </thead>
+                          <tbody data-bind="foreach: thinViewData">
+                            <tr>
+                              <td data-bind="text: $data.data[0]" style="width:50%;border-top: 0px solid #ddd;font-size: 12px;padding: 8px 30px;color:#fff"></td>
+                              <td data-bind="text: $data.data[1]" style="width:50%;border-top: 0px solid #ddd;font-size: 12px;padding: 8px 30px;color:#fff"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <h4 style="color:#777">Quick Dig</h4>
+          <div class="row" style="margin-bottom: 20px;" data-bind="with:businessPOJO">
+            <div class="col-md-12" data-bind="if:current_year_data">
+              <div class="matrix-card dark summary-inline">
+                <div class="card-body">
+                  <i class="icon fa fa-bug fa-1x"> &nbsp;青岛市GDP指标</i>
+                </div>
+                <div class="row text-center">
+                  <div class="col-md-3" style="margin-bottom: 18px;">
+                    <a href="#" style="color:#fff"><i class="fa fa-long-arrow-up fa-2x" style="color:#E74C3C">&nbsp;<span data-bind="text:current_year_data()[1]"></span></i><br> &nbsp;整体</a>
+                  </div>
+                  <div class="col-md-3" style="margin-bottom: 18px;">
+                    <a href="#" style="color:#fff"><i class="fa fa-long-arrow-up  fa-2x" style="color:#E74C3C">&nbsp;<span data-bind="text:current_year_data()[2]"></span></i><br> &nbsp;第一产业</a>
+                  </div>
+                  <div class="col-md-3" style="margin-bottom: 18px;">
+                    <a href="#" style="color:#fff"><i class="fa fa-long-arrow-up fa-2x" style="color:#E74C3C">&nbsp;<span data-bind="text:current_year_data()[3]"></span></i> <br> &nbsp;第二产业</a>
+                  </div>
+                  <div class="col-md-3" style="margin-bottom: 18px;">
+                    <a href="#" style="color:#fff"><i class="fa fa-long-arrow-up fa-2x" style="color:#E74C3C">&nbsp;<span data-bind="text:current_year_data()[5]"></span></i><br> &nbsp;第三产业</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h4 style="color:#777">Dig Overall</h4>
+          <div class="row" style="margin-bottom: 20px;" data-bind="with:businessPOJO">
+            <div class="col-md-12" data-bind="if:current_year_data">
+              <div class="matrix-card dark summary-inline">
+                <div class="card-body">
+                  <i class="icon fa fa-bug fa-1x"> &nbsp;青岛各市区GDP指标排名</i>
+                </div>
+                <div class="row text-center">
+                  <div class="col-md-12" style="margin-bottom: 18px;">
+                    <div data-bind="foreach: current_year_data()[20]">
+                      <div data-bind="if:$index()<5">
+                        <!-- <span data-bind="text: $data"></span> -->
+                        <div class="row">
+                          <div class="col-md-2"><span data-bind="text:$data[0]"></span></div>
+                          <div class="col-md-1">
+                            <span data-bind="text:($index()+1),style:{color:$index()<3?'#E74C3C':'#FFF'}"></span>
+                          </div>
+                          <div class="col-md-3">
+                            <span data-bind="text:$data[5]=='暂无数据'?'无':$data[5]"></span>
+                            /
+                            <span data-bind="text:$data[3]=='暂无数据'?'无':$data[3]"></span>
+                            /
+                            <span data-bind="text:$data[2]=='暂无数据'?'无':$data[2]"></span>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="progress" style="margin-bottom: 12px;margin-right:24px">
+                              <div class="progress-bar"
+                                data-bind="style:{width:Math.floor($data[5]/$data[1]*100)+'%'}"
+                                style="background-color:#5967c2;">
+                                <span data-bind="text:Math.floor($data[5]/$data[1]*100)+'%'"></span>
+                              </div>
+                              <!-- 三产 -->
+                              <div class="progress-bar"
+                                data-bind="style:{width:Math.floor($data[3]/$data[1]*100)+'%'}"
+                                style="background-color:#9086eb;">
+                                <span data-bind="text:Math.floor($data[3]/$data[1]*100)+'%'"></span>
+                              </div>
+                              <!-- 二产 -->
+                              <div class="progress-bar"
+                                data-bind="style:{width:Math.floor($data[2]/$data[1]*100)+'%'}"
+                                style="background-color:#beb4f9;">
+                                <span data-bind="text:Math.floor($data[2]/$data[1]*100)+'%'"></span>
+                              </div>
+                              <!-- 一产 -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--BUSINESS DIV FINISHED-->
+
+
+    <!--TEMPLATE DIV BEGIN-->
+    <div id="template-matrix-dynamic-table-div"></div>
+    <div id="template-matrix-modal-div"></div>
+    <div id="template-matrix-footer-div"></div>
+    <!--TEMPLATE DIV BEGIN-->
+  </div>
+  </div>
+  <!-- Javascript for Matrix Referenced -->
+  <script src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
+  <script src="../assets/reference/flat-admin/assets/js/app.js"></script>
+  <script src="../assets/reference/codemirror/codemirror.js"></script>
+  <script src="../assets/reference/codemirror/mode/javascript/javascript.js"></script>
+  <script src="../assets/reference/codemirror/mode/markdown/markdown.js"></script>
+  <script src="../assets/reference/jquery/jquery.json.js"></script>
+  <script src="../assets/reference/jquery/jquery.blockUI.js"></script>
+  <script src="../assets/reference/knockout.js/knockout-3.3.0.js"></script>
+  <script src="../assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+  <script src="../assets/reference/markdown/markdown.min.js"></script>
+  <script src="../assets/reference/jquery-ui/jquery-ui.js"></script>
+  <script src="../assets/reference/lodash/lodash-4.15.0.js"></script>
+  <script src="../assets/reference/gridstack/gridstack.all.js"></script>
+  <script src="../assets/reference/echarts/echarts-min.js"></script>
+  <script src="../assets/reference/echarts/dataTools.js"></script>
+  <!-- Javascript for Matrix Self Owned -->
+  <script src="../assets/self-owned/js/generic/generic_algorithm.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_cache.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_charting_v4.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_csv.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_cud.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_modal.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_query.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_table.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_util.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
+
+  <script src="../assets/self-owned/js/refine/matrix_ui.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_util.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_components.js"></script>
+  <script src="demo.js"></script>
+
+
+  <script>
+    $(document).ready(function() {
+      $('#sidebar').load($.getRootPath() + '/components/left_side.html');
+      $('#navbar').load($.getRootPath() + '/components/header.html');
+      $('#template-matrix-dynamic-table-div').load($.getRootPath() + '/components/template-matrix-dynamic-table.html');
+      $('#template-matrix-modal-div').load($.getRootPath() + '/components/template-matrix-modal.html');
+      $('#template-matrix-footer-div').load($.getRootPath() + '/components/footer.html');
+
+      setTimeout(function() {
+        $('#navbar_search_li').css('display', '');
+        $('#navbar_title_li').text('[#Your Components Title#]');
+      }, 1000)
+    });
+    // UNIT_TEST_SUITE();
+    $.subscribe("get_user_detail_chain_finished", env_setup);
+
+    init_ui(true, true);
+  </script>
+
+  <script>
+    var dark_color = ['#E74C3C', '#5967c2', '#9086eb', '#beb4f9', '#FFC153', '#1ABC9C', '#5DADE2', '#EC7063', '#CC99CC', '#666666', '#5E5E73', '#FFBC11'];
+
+
+    var GDP_YEAR = ['1993', '1994', '1995', '1996', '1997', '1998', '1999',
+      '2000', '2001', '2002', '2003', '2004',
+      '2005', '2006', '2007', '2008', '2009', '2010',
+      '2011', '2012', '2013', '2014', '2015', '2016'
+    ];
+    var GDP_CATEGORY = ['全市生产总值', '第一产业', '第二产业',
+      '第三产业', '人均生产总值'
+    ];
+    var GDP_CATEGORY_REVERSE = ['第三产业', '第三产业[工业]', '第二产业', '第一产业', '全市生产总值'];
+    var data_GDP = [
+      [0, 0, 18.1],
+      [0, 1, 22.4],
+      [0, 2, 14.4],
+      [0, 3, 12.0],
+      [0, 4, 7.2],
+      [0, 5, 11.5],
+      [0, 6, 12.9],
+      [0, 7, 13.9],
+      [0, 8, 15.2],
+      [0, 9, 13.7],
+      [0, 10, 14.5],
+      [0, 11, 16.3],
+      [0, 12, 16.7],
+      [0, 13, 16.6],
+      [0, 14, 15.3],
+      [0, 15, 15.5],
+      [0, 16, 13.2],
+      [0, 17, 12.2],
+      [0, 18, 12.9],
+      [0, 19, 11.7],
+      [0, 20, 10.6],
+      [0, 21, 10.0],
+      [0, 22, 8.0],
+      [0, 23, 8.1],
+      [1, 0, 2.7],
+      [1, 1, 20.5],
+      [1, 2, 3.6],
+      [1, 3, 10.9],
+      [1, 4, 7.7],
+      [1, 5, -10.6],
+      [1, 6, 17.6],
+      [1, 7, 4.1],
+      [1, 8, 6.5],
+      [1, 9, 2.3],
+      [1, 10, 3.2],
+      [1, 11, 2.5],
+      [1, 12, 2.7],
+      [1, 13, 0.4],
+      [1, 14, 0.9],
+      [1, 15, -2.6],
+      [1, 16, 1.4],
+      [1, 17, 3],
+      [1, 18, 1.4],
+      [1, 19, 5],
+      [1, 20, 3.2],
+      [1, 21, 2],
+      [1, 22, 3.8],
+      [1, 23, 3.2],
+      [2, 0, 23.5],
+      [2, 1, 21.1],
+      [2, 2, 14.7],
+      [2, 3, 12.1],
+      [2, 4, 7.6],
+      [2, 5, 16.8],
+      [2, 6, 11.3],
+      [2, 7, 15.5],
+      [2, 8, 16.4],
+      [2, 9, 16.3],
+      [2, 10, 16.9],
+      [2, 11, 20.1],
+      [2, 12, 20.3],
+      [2, 13, 19.6],
+      [2, 14, 16.8],
+      [2, 15, 15.3],
+      [2, 16, 11.1],
+      [2, 17, 12.8],
+      [2, 18, 12.6],
+      [2, 19, 11.6],
+      [2, 20, 11.5],
+      [2, 21, 10.1],
+      [2, 22, 8.5],
+      [2, 23, 7.1],
+      [3, 0, 20.7],
+      [3, 1, 25.6],
+      [3, 2, 20.2],
+      [3, 3, 12.4],
+      [3, 4, 6.4],
+      [3, 5, 14.6],
+      [3, 6, 13.4],
+      [3, 7, 15.3],
+      [3, 8, 16.4],
+      [3, 9, 14.2],
+      [3, 10, 14.6],
+      [3, 11, 14.9],
+      [3, 12, 15.2],
+      [3, 13, 15.7],
+      [3, 14, 15.8],
+      [3, 15, 18.3],
+      [3, 16, 17.1],
+      [3, 17, 12.5],
+      [3, 18, 14.4],
+      [3, 19, 12.4],
+      [3, 20, 10.5],
+      [3, 21, 10.6],
+      [3, 22, 7.9],
+      [3, 23, 9.4],
+      [4, 0, 17.4],
+      [4, 1, 21.7],
+      [4, 2, 13.5],
+      [4, 3, 10.8],
+      [4, 4, 5.7],
+      [4, 5, 9.9],
+      [4, 6, 11.3],
+      [4, 7, 12.4],
+      [4, 8, 13.6],
+      [4, 9, 12.1],
+      [4, 10, 12.7],
+      [4, 11, 14.4],
+      [4, 12, 14.3],
+      [4, 13, 14.1],
+      [4, 14, 13.6],
+      [4, 15, 14.2],
+      [4, 16, 12.1],
+      [4, 17, 11.4],
+      [4, 18, 11.2],
+      [4, 19, 9.8],
+      [4, 20, 9.7],
+      [4, 21, 9.0],
+      [4, 22, 6.9],
+      [4, 23, 7.3]
+    ];
+    var labelStyle = {
+      color: 'white',
+      fontWeight: 'bold',
+      fontSize: '12'
+    };
+    option = {
+      color: dark_color,
+      tooltip: {
+        position: 'top'
+      },
+      title: [],
+      singleAxis: [],
+      series: []
+    };
+
+    echarts.util.each(GDP_CATEGORY, function(day, idx) {
+      option.title.push({
+        textStyle: labelStyle,
+        textBaseline: 'middle',
+        x: 'left',
+        top: (idx + 0.5) * 100 / 5 + '%',
+        text: day
+      });
+      option.singleAxis.push({
+        // textStyle: labelStyle,
+        left: 150,
+        type: 'category',
+        boundaryGap: false,
+        data: GDP_YEAR,
+        top: (idx * 100 / 5 + 5) + '%',
+        height: (100 / 5 - 10) + '%',
+
+        axisLabel: {
+          interval: 1, // 强制显示所有标签
+          rotate: 0,
+          textStyle: labelStyle,
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#fff'
+          }
+        }
+      });
+      option.series.push({
+        singleAxisIndex: idx,
+        coordinateSystem: 'singleAxis',
+        type: 'scatter',
+        data: [],
+        symbolSize: function(dataItem) {
+          return dataItem[1] * 2;
+        }
+      });
+    });
+
+    echarts.util.each(data_GDP, function(dataItem) {
+      option.series[dataItem[0]].data.push([dataItem[1], dataItem[2]]);
+    });
+
+    function test2() {
+      setTimeout(function() {
+        // chart = create_dynamic_chart_pie(ds, 'chartDiv');
+        chart = Matrix_Chart_Util.gen_chart('c0', option);
+
+      }, 1000);
+    }
+    test2();
+  </script>
+
+  
+</body>
+
+</html>
