@@ -13,7 +13,7 @@ function MatrixTableVM() {
     //无论是从服务器还是从本地获取得到的原始数据
     self.originalData = ko.observableArray();
     //是否显示翻页组件
-    self.isDisplayPager = ko.observable(true);
+    self.isDisplayPager = ko.observable(false);
     ////存储显示的MatrixTableDataVM
     self.thinViewData = ko.observableArray();
     //存储js原生数组
@@ -317,4 +317,93 @@ function MatrixTableHeaderItemVM(data,index,isChecked,isDisplay,parent){
   },this);
   self.isChecked = ko.observable(isChecked);
   self.isDisplay = ko.observable(isDisplay);
+}
+
+function init_matrix_table_env(){
+  ko.components.register('matrix_dynamic_table', {
+      viewModel: function(params) {
+          var self = this;
+          self.ds = params.value;
+
+          self.ds.subscribe(function(newValue) {
+              self.update_table(newValue);
+
+          });
+          self.tableModel = ko.observable(new MatrixTableVM());
+
+          self.update_table = function(newValue){
+            if(newValue.type =='static'){
+              if(newValue.header && newValue.result){
+                var tableModel = new MatrixTableVM();
+                tableModel.build(newValue.header,newValue.result);
+                if(newValue.isDisplayPager){
+                  tableModel.isDisplayPager(newValue.isDisplayPager);
+                }
+                if(newValue.pageMaxSize){
+                  tableModel.pageMaxSize(newValue.pageMaxSize);
+                }
+                self.tableModel(tableModel);
+              }
+            }else if(newValue.type =='dynamic'){
+
+            }
+
+
+
+          };
+      },
+      template: { element: 'matrix_dynamic_table-template' }
+  });
+}
+
+/**
+ * Matrix Table封装了DOM后的Temaplte原型
+ * @param       {[JSON]} input [数据源，格式如下]
+ *                       {
+ *                         // 'static' or 'dynamic'
+ *                         'type':'static',
+ *
+ *                         // static setting
+ *                         'header':['name','value'],
+ *                         'result':[['zhangsan',25],['lisi',26],['wangwu',27]],
+ *
+ *                         // dynamic setting
+ *                         "ds": "http://localhost:8080/service_generic_query/api/query",
+ *                         "header_json":"",
+ *                         "json_rule": "result",
+ *                         "rest_mode": "POST",
+ *                         "request_params": "{ \"queryJson\": \"{\\\"className\\\":\\\"Genericentity\\\",\\\"orderMap\\\":{\\\"id\\\":false},\\\"pageMaxSize\\\":100000,\\\"currentPageNumber\\\":1,\\\"likeORMap\\\":{},\\\"eqMap\\\":{\\\"type\\\":\\\"MATRIX_TEMPLATE_ADD\\\",\\\"deleted\\\":false},\\\"inMap\\\":{}}\" }",
+ *                         // table setting
+ *                         'isDisplayPager':false,
+ *                         'pageMaxSize':5
+ *                       }
+ * @constructor
+ */
+function MatrixTableTemplate(input) {
+    this.table_data_source = ko.observable(input||null);
+}
+
+/**
+ * 通过设置好的数据源属性，将Table View Model和指定的DOM绑定起来
+ * @param  {[type]} destination_div_id [description]
+ * @param  {[type]} vm                 [description]
+ * @param  {[type]} ds                 [description]
+ * @return {[type]}                    [description]
+ */
+function create_static_table_template(destination_div_id,vm_table,ds_table){
+  if(destination_div_id && vm_table && ds_table){
+    var dom = Matrix_DOM_Util.clone_dom(destination_div_id,'wrapped_matrix_dynamic_table_div');
+    var dom_id = dom.id;
+    ko.cleanNode($('#'+dom_id)[0]);
+    ko.applyBindings(vm_table,document.getElementById(dom_id));
+    setTimeout(function() {
+      vm_table.table_data_source(ds_table);
+    }, 500);
+  }
+
+
+}
+
+function create_dynamic_table_template(){
+
 }
