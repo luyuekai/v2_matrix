@@ -12,7 +12,7 @@ var vm = new GenericPageViewModel();
 
 function env_setup() {
   vm_env_setup();
-  dynamic_table_env_setup();
+  table_env_setup();
 }
 
 
@@ -30,36 +30,70 @@ function vm_env_setup() {
   businessPOJO.tableModel = ko.observable();
   businessPOJO.tableModel(new MatrixTableVM());
 
+  businessPOJO.tableDOM = ko.observable();
+  businessPOJO.tableDOM(new MatrixTableTemplate());
+
   vm.businessPOJO(businessPOJO);
 };
 
-function mock_data(businessPOJO){
+function mock_data(businessPOJO) {
   businessPOJO.tableModel = ko.observable();
-  var column_names = ["key","value"];
-  var colunm_data = [["张国立","56"],["王刚","55"],["张铁林","58"],["张国立","56"],["王刚","55"],["张铁林","58"],["张国立","56"],["王刚","55"],["张铁林","58"]];
+  var column_names = ["key", "value"];
+  var colunm_data = [
+    ["张国立", "56"],
+    ["王刚", "55"],
+    ["张铁林", "58"],
+    ["张国立", "56"],
+    ["王刚", "55"],
+    ["张铁林", "58"],
+    ["张国立", "56"],
+    ["王刚", "55"],
+    ["张铁林", "58"]
+  ];
   var tm = new MatrixTableVM();
   // tm.buildData(colunm_data);
   // tm.columnNames(column_names);
   // tm.isDisplayPager(true);
   // tm.buildView();
   // tm.pageMaxSize(5);
-  tm.build(column_names,colunm_data);
+  tm.build(column_names, colunm_data);
   businessPOJO.tableModel(tm);
   return businessPOJO;
 }
 
 
 
-function dynamic_table_env_setup(){
-  MATRIX_DYNAMIC_TABLE_ENV_SETUP();
-  setTimeout(function(){
-    create_dynamic_table(ds, 'copy_table_parent_div', 'copied_table_div');
-  },600)
+// function table_env_setup(){
+//   MATRIX_DYNAMIC_TABLE_ENV_SETUP();
+//   setTimeout(function(){
+//     create_dynamic_table(ds, 'copy_table_parent_div', 'copied_table_div');
+//   },600)
+// }
+//
+function table_env_setup() {
+  // init_matrix_table_env();
+  // var _ds = {};
+  // _ds.type = 'static';
+  // _ds.header = ["Name2", "Value2"];
+  // _ds.result = [
+  //   ["张国立", "56"],
+  //   ["王刚", "55"],
+  //   ["张铁林", "58"],
+  //   ["张国立", "56"],
+  //   ["王刚", "55"],
+  //   ["张铁林", "58"],
+  //   ["张国立", "56"],
+  //   ["王刚", "55"],
+  //   ["张铁林", "58"]
+  // ];
+  // _ds.isDisplayPager = false;
+  // _ds.pageMaxSize = 5;
+  // create_static_table_template('copy_table_parent_div',vm.businessPOJO().tableDOM(),_ds);
 }
 
 
 
-function data_env_setup(){
+function data_env_setup() {
   Matrix_Util.request_local(Matrix_Util.get_project_path() + '/assets/self-owned/data/server_mock_data.json', data_handler);
 }
 
@@ -70,7 +104,7 @@ function data_handler(json) {
   vm.businessPOJO().tableModel(tm);
 }
 
-function t(){
+function t() {
   Matrix_Util.request_remote(Matrix_Util.get_project_path() + '/api/mock/post/success', Matrix_Util.print_handler);
   // $.serverRequest($.getServerRoot() + '/matrix_components_v3/api/mock/success', null, "DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER", 'GET');
 }
