@@ -198,7 +198,7 @@ vm.businessPOJO().tableModel(tm);
                                             <ul>
                                                 <li>本方法使用JSON数据，适用于从后台请求回数据后对result中数据建表使用<ul>
                                                         <li>JSON数据的key作为表头</li>
-                                                        <li>JSON数据devalue作为表格内容</li></ul></li>
+                                                        <li>JSON数据的value作为表格内容</li></ul></li>
                                                 <li>方法：将第一行代码复制到console中，可以获得一个5行6列的数据表<ul>
                                                         <li>示例代码未设置每页显示数量与是否翻页，因此默认显示五行，并无翻页控件</li>
                                                         <li>将JSON输入到MatrixTableVM中的buildJSON()即可构建表格</li></ul></li>
@@ -368,10 +368,10 @@ init_matrix_table_env();
     &lt;div id="copy_table_parent_div" style="display: none"&gt;&lt;/div&gt;
 &lt;/div&gt;
 
-//请求得到JSON数据，并进行处理
+//请求得到JSON数据，并进行处理，在console中输入下面一行代码
 Matrix_Util.request_local(Matrix_Util.get_project_path() + '/assets/self-owned/data/server_mock_data.json',mock_data_static_table);
 
-//写入建表函数，此处为示例，需根据实际情况
+//写入建表函数，此处为示例，已经写入js，需根据实际情况
 function mock_data_static_table(json) {
     $('#table_3').css('display','');
 
@@ -410,10 +410,10 @@ init_matrix_table_env();
 	&lt;div id="copy_table_parent_div" style="display: none"&gt;&lt;/div&gt;
 &lt;/div&gt;
 
-//请求得到JSON数据，并进行处理
+//请求得到JSON数据，并进行处理，在console中输入下面一行代码
 Matrix_Util.request_local(Matrix_Util.get_project_path() + '/assets/self-owned/data/server_mock_data.json',mock_data_static_table);
 
-//写入建表函数，此处为示例，需根据实际情况
+//写入建表函数，此处为示例，已经写入js，需根据实际情况
 function mock_data_static_table(json) {
     $('#table_3').css('display','');
     
