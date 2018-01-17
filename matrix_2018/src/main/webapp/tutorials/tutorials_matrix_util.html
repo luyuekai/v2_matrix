@@ -363,13 +363,150 @@ Matrix_Util.buildKeys(inputDataArray)
                                         <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516087938236_cell_chart"></div>
                                     </div>
 
-                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_out" id="1516087938590_cell">
-                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode">Please double click the cell to edit the content...</span>
-                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516087938590_cell_edit">Please double click the cell to edit the content...</textarea>
-                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516087938590_cell_chart"></div>
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_in" id="1516158639709_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode" style=""><h2 id="matrix_dom_util">Matrix_DOM_Util</h2></span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516158639709_cell_edit">## Matrix\_DOM\_Util</textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516158639709_cell_chart"></div>
+                                    </div>
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_out" id="1516158640049_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode" style=""><ul>
+                                                <li>主要包含一系列对dom的基本操作</li>
+                                            </ul>
+                                            <h3 id="clone_domdestination_parent_div_idoriginal_dom_id">clone_dom(destination_parent_div_id, original_dom_id)</h3>
+                                            <ul>
+                                                <li>作用：复制一个div到指定位置<ul>
+                                                        <li>desitination_parent_div_id：目标div</li>
+                                                        <li>original_dom_id：想要复制的div</li></ul></li>
+                                                <li>使用：Matrix_DOM_Util.clone_dom(destination_parent_div_id,original_dom_id)</li>
+                                                <li>举例：在console中输入 Matrix_DOM_Util.clone_dom('destination_div','original_div') , 会将左侧div复制到右侧</li>
+                                            </ul></span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516158640049_cell_edit">- 主要包含一系列对dom的基本操作
+
+### clone\_dom(destination\_parent\_div\_id, original\_dom\_id)
+- 作用：复制一个div到指定位置
+	- desitination\_parent\_div\_id：目标div
+    - original\_dom\_id：想要复制的div
+- 使用：Matrix\_DOM\_Util.clone\_dom(destination\_parent\_div\_id,original\_dom\_id)
+- 举例：在console中输入 Matrix\_DOM\_Util.clone\_dom('destination\_div','original\_div') , 会将左侧div复制到右侧</textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516158640049_cell_chart"></div>
+                                    </div>
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_in" id="1516159264828_cell">                                       
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="col-sm-12" id="original_div" style="margin-top: 10px">
+                                                    <div class="card card-mini">
+                                                        <div class="card-header">
+                                                            <i class="fa fa-diamond">&nbsp;Detail Information&nbsp;&nbsp;&nbsp;</i>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <form class="form-horizontal">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label" style="text-align:right">
+                                                                        <span style="font-weight: bold;font-size: 16px;">Name</span>
+                                                                        <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                                                                    </label>
+                                                                    <div class="col-sm-4">
+                                                                        <p class="form-control-static">Matrix Component</p>
+                                                                    </div>
+                                                                    <label class="col-sm-2 control-label" style="text-align:right">
+                                                                        <span style="font-weight: bold;font-size: 16px;">Version</span>
+                                                                        <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                                                                    </label>
+                                                                    <div class="col-sm-4">
+                                                                        <p class="form-control-static">3.14</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label" style="text-align:right">
+                                                                        <span style="font-weight: bold;font-size: 16px;">Owner</span>
+                                                                    </label>
+                                                                    <div class="col-sm-4">
+                                                                        <p class="form-control-static">BUPT Scripter Team</p>
+                                                                    </div>
+                                                                    <label class="col-sm-2 control-label" style="text-align:right">
+                                                                        <span style="font-weight: bold;font-size: 16px;">Description</span>
+                                                                    </label>
+                                                                    <div class="col-sm-4">
+                                                                        <p class="form-control-static">团队女神多,所以产出高</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label" style="text-align:right">
+                                                                        <span style="font-weight: bold;font-size: 16px;">Slogon</span>
+                                                                    </label>
+                                                                    <div class="col-sm-10">
+                                                                        <p class="form-control-static">What you are you do not see, what you see is your shadow. I cannot choose the best. the best chooses me. That i exist is a perpetual surprise which is life. </p>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" >
+                                                <div id="destination_div">
+                                                </div>
+                                            </div>
+                                        </div>                                            
+                                    </div>
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_in" id="1516159264828_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode" style=""><h3 id="copy_domoriginal_dom_id">copy_dom(original_dom_id)</h3>
+                                            <ul>
+                                                <li>作用：复制一个div中的信息</li>
+                                                <li>使用：Matrix_DOM_Util.copy_dom(original_dom_id)</li>
+                                            </ul>
+                                            <h3 id="paste_domdestination_parent_div_iddom_element">paste_dom(destination_parent_div_id,dom_element)</h3>
+                                            <ul>
+                                                <li>作用：粘贴一个div到指定位置</li>
+                                                <li>使用：Matrix_DOM_Util.paste_dom(destination_parent_div_id,dom_element)</li>
+                                            </ul>
+                                            <h3 id="serialize_domdom_id">serialize_dom(dom_id)</h3>
+                                            <ul>
+                                                <li>作用：将除chart外的div进行序列化，转化为string，主要用于入库</li>
+                                                <li>使用：Matrix_DOM_Util.serialize_dom(dom_id)</li>
+                                            </ul>
+                                            <h3 id="deserialize_domdom_json">deserialize_dom(dom_json)</h3>
+                                            <ul>
+                                                <li>作用：将div序列化后的信息转化为HTML，主要用于从数据库中取回数据构建页面</li>
+                                                <li>使用：Matrix_DOM_Util.deserialize_dom(dom_json)</li>
+                                            </ul>
+                                            <h3 id="serialize_chart_optionoption">serialize_chart_option(option)</h3>
+                                            <ul>
+                                                <li>作用：将chart的option序列化为string，主要用于入库操作</li>
+                                                <li>使用：Matrix_DOM_Util.serialize_chart_option(option)</li>
+                                            </ul>
+                                            <h3 id="deserialize_chart_optionjson">deserialize_chart_option(json)</h3>
+                                            <ul>
+                                                <li>作用：将chart序列化后的信息转化为JSON，主要用于从数据库中取回数据进行画图</li>
+                                                <li>使用：Matrix_DOM_Util.deserialize_chart_option(json)</li>
+                                            </ul></span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516159264828_cell_edit">### copy\_dom(original\_dom\_id)
+- 作用：复制一个div中的信息
+- 使用：Matrix\_DOM\_Util.copy\_dom(original\_dom\_id)
+
+### paste\_dom(destination\_parent\_div\_id,dom\_element)
+- 作用：粘贴一个div到指定位置
+- 使用：Matrix\_DOM\_Util.paste\_dom(destination\_parent\_div\_id,dom\_element)
+
+### serialize\_dom(dom\_id)
+- 作用：将除chart外的div进行序列化，转化为string，主要用于入库
+- 使用：Matrix\_DOM\_Util.serialize\_dom(dom\_id)
+
+### deserialize\_dom(dom\_json)
+- 作用：将div序列化后的信息转化为HTML，主要用于从数据库中取回数据构建页面
+- 使用：Matrix\_DOM\_Util.deserialize\_dom(dom\_json)
+
+### serialize\_chart\_option(option)
+- 作用：将chart的option序列化为string，主要用于入库操作
+- 使用：Matrix\_DOM\_Util.serialize\_chart\_option(option)
+
+### deserialize\_chart\_option(json)
+- 作用：将chart序列化后的信息转化为JSON，主要用于从数据库中取回数据进行画图
+- 使用：Matrix\_DOM\_Util.deserialize\_chart\_option(json)</textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516159264828_cell_chart"></div>
                                     </div>
 
-                                  
+
                                 </div>
                             </div>
                         </div>
