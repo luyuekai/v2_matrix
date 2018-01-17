@@ -26,9 +26,9 @@ function vm_env_setup() {
   current_vm = vm;
   var businessPOJO = new GenericBusinessPOJO();
 
-  // businessPOJO = mock_data(businessPOJO);
-  businessPOJO.tableModel = ko.observable();
-  businessPOJO.tableModel(new MatrixTableVM());
+   businessPOJO = mock_data(businessPOJO);
+//  businessPOJO.tableModel = ko.observable();
+//  businessPOJO.tableModel(new MatrixTableVM());
 
   vm.businessPOJO(businessPOJO);
 };

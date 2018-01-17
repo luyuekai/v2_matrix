@@ -85,7 +85,296 @@
                 <!--VALIDATION DIV FINISHED-->
 
                 <!--BUSINESS DIV BEGIN-->
-               
+                <div class="row" id="report_content_div">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:30px">
+                        <div class="card card-mini">
+                            <div class="card-body" id="report_content_body_div" style="min-height:300px">
+                                <div data-bind="foreach:cells">
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_out" id="1516007489785_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode" style=""><h1 id="matrix_utiljs">Matrix_Util.js</h1></span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516007489785_cell_edit"># Matrix_Util.js</textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516007489785_cell_chart"></div>
+                                    </div>
+
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_out" id="1516087718304_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode" style=""><h2 id="matrix_util">Matrix_Util</h2></span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516087718304_cell_edit">## Matrix_Util</textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516087718304_cell_chart"></div>
+                                    </div>
+
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_out" id="1516007509317_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode"><h3 id="get_server_path">get _ server _ path()</h3>
+                                            <ul>
+                                                <li>功能：获取server路径</li>
+                                                <li>使用：Matrix_Util.get _ server _ path()</li>
+                                            </ul></span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516007509317_cell_edit">### get _ server _ path()
+- 功能：获取server路径
+- 使用：Matrix_Util.get _ server _ path()</textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516007509317_cell_chart"></div>
+                                    </div>
+
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_out" id="1516007538190_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode"><h3 id="get_project_path">get _  project _path()</h3>
+                                            <ul>
+                                                <li>功能：获取项目路径</li>
+                                                <li>使用：Matrix_Util.get _ project _ path()</li>
+                                            </ul></span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516007538190_cell_edit">### get _  project _path()
+- 功能：获取项目路径
+- 使用：Matrix_Util.get _ project _ path()
+                                        </textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516007538190_cell_chart"></div>
+                                    </div>
+
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_out" id="1516007538597_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode"><h3 id="gen_id">gen_id()</h3>
+                                            <ul>
+                                                <li>作用：生成一个唯一ID，由0~100的随机数和生成元素的时间戳组成</li>
+                                                <li>使用：Matrix_util.gen _id()</li>
+                                            </ul></span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516007538597_cell_edit">### gen_id()
+- 作用：生成一个唯一ID，由0~100的随机数和生成元素的时间戳组成
+- 使用：Matrix_util.gen _id()</textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516007538597_cell_chart"></div>
+                                    </div>
+
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_in" id="1516007538799_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode"><h3 id="request_localurlhandler">request_local(url,handler)</h3>
+                                            <ul>
+                                                <li>作用：访问工程本地数据源<ul>
+                                                        <li>url（必填）： 本地数据源路径</li>
+                                                        <li>handler（必填）：对数据的处理函数，自行定义</li></ul></li>
+                                                <li>使用：Matrix_Util.request _ local(url,handler)</li>
+                                                <li>举例： 在console中输入 Matrix_Util.request _ local(Matrix_Util.get _ project _ path() + '/assets/self-owned/data/server _ mock _ data.json', Matrix_Util.print _ handler); 输出如下：</li>
+                                            </ul>
+                                            <pre><code>[
+  {"id": 1,"name": "bill","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 2,"name": "amanda","sex": "female","age": 32,"email": "amanda@matrix.com","phone": 13912738475},
+  {"id": 3,"name": "carina","sex": "female","age": 32,"email": "carina@matrix.com","phone": 13912738475},
+  {"id": 4,"name": "tom","sex": "male","age": 32,"email": "tom@matrix.com","phone": 13912738475},
+  {"id": 5,"name": "frank","sex": "male","age": 32,"email": "frank@matrix.com","phone": 13912738475},
+  {"id": 6,"name": "willy","sex": "male","age": 32,"email": "willy@matrix.com","phone": 13912738475},
+  {"id": 7,"name": "bill2","sex": "female","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 8,"name": "bill3","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 9,"name": "bill4","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 10,"name": "bill5","sex": "female","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 11,"name": "bill6","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 12,"name": "bill7","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 13,"name": "bill8","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 14,"name": "frank1","sex": "female","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 15,"name": "frank2","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 16,"name": "frank3","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 17,"name": "frank4","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 18,"name": "frank5","sex": "female","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 19,"name": "frank","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 20,"name": "bill3","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 21,"name": "bill2","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 22,"name": "bill1","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 23,"name": "bill6","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 24,"name": "bill8","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 25,"name": "bill","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475}
+]
+</code></pre></span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516007538799_cell_edit">### request_local(url,handler)
+- 作用：访问工程本地数据源
+    - url（必填）： 本地数据源路径
+    - handler（必填）：对数据的处理函数，自行定义
+- 使用：Matrix_Util.request _ local(url,handler)
+- 举例： 在console中输入 Matrix_Util.request _ local(Matrix_Util.get _ project _ path() + '/assets/self-owned/data/server _ mock _ data.json', Matrix_Util.print _ handler); 输出如下：
+```
+[
+  {"id": 1,"name": "bill","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 2,"name": "amanda","sex": "female","age": 32,"email": "amanda@matrix.com","phone": 13912738475},
+  {"id": 3,"name": "carina","sex": "female","age": 32,"email": "carina@matrix.com","phone": 13912738475},
+  {"id": 4,"name": "tom","sex": "male","age": 32,"email": "tom@matrix.com","phone": 13912738475},
+  {"id": 5,"name": "frank","sex": "male","age": 32,"email": "frank@matrix.com","phone": 13912738475},
+  {"id": 6,"name": "willy","sex": "male","age": 32,"email": "willy@matrix.com","phone": 13912738475},
+  {"id": 7,"name": "bill2","sex": "female","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 8,"name": "bill3","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 9,"name": "bill4","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 10,"name": "bill5","sex": "female","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 11,"name": "bill6","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 12,"name": "bill7","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 13,"name": "bill8","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 14,"name": "frank1","sex": "female","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 15,"name": "frank2","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 16,"name": "frank3","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 17,"name": "frank4","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 18,"name": "frank5","sex": "female","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 19,"name": "frank","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 20,"name": "bill3","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 21,"name": "bill2","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 22,"name": "bill1","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 23,"name": "bill6","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 24,"name": "bill8","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+  {"id": 25,"name": "bill","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475}
+]
+```</textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516007538799_cell_chart"></div>
+                                    </div>
+
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_out" id="1516007538992_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode" style=""><h3 id="request_remoteurlhandleroption_paramoption_typeoption_need_wrapoption_wrap_dataoption_respones_error_handleroption_service_error_handler">request_remote(url,handler,option_param.option_type,option_need_wrap,option_wrap_data,option_respones_error_handler,option_service_error_handler)</h3>
+                                            <ul>
+                                                <li>作用：访问数据库等远程数据源<ul>
+                                                        <li>url（必填）：请求地址</li>
+                                                        <li>handler（必填）：处理请求到的数据的函数</li>
+                                                        <li>option_param（选填）：发送的请求的参数</li>
+                                                        <li>option_type（选填）：请求方式，默认为POST</li>
+                                                        <li>option_need_wrap（选填）：请求是否包含额外数据</li>
+                                                        <li>option_wrap_data（选填）：请求的额外数据，即可与请求数据进行关联处理的属性</li>
+                                                        <li>option_responses_error_handler（选填）：请求错误返回发送语句，通过$.subscribe()进行捕获</li>
+                                                        <li>option_service_error_handler（选填）：请求发生服务器错误返回语句，通过$.subscribe()进行捕获</li></ul></li>
+                                                <li>使用：Matrix_Util.request_remote(url,handler,...)</li>
+                                                <li>举例：在console中输入 Matrix<em>Util.request</em>remote(Matrix<em>Util.get</em>project<em>path() + '/api/mock/post/success', Matrix</em>Util.print_handler); 输出为</li>
+                                            </ul>
+                                            <pre><code>{
+  "hasError": false,
+  "errorMessage": null,
+  "statusCode": 200,
+  "status": null,
+  "result": null,
+  "totalCounts": null,
+  "pageMaxSize": null,
+  "currentPageNumber": null,
+  "currentPageSize": null
+}
+</code></pre></span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516007538992_cell_edit">### request_remote(url,handler,option\_param.option\_type,option\_need\_wrap,option\_wrap\_data,option\_respones\_error\_handler,option\_service\_error\_handler)
+- 作用：访问数据库等远程数据源
+    - url（必填）：请求地址
+    - handler（必填）：处理请求到的数据的函数
+    - option_param（选填）：发送的请求的参数
+    - option_type（选填）：请求方式，默认为POST
+    - option\_need\_wrap（选填）：请求是否包含额外数据
+    - option\_wrap\_data（选填）：请求的额外数据，即可与请求数据进行关联处理的属性
+    - option\_responses\_error\_handler（选填）：请求错误返回发送语句，通过$.subscribe()进行捕获
+    - option\_service\_error\_handler（选填）：请求发生服务器错误返回语句，通过$.subscribe()进行捕获
+- 使用：Matrix\_Util.request\_remote(url,handler,...)
+- 举例：在console中输入 Matrix_Util.request_remote(Matrix_Util.get_project_path() + '/api/mock/post/success', Matrix_Util.print_handler); 输出为
+```
+{
+  "hasError": false,
+  "errorMessage": null,
+  "statusCode": 200,
+  "status": null,
+  "result": null,
+  "totalCounts": null,
+  "pageMaxSize": null,
+  "currentPageNumber": null,
+  "currentPageSize": null
+}
+```</textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516007538992_cell_chart"></div>
+                                    </div>
+
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_out" id="1516087937456_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode" style=""><h3 id="json2tableinputdata">json2table(inputData)</h3>
+                                            <ul>
+                                                <li>作用：将JSON格式数据转化为适应table格式的数据<ul>
+                                                        <li>返回result：<ul>
+                                                                <li>header ： 一维数组</li>
+                                                                <li>result ： 二维或多维数组</li></ul></li>
+                                                        <li>inputData：JSON格式数据</li></ul></li>
+                                                <li>使用：Matrix_Util.json2table(inputData)</li>
+                                                <li>举例：</li>
+                                            </ul>
+                                            <pre><code>//在console中输入
+var inputData =   [
+     {"id": 1,"name": "bill","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+     {"id": 2,"name": "amanda","sex": "female","age": 32,"email": "amanda@matrix.com","phone": 13912738475},
+     {"id": 3,"name": "carina","sex": "female","age": 32,"email": "carina@matrix.com","phone": 13912738475},
+     {"id": 4,"name": "tom","sex": "male","age": 32,"email": "tom@matrix.com","phone": 13912738475}
+   ]
+Matrix_Util.json2table(inputData)
+
+//在console中返回
+{
+  header: ["id", "name", "sex", "age", "email", "phone"]
+  result: [
+    [1, "bill", "male", 32, "bill@matrix.com", 13912738475],
+    [2, "amanda", "female", 32, "amanda@matrix.com", 13912738475],
+    [3, "carina", "female", 32, "carina@matrix.com", 13912738475],
+    [4, "tom", "male", 32, "tom@matrix.com", 13912738475]
+  ]
+}
+</code></pre></span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516087937456_cell_edit">### json2table(inputData)
+- 作用：将JSON格式数据转化为适应table格式的数据
+    - 返回result：
+        - header ： 一维数组
+        - result ： 二维或多维数组
+    - inputData：JSON格式数据
+- 使用：Matrix\_Util.json2table(inputData)
+- 举例：
+```
+//在console中输入
+var inputData =   [
+     {"id": 1,"name": "bill","sex": "male","age": 32,"email": "bill@matrix.com","phone": 13912738475},
+     {"id": 2,"name": "amanda","sex": "female","age": 32,"email": "amanda@matrix.com","phone": 13912738475},
+     {"id": 3,"name": "carina","sex": "female","age": 32,"email": "carina@matrix.com","phone": 13912738475},
+     {"id": 4,"name": "tom","sex": "male","age": 32,"email": "tom@matrix.com","phone": 13912738475}
+   ]
+Matrix_Util.json2table(inputData)
+
+//在console中返回
+{
+  header: ["id", "name", "sex", "age", "email", "phone"]
+  result: [
+    [1, "bill", "male", 32, "bill@matrix.com", 13912738475],
+    [2, "amanda", "female", 32, "amanda@matrix.com", 13912738475],
+    [3, "carina", "female", 32, "carina@matrix.com", 13912738475],
+    [4, "tom", "male", 32, "tom@matrix.com", 13912738475]
+  ]
+}
+```</textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516087937456_cell_chart"></div>
+                                    </div>
+
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_out" id="1516087938236_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode" style=""><h3 id="buildkeysinputdataarray">buildKeys(inputDataArray)</h3>
+                                            <ul>
+                                                <li>作用：获取JSON数组的所有key属性列表<ul>
+                                                        <li>inputDataArray：JSON数组</li></ul></li>
+                                                <li>使用：Matrix_Util.buildKeys(inputDataArray)</li>
+                                                <li>举例：</li>
+                                            </ul>
+                                            <pre><code>//在console中输入
+var inputDataArray = [{"key_time":"20150513","key_1":"安徽","key_2":"移动","key_3":"3rdpartyflow"}]
+Matrix_Util.buildKeys(inputDataArray)
+
+//在console中返回
+["key_time", "key_1", "key_2", "key_3"]
+</code></pre></span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516087938236_cell_edit">### buildKeys(inputDataArray)
+- 作用：获取JSON数组的所有key属性列表
+    - inputDataArray：JSON数组
+- 使用：Matrix\_Util.buildKeys(inputDataArray)
+- 举例：
+```
+//在console中输入
+var inputDataArray = [{"key_time":"20150513","key_1":"安徽","key_2":"移动","key_3":"3rdpartyflow"}]
+Matrix_Util.buildKeys(inputDataArray)
+
+//在console中返回
+["key_time", "key_1", "key_2", "key_3"]
+```</textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516087938236_cell_chart"></div>
+                                    </div>
+
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_out" id="1516087938590_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode">Please double click the cell to edit the content...</span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516087938590_cell_edit">Please double click the cell to edit the content...</textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516087938590_cell_chart"></div>
+                                    </div>
+
+                                  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!--BUSINESS DIV FINISHED-->
 
 
