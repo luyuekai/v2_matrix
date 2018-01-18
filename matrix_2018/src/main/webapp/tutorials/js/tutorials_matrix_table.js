@@ -8,6 +8,7 @@ var vm = new GenericPageViewModel();
 function env_setup() {
     vm_env_setup();
     init_matrix_table_env();
+    table_css();
 }
 
 
@@ -21,6 +22,7 @@ function vm_env_setup() {
     current_vm = vm;
     var businessPOJO = new GenericBusinessPOJO();
     businessPOJO.tableModel = ko.observable();
+    businessPOJO.tableModel_css_with_pager = ko.observable();
     vm.businessPOJO(businessPOJO);
 
 }
@@ -50,7 +52,7 @@ function mock_data_json(json) {
 
 //通过ko注册建静态表
 function mock_data_static_table(json) {
-    $('#table_3').css('display','');
+    $('#table_3').css('display', '');
     var result = Matrix_Util.json2table(json);
     var ds = {
         'type': 'static',
@@ -61,4 +63,17 @@ function mock_data_static_table(json) {
     setTimeout(function () {
         create_static_table_template('copy_table_parent_div', vm_table, ds);
     }, 600);
+}
+
+//table样式
+function table_css() {
+    //带翻页控件
+    ko.cleanNode(document.getElementById('table_css_with_pager'));
+    ko.applyBindings(vm.businessPOJO(), document.getElementById('table_css_with_pager'));
+    var column_names = ["key", "value"];
+    var colunm_data = [["张国立", "56"], ["王刚", "55"], ["张铁林", "58"], ["张国立", "56"], ["王刚", "55"], ["张铁林", "58"], ["张国立", "56"], ["王刚", "55"], ["张铁林", "58"]];
+    var tm = new MatrixTableVM();
+    tm.build(column_names, colunm_data);
+    tm.isDisplayPager(true);
+    vm.businessPOJO().tableModel_css_with_pager(tm);
 }
