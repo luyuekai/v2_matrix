@@ -389,7 +389,7 @@ function mock_data_static_table(json) {
     var vm_table = new MatrixTableTemplate();
     //建表
     setTimeout(function () {
-        create_static_table_template('copy_table_parent_div', vm_table, ds);
+        create_table_template('copy_table_parent_div', vm_table, ds);
     }, 600);
 }
 </code></pre></span>
@@ -431,7 +431,7 @@ function mock_data_static_table(json) {
     var vm_table = new MatrixTableTemplate();
     //建表
     setTimeout(function () {
-        create_static_table_template('copy_table_parent_div', vm_table, ds);
+        create_table_template('copy_table_parent_div', vm_table, ds);
     }, 600);
 }
 ```</textarea>
@@ -442,6 +442,101 @@ function mock_data_static_table(json) {
                                             <div class="matrix-card dark summary-inline" style="">
                                                 <div class="card-body flat-matrix" style="padding: 0px 30px;">
                                                     <div id="copy_table_parent_div"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_in" id="1516245189390_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode" style=""><h3 id="ko">通过ko注册组件建立动态表</h3>
+                                            <ul>
+                                                <li>本方法通过ko的register接口，建立表格，简化html代码<ul>
+                                                        <li>根据js中ds格式要求设置js，要求包含type、URL、json_rule、request_params</li>
+                                                        <li>其中json_rule与request_params为string格式，后期要转化为json格式，注意符号转译</li></ul></li>
+                                                <li>方法：阅读下列代码，根据实际情况进行调整<ul>
+                                                        <li>示例代码未设置每页显示数量与是否翻页，因此默认显示五行，并无翻页控件</li></ul></li>
+                                            </ul>
+                                            <pre><code>//在初始化页面时，执行注册组件函数
+init_matrix_table_env();
+
+//在HTML页面需要建表的位置写入一个带有id标识的div
+&lt;div class="col-md-12"&gt;
+    &lt;div id="copy_table_parent_div_dynamic" style="display: none"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+//请求得到JSON数据，并进行处理，在console中输入
+mock_data_dynamic_table();
+
+//写入建表函数，此处为示例，已经写入js，需根据实际情况
+function mock_data_dynamic_table() {
+    $('#table_4').css('display', '');
+    var ds = {
+        "type": "dynamic",
+        "url": "http://localhost:8080/service_generic_query/api/query",
+
+        //对表格显示哪几列进行设置，格式与MatrixTableHeaderItemVM相适应，注意转译,亦可写为object数组
+        "header_json": "[{\"data\":\"id\",\"index\":0,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"booleanalpha\",\"index\":1,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"booleanbeta\",\"index\":2,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"booleandelta\",\"index\":3,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"booleangamma\",\"index\":4,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"category\",\"index\":5,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"createtime\",\"index\":6,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"creator\",\"index\":7,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"deleted\",\"index\":8,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"description\",\"index\":9,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"enabled\",\"index\":10,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"lastmodifier\",\"index\":11,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"lastupdatetime\",\"index\":12,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"modifycount\",\"index\":13,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"name\",\"index\":14,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"numberalpha\",\"index\":15,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberbeta\",\"index\":16,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberdelta\",\"index\":17,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberepsilon\",\"index\":18,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numbereta\",\"index\":19,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numbergamma\",\"index\":20,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberkappa\",\"index\":21,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberlambda\",\"index\":22,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberlota\",\"index\":23,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberomega\",\"index\":24,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numbertheta\",\"index\":25,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberzeta\",\"index\":26,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"parentid\",\"index\":27,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"priority\",\"index\":28,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"status\",\"index\":29,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringalpha\",\"index\":30,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"stringbeta\",\"index\":31,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringdelta\",\"index\":32,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringepsilon\",\"index\":33,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringeta\",\"index\":34,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringgamma\",\"index\":35,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringkappa\",\"index\":36,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringlambda\",\"index\":37,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringlota\",\"index\":38,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringomega\",\"index\":39,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringtheta\",\"index\":40,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringzeta\",\"index\":41,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"type\",\"index\":42,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"valid\",\"index\":43,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"children\",\"index\":44,\"isChecked\":false,\"isDisplay\":true}]",
+
+        "json_rule": "result",
+        "rest_mode": "POST",
+        //请求所带参数，注意转译，亦可写为json格式，注意使用$.toJSON()
+        "request_params": "{ \"queryJson\": \"{\\\"className\\\":\\\"Genericentity\\\",\\\"orderMap\\\":{\\\"id\\\":false},\\\"pageMaxSize\\\":100000,\\\"currentPageNumber\\\":1,\\\"likeORMap\\\":{},\\\"eqMap\\\":{\\\"deleted\\\":false},\\\"inMap\\\":{}}\" }"
+    };
+    var vm_table = new MatrixTableTemplate();
+    setTimeout(function () {
+        create_table_template('copy_table_parent_div_dynamic', vm_table, ds);
+    }, 600);
+}
+
+//进入注册函数，请求数据
+</code></pre></span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516245189390_cell_edit">### 通过ko注册组件建立动态表
+- 本方法通过ko的register接口，建立表格，简化html代码
+	- 根据js中ds格式要求设置js，要求包含type、URL、json\_rule、request\_params
+    - 其中json\_rule与request\_params为string格式，后期要转化为json格式，注意符号转译
+- 方法：阅读下列代码，根据实际情况进行调整
+    - 示例代码未设置每页显示数量与是否翻页，因此默认显示五行，并无翻页控件
+```
+//在初始化页面时，执行注册组件函数
+init_matrix_table_env();
+
+//在HTML页面需要建表的位置写入一个带有id标识的div
+&lt;div class="col-md-12"&gt;
+	&lt;div id="copy_table_parent_div_dynamic" style="display: none"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+//请求得到JSON数据，并进行处理，在console中输入
+mock_data_dynamic_table();
+
+//写入建表函数，此处为示例，已经写入js，需根据实际情况
+function mock_data_dynamic_table() {
+    $('#table_4').css('display', '');
+    var ds = {
+        "type": "dynamic",
+        "url": "http://localhost:8080/service_generic_query/api/query",
+        
+        //对表格显示哪几列进行设置，格式与MatrixTableHeaderItemVM相适应，注意转译,亦可写为object数组
+        "header_json": "[{\"data\":\"id\",\"index\":0,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"booleanalpha\",\"index\":1,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"booleanbeta\",\"index\":2,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"booleandelta\",\"index\":3,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"booleangamma\",\"index\":4,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"category\",\"index\":5,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"createtime\",\"index\":6,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"creator\",\"index\":7,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"deleted\",\"index\":8,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"description\",\"index\":9,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"enabled\",\"index\":10,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"lastmodifier\",\"index\":11,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"lastupdatetime\",\"index\":12,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"modifycount\",\"index\":13,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"name\",\"index\":14,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"numberalpha\",\"index\":15,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberbeta\",\"index\":16,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberdelta\",\"index\":17,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberepsilon\",\"index\":18,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numbereta\",\"index\":19,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numbergamma\",\"index\":20,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberkappa\",\"index\":21,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberlambda\",\"index\":22,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberlota\",\"index\":23,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberomega\",\"index\":24,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numbertheta\",\"index\":25,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberzeta\",\"index\":26,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"parentid\",\"index\":27,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"priority\",\"index\":28,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"status\",\"index\":29,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringalpha\",\"index\":30,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"stringbeta\",\"index\":31,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringdelta\",\"index\":32,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringepsilon\",\"index\":33,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringeta\",\"index\":34,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringgamma\",\"index\":35,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringkappa\",\"index\":36,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringlambda\",\"index\":37,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringlota\",\"index\":38,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringomega\",\"index\":39,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringtheta\",\"index\":40,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringzeta\",\"index\":41,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"type\",\"index\":42,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"valid\",\"index\":43,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"children\",\"index\":44,\"isChecked\":false,\"isDisplay\":true}]",
+        
+        "json_rule": "result",
+        "rest_mode": "POST",
+        //请求所带参数，注意转译，亦可写为json格式，注意使用$.toJSON()
+        "request_params": "{ \"queryJson\": \"{\\\"className\\\":\\\"Genericentity\\\",\\\"orderMap\\\":{\\\"id\\\":false},\\\"pageMaxSize\\\":100000,\\\"currentPageNumber\\\":1,\\\"likeORMap\\\":{},\\\"eqMap\\\":{\\\"deleted\\\":false},\\\"inMap\\\":{}}\" }"
+    };
+    var vm_table = new MatrixTableTemplate();
+    setTimeout(function () {
+        create_table_template('copy_table_parent_div_dynamic', vm_table, ds);
+    }, 600);
+}
+
+//进入注册函数，请求数据
+```</textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516245189390_cell_chart"></div>
+                                    </div>
+                                    <div class="row"  id="table_4" style="display: none">
+                                        <div class="col-md-12">
+                                            <div class="matrix-card dark summary-inline" style="">
+                                                <div class="card-body flat-matrix" style="padding: 0px 30px;">
+                                                    <div id="copy_table_parent_div_dynamic"></div>
                                                 </div>
                                             </div>
                                         </div>

@@ -38,15 +38,15 @@ function MatrixTableVM() {
         return tp;
     }, this);
     //通用构造函数
-    self.build = function(header_array,data_array){
-      self.columnNames(header_array);
-      self.buildData(data_array);
-      self.buildView();
+    self.build = function (header_array, data_array) {
+        self.columnNames(header_array);
+        self.buildData(data_array);
+        self.buildView();
     };
     //通过REST端返回的JSON格式构造模型
-    self.buildJSON = function(json){
-      var result = Matrix_Util.json2table(json);
-      self.build(result.header,result.result);
+    self.buildJSON = function (json) {
+        var result = Matrix_Util.json2table(json);
+        self.build(result.header, result.result);
     }
     //跳到第几页
     self.toPage = function (pageNumber) {
@@ -86,7 +86,7 @@ function MatrixTableVM() {
         var thinTmp = [];
         for (var i = first; i < last; i++) {
             var element = self.originViewData()[i];
-            thinTmp.push(new MatrixTableDataVM(element, false, true,self));
+            thinTmp.push(new MatrixTableDataVM(element, false, true, self));
         }
         self.thinViewData(thinTmp);
         self.syncViewDataCheckbox();
@@ -111,7 +111,7 @@ function MatrixTableVM() {
             self.selectedItems.removeAll();
             if (newValue) {
                 $.each(self.originViewData(), function (idx, val) {
-                    self.selectedItems.push(new MatrixTableDataVM(val, true, true,self));
+                    self.selectedItems.push(new MatrixTableDataVM(val, true, true, self));
                 });
             }
             self.syncViewDataCheckbox();
@@ -126,7 +126,7 @@ function MatrixTableVM() {
 
     //由于selectedItems中存储的是副本，需要保证selectedItems与thinViewData已勾选内容一致。
     //统一为对selectedItems增删，然后通过下面的函数进行勾选框的状态同步
-    self.syncViewDataCheckbox = function() {
+    self.syncViewDataCheckbox = function () {
         var thinTmp = self.thinViewData();
         $.each(thinTmp, function (idx, val) {
             if (self.checkItemSelectedBefore(self.selectedItems(), val)) {
@@ -151,13 +151,13 @@ function MatrixTableVM() {
 
     self.getSelectedData = function () {
         var array = [];
-        for (var i in self.selectedItems()){
+        for (var i in self.selectedItems()) {
             array.push(self.selectedItems()[i].data);
         }
         return array;
     };
 
-    self.clearSelectedData = function(){
+    self.clearSelectedData = function () {
         self.selectedItems.removeAll();
     };
 
@@ -219,21 +219,21 @@ function MatrixTableVM() {
         self.calcuRowsToDisplay();
         var tmp_header = [];
         $.each(self.columnNames(), function (idx, val) {
-          tmp_header.push(new MatrixTableHeaderItemVM(val,idx,true, true,self));
+            tmp_header.push(new MatrixTableHeaderItemVM(val, idx, true, true, self));
         });
         self.headerViewData(tmp_header);
     };
 
-    self.uncheck_all = function(){
-      $.each(self.headerViewData(), function (idx, val) {
-        val.isChecked(false);
-      });
+    self.uncheck_all = function () {
+        $.each(self.headerViewData(), function (idx, val) {
+            val.isChecked(false);
+        });
     };
 
-    self.check_all = function(){
-      $.each(self.headerViewData(), function (idx, val) {
-        val.isChecked(true);
-      });
+    self.check_all = function () {
+        $.each(self.headerViewData(), function (idx, val) {
+            val.isChecked(true);
+        });
     };
 
     // 分页更新页面视图元素函数，逻辑如下：
@@ -262,13 +262,16 @@ function MatrixTableVM() {
     };
 
     //将JSON格式的header信息转换成HeaderItemModel数据对象
-    self.json2header = function(json){
-      var obj = JSON.parse(json);
-      var header = [];
-      $.each(obj,function(idx,val){
-        header.push(new HeaderItemModel(val.data,idx,val.isChecked,val.isDisplay,self));
-      });
-      return header;
+    self.json2header = function (json) {
+        var obj = json;
+        if(typeof json == 'string'){
+            obj = JSON.parse(json);
+        }
+        var header = [];
+        $.each(obj, function (idx, val) {
+            header.push(new HeaderItemModel(val.data, idx, val.isChecked, val.isDisplay, self));
+        });
+        return header;
     };
 }
 
@@ -282,7 +285,7 @@ function MatrixTableVM() {
  * @param       {[type]}  parent    [它对应的父元素，一般为MatrixTableVM]
  * @constructor
  */
-function MatrixTableDataVM(data, isChecked, isDisplay,parent) {
+function MatrixTableDataVM(data, isChecked, isDisplay, parent) {
     var self = this;
     self.parent = parent;
     // data is an array for store cell:[]
@@ -295,12 +298,12 @@ function MatrixTableDataVM(data, isChecked, isDisplay,parent) {
      * @return {[type]}            [description]
      */
     self.isDisplay_cell = function (cell_index) {
-      var flag = true;
-      if(self.parent){
-        var headerItemModel =self.parent.headerViewData()[cell_index];
-        flag = headerItemModel.isChecked();
-      }
-      return flag;
+        var flag = true;
+        if (self.parent) {
+            var headerItemModel = self.parent.headerViewData()[cell_index];
+            flag = headerItemModel.isChecked();
+        }
+        return flag;
     };
 }
 
@@ -314,93 +317,94 @@ function MatrixTableDataVM(data, isChecked, isDisplay,parent) {
  * @param       {[type]}  parent    [description]
  * @constructor
  */
-function MatrixTableHeaderItemVM(data,index,isChecked,isDisplay,parent){
-  var self = this;
-  self.parent = parent;
-  self.data = ko.observable(data);
-  self.data_id = ko.computed(function() {
-        return 'id_'+this.data()+ (new Date()).getTime();
+function MatrixTableHeaderItemVM(data, index, isChecked, isDisplay, parent) {
+    var self = this;
+    self.parent = parent;
+    self.data = ko.observable(data);
+    self.data_id = ko.computed(function () {
+        return 'id_' + this.data() + (new Date()).getTime();
     }, this);
-  self.index = ko.observable(index);
-  self.name = ko.computed(function(){
-    return self.index()+"_"+self.data();
-  },this);
-  self.isChecked = ko.observable(isChecked);
-  self.isDisplay = ko.observable(isDisplay);
+    self.index = ko.observable(index);
+    self.name = ko.computed(function () {
+        return self.index() + "_" + self.data();
+    }, this);
+    self.isChecked = ko.observable(isChecked);
+    self.isDisplay = ko.observable(isDisplay);
 }
 
-function init_matrix_table_env(){
-  ko.components.register('matrix_dynamic_table', {
-      viewModel: function(params) {
-          var self = this;
-          self.ds = params.value;
+function init_matrix_table_env() {
+    ko.components.register('matrix_dynamic_table', {
+        viewModel: function (params) {
+            var self = this;
+            self.ds = params.value;
 
-          self.ds.subscribe(function(newValue) {
-              self.update_table(newValue);
+            self.ds.subscribe(function (newValue) {
+                self.update_table(newValue);
 
-          });
-          self.tableModel = ko.observable(new MatrixTableVM());
+            });
+            self.tableModel = ko.observable(new MatrixTableVM());
 
-          self.update_table = function(newValue){
-            if(newValue.type =='static'){
-              if(newValue.header && newValue.result){
-                var tableModel = new MatrixTableVM();
-                tableModel.build(newValue.header,newValue.result);
-                if(newValue.isDisplayPager){
-                  tableModel.isDisplayPager(newValue.isDisplayPager);
+            self.update_table = function (newValue) {
+                if (newValue.type == 'static') {
+                    if (newValue.header && newValue.result) {
+                        var tableModel = new MatrixTableVM();
+                        tableModel.build(newValue.header, newValue.result);
+                        if (newValue.isDisplayPager) {
+                            tableModel.isDisplayPager(newValue.isDisplayPager);
+                        }
+                        if (newValue.pageMaxSize) {
+                            tableModel.pageMaxSize(newValue.pageMaxSize);
+                        }
+                        self.tableModel(tableModel);
+                    }
+                } else if (newValue.type == 'dynamic') {
+                    if (newValue.url) {
+                        var url = newValue.url;
+                        var option_type = newValue.rest_mode;
+                        var option_param = newValue.request_params || null;
+                        if (typeof option_param == 'string') {
+                            option_param = JSON.parse(option_param);
+                        }
+                        Matrix_Util.request_remote(newValue.url, matrix_table_remote_data_handler, option_param, option_type, true, self);
+                    }
                 }
-                if(newValue.pageMaxSize){
-                  tableModel.pageMaxSize(newValue.pageMaxSize);
-                }
-                self.tableModel(tableModel);
-              }
-            }else if(newValue.type =='dynamic'){
-              if(newValue.url){
-                var url = newValue.url;
-                var option_type = newValue.rest_mode;
-                var option_param = newValue.request_params || null;
-                if(option_param){
-                  option_param = JSON.parse(option_param);
-                }
-                Matrix_Util.request_remote(newValue.url,matrix_table_remote_data_handler,option_param,option_type,true,self);
-              }
-            }
 
 
 
-          };
-      },
-      template: { element: 'matrix_dynamic_table-template' }
-  });
+            };
+        },
+        template: {element: 'matrix_dynamic_table-template'}
+    });
 }
 
 function matrix_table_remote_data_handler(json) {
-  var server_data = json.response;
-  var matrix_table_template = json.addtion;
-  var ds = matrix_table_template.ds();
-  if(ds){
-    if(ds.json_rule){
-      var tmp = 'server_data.'+ds.json_rule;
-      server_data = eval(tmp);
+    var server_data = json.response;
+    var matrix_table_template = json.addtion;
+    var ds = matrix_table_template.ds();
+    if (ds) {
+        if (ds.json_rule) {
+            var tmp = 'server_data.' + ds.json_rule;
+            server_data = eval(tmp);
+        }
     }
-  }
 
-  var tableModel = new MatrixTableVM();
-  tableModel.buildJSON(server_data);
-  if(ds.isDisplayPager){
-    tableModel.isDisplayPager(ds.isDisplayPager);
-  }
-  if(ds.pageMaxSize){
-    tableModel.pageMaxSize(ds.pageMaxSize);
-  }
-  if(ds.header_json){
-    var header = tableModel.json2header(ds.header_json);
+    var tableModel = new MatrixTableVM();
+    tableModel.buildJSON(server_data);
+    if (ds.isDisplayPager) {
+        tableModel.isDisplayPager(ds.isDisplayPager);
+    }
+    if (ds.pageMaxSize) {
+        tableModel.pageMaxSize(ds.pageMaxSize);
+    }
+    if (ds.header_json) {
+        var header = tableModel.json2header(ds.header_json);      
 
-    tableModel.headerViewData(header);
-  }
 
-  matrix_table_template.tableModel(tableModel);
-  return;
+        tableModel.headerViewData(header);
+    }
+
+    matrix_table_template.tableModel(tableModel);
+    return;
 }
 
 /**
@@ -427,7 +431,7 @@ function matrix_table_remote_data_handler(json) {
  * @constructor
  */
 function MatrixTableTemplate(input) {
-    this.table_data_source = ko.observable(input||null);
+    this.table_data_source = ko.observable(input || null);
 }
 
 /**
@@ -437,16 +441,16 @@ function MatrixTableTemplate(input) {
  * @param  {[type]} ds                 [description]
  * @return {[type]}                    [description]
  */
-function create_table_template(destination_div_id,vm_table,ds_table){
-  if(destination_div_id && vm_table && ds_table){
-    var dom = Matrix_DOM_Util.clone_dom(destination_div_id,'wrapped_matrix_dynamic_table_div');
-    var dom_id = dom.id;
-    ko.cleanNode($('#'+dom_id)[0]);
-    ko.applyBindings(vm_table,document.getElementById(dom_id));
-    setTimeout(function() {
-      vm_table.table_data_source(ds_table);
-    }, 500);
-  }
+function create_table_template(destination_div_id, vm_table, ds_table) {
+    if (destination_div_id && vm_table && ds_table) {
+        var dom = Matrix_DOM_Util.clone_dom(destination_div_id, 'wrapped_matrix_dynamic_table_div');
+        var dom_id = dom.id;
+        ko.cleanNode($('#' + dom_id)[0]);
+        ko.applyBindings(vm_table, document.getElementById(dom_id));
+        setTimeout(function () {
+            vm_table.table_data_source(ds_table);
+        }, 500);
+    }
 
 
 }
