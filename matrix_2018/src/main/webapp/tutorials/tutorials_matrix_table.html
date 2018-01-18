@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Matrix Template</title>
+        <link rel="shortcut icon" href="../assets/self-owned/ico/favicon.ico">
+
+        <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/vendor.css">
+        <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/flat-admin.css">
+        <!-- Theme -->
+        <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue-sky.css">
+        <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue.css">
+        <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/red.css">
+        <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/yellow.css">
+
+        <link rel="stylesheet" href="../assets/reference/codemirror/codemirror.css">
+
+        <link rel="stylesheet" href="../assets/reference/github-markdown-css/github-markdown.css">
+
+        <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/matrix_v3.css">
+
+        <link rel="stylesheet" type="text/css" href="../assets/reference/bootstrap-fileinput/css/fileinput_ly.css" media="all">
+        <link rel="stylesheet" type="text/css" href="../assets/reference/fuelux/fuelux.min.css">
+    </head>
+
+    <body>
+        <div class="app app-blue-sky" id="template-matrix-main-div">
+            <aside class="app-sidebar" id="sidebar"></aside>
+            <div class="app-container" id="main_content_div">
+                <nav class="navbar navbar-default navbar-fixed-top" id="navbar"></nav>
+                <div class="seperate_div_class" style="margin-top:118px"></div>
+
+                <!--LOADER DIV BEGIN-->
+                <div class="loader-container text-center">
+                    <div class="icon">
+                        <div class="sk-wave">
+                            <div class="sk-rect sk-rect1"></div>
+                            <div class="sk-rect sk-rect2"></div>
+                            <div class="sk-rect sk-rect3"></div>
+                            <div class="sk-rect sk-rect4"></div>
+                            <div class="sk-rect sk-rect5"></div>
+                        </div>
+                    </div>
+                    <div class="title">Loading</div>
+                </div>
+                <!--LOADER DIV FINISHED-->
+
+                <!--RESPONSE DIV BEGIN-->
+                <div class="row" data-bind="with:response_vm">
+                    <div class="col-sm-12" style="margin-bottom:12px" style="display:none" data-bind="visible: resultVisible">
+                        <div class="flat-matrix">
+                            <div class="alert fresh-color " data-bind="css:styleClass,visible: resultVisible" style="display:none">
+                                <button type="button" class="close" data-bind="click:function(){resultVisible(false)}" aria-label="Close"><i class="fa fa-close"></i></button>
+                                <strong>
+                                    <span data-bind="text:resultTitle"></span>
+                                </strong>
+                                <span data-bind="text:resultSubTitle"></span>
+                                <div data-bind="text:resultContent"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--RESPONSE DIV FINISHED-->
+
+                <!--VALIDATION DIV BEGIN-->
+                <div class="row">
+                    <div class="col-sm-12" style="margin-bottom:12px" style="display:none" data-bind="visible: hasError">
+                        <div id="validation_div">
+                            <div class="flat-matrix">
+                                <div class="alert alert-warning alert-dismissible fresh-color" role="alert" style="display:none" data-bind="visible: hasError">
+                                    <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
+                                        <i class="fa fa-close"></i>
+                                    </button>
+                                    <strong>Warning:</strong>
+                                    <div id="errorMessagesDIV" data-bind="foreach:errorMessage">
+                                        <div data-bind="text:$data"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--VALIDATION DIV FINISHED-->
+
+                <!--BUSINESS DIV BEGIN-->
+                <div class="row" id="report_content_div">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:10px">
+                        <div class="card card-mini">
+                            <div class="card-body" id="report_content_body_div" style="min-height:300px">
+                                <div data-bind="foreach:cells">
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_in" id="1516090316673_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode"><h1 id="matrix_tablejs">Matrix_table.js</h1></span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516090316673_cell_edit"># Matrix\_table.js</textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516090316673_cell_chart"></div>
+                                    </div>
+
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_out" id="1516090327814_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode"><h3 id="">包含函数</h3>
+                                            <ul>
+                                                <li>MatrixTableVM()：建表通用View Model，包含表格相关属性及函数，使用ko将该VM绑定在相应div中进行显示</li>
+                                                <li>MatrixTableDataVM()：表格每一行的相应属性，包含数据、是否选择、是否显示、父节点信息</li>
+                                                <li>MatrixTableHeaderItemVM()：表头的相应属性，包括表头内容、序号、是否选择、是否显示、父节点信息</li>
+                                                <li>init_matrix_table_env()：注册matrix_dynamic_table标签，以便通过clone实现建立表格，简化html代码</li>
+                                                <li>Matrix_table_template()：动态生成表格View Model，包含数据相关信息，具体要求见注释</li>
+                                            </ul>
+                                        </span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516090327814_cell_edit">### 包含函数
+- MatrixTableVM()：建表通用View Model，包含表格相关属性及函数，使用ko将该VM绑定在相应div中进行显示
+- MatrixTableDataVM()：表格每一行的相应属性，包含数据、是否选择、是否显示、父节点信息
+- MatrixTableHeaderItemVM()：表头的相应属性，包括表头内容、序号、是否选择、是否显示、父节点信息
+- init\_matrix\_table\_env()：注册matrix\_dynamic\_table标签，以便通过clone实现建立表格，简化html代码
+- Matrix\_table\_template()：动态生成表格View Model，包含数据相关信息，具体要求见注释</textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516090327814_cell_chart"></div>
+                                    </div>
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_in" id="1516090327968_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode" style=""><h3 id="">通过数组进行建表</h3>
+                                            <ul>
+                                                <li>本方法使用处理好的数据<ul>
+                                                        <li>一个一维数组存放表头</li>
+                                                        <li>一个多维数组存放表格内容</li></ul></li>
+                                                <li>方法：将下面代码复制到console中，可以获得一个5行2列的数据表<ul>
+                                                        <li>示例代码未设置每页显示数量与是否翻页，因此默认显示五行，并无翻页控件</li>
+                                                        <li>将表头和表格内容输入到MatrixTableVM中的build()即可构建表格</li></ul></li>
+                                            </ul>
+                                            <pre><code>//在console中执行
+
+//将vm进行绑定
+ko.cleanNode(document.getElementById('table_1'));
+ko.applyBindings(vm, document.getElementById('table_1'));
+$('#table_1').css('display', '');
+
+//设置相应参数建表
+var column_names = ["key","value"];
+var colunm_data = [["张国立","56"],["王刚","55"],["张铁林","58"],["张国立","56"],["王刚","55"],["张铁林","58"],["张国立","56"],["王刚","55"],["张铁林","58"]];
+var tm = new MatrixTableVM();
+tm.build(column_names,colunm_data);
+vm.businessPOJO().tableModel(tm);
+</code></pre></span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516090327968_cell_edit">### 通过数组进行建表
+- 本方法使用处理好的数据
+    - 一个一维数组存放表头
+    - 一个多维数组存放表格内容
+- 方法：将下面代码复制到console中，可以获得一个5行2列的数据表
+    - 示例代码未设置每页显示数量与是否翻页，因此默认显示五行，并无翻页控件
+    - 将表头和表格内容输入到MatrixTableVM中的build()即可构建表格
+```
+//在console中执行
+
+//将vm进行绑定
+ko.cleanNode(document.getElementById('table_1'));
+ko.applyBindings(vm, document.getElementById('table_1'));
+$('#table_1').css('display', '');
+
+//设置相应参数建表
+var column_names = ["key","value"];
+var colunm_data = [["张国立","56"],["王刚","55"],["张铁林","58"],["张国立","56"],["王刚","55"],["张铁林","58"],["张国立","56"],["王刚","55"],["张铁林","58"]];
+var tm = new MatrixTableVM();
+tm.build(column_names,colunm_data);
+vm.businessPOJO().tableModel(tm);
+```
+                                        </textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516090327968_cell_chart"></div>
+                                    </div>
+                                    <div class="row"  id="table_1" style="display: none">
+                                        <div class="col-md-12">
+                                            <div class="matrix-card dark summary-inline" style="">
+                                                <div class="card-body flat-matrix" style="padding: 0px 30px;">
+                                                    <div data-bind="with:businessPOJO">
+                                                        <div class="row" data-bind="with:tableModel">
+                                                            <div class="col-xs-12" >
+                                                                <table class="table table-striped table-hover" cellspacing="0">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <!-- ko foreach: columnNames -->
+                                                                            <th>
+                                                                                <span data-bind="text: $data"></span>
+                                                                            </th>
+                                                                            <!-- /ko -->
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody data-bind="foreach:thinViewData">
+                                                                        <tr data-bind="visible:isDisplay,foreach: data">
+                                                                            <td data-bind="text: $data"></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_in" id="1516090328159_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode" style=""><h3 id="json">通过JSON进行建表</h3>
+                                            <ul>
+                                                <li>本方法使用JSON数据，适用于从后台请求回数据后对result中数据建表使用<ul>
+                                                        <li>JSON数据的key作为表头</li>
+                                                        <li>JSON数据的value作为表格内容</li></ul></li>
+                                                <li>方法：将第一行代码复制到console中，可以获得一个5行6列的数据表<ul>
+                                                        <li>示例代码未设置每页显示数量与是否翻页，因此默认显示五行，并无翻页控件</li>
+                                                        <li>将JSON输入到MatrixTableVM中的buildJSON()即可构建表格</li></ul></li>
+                                            </ul>
+                                            <pre><code>//在console中执行，相关函数解释在Matrix_Util中
+Matrix_Util.request_local(Matrix_Util.get_project_path() + '/assets/self-owned/data/server_mock_data.json', mock_data_json);
+
+//此函数已经写入js，不需要重复执行
+function mock_data_json(json){
+    //将vm进行绑定
+    ko.cleanNode(document.getElementById('table_2'));
+    ko.applyBindings(vm, document.getElementById('table_2'));
+    $('#table_2').css('display', ''); 
+
+    //设置相应参数建表  
+    var tm = new MatrixTableVM();
+    tm.buildJSON(json);
+    vm.businessPOJO().tableModel(tm);
+}
+</code></pre></span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516090328159_cell_edit">### 通过JSON进行建表
+- 本方法使用JSON数据，适用于从后台请求回数据后对result中数据建表使用
+    - JSON数据的key作为表头
+    - JSON数据devalue作为表格内容
+- 方法：将第一行代码复制到console中，可以获得一个5行6列的数据表
+    - 示例代码未设置每页显示数量与是否翻页，因此默认显示五行，并无翻页控件
+    - 将JSON输入到MatrixTableVM中的buildJSON()即可构建表格
+```
+//在console中执行，相关函数解释在Matrix_Util中
+Matrix_Util.request_local(Matrix_Util.get_project_path() + '/assets/self-owned/data/server_mock_data.json', mock_data_json);
+
+//此函数已经写入js，不需要重复执行
+function mock_data_json(json){
+    //将vm进行绑定
+    ko.cleanNode(document.getElementById('table_2'));
+    ko.applyBindings(vm, document.getElementById('table_2'));
+    $('#table_2').css('display', ''); 
+
+    //设置相应参数建表  
+    var tm = new MatrixTableVM();
+    tm.buildJSON(json);
+    vm.businessPOJO().tableModel(tm);
+}
+```</textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516090328159_cell_chart"></div>
+                                    </div>
+                                    <div class="row"  id="table_2" style="display: none">
+                                        <div class="col-md-12">
+                                            <div class="matrix-card dark summary-inline" style="">
+                                                <div class="card-body flat-matrix" style="padding: 0px 30px;">
+                                                    <div data-bind="with:businessPOJO">
+                                                        <div class="row" data-bind="with:tableModel">
+                                                            <div class="col-xs-12" >
+                                                                <table class="table table-striped table-hover" cellspacing="0">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <!-- ko foreach: columnNames -->
+                                                                            <th>
+                                                                                <span data-bind="text: $data"></span>
+                                                                            </th>
+                                                                            <!-- /ko -->
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody data-bind="foreach:thinViewData">
+                                                                        <tr data-bind="visible:isDisplay,foreach: data">
+                                                                            <td data-bind="text: $data"></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_in" id="1516152635337_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode" style=""><h3 id="">从远端进行建表</h3>
+                                            <ul>
+                                                <li>本方法通过rest请求获取数据，返回JSON数据<ul>
+                                                        <li>JSON数据的key作为表头</li>
+                                                        <li>JSON数据devalue作为表格内容</li></ul></li>
+                                                <li>方法：阅读下列代码，根据实际情况进行调整<ul>
+                                                        <li>示例代码未设置每页显示数量与是否翻页，因此默认显示五行，并无翻页控件</li>
+                                                        <li>将JSON输入到MatrixTableVM中的buildJSON()即可构建表格</li></ul></li>
+                                            </ul>
+                                            <pre><code>//输入请求URL，并设置相应参数
+var param = {
+    'queryJson': $.toJSON({
+      "className": "Genericentity",
+      "pageMaxSize": 10,
+      "currentPageNumber": 1,
+      "eqMap": {
+          "deleted": false
+      }
+    })
+  };
+//使用Matrix_Util中函数请求数据
+Matrix_Util.request_local(Matrix_Util.get_server_path() + '/service_generic_query/api/query',mock_data_json,param);
+
+//写入建表函数，此处为示例，需根据实际情况
+function mock_data_json(json){
+    //将vm进行绑定
+    ko.cleanNode(document.getElementById('table'));
+    ko.applyBindings(vm, document.getElementById('table'));
+    $('#table').css('display', ''); 
+
+    //设置相应参数建表  
+    var tm = new MatrixTableVM();
+    tm.buildJSON(json.result);
+    vm.businessPOJO().tableModel(tm);
+}
+</code></pre></span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516152635337_cell_edit">### 从远端进行建表
+- 本方法通过rest请求获取数据，返回JSON数据
+    - JSON数据的key作为表头
+    - JSON数据devalue作为表格内容
+- 方法：阅读下列代码，根据实际情况进行调整
+    - 示例代码未设置每页显示数量与是否翻页，因此默认显示五行，并无翻页控件
+    - 将JSON输入到MatrixTableVM中的buildJSON()即可构建表格
+```
+//输入请求URL，并设置相应参数
+var param = {
+    'queryJson': $.toJSON({
+      "className": "Genericentity",
+      "pageMaxSize": 10,
+      "currentPageNumber": 1,
+      "eqMap": {
+          "deleted": false
+      }
+    })
+  };
+//使用Matrix_Util中函数请求数据
+Matrix_Util.request_local(Matrix_Util.get_server_path() + '/service_generic_query/api/query',mock_data_json,param);
+
+//写入建表函数，此处为示例，需根据实际情况
+function mock_data_json(json){
+    //将vm进行绑定
+    ko.cleanNode(document.getElementById('table'));
+    ko.applyBindings(vm, document.getElementById('table'));
+    $('#table').css('display', ''); 
+
+    //设置相应参数建表  
+    var tm = new MatrixTableVM();
+    tm.buildJSON(json.result);
+    vm.businessPOJO().tableModel(tm);
+}
+```</textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516152635337_cell_chart"></div>
+                                    </div>
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_in" id="1516156256812_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode" style=""><h3 id="ko">通过ko注册组件建立静态表</h3>
+                                            <ul>
+                                                <li>本方法通过ko的register接口，建立表格，简化html代码<ul>
+                                                        <li>输入数据为JSON</li>
+                                                        <li>JSON<ul>
+                                                                <li>header：表头</li>
+                                                                <li>result：表格内容</li></ul></li></ul></li>
+                                                <li>方法：阅读下列代码，根据实际情况进行调整<ul>
+                                                        <li>示例代码未设置每页显示数量与是否翻页，因此默认显示五行，并无翻页控件</li></ul></li>
+                                            </ul>
+                                            <pre><code>//在初始化页面时，执行注册组件函数
+init_matrix_table_env();
+
+//在HTML页面需要建表的位置写入一个带有id标识的div
+&lt;div class="col-md-12"&gt;
+    &lt;div id="copy_table_parent_div" style="display: none"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+//请求得到JSON数据，并进行处理，在console中输入下面一行代码
+Matrix_Util.request_local(Matrix_Util.get_project_path() + '/assets/self-owned/data/server_mock_data.json',mock_data_static_table);
+
+//写入建表函数，此处为示例，已经写入js，需根据实际情况
+function mock_data_static_table(json) {
+    $('#table_3').css('display','');
+
+    //将json数据转化为表格数据
+    var result = Matrix_Util.json2table(json);
+
+    //按ds格式设置ds，具体要求见注释
+    var ds = {
+        'type': 'static',
+        'header': result.header,
+        'result': result.result
+    };
+
+    //建立View Model
+    var vm_table = new MatrixTableTemplate();
+    //建表
+    setTimeout(function () {
+        create_table_template('copy_table_parent_div', vm_table, ds);
+    }, 600);
+}
+</code></pre></span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516156256812_cell_edit">### 通过ko注册组件建立静态表
+- 本方法通过ko的register接口，建立表格，简化html代码
+    - 输入数据为JSON
+    - JSON
+    	- header：表头
+        - result：表格内容
+- 方法：阅读下列代码，根据实际情况进行调整
+    - 示例代码未设置每页显示数量与是否翻页，因此默认显示五行，并无翻页控件
+```
+//在初始化页面时，执行注册组件函数
+init_matrix_table_env();
+
+//在HTML页面需要建表的位置写入一个带有id标识的div
+&lt;div class="col-md-12"&gt;
+	&lt;div id="copy_table_parent_div" style="display: none"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+//请求得到JSON数据，并进行处理，在console中输入下面一行代码
+Matrix_Util.request_local(Matrix_Util.get_project_path() + '/assets/self-owned/data/server_mock_data.json',mock_data_static_table);
+
+//写入建表函数，此处为示例，已经写入js，需根据实际情况
+function mock_data_static_table(json) {
+    $('#table_3').css('display','');
+    
+    //将json数据转化为表格数据
+    var result = Matrix_Util.json2table(json);
+    
+    //按ds格式设置ds，具体要求见注释
+    var ds = {
+        'type': 'static',
+        'header': result.header,
+        'result': result.result
+    };
+    
+    //建立View Model
+    var vm_table = new MatrixTableTemplate();
+    //建表
+    setTimeout(function () {
+        create_table_template('copy_table_parent_div', vm_table, ds);
+    }, 600);
+}
+```</textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516156256812_cell_chart"></div>
+                                    </div>
+                                    <div class="row"  id="table_3" style="display: none">
+                                        <div class="col-md-12">
+                                            <div class="matrix-card dark summary-inline" style="">
+                                                <div class="card-body flat-matrix" style="padding: 0px 30px;">
+                                                    <div id="copy_table_parent_div"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_in" id="1516245189390_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode" style=""><h3 id="ko">通过ko注册组件建立动态表</h3>
+                                            <ul>
+                                                <li>本方法通过ko的register接口，建立表格，简化html代码<ul>
+                                                        <li>根据js中ds格式要求设置js，要求包含type、URL、json_rule、request_params</li>
+                                                        <li>其中json_rule与request_params为string格式，后期要转化为json格式，注意符号转译</li></ul></li>
+                                                <li>方法：阅读下列代码，根据实际情况进行调整<ul>
+                                                        <li>示例代码未设置每页显示数量与是否翻页，因此默认显示五行，并无翻页控件</li></ul></li>
+                                            </ul>
+                                            <pre><code>//在初始化页面时，执行注册组件函数
+init_matrix_table_env();
+
+//在HTML页面需要建表的位置写入一个带有id标识的div
+&lt;div class="col-md-12"&gt;
+    &lt;div id="copy_table_parent_div_dynamic" style="display: none"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+//请求得到JSON数据，并进行处理，在console中输入
+mock_data_dynamic_table();
+
+//写入建表函数，此处为示例，已经写入js，需根据实际情况
+function mock_data_dynamic_table() {
+    $('#table_4').css('display', '');
+    var ds = {
+        "type": "dynamic",
+        "url": "http://localhost:8080/service_generic_query/api/query",
+
+        //对表格显示哪几列进行设置，格式与MatrixTableHeaderItemVM相适应，注意转译,亦可写为object数组
+        "header_json": "[{\"data\":\"id\",\"index\":0,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"booleanalpha\",\"index\":1,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"booleanbeta\",\"index\":2,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"booleandelta\",\"index\":3,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"booleangamma\",\"index\":4,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"category\",\"index\":5,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"createtime\",\"index\":6,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"creator\",\"index\":7,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"deleted\",\"index\":8,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"description\",\"index\":9,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"enabled\",\"index\":10,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"lastmodifier\",\"index\":11,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"lastupdatetime\",\"index\":12,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"modifycount\",\"index\":13,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"name\",\"index\":14,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"numberalpha\",\"index\":15,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberbeta\",\"index\":16,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberdelta\",\"index\":17,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberepsilon\",\"index\":18,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numbereta\",\"index\":19,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numbergamma\",\"index\":20,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberkappa\",\"index\":21,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberlambda\",\"index\":22,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberlota\",\"index\":23,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberomega\",\"index\":24,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numbertheta\",\"index\":25,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberzeta\",\"index\":26,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"parentid\",\"index\":27,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"priority\",\"index\":28,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"status\",\"index\":29,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringalpha\",\"index\":30,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"stringbeta\",\"index\":31,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringdelta\",\"index\":32,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringepsilon\",\"index\":33,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringeta\",\"index\":34,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringgamma\",\"index\":35,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringkappa\",\"index\":36,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringlambda\",\"index\":37,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringlota\",\"index\":38,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringomega\",\"index\":39,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringtheta\",\"index\":40,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringzeta\",\"index\":41,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"type\",\"index\":42,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"valid\",\"index\":43,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"children\",\"index\":44,\"isChecked\":false,\"isDisplay\":true}]",
+
+        "json_rule": "result",
+        "rest_mode": "POST",
+        //请求所带参数，注意转译，亦可写为json格式，注意使用$.toJSON()
+        "request_params": "{ \"queryJson\": \"{\\\"className\\\":\\\"Genericentity\\\",\\\"orderMap\\\":{\\\"id\\\":false},\\\"pageMaxSize\\\":100000,\\\"currentPageNumber\\\":1,\\\"likeORMap\\\":{},\\\"eqMap\\\":{\\\"deleted\\\":false},\\\"inMap\\\":{}}\" }"
+    };
+    var vm_table = new MatrixTableTemplate();
+    setTimeout(function () {
+        create_table_template('copy_table_parent_div_dynamic', vm_table, ds);
+    }, 600);
+}
+
+//进入注册函数，请求数据
+</code></pre></span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516245189390_cell_edit">### 通过ko注册组件建立动态表
+- 本方法通过ko的register接口，建立表格，简化html代码
+	- 根据js中ds格式要求设置js，要求包含type、URL、json\_rule、request\_params
+    - 其中json\_rule与request\_params为string格式，后期要转化为json格式，注意符号转译
+- 方法：阅读下列代码，根据实际情况进行调整
+    - 示例代码未设置每页显示数量与是否翻页，因此默认显示五行，并无翻页控件
+```
+//在初始化页面时，执行注册组件函数
+init_matrix_table_env();
+
+//在HTML页面需要建表的位置写入一个带有id标识的div
+&lt;div class="col-md-12"&gt;
+	&lt;div id="copy_table_parent_div_dynamic" style="display: none"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+//请求得到JSON数据，并进行处理，在console中输入
+mock_data_dynamic_table();
+
+//写入建表函数，此处为示例，已经写入js，需根据实际情况
+function mock_data_dynamic_table() {
+    $('#table_4').css('display', '');
+    var ds = {
+        "type": "dynamic",
+        "url": "http://localhost:8080/service_generic_query/api/query",
+        
+        //对表格显示哪几列进行设置，格式与MatrixTableHeaderItemVM相适应，注意转译,亦可写为object数组
+        "header_json": "[{\"data\":\"id\",\"index\":0,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"booleanalpha\",\"index\":1,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"booleanbeta\",\"index\":2,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"booleandelta\",\"index\":3,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"booleangamma\",\"index\":4,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"category\",\"index\":5,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"createtime\",\"index\":6,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"creator\",\"index\":7,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"deleted\",\"index\":8,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"description\",\"index\":9,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"enabled\",\"index\":10,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"lastmodifier\",\"index\":11,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"lastupdatetime\",\"index\":12,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"modifycount\",\"index\":13,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"name\",\"index\":14,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"numberalpha\",\"index\":15,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberbeta\",\"index\":16,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberdelta\",\"index\":17,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberepsilon\",\"index\":18,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numbereta\",\"index\":19,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numbergamma\",\"index\":20,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberkappa\",\"index\":21,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberlambda\",\"index\":22,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberlota\",\"index\":23,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberomega\",\"index\":24,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numbertheta\",\"index\":25,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberzeta\",\"index\":26,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"parentid\",\"index\":27,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"priority\",\"index\":28,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"status\",\"index\":29,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringalpha\",\"index\":30,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"stringbeta\",\"index\":31,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringdelta\",\"index\":32,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringepsilon\",\"index\":33,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringeta\",\"index\":34,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringgamma\",\"index\":35,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringkappa\",\"index\":36,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringlambda\",\"index\":37,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringlota\",\"index\":38,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringomega\",\"index\":39,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringtheta\",\"index\":40,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringzeta\",\"index\":41,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"type\",\"index\":42,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"valid\",\"index\":43,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"children\",\"index\":44,\"isChecked\":false,\"isDisplay\":true}]",
+        
+        "json_rule": "result",
+        "rest_mode": "POST",
+        //请求所带参数，注意转译，亦可写为json格式，注意使用$.toJSON()
+        "request_params": "{ \"queryJson\": \"{\\\"className\\\":\\\"Genericentity\\\",\\\"orderMap\\\":{\\\"id\\\":false},\\\"pageMaxSize\\\":100000,\\\"currentPageNumber\\\":1,\\\"likeORMap\\\":{},\\\"eqMap\\\":{\\\"deleted\\\":false},\\\"inMap\\\":{}}\" }"
+    };
+    var vm_table = new MatrixTableTemplate();
+    setTimeout(function () {
+        create_table_template('copy_table_parent_div_dynamic', vm_table, ds);
+    }, 600);
+}
+
+//进入注册函数，请求数据
+```</textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516245189390_cell_chart"></div>
+                                    </div>
+                                    <div class="row"  id="table_4" style="display: none">
+                                        <div class="col-md-12">
+                                            <div class="matrix-card dark summary-inline" style="">
+                                                <div class="card-body flat-matrix" style="padding: 0px 30px;">
+                                                    <div id="copy_table_parent_div_dynamic"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_in" id="1516239870606_cell">
+                                        <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode" style=""><h2 id="">表格样式</h2>
+                                            <ul>
+                                                <li>下面给出表格样式示例</li>
+                                            </ul></span>
+                                        <textarea class="cell_div_edit" style="display:none" data-bind="text:code_source,attr:{'id':edit_div_id}," id="1516239870606_cell_edit">
+
+## 表格样式
+
+- 下面给出表格样式示例</textarea>
+                                        <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516239870606_cell_chart"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="matrix-card dark summary-inline" style="">
+                                                <div class="card-body flat-matrix" style="padding: 0px 30px;">                                                    
+                                                    <div class="row">
+                                                        <div class="col-xs-12" >
+                                                            <table class="table table-striped table-hover" cellspacing="0">
+                                                                <thead>
+                                                                    <tr>                                                                       
+                                                                        <th> 姓名</th>
+                                                                        <th>性别</th>
+                                                                        <th>年龄</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>Tom</td>
+                                                                        <td>m</td>
+                                                                        <td>18</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Tom</td>
+                                                                        <td>m</td>
+                                                                        <td>18</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Tom</td>
+                                                                        <td>m</td>
+                                                                        <td>18</td>
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>                                                  
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="matrix-card dark summary-inline" style="">
+                                                <div class="card-body flat-matrix" style="padding: 0px 30px;">                                                    
+                                                    <div class="row">
+                                                        <div class="col-xs-12" >
+                                                            <table class="table table-hover table-condensed" cellspacing="0" style="background-color: #2b2a2a;">
+                                                                <thead>
+                                                                    <tr>                                                                       
+                                                                        <th style="border-bottom: 1px solid #E74C3C;color:#E74C3C"> 姓名</th>
+                                                                        <th style="border-bottom: 1px solid #E74C3C;color:#E74C3C">性别</th>
+                                                                        <th style="border-bottom: 1px solid #E74C3C;color:#E74C3C">年龄</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="border-top: 1px solid #ddd;color:#fff">Tom</td>
+                                                                        <td style="border-top: 1px solid #ddd;color:#fff">m</td>
+                                                                        <td style="border-top: 1px solid #ddd;color:#fff">18</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="border-top: 1px solid #ddd;color:#fff">Tom</td>
+                                                                        <td style="border-top: 1px solid #ddd;color:#fff">m</td>
+                                                                        <td style="border-top: 1px solid #ddd;color:#fff">18</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="border-top: 1px solid #ddd;color:#fff">Tom</td>
+                                                                        <td style="border-top: 1px solid #ddd;color:#fff">m</td>
+                                                                        <td style="border-top: 1px solid #ddd;color:#fff">18</td>
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>                                                  
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12" id='table_css_with_pager'>
+                                            <div class="matrix-card dark summary-inline" style="">
+                                                <div class="card-body flat-matrix" style="padding: 0px 30px;">                                                    
+                                                    <div class="row" data-bind="with:tableModel_css_with_pager">
+                                                        <div class="col-xs-12">
+                                                            <div style="overflow: auto">
+                                                                <table class="table table-striped table-hover" cellspacing="0">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <!-- ko foreach: headerViewData -->
+                                                                            <th data-bind="visible:$data.isChecked">
+                                                                                <span data-bind="text: $data.data,visible:$data.isChecked"></span>
+                                                                            </th>
+                                                                            <!-- /ko -->
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody data-bind="foreach:thinViewData">
+                                                                        <tr data-bind="visible:isDisplay,foreach: data">
+                                                                            <td data-bind="visible:$parent.isDisplay_cell($index())">
+                                                                                <span data-bind="text: $data"></span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="matrix-pager-v3" data-bind="visible:isDisplayPager">
+                                                                <div class="form-inline">
+                                                                    <nav>
+                                                                        <form>
+                                                                            <span class="pull-left">
+                                                                                <label class="control-label" style="margin-bottom: 12px;">Total Counts:<span data-bind="text:totalCounts()?totalCounts():0"></span></label>
+                                                                            </span>
+                                                                        </form>
+                                                                        <span class="pull-right">
+                                                                            <button data-bind="click:function(){toPage(1);}" type="button" class="btn btn-default " style="padding: 10px 12px;"><i class="fa fa-angle-double-left"></i> &nbsp;First</button>
+                                                                            <button data-bind="click:function(){toPage(currentPageNumber()-1);}" type="button" class="btn btn-default " style="padding: 10px 12px;"><i class="fa fa-angle-left"></i> &nbsp;Previous</button>
+                                                                            <input data-bind="value:currentPageNumber" type="text" class="form-control" placeholder="Page" style="width:60px;margin-bottom:5px;padding:10px;text-align: center;">
+                                                                            <button data-bind="visible:false,click:function(){}" type="submit" class="btn"><span class="fui-search"></span></button>
+                                                                            <button data-bind="click:function(){toPage(currentPageNumber()+1);}" type="button" class="btn btn-default " style="padding: 10px 12px;">Next &nbsp;<i class="fa fa-angle-right"></i></button>
+                                                                            <button data-bind="click:function(){toPage(totalPage());}" type="button" class="btn btn-default " style="padding: 10px 12px;">Last &nbsp;<i class="fa fa-angle-double-right"></i></button>
+                                                                            <div class="btn-group">
+                                                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span data-bind="text:pageMaxSize()"></span> <span class="caret"></span></button>
+                                                                                <ul class="dropdown-menu" role="menu" data-bind="foreach: pagingSizeArray">
+                                                                                    <li><a data-bind="click:function(){$parent.pageMaxSize($data)}" href="#"><span data-bind="text:$data"></span></a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </span>
+                                                                    </nav>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>                                           
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <!--BUSINESS DIV FINISHED-->
+
+
+                <!--TEMPLATE DIV BEGIN-->
+                <div id="template-matrix-dynamic-table-div"></div>
+                <div id="template-matrix-modal-div"></div>
+                <div id="template-matrix-footer-div"></div>
+                <!--TEMPLATE DIV BEGIN-->
+            </div>
+        </div>
+        <!-- Javascript for Matrix Referenced -->
+        <script src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
+        <script src="../assets/reference/flat-admin/assets/js/app.js"></script>
+        <script src="../assets/reference/codemirror/codemirror.js"></script>
+        <script src="../assets/reference/codemirror/mode/javascript/javascript.js"></script>
+        <script src="../assets/reference/codemirror/mode/markdown/markdown.js"></script>
+        <script src="../assets/reference/jquery/jquery.json.js"></script>
+        <script src="../assets/reference/jquery/jquery.blockUI.js"></script>
+        <script src="../assets/reference/knockout.js/knockout-3.3.0.js"></script>
+        <script src="../assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+        <script src="../assets/reference/markdown/markdown.min.js"></script>
+        <script src="../assets/reference/jquery-ui/jquery-ui.js"></script>
+        <script src="../assets/reference/lodash/lodash-4.15.0.js"></script>
+        <script src="../assets/reference/gridstack/gridstack.all.js"></script>
+        <script src="../assets/reference/echarts/echarts-min.js"></script>
+        <script src="../assets/reference/echarts/dataTools.js"></script>
+        <!-- Javascript for Matrix Self Owned -->
+        <script src="../assets/self-owned/js/generic/generic_algorithm.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_cache.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_charting_v4.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_csv.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_cud.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_modal.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_query.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_table.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_util.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
+        <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
+
+
+        <script src="../assets/self-owned/js/refine/matrix_ui.js"></script>
+        <script src="../assets/self-owned/js/refine/matrix_util.js"></script>
+        <script src="../assets/self-owned/js/refine/matrix_components.js"></script>
+        <script src="../assets/self-owned/js/refine/matrix_table.js"></script>
+        <script src="js/tutorials_matrix_table.js" ></script>
+
+
+        <script>
+            $(document).ready(function () {
+                $('#sidebar').load($.getRootPath() + '/components/left_side.html');
+                $('#navbar').load($.getRootPath() + '/components/header.html');
+                $('#template-matrix-dynamic-table-div').load($.getRootPath() + '/components/template-matrix-dynamic-table.html');
+                $('#template-matrix-modal-div').load($.getRootPath() + '/components/template-matrix-modal.html');
+                $('#template-matrix-footer-div').load($.getRootPath() + '/components/footer.html');
+
+                setTimeout(function () {
+                    $('#navbar_search_li').css('display', 'none');
+                    $('#navbar_title_li').text('Matrix Table Tutorials');
+                }, 1000)
+            });
+             $.subscribe("get_user_detail_chain_finished", env_setup);
+        </script>
+        <script>
+           
+        </script>
+
+    </body>
+
+</html>

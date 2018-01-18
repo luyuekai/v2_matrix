@@ -12,9 +12,9 @@ var vm = new GenericPageViewModel();
 
 function env_setup() {
   vm_env_setup();
-  table_env_setup_static();
+//  table_env_setup_static();
 
-  // table_env_setup_dynamic();
+   table_env_setup_dynamic();
 }
 
 
