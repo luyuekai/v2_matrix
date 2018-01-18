@@ -260,6 +260,16 @@ function MatrixTableVM() {
         self.columnNames([]);
         self.buildView();
     };
+
+    //将JSON格式的header信息转换成HeaderItemModel数据对象
+    self.json2header = function(json){
+      var obj = JSON.parse(json);
+      var header = [];
+      $.each(obj,function(idx,val){
+        header.push(new HeaderItemModel(val.data,idx,val.isChecked,val.isDisplay,self));
+      });
+      return header;
+    };
 }
 
 
@@ -345,7 +355,15 @@ function init_matrix_table_env(){
                 self.tableModel(tableModel);
               }
             }else if(newValue.type =='dynamic'){
-
+              if(newValue.url){
+                var url = newValue.url;
+                var option_type = newValue.rest_mode;
+                var option_param = newValue.request_params || null;
+                if(option_param){
+                  option_param = JSON.parse(option_param);
+                }
+                Matrix_Util.request_remote(newValue.url,matrix_table_remote_data_handler,option_param,option_type,true,self);
+              }
             }
 
 
@@ -354,6 +372,35 @@ function init_matrix_table_env(){
       },
       template: { element: 'matrix_dynamic_table-template' }
   });
+}
+
+function matrix_table_remote_data_handler(json) {
+  var server_data = json.response;
+  var matrix_table_template = json.addtion;
+  var ds = matrix_table_template.ds();
+  if(ds){
+    if(ds.json_rule){
+      var tmp = 'server_data.'+ds.json_rule;
+      server_data = eval(tmp);
+    }
+  }
+
+  var tableModel = new MatrixTableVM();
+  tableModel.buildJSON(server_data);
+  if(ds.isDisplayPager){
+    tableModel.isDisplayPager(ds.isDisplayPager);
+  }
+  if(ds.pageMaxSize){
+    tableModel.pageMaxSize(ds.pageMaxSize);
+  }
+  if(ds.header_json){
+    var header = tableModel.json2header(ds.header_json);
+
+    tableModel.headerViewData(header);
+  }
+
+  matrix_table_template.tableModel(tableModel);
+  return;
 }
 
 /**
@@ -404,6 +451,13 @@ function create_static_table_template(destination_div_id,vm_table,ds_table){
 
 }
 
+//TODO
 function create_dynamic_table_template(){
-
+  var ds = {
+    "ds": "http://localhost:8080/service_generic_query/api/query",
+    "header_json": "[{\"data\":\"id\",\"index\":0,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"booleanalpha\",\"index\":1,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"booleanbeta\",\"index\":2,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"booleandelta\",\"index\":3,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"booleangamma\",\"index\":4,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"category\",\"index\":5,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"createtime\",\"index\":6,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"creator\",\"index\":7,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"deleted\",\"index\":8,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"description\",\"index\":9,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"enabled\",\"index\":10,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"lastmodifier\",\"index\":11,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"lastupdatetime\",\"index\":12,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"modifycount\",\"index\":13,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"name\",\"index\":14,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"numberalpha\",\"index\":15,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberbeta\",\"index\":16,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberdelta\",\"index\":17,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberepsilon\",\"index\":18,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numbereta\",\"index\":19,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numbergamma\",\"index\":20,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberkappa\",\"index\":21,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberlambda\",\"index\":22,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberlota\",\"index\":23,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberomega\",\"index\":24,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numbertheta\",\"index\":25,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"numberzeta\",\"index\":26,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"parentid\",\"index\":27,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"priority\",\"index\":28,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"status\",\"index\":29,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringalpha\",\"index\":30,\"isChecked\":true,\"isDisplay\":true},{\"data\":\"stringbeta\",\"index\":31,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringdelta\",\"index\":32,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringepsilon\",\"index\":33,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringeta\",\"index\":34,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringgamma\",\"index\":35,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringkappa\",\"index\":36,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringlambda\",\"index\":37,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringlota\",\"index\":38,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringomega\",\"index\":39,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringtheta\",\"index\":40,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"stringzeta\",\"index\":41,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"type\",\"index\":42,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"valid\",\"index\":43,\"isChecked\":false,\"isDisplay\":true},{\"data\":\"children\",\"index\":44,\"isChecked\":false,\"isDisplay\":true}]",
+    "json_rule": "result",
+    "rest_mode": "POST",
+    "request_params": "{ \"queryJson\": \"{\\\"className\\\":\\\"Genericentity\\\",\\\"orderMap\\\":{\\\"id\\\":false},\\\"pageMaxSize\\\":100000,\\\"currentPageNumber\\\":1,\\\"likeORMap\\\":{},\\\"eqMap\\\":{\\\"type\\\":\\\"MATRIX_TEMPLATE_ADD\\\",\\\"deleted\\\":false},\\\"inMap\\\":{}}\" }"
+  }
 }
