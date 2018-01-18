@@ -260,6 +260,16 @@ function MatrixTableVM() {
         self.columnNames([]);
         self.buildView();
     };
+
+    //将JSON格式的header信息转换成HeaderItemModel数据对象
+    self.json2header = function(json){
+      var obj = JSON.parse(json);
+      var header = [];
+      $.each(obj,function(idx,val){
+        header.push(new HeaderItemModel(val.data,idx,val.isChecked,val.isDisplay,self));
+      });
+      return header;
+    };
 }
 
 
@@ -345,7 +355,15 @@ function init_matrix_table_env(){
                 self.tableModel(tableModel);
               }
             }else if(newValue.type =='dynamic'){
-
+              if(newValue.url){
+                var url = newValue.url;
+                var option_type = newValue.rest_mode;
+                var option_param = newValue.request_params || null;
+                if(option_param){
+                  option_param = JSON.parse(option_param);
+                }
+                Matrix_Util.request_remote(newValue.url,matrix_table_remote_data_handler,option_param,option_type,true,self);
+              }
             }
 
 
@@ -354,6 +372,35 @@ function init_matrix_table_env(){
       },
       template: { element: 'matrix_dynamic_table-template' }
   });
+}
+
+function matrix_table_remote_data_handler(json) {
+  var server_data = json.response;
+  var matrix_table_template = json.addtion;
+  var ds = matrix_table_template.ds();
+  if(ds){
+    if(ds.json_rule){
+      var tmp = 'server_data.'+ds.json_rule;
+      server_data = eval(tmp);
+    }
+  }
+
+  var tableModel = new MatrixTableVM();
+  tableModel.buildJSON(server_data);
+  if(ds.isDisplayPager){
+    tableModel.isDisplayPager(ds.isDisplayPager);
+  }
+  if(ds.pageMaxSize){
+    tableModel.pageMaxSize(ds.pageMaxSize);
+  }
+  if(ds.header_json){
+    var header = tableModel.json2header(ds.header_json);
+
+    tableModel.headerViewData(header);
+  }
+
+  matrix_table_template.tableModel(tableModel);
+  return;
 }
 
 /**
@@ -368,7 +415,7 @@ function init_matrix_table_env(){
  *                         'result':[['zhangsan',25],['lisi',26],['wangwu',27]],
  *
  *                         // dynamic setting
- *                         "ds": "http://localhost:8080/service_generic_query/api/query",
+ *                         "url": "http://localhost:8080/service_generic_query/api/query",
  *                         "header_json":"",
  *                         "json_rule": "result",
  *                         "rest_mode": "POST",
@@ -390,7 +437,7 @@ function MatrixTableTemplate(input) {
  * @param  {[type]} ds                 [description]
  * @return {[type]}                    [description]
  */
-function create_static_table_template(destination_div_id,vm_table,ds_table){
+function create_table_template(destination_div_id,vm_table,ds_table){
   if(destination_div_id && vm_table && ds_table){
     var dom = Matrix_DOM_Util.clone_dom(destination_div_id,'wrapped_matrix_dynamic_table_div');
     var dom_id = dom.id;
@@ -401,9 +448,5 @@ function create_static_table_template(destination_div_id,vm_table,ds_table){
     }, 500);
   }
 
-
-}
-
-function create_dynamic_table_template(){
 
 }
