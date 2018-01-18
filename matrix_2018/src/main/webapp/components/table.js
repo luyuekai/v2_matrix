@@ -12,9 +12,9 @@ var vm = new GenericPageViewModel();
 
 function env_setup() {
   vm_env_setup();
-  // table_env_setup_static();
+  table_env_setup_static();
 
-  table_env_setup_dynamic();
+  // table_env_setup_dynamic();
 }
 
 
@@ -90,7 +90,7 @@ function table_env_setup_static() {
   ];
   _ds.isDisplayPager = false;
   _ds.pageMaxSize = 5;
-  create_static_table_template('copy_table_parent_div',vm.businessPOJO().tableDOM(),_ds);
+  create_table_template('copy_table_parent_div',vm.businessPOJO().tableDOM(),_ds);
 }
 function table_env_setup_dynamic() {
   init_matrix_table_env();
@@ -102,7 +102,7 @@ function table_env_setup_dynamic() {
     "rest_mode": "POST",
     "request_params": "{ \"queryJson\": \"{\\\"className\\\":\\\"Genericentity\\\",\\\"orderMap\\\":{\\\"id\\\":false},\\\"pageMaxSize\\\":100000,\\\"currentPageNumber\\\":1,\\\"likeORMap\\\":{},\\\"eqMap\\\":{\\\"type\\\":\\\"MATRIX_TEMPLATE_ADD\\\",\\\"deleted\\\":false},\\\"inMap\\\":{}}\" }"
   }
-  create_static_table_template('copy_table_parent_div',vm.businessPOJO().tableDOM(),_ds);
+  create_table_template('copy_table_parent_div',vm.businessPOJO().tableDOM(),_ds);
 }
 
 
