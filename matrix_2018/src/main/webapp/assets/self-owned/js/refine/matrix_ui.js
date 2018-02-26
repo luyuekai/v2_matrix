@@ -1,6 +1,48 @@
 var Matrix_UI ={
   isDashboardMode:false,
-  isDarkTheme:false
+  isDarkTheme:false,
+  add_loader: function(div_id) {
+    if (!$('#' + div_id).hasClass('matrix-loading-v3')) {
+      $('#' + div_id).addClass('matrix-loading-v3');
+    }
+  },
+  remove_loader: function(div_id) {
+    if ($('#' + div_id).hasClass('matrix-loading-v3')) {
+      $('#' + div_id).removeClass('matrix-loading-v3');
+    }
+  },
+  add_blocker: function(div_id,blocker_info) {
+    if(div_id){
+      $('#'+div_id).block({message: blocker_info||null});
+    }
+  },
+  remove_blocker: function(div_id) {
+    if(div_id){
+      $('#'+div_id).unblock();
+    }
+  },
+
+  message_success:function(content,title,subtitle){
+    if(current_vm && current_vm.response_vm()){
+      current_vm.response_vm().correctResponse(content,title,subtitle);
+    }
+  },
+  message_info:function(content,title,subtitle){
+    if(current_vm && current_vm.response_vm()){
+      current_vm.response_vm().infoResponse(content,title,subtitle);
+    }
+  },
+  message_warning:function(content,title,subtitle){
+    if(current_vm && current_vm.response_vm()){
+      current_vm.response_vm().warningResponse(content,title,subtitle);
+    }
+  },
+  message_error:function(content,title,subtitle){
+    if(current_vm && current_vm.response_vm()){
+      current_vm.response_vm().errorResponse(content,title,subtitle);
+    }
+  }
+
 };
 
 function init_ui(isDashboardMode,isDarkTheme){
@@ -52,4 +94,15 @@ function normalMode() {
   $('.seperate_div_class').css('display', '');
   $('#footer_div').css('display', '');
   $('#help-actions').css('display', '');
+}
+
+function init_matrix_tree_env(data_source_listener,click_event_listner){
+  $('#matrix_tree').tree({
+      dataSource: data_source_listener,
+      multiSelect: false,
+      folderSelect: true
+  });
+  $(function () {
+      $('#matrix_tree').on('selected.fu.tree', click_event_listner);
+  });
 }

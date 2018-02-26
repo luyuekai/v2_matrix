@@ -83,7 +83,49 @@
       <!--VALIDATION DIV FINISHED-->
 
       <!--BUSINESS DIV BEGIN-->
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card card-mini">
+            <div class="card-header">
+              <i class="fa fa-diamond">&nbsp;MATRIX Upload Example &nbsp;&nbsp;&nbsp;</i>
+            </div>
+            <div class="card-body" style="padding: 20px 30px" data-bind="with:businessPOJO">
 
+              <div class="row" data-bind="with:upload_vm">
+                <div data-bind="foreach:uploadedFileUrls">
+                  <div class="col-xs-12 text-center" style="margin-bottom:10px">
+                    <img data-bind="attr:{src:$data}" class="img-thumbnail" style="width:380px;height:380px">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                  <div id="upload_component_div" >
+                    <form class="form-horizontal">
+                      <div class="form-group">
+                        <div class="col-xs-12">
+                          <input id="input-upload-id" type="file" name="file">
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="card card-mini">
+            <div class="card-header">
+              <i class="fa fa-diamond">&nbsp;MATRIX Upload Tutorials &nbsp;&nbsp;&nbsp;</i>
+            </div>
+            <div class="card-body" style="padding: 20px 30px" >
+              TBD
+            </div>
+          </div>
+        </div>
+      </div>
       <!--BUSINESS DIV FINISHED-->
 
 
@@ -125,12 +167,17 @@
   <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
   <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
 
+  <!-- Upload Required js -->
+  <script src="../assets/reference/bootstrap-fileinput/js/fileinput_ly.js"></script>
+  <script src="../assets/reference/bootstrap-fileinput/js/locales/zh.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_upload.js"></script>
+
   <script src="../assets/self-owned/js/refine/matrix_ui.js"></script>
   <script src="../assets/self-owned/js/refine/matrix_util.js"></script>
   <script src="../assets/self-owned/js/refine/matrix_components.js"></script>
   <script src="../assets/self-owned/js/refine/matrix_table.js"></script>
 
-  <script src="template-matrix-page.js"></script>
+  <script src="matrix-upload.js"></script>
 
 
   <script>
@@ -140,10 +187,9 @@
       $('#template-matrix-dynamic-table-div').load($.getRootPath() + '/components/template-matrix-dynamic-table.html');
       $('#template-matrix-modal-div').load($.getRootPath() + '/components/template-matrix-modal.html');
       $('#template-matrix-footer-div').load($.getRootPath() + '/components/footer.html');
-      UNIT_TEST_SUITE();
       setTimeout(function() {
         $('#navbar_search_li').css('display', 'none');
-        $('#navbar_title_li').text('Matrix Page');
+        $('#navbar_title_li').text('Matrix Upload');
       }, 1000)
     });
 

@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matrix Template</title>
+  <link rel="shortcut icon" href="../assets/self-owned/ico/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/vendor.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/flat-admin.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue-sky.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/red.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/yellow.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/codemirror/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/github-markdown-css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/matrix_v3.css">
+  <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/matrix_ui_refine.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/bootstrap-fileinput/css/fileinput_ly.css" media="all">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/fuelux/fuelux.min.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/gridstack/gridstack.css" />
+  <link rel="stylesheet" type="text/css" href="../assets/reference/gridstack/gridstack-extra.css" />
+</head>
+
+<body>
+  <div class="app app-blue-sky" id="template-matrix-main-div">
+    <aside class="app-sidebar" id="sidebar"></aside>
+    <div class="app-container" id="main_content_div">
+      <nav class="navbar navbar-default navbar-fixed-top" id="navbar"></nav>
+      <div class="seperate_div_class" style="margin-top:88px"></div>
+
+      <!--LOADER DIV BEGIN-->
+      <div class="loader-container text-center">
+        <div class="icon">
+          <div class="sk-wave">
+            <div class="sk-rect sk-rect1"></div>
+            <div class="sk-rect sk-rect2"></div>
+            <div class="sk-rect sk-rect3"></div>
+            <div class="sk-rect sk-rect4"></div>
+            <div class="sk-rect sk-rect5"></div>
+          </div>
+        </div>
+        <div class="title">Loading</div>
+      </div>
+      <!--LOADER DIV FINISHED-->
+
+      <!--RESPONSE DIV BEGIN-->
+      <div class="row" data-bind="with:response_vm">
+        <div class="col-sm-12" style="margin-bottom:12px" style="display:none" data-bind="visible: resultVisible">
+          <div class="flat-matrix">
+            <div class="alert fresh-color " data-bind="css:styleClass,visible: resultVisible" style="display:none">
+              <button type="button" class="close" data-bind="click:function(){resultVisible(false)}" aria-label="Close"><i class="fa fa-close"></i></button>
+              <strong>
+                  <span data-bind="text:resultTitle"></span>
+                </strong>
+              <span data-bind="text:resultSubTitle"></span>
+              <div data-bind="text:resultContent"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--RESPONSE DIV FINISHED-->
+
+      <!--VALIDATION DIV BEGIN-->
+      <div class="row">
+        <div class="col-sm-12" style="margin-bottom:12px" style="display:none" data-bind="visible: hasError">
+          <div id="validation_div">
+            <div class="flat-matrix">
+              <div class="alert alert-warning alert-dismissible fresh-color" role="alert" style="display:none" data-bind="visible: hasError">
+                <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
+                  <i class="fa fa-close"></i>
+                </button>
+                <strong>Warning:</strong>
+                <div id="errorMessagesDIV" data-bind="foreach:errorMessage">
+                  <div data-bind="text:$data"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--VALIDATION DIV FINISHED-->
+
+      <!--BUSINESS DIV BEGIN-->
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+              <i class="fa fa-diamond">&nbsp;Color Scheme&nbsp;&nbsp;&nbsp;</i>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-6">
+                  <div class="colorbox">
+                    <div class="color1">
+                      <div class="color" style="background-color: #095077"></div>
+                      <div class="heading">
+                        <div class="title">#095077</div>
+                        <div class="subtitle">9, 80, 119</div>
+                      </div>
+                    </div>
+                    <div class="color2">
+                      <div class="color" style="background-color: #043D5D"></div>
+                      <div class="heading">
+                        <div class="title">#043D5D</div>
+                        <div class="subtitle">4, 61, 93</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-6">
+                  <div class="colorbox">
+                    <div class="color1">
+                      <div class="color" style="background-color: #29c75f"></div>
+                      <div class="heading">
+                        <div class="title">#29c75f</div>
+                        <div class="subtitle">41, 199, 95</div>
+                      </div>
+                    </div>
+                    <div class="color2">
+                      <div class="color" style="background-color: #18aa4a"></div>
+                      <div class="heading">
+                        <div class="title">#18aa4a</div>
+                        <div class="subtitle">24, 170, 74</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-6">
+                  <div class="colorbox">
+                    <div class="color1">
+                      <div class="color" style="background-color: #FFC153"></div>
+                      <div class="heading">
+                        <div class="title">#FFC153</div>
+                        <div class="subtitle">9, 80, 119</div>
+                      </div>
+                    </div>
+                    <div class="color2">
+                      <div class="color" style="background-color: #e9aa3a"></div>
+                      <div class="heading">
+                        <div class="title">#e9aa3a</div>
+                        <div class="subtitle">4, 61, 93</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-6">
+                  <div class="colorbox">
+                    <div class="color1">
+                      <div class="color" style="background-color: #E74C3C"></div>
+                      <div class="heading">
+                        <div class="title">#E74C3C</div>
+                        <div class="subtitle">9, 80, 119</div>
+                      </div>
+                    </div>
+                    <div class="color2">
+                      <div class="color" style="background-color: #d73727"></div>
+                      <div class="heading">
+                        <div class="title">#d73727</div>
+                        <div class="subtitle">4, 61, 93</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-6">
+                  <div class="colorbox">
+                    <div class="color1">
+                      <div class="color" style="background-color: #39c3da"></div>
+                      <div class="heading">
+                        <div class="title">#39c3da</div>
+                        <div class="subtitle">9, 80, 119</div>
+                      </div>
+                    </div>
+                    <div class="color2">
+                      <div class="color" style="background-color: #20a3b9"></div>
+                      <div class="heading">
+                        <div class="title">#20a3b9</div>
+                        <div class="subtitle">4, 61, 93</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-6">
+                  <div class="colorbox">
+                    <div class="color1">
+                      <div class="color" style="background-color: #F9F9F9"></div>
+                      <div class="heading">
+                        <div class="title">#F9F9F9</div>
+                        <div class="subtitle">9, 80, 119</div>
+                      </div>
+                    </div>
+                    <div class="color2">
+                      <div class="color" style="background-color: #EEE"></div>
+                      <div class="heading">
+                        <div class="title">#EEEEEE</div>
+                        <div class="subtitle">4, 61, 93</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Color Scheme End-->
+
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+              <i class="fa fa-diamond">&nbsp;Button&nbsp;&nbsp;&nbsp;</i>
+            </div>
+            <div class="card-body">
+              <div class="section">
+                <div class="section-body">
+                  <div>
+                    <button type="button" class="btn btn-default">Default</button>
+                    <button type="button" class="btn btn-primary">Primary</button>
+                    <button type="button" class="btn btn-success">Success</button>
+                    <button type="button" class="btn btn-info">Info</button>
+                    <button type="button" class="btn btn-warning">Warning</button>
+                    <button type="button" class="btn btn-danger">Danger</button>
+                    <button type="button" class="btn btn-link">Link</button>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Dropdown <span class="caret"></span></button>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                      </ul>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="section">
+                <div class="section-title">Sizing</div>
+                <div class="section-body">
+                  <button type="button" class="btn btn-default btn-lg">Large</button>
+                  <button type="button" class="btn btn-default">Normal</button>
+                  <button type="button" class="btn btn-default btn-sm">Small</button>
+                  <button type="button" class="btn btn-default btn-xs">Extra Small</button>
+                </div>
+              </div>
+              <div class="section">
+                <div class="section-title">Social</div>
+                <div class="section-body">
+                  <button type="button" class="btn btn-default btn-social __facebook">
+                    <div class="info">
+                      <i class="icon fa fa-facebook-official" aria-hidden="true"></i>
+                      <span class="title">Facebook</span>
+                    </div>
+                  </button>
+                  <button type="button" class="btn btn-default btn-sm btn-social __twitter">
+                    <div class="info">
+                      <i class="icon fa fa-twitter" aria-hidden="true"></i>
+                      <span class="title">Twitter</span>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Button End-->
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+              <i class="fa fa-diamond">&nbsp;Label&nbsp;&nbsp;&nbsp;</i>
+            </div>
+            <div class="card-body">
+              <span class="label label-default">Default</span>
+              <span class="label label-primary">Primary</span>
+              <span class="label label-success">Success</span>
+              <span class="label label-info">Info</span>
+              <span class="label label-warning">Warning</span>
+              <span class="label label-danger">Danger</span>
+            </div>
+          </div>
+        </div>
+        <!-- Label End-->
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+              <i class="fa fa-diamond">&nbsp;Badge&nbsp;&nbsp;&nbsp;</i>
+            </div>
+            <div class="card-body">
+              <span class="badge badge-success badge-icon"><i class="fa fa-check" aria-hidden="true"></i><span>Complete</span></span>
+              <span class="badge badge-warning badge-icon"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Pending</span></span>
+              <span class="badge badge-info badge-icon"><i class="fa fa-credit-card" aria-hidden="true"></i><span>Confirm Payment</span></span>
+              <span class="badge badge-danger badge-icon"><i class="fa fa-times" aria-hidden="true"></i><span>Cancelled</span></span>
+              <span class="badge badge-primary badge-icon"><i class="fa fa-truck" aria-hidden="true"></i><span>Shipped</span></span>
+              <span class="badge badge-info badge-icon"><i class="fa fa-credit-card" aria-hidden="true"></i><span>Confirm Payment</span></span>
+            </div>
+          </div>
+        </div>
+        <!-- Badge End-->
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+              <i class="fa fa-diamond">&nbsp;Alerts&nbsp;&nbsp;&nbsp;</i>
+            </div>
+            <div class="card-body">
+              <div class="row  flat-matrix">
+                <div class="col-md-12">
+                  <div class="alert alert-success alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fa fa-close"></i></button>
+                    <strong><i class="fa fa-refresh fa-2x fa-spin"></i>&nbsp;成功! </strong> 工作台返回的成功级别信息， 详细描述及成功代码。
+                  </div>
+                  <div class="alert alert-info alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fa fa-close"></i></button>
+                    <strong><i class="fa fa-spinner fa-3x fa-spin"></i>&nbsp;信息!</strong> 工作台返回的信息级别信息，详细描述及信息代码。
+                  </div>
+                  <div class="alert alert-warning alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fa fa-close"></i></button>
+                    <strong><i class="fa fa-warning fa-4x"></i>&nbsp;警告！</strong> 工作台返回的警告级别信息， 详细描述及警告代码。
+                  </div>
+                  <div class="alert alert-danger alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fa fa-close"></i></button>
+                    <strong><i class="fa fa-warning fa-6x"></i>&nbsp;错误！</strong> 工作台返回的错误级别信息，详细描述及错误代码。
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Alert End-->
+        <div class="col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="card-header">
+              <i class="fa fa-diamond">&nbsp;Tab&nbsp;&nbsp;&nbsp;</i>
+            </div>
+            <div class="card-body">
+              <div role="tabpanel">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                  <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+                  <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+                  <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+                  <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane active" id="home">
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex
+                    ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum
+                    zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis
+                    in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="profile">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl
+                    ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent
+                    luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est
+                    usus legentis in iis qui facit eorum claritatem. Investigationes d</div>
+                  <div role="tabpanel" class="tab-pane" id="messages">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl
+                    ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent
+                    luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est
+                    usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium </div>
+                  <div role="tabpanel" class="tab-pane" id="settings">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl
+                    ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent
+                    luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Tab End -->
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <i class="fa fa-diamond">&nbsp;Form Basice Elements&nbsp;&nbsp;&nbsp;</i>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <input type="text" class="form-control" placeholder="Input">
+                  <textarea name="name" rows="3" class="form-control"></textarea>
+                  <input type="text" class="form-control" placeholder="Disabled" disabled>
+                  <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">
+              <i class="fa fa-user" aria-hidden="true"></i></span>
+                    <input type="text" class="form-control" placeholder="Input group" aria-describedby="basic-addon1" value="">
+                  </div>
+                  <div>
+                    <div class="checkbox">
+                      <input type="checkbox" id="checkbox1">
+                      <label for="checkbox1">
+                        Checkbox
+                      </label>
+                    </div>
+                    <div class="checkbox">
+                      <input type="checkbox" id="checkbox2">
+                      <label for="checkbox2">
+                        Checkbox Square
+                      </label>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="checkbox checkbox-inline">
+                      <input type="checkbox" id="checkbox3">
+                      <label for="checkbox3">
+                        Checkbox Inline
+                      </label>
+                    </div>
+                    <div class="checkbox checkbox-inline">
+                      <input type="checkbox" id="checkbox4">
+                      <label for="checkbox4">
+                        Checkbox Inline
+                      </label>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="radio">
+                      <input type="radio" name="radio2" id="radio3" value="option1">
+                      <label for="radio3">
+                        One
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <input type="radio" name="radio2" id="radio4" value="option2" checked>
+                      <label for="radio4">
+                        Two
+                      </label>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="radio radio-inline">
+                      <input type="radio" name="radio2" id="radio5" value="option1">
+                      <label for="radio5">
+                        One
+                      </label>
+                    </div>
+                    <div class="radio radio-inline">
+                      <input type="radio" name="radio2" id="radio6" value="option2" checked>
+                      <label for="radio6">
+                        Two
+                      </label>
+                    </div>
+                  </div>
+                  <select class="select2">
+                    <option value="AL">Alabama</option>
+                    <option value="WY">Wyoming</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group has-success">
+                    <input type="text" class="form-control" id="inputSuccess1" placeholder="Success">
+                  </div>
+                  <div class="form-group has-warning">
+                    <input type="text" class="form-control" id="inputWarning1" placeholder="Warning">
+                  </div>
+                  <div class="form-group has-error">
+                    <input type="text" class="form-control" id="inputError1" placeholder="Danger">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <i class="fa fa-diamond">&nbsp;Form Horizontal&nbsp;&nbsp;&nbsp;</i>
+            </div>
+            <div class="card-body">
+              <form class="form form-horizontal">
+                <div class="section">
+                  <div class="section-title">Information</div>
+                  <div class="section-body">
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Name</label>
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" placeholder="">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-md-3">
+                        <label class="control-label">Description</label>
+                        <p class="control-label-help">( short detail of products , 150 max words )</p>
+                      </div>
+                      <div class="col-md-9">
+                        <textarea class="form-control"></textarea>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Price</label>
+                      <div class="col-md-9">
+                        <div class="input-group">
+                          <span class="input-group-addon">$</span>
+                          <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="section">
+                  <div class="section-title">Warranty</div>
+                  <div class="section-body">
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Type</label>
+                      <div class="col-md-9">
+                        <div class="radio radio-inline">
+                          <input type="radio" name="radio4" id="radio10" value="option10">
+                          <label for="radio10">
+                            Global
+                          </label>
+                        </div>
+                        <div class="radio radio-inline">
+                          <input type="radio" name="radio4" id="radio11" value="option11" checked>
+                          <label for="radio11">
+                            Local
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Cover</label>
+                      <div class="col-md-4">
+                        <div class="input-group">
+                          <select class="select2">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                          </select>
+                          <span class="input-group-addon">Years</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-footer">
+                  <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                      <button type="submit" class="btn btn-primary">Save</button>
+                      <button type="button" class="btn btn-default">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- Form Basic Elements -->
+
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <i class="fa fa-diamond">&nbsp;Step Original Horizantal&nbsp;&nbsp;&nbsp;</i>
+              </div>
+            </div>
+            <div class="card-body flat-matrix">
+              <div class="step ">
+                <ul class="nav nav-tabs nav-justified" role="tablist">
+                  <li role="step" class="active">
+                    <a href="#step1-Original-Horizantal" id="step1-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+                      <div class="icon fa fa-truck"></div>
+                      <div class="step-title">
+                        <div class="title">Shipping</div>
+                        <div class="description">Enter your address</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li role="step">
+                    <a href="#step2-Original-Horizantal" role="tab" id="step2-tab" data-toggle="tab" aria-controls="profile">
+                      <div class="icon fa fa-credit-card"></div>
+                      <div class="step-title">
+                        <div class="title">Payment</div>
+                        <div class="description">Billing Information.</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li role="step">
+                    <a href="#step3-Original-Horizantal" role="tab" id="step3-tab" data-toggle="tab" aria-controls="profile">
+                      <div class="icon fa fa-check-circle-o"></div>
+                      <div class="step-title">
+                        <div class="title">Confirm Orders</div>
+                        <div class="description">Billing Information.</div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade in active" id="step1-Original-Horizantal" aria-labelledby="home-tab">
+                    <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
+                      synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="step2-Original-Horizantal" aria-labelledby="profile-tab">
+                    <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth
+                      letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore
+                      stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo
+                      park.
+                    </p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="step3-Original-Horizantal" aria-labelledby="dropdown1-tab">
+                    <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles
+                      etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred
+                      you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <i class="fa fa-diamond">&nbsp;Step Original Vertical&nbsp;&nbsp;&nbsp;</i>
+              </div>
+            </div>
+            <div class="card-body flat-matrix">
+              <div class="step tabs-left card-no-padding">
+                <ul class="nav nav-tabs" role="tablist">
+                  <li role="step" class="active">
+                    <a href="#stepv1" id="step1-vtab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+                      <div class="icon fa fa-truck"></div>
+                      <div class="step-title">
+                        <div class="title">Shipping</div>
+                        <div class="description">Enter your address</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li role="step">
+                    <a href="#stepv2" role="tab" id="step2-vtab" data-toggle="tab" aria-controls="profile">
+                      <div class="icon fa fa-credit-card"></div>
+                      <div class="step-title">
+                        <div class="title">Payment</div>
+                        <div class="description">Billing Information.</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li role="step">
+                    <a href="#stepv3" role="tab" id="step3-vtab" data-toggle="tab" aria-controls="profile">
+                      <div class="icon fa fa-check-circle-o"></div>
+                      <div class="step-title">
+                        <div class="title">Confirm Orders</div>
+                        <div class="description"></div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade in active" id="stepv1" aria-labelledby="home-tab">
+                    <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
+                      dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="stepv2" aria-labelledby="profile-tab">
+                    <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui
+                      photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna
+                      velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui
+                      sapiente accusamus tattooed echo park.</p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="stepv3" aria-labelledby="dropdown1-tab">
+                    <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore
+                      carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog.
+                      Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="dropdown2" aria-labelledby="dropdown2-tab">
+                    <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche
+                      high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical.
+                      Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <i class="fa fa-diamond">&nbsp;Step&nbsp;&nbsp;&nbsp;</i>
+              </div>
+            </div>
+            <div class="card-body flat-matrix">
+              <div class="step-v2-success">
+                <ul class="nav nav-tabs nav-justified" role="tablist">
+                  <li role="step">
+                    <a href="#step1-v3-horizantal" id="step1-tab-v3-horizantal" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+                      <div class="icon fa fa-shopping-cart"></div>
+                      <div class="heading">
+                        <div class="title">Shipping</div>
+                        <div class="description">Enter your address</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li role="step" class="active">
+                    <a href="#step2-v3-horizantal" role="tab" id="step2-tab-v3-horizantal" data-toggle="tab" aria-controls="profile">
+                      <div class="icon fa fa-credit-card"></div>
+                      <div class="heading">
+                        <div class="title">Payment</div>
+                        <div class="description">Billing Information.</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li role="step">
+                    <a href="#step3-v3-horizantal" role="tab" id="step3-tab-v3-horizantal" data-toggle="tab" aria-controls="profile">
+                      <div class="icon fa fa-check"></div>
+                      <div class="heading">
+                        <div class="title">Confirm Orders</div>
+                        <div class="description">Confirmation your purchases</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li role="step">
+                    <a href="#step4-v3-horizantal" role="tab" id="step4-tab-v3-horizantal" data-toggle="tab" aria-controls="profile">
+                      <div class="icon fa fa-truck "></div>
+                      <div class="heading">
+                        <div class="title">Purchase Successfully</div>
+                        <div class="description">Wait for us shipping</div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane" id="step1-v3-horizantal">
+                    <b>Step1</b> : Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+                    lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel
+                  </div>
+                  <div role="tabpanel" class="tab-pane active" id="step2-v3-horizantal">
+                    <b>Step2</b> : Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+                    lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="step3-v3-horizantal">
+                    <b>Step3</b> : Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+                    lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim
+                    qui blandit praesent luptatum
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="step4-v3-horizantal">
+                    <b>Step4</b> : Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+                    lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequa
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <i class="fa fa-diamond">&nbsp;Step&nbsp;&nbsp;&nbsp;</i>
+              </div>
+            </div>
+            <div class="card-body flat-matrix">
+              <div class="step-v2-danger">
+                <ul class="nav nav-tabs nav-justified" role="tablist">
+                  <li role="step">
+                    <a href="#step1-v3-horizantal-danger" id="step1-tab-v3-horizantal-danger" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+                      <div class="icon fa fa-shopping-cart"></div>
+                      <div class="heading">
+                        <div class="title">Shipping</div>
+                        <div class="description">Enter your address</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li role="step" class="active">
+                    <a href="#step2-v3-horizantal-danger" role="tab" id="step2-tab-v3-horizantal-danger" data-toggle="tab" aria-controls="profile">
+                      <div class="icon fa fa-credit-card"></div>
+                      <div class="heading">
+                        <div class="title">Payment</div>
+                        <div class="description">Billing Information.</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li role="step">
+                    <a href="#step3-v3-horizantal-danger" role="tab" id="step3-tab-v3-horizantal-danger" data-toggle="tab" aria-controls="profile">
+                      <div class="icon fa fa-check"></div>
+                      <div class="heading">
+                        <div class="title">Confirm Orders</div>
+                        <div class="description">Confirmation your purchases</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li role="step">
+                    <a href="#step4-v3-horizantal-danger" role="tab" id="step4-tab-v3-horizantal-danger" data-toggle="tab" aria-controls="profile">
+                      <div class="icon fa fa-truck "></div>
+                      <div class="heading">
+                        <div class="title">Purchase Successfully</div>
+                        <div class="description">Wait for us shipping</div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane" id="step1-v3-horizantal-danger">
+                    <b>Step1</b> : Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+                    lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel
+                  </div>
+                  <div role="tabpanel" class="tab-pane active" id="step2-v3-horizantal-danger">
+                    <b>Step2</b> : Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+                    lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="step3-v3-horizantal-danger">
+                    <b>Step3</b> : Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+                    lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim
+                    qui blandit praesent luptatum
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="step4-v3-horizantal-danger">
+                    <b>Step4</b> : Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+                    lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequa
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--BUSINESS DIV FINISHED-->
+
+      <!--TEMPLATE DIV BEGIN-->
+      <div id="template-matrix-dynamic-table-div"></div>
+      <div id="template-matrix-modal-div"></div>
+      <div id="template-matrix-footer-div"></div>
+      <!--TEMPLATE DIV BEGIN-->
+    </div>
+  </div>
+  <!-- Javascript for Matrix Referenced -->
+  <script src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
+  <script src="../assets/reference/flat-admin/assets/js/app.js"></script>
+  <script src="../assets/reference/codemirror/codemirror.js"></script>
+  <script src="../assets/reference/codemirror/mode/javascript/javascript.js"></script>
+  <script src="../assets/reference/codemirror/mode/markdown/markdown.js"></script>
+  <script src="../assets/reference/jquery/jquery.json.js"></script>
+  <script src="../assets/reference/jquery/jquery.blockUI.js"></script>
+  <script src="../assets/reference/knockout.js/knockout-3.3.0.js"></script>
+  <script src="../assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+  <script src="../assets/reference/markdown/markdown.min.js"></script>
+  <script src="../assets/reference/jquery-ui/jquery-ui.js"></script>
+  <script src="../assets/reference/lodash/lodash-4.15.0.js"></script>
+  <script src="../assets/reference/gridstack/gridstack.all.js"></script>
+  <script src="../assets/reference/echarts/echarts-min.js"></script>
+  <script src="../assets/reference/echarts/dataTools.js"></script>
+  <!-- Javascript for Matrix Self Owned -->
+  <script src="../assets/self-owned/js/generic/generic_algorithm.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_cache.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_charting_v4.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_csv.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_cud.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_modal.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_query.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_table.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_util.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
+
+  <script src="../assets/self-owned/js/refine/matrix_ui.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_util.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_components.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_table.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('#sidebar').load($.getRootPath() + '/components/left_side.html');
+      $('#navbar').load($.getRootPath() + '/components/header.html');
+      $('#template-matrix-dynamic-table-div').load($.getRootPath() + '/components/template-matrix-dynamic-table.html');
+      $('#template-matrix-modal-div').load($.getRootPath() + '/components/template-matrix-modal.html');
+      $('#template-matrix-footer-div').load($.getRootPath() + '/components/footer.html');
+      setTimeout(function() {
+        $('#navbar_search_li').css('display', 'none');
+        $('#navbar_title_li').text('Matrix Basic Components');
+      }, 1000)
+    });
+  </script>
+</body>
+
+</html>

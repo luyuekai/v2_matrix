@@ -61,7 +61,9 @@ function ResponseViewModel() {
   self.warningResponse = function(content, title, subTitle) {
     self.response("alert-warning", content || "", title || 'Warning', subTitle || "");
   }
-
+  self.infoResponse = function(content, title, subTitle) {
+    self.response("alert-info", content || "", title || 'Warning', subTitle || "");
+  }
   self.response = function(response_level, content, title, subTitle) {
     self.styleClass(response_level);
     self.resultTitle(title);

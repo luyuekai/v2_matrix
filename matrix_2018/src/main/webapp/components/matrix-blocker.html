@@ -83,7 +83,45 @@
       <!--VALIDATION DIV FINISHED-->
 
       <!--BUSINESS DIV BEGIN-->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body flat-matrix" id="blockDIV">
+              <div class="row">
+                <div class="col-sm-12">
+                  <pre>
+我们来讲解一下啊Blocker和Loader，从本质上讲，它们是一致的，都是对DOM界面元素进行遮挡，我们对其进行了小小的封装和场景区分：
 
+当系统涉及和服务器端交互获取数据时，为了阻止用户进行额外的操作来减少异常的出现，如果对整个页面进行遮挡，这时建议使用封装后的Loader，
+请在控制台调用如下代码生成Loader
+<code>
+  Matrix_UI.add_loader('main_content_div')
+</code>
+请在控制台调用如下代码去除Loader
+<code>
+  Matrix_UI.remove_loader('main_content_div')
+</code>
+
+如果对局部页面进行遮挡，这时建议使用封装后的Blocker，
+请在控制台调用如下代码生成Blocker
+<code>
+  Matrix_UI.add_blocker('blockDIV')
+</code>
+请在控制台调用如下代码去除Blocker
+<code>
+  Matrix_UI.remove_blocker('blockDIV')
+</code>
+                  </pre>
+                  <div class="alert alert-info alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fa fa-close"></i></button>
+                    <strong><i class="fa fa-bullhorn"></i>&nbsp;请记住:</strong> 我们将其放入Matrix_UI，是因为如上的操作只涉及客户端DOM操作
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <!--BUSINESS DIV FINISHED-->
 
 
@@ -130,8 +168,7 @@
   <script src="../assets/self-owned/js/refine/matrix_components.js"></script>
   <script src="../assets/self-owned/js/refine/matrix_table.js"></script>
 
-  <script src="template-matrix-page.js"></script>
-
+  <script src="matrix-blocker.js"></script>
 
   <script>
     $(document).ready(function() {
@@ -140,15 +177,15 @@
       $('#template-matrix-dynamic-table-div').load($.getRootPath() + '/components/template-matrix-dynamic-table.html');
       $('#template-matrix-modal-div').load($.getRootPath() + '/components/template-matrix-modal.html');
       $('#template-matrix-footer-div').load($.getRootPath() + '/components/footer.html');
-      UNIT_TEST_SUITE();
       setTimeout(function() {
         $('#navbar_search_li').css('display', 'none');
-        $('#navbar_title_li').text('Matrix Page');
+        $('#navbar_title_li').text('Matrix Components - Loader & Blocker');
       }, 1000)
     });
 
     $.subscribe("get_user_detail_chain_finished", env_setup);
   </script>
+
 </body>
 
 </html>

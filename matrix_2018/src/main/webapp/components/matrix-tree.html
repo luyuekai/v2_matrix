@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matrix Template</title>
+  <link rel="shortcut icon" href="../assets/self-owned/ico/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/vendor.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/flat-admin.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue-sky.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/red.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/yellow.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/codemirror/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/github-markdown-css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/matrix_v3.css">
+  <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/matrix_ui_refine.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/bootstrap-fileinput/css/fileinput_ly.css" media="all">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/fuelux/fuelux.min.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/gridstack/gridstack.css" />
+  <link rel="stylesheet" type="text/css" href="../assets/reference/gridstack/gridstack-extra.css" />
+</head>
+
+<body>
+  <div class="app app-blue-sky" id="template-matrix-main-div">
+    <aside class="app-sidebar" id="sidebar"></aside>
+    <div class="app-container" id="main_content_div">
+      <nav class="navbar navbar-default navbar-fixed-top" id="navbar"></nav>
+      <div class="seperate_div_class" style="margin-top:118px"></div>
+
+      <!--LOADER DIV BEGIN-->
+      <div class="loader-container text-center">
+        <div class="icon">
+          <div class="sk-wave">
+            <div class="sk-rect sk-rect1"></div>
+            <div class="sk-rect sk-rect2"></div>
+            <div class="sk-rect sk-rect3"></div>
+            <div class="sk-rect sk-rect4"></div>
+            <div class="sk-rect sk-rect5"></div>
+          </div>
+        </div>
+        <div class="title">Loading</div>
+      </div>
+      <!--LOADER DIV FINISHED-->
+
+      <!--RESPONSE DIV BEGIN-->
+      <div class="row" data-bind="with:response_vm">
+        <div class="col-sm-12" style="margin-bottom:12px" style="display:none" data-bind="visible: resultVisible">
+          <div class="flat-matrix">
+            <div class="alert fresh-color " data-bind="css:styleClass,visible: resultVisible" style="display:none">
+              <button type="button" class="close" data-bind="click:function(){resultVisible(false)}" aria-label="Close"><i class="fa fa-close"></i></button>
+              <strong>
+                  <span data-bind="text:resultTitle"></span>
+                </strong>
+              <span data-bind="text:resultSubTitle"></span>
+              <div data-bind="text:resultContent"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--RESPONSE DIV FINISHED-->
+
+      <!--VALIDATION DIV BEGIN-->
+      <div class="row">
+        <div class="col-sm-12" style="margin-bottom:12px" style="display:none" data-bind="visible: hasError">
+          <div id="validation_div">
+            <div class="flat-matrix">
+              <div class="alert alert-warning alert-dismissible fresh-color" role="alert" style="display:none" data-bind="visible: hasError">
+                <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
+                  <i class="fa fa-close"></i>
+                </button>
+                <strong>Warning:</strong>
+                <div id="errorMessagesDIV" data-bind="foreach:errorMessage">
+                  <div data-bind="text:$data"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--VALIDATION DIV FINISHED-->
+
+      <!--BUSINESS DIV BEGIN-->
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card card-mini">
+            <div class="card-header">
+              <i class="fa fa-diamond">&nbsp;MATRIX Tree Example &nbsp;&nbsp;&nbsp;</i>
+            </div>
+            <div class="card-body" style="padding: 20px 30px" >
+              <!-- tree component begin -->
+              <!-- need fuelux/tree.js, fuelux/fuelux.min.css -->
+              <div class="fuelux" style="color:#666" id="configuration_div">
+                <ul class="tree tree-folder-select" role="tree" id="matrix_tree" style="border:0px solid #666; max-width: 100%; overflow: auto;">
+                  <li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
+                    <div class="tree-branch-header">
+                      <button type="button" class="glyphicon icon-caret glyphicon-play">
+                        <span class="sr-only">Open</span>
+                      </button>
+                      <button type="button" class="tree-branch-name">
+                        <span class="glyphicon icon-folder glyphicon-folder-close"></span>
+                        <span class="tree-label"></span>
+                      </button>
+                    </div>
+                    <ul class="tree-branch-children" role="group"></ul>
+                    <div class="tree-loader" role="alert">Loading...</div>
+                  </li>
+                  <li class="tree-item hide" data-template="treeitem" role="treeitem">
+                    <button type="button" class="tree-item-name">
+                      <span class="glyphicon icon-item fueluxicon-bullet"></span>
+                      <span class="tree-label"></span>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+              <!-- tree component end -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+              <i class="fa fa-diamond">&nbsp;Matrix Tree Guide&nbsp;&nbsp;&nbsp;</i>
+            </div>
+            <div class="card-body flat-matrix">
+              <div role="tabpanel">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                  <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true">基本概念</a></li>
+                  <li role="presentation" class=""><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false">创建Tree组件</a></li>
+                  <li role="presentation" class=""><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false">详细教程</a></li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane active" id="home">
+                    <pre>
+树型组件由子树结点和叶子结点构成，最广泛的用例为文件夹和文件
+
+树型结构是一个具有层次关系的N层结构，每一层的本质是一个一维数组，数组中存放着结点数据，下面是树型组件的结点数据结构，请牢记：
+<code>
+  {
+    "name": "data",                                //当前结点名称
+    "type": "folder",                              //当前结点类型 folder/item
+    "path": "data",                                //当前结点路径，可选项
+    "attr": {                                      //当前结点树型，可选项
+      "id": "data",                                //当前结点标识
+      "data-icon": "glyphicon glyphicon-cloud",    //当前结点图标，只对item类型生效
+      "style": "color: rebeccapurple;"             //当前结点样式
+    }
+  }
+</code>
+
+树型组件具备两种事件：点击事件和展开事件。其中展开事件只针对类型为folder类型的结点。
+                    </pre>
+                    <div class="alert alert-info alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fa fa-close"></i></button>
+                      <strong><i class="fa fa-wrench"></i>&nbsp;信息:</strong> 请把展开事件理解为获取下一级子树数据源的操作！
+                    </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane " id="profile">
+                    <pre>
+1,准备一个可供Tree显示的Div,请参阅本源码中关于tree component注释的div代码
+                      <code>
+                        &lt;div id="my_first_table_div"&gt;&lt;/div&gt;
+                      </code>
+2,调用Tree组件的初始化函数
+                      <code>
+                          //此函数属于UI层操作，将其放入Matrix_ui.js
+                          init_matrix_tree_env(tree_data_source_listener,tree_click_event_listner);
+                      </code>
+3,编写tree_data_source_listener函数的实现
+                      <code>
+                        /**
+                         * 获取Tree组件数据源监听函数
+                         * @param  {[type]}   openedParentData 出发事件的数据：文件夹
+                         * @param  {Function} callback         回调函数
+                         * @return {[type]}                    无返回值
+                         */
+                        function tree_data_source_listener(openedParentData, callback)
+                      </code>
+openedParentData为当前事件出发的结点元素，通过获取它的属性，比如path，再经过具体的业务逻辑，获取到完整的下一层子树完整数据集。
+请再次牢记，获取到的数据集是一个标准的存放着结点数据的一维数组。
+
+callback是默认的回调函数，当数据完整获取后，将其传回此函数中，交由Tree组件完成DOM的render操作。
+
+具体细节可以查阅对应的js代码，下面是一个完整的函数实现的例子：
+                        <code>
+                        function tree_data_source_listener(openedParentData, callback) {
+
+                          var childObjectsArray = retrieve_data_mock(openedParentData);
+                          callback({
+                            data: childObjectsArray
+                          });
+                        }
+                      </code>
+4，编写tree_click_event_listner函数的实现
+具体细节可以查阅对应的js代码，下面是一个完整的函数实现的例子：
+                      <code>
+                        function tree_click_event_listner(){
+                          var tree_element = $('#matrix_tree').tree('selectedItems')[0];
+                          console.log("Current tree element is:");
+                          console.log(tree_element);
+                        }
+                      </code>
+这样你就创建了一个Matrix Tree，是不是很简单？尝试着做你自己的第一个Tree吧。
+                    </pre>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="messages">
+                    <div class="alert alert-info alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fa fa-close"></i></button>
+                      <strong>
+                        想使用好Matrix Tree，请学习
+                        <i class="fa fa-hand-o-right"></i>&nbsp;
+                      </strong>
+                      <a href="http://fuelux-tutorials.herokuapp.com/tree/" target="_blank">Matrix Tree 详细教程</a>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--BUSINESS DIV FINISHED-->
+
+
+      <!--TEMPLATE DIV BEGIN-->
+      <div id="template-matrix-dynamic-table-div"></div>
+      <div id="template-matrix-modal-div"></div>
+      <div id="template-matrix-footer-div"></div>
+      <!--TEMPLATE DIV BEGIN-->
+    </div>
+  </div>
+  <!-- Javascript for Matrix Referenced -->
+  <script src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
+  <script src="../assets/reference/flat-admin/assets/js/app.js"></script>
+  <script src="../assets/reference/codemirror/codemirror.js"></script>
+  <script src="../assets/reference/codemirror/mode/javascript/javascript.js"></script>
+  <script src="../assets/reference/codemirror/mode/markdown/markdown.js"></script>
+  <script src="../assets/reference/jquery/jquery.json.js"></script>
+  <script src="../assets/reference/jquery/jquery.blockUI.js"></script>
+  <script src="../assets/reference/knockout.js/knockout-3.3.0.js"></script>
+  <script src="../assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+  <script src="../assets/reference/markdown/markdown.min.js"></script>
+  <script src="../assets/reference/jquery-ui/jquery-ui.js"></script>
+  <script src="../assets/reference/lodash/lodash-4.15.0.js"></script>
+  <script src="../assets/reference/gridstack/gridstack.all.js"></script>
+  <script src="../assets/reference/echarts/echarts-min.js"></script>
+  <script src="../assets/reference/echarts/dataTools.js"></script>
+  <!-- Javascript for Matrix Self Owned -->
+  <script src="../assets/self-owned/js/generic/generic_algorithm.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_cache.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_charting_v4.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_csv.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_cud.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_modal.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_query.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_table.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_util.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
+
+  <script src="../assets/self-owned/js/refine/matrix_ui.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_util.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_components.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_table.js"></script>
+
+  <script src="../assets/reference/fuelux/tree.js"></script>
+
+  <script src="matrix-tree.js"></script>
+
+
+  <script>
+    $(document).ready(function() {
+      $('#sidebar').load($.getRootPath() + '/components/left_side.html');
+      $('#navbar').load($.getRootPath() + '/components/header.html');
+      $('#template-matrix-dynamic-table-div').load($.getRootPath() + '/components/template-matrix-dynamic-table.html');
+      $('#template-matrix-modal-div').load($.getRootPath() + '/components/template-matrix-modal.html');
+      $('#template-matrix-footer-div').load($.getRootPath() + '/components/footer.html');
+      setTimeout(function() {
+        $('#navbar_search_li').css('display', 'none');
+        $('#navbar_title_li').text('Matrix Page');
+      }, 1000)
+    });
+
+    $.subscribe("get_user_detail_chain_finished", env_setup);
+  </script>
+</body>
+
+</html>

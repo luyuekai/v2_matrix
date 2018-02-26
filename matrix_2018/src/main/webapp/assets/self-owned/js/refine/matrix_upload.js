@@ -9,7 +9,6 @@ function GenericUploadPageViewModel(userCode,systemCode,moduleCode,functionCode)
   self.key2 = ko.observable(systemCode);
   self.key3 = ko.observable(moduleCode);
   self.key4 = ko.observable(functionCode);
-  self.alerts = new ResponseViewModel(); // This model is located in the generic_query.js
   self.uploadedFileUrls = ko.observableArray([]);
 
   //Keep DB Entity
@@ -17,9 +16,13 @@ function GenericUploadPageViewModel(userCode,systemCode,moduleCode,functionCode)
 
   self.validation_before_upload = function(){
     if (self.key1() && self.key2() && self.key3() && self.key4()) {
-      vm.alerts.resultVisible(false);
+      if(current_vm && current_vm.response_vm()){
+        current_vm.response_vm().resultVisible(false);
+      }
     } else {
-      self.alerts.warningResponse("Validation Error", "Tips:", "[Upload File Validation]");
+      if(current_vm && current_vm.response_vm()){
+        current_vm.response_vm().warningResponse("Validation Error", "Tips:", "[Upload File Validation]");
+      }
       if(self.uploadRef){
         uploadRef.fileinput('cancel');
         uploadRef.fileinput('clear');
@@ -27,9 +30,11 @@ function GenericUploadPageViewModel(userCode,systemCode,moduleCode,functionCode)
     }
   };
 
-  self.upload_error_handler = function(){
-    self.alerts.warningResponse(msg, "Tips:", "[Upload File Error]");
-  }
+  self.upload_error_handler = function(msg){
+    if(current_vm && current_vm.response_vm()){
+      current_vm.response_vm().warningResponse(msg, "Tips:", "[Upload File Error]");
+    }
+  };
 }
 
 
@@ -68,21 +73,16 @@ var initialize_pic_upload_environment = function(file_upload_component_id,vm,suc
     browseOnZoneClick: true
   });
   $upload.on('filepreupload', function(event, data, previewId, index) {
-    // validation_before_upload(vm);
     if(vm && vm.validation_before_upload){
       vm.validation_before_upload();
     }
-    console.log('File pre upload triggered');
   });
   $upload.on('fileuploaded', function(event, data, previewId, index) {
-
     var form = data.form,
       files = data.files,
       extra = data.extra,
       response = data.response,
       reader = data.reader;
-
-    console.log(response);
     $.dispatchGenericResponse(response, successListener, failerListener);
     $upload.fileinput('refresh');
   });
@@ -94,17 +94,11 @@ var initialize_pic_upload_environment = function(file_upload_component_id,vm,suc
       extra = data.extra,
       response = data.response,
       reader = data.reader;
-    console.log('File upload error');
-    // get message
-    console.log(msg);
     if(vm && vm.upload_error_handler){
-      vm.upload_error_handler();
+      vm.upload_error_handler(msg);
     }
   });
 
-
-
-
   //hide
   $('.file-caption-main').css('display','none');
-}
+};
