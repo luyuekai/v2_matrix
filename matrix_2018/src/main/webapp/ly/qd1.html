@@ -78,19 +78,45 @@
           </div>
         </div>
       </div>
+
       <!--VALIDATION DIV FINISHED-->
 
       <!--BUSINESS DIV BEGIN-->
+      <div class="row" data-bind="with:businessPOJO">
+        <div class="col-md-12">
+          <div class="card card-mini">
+            <div class="card-header">
+              <i class="fa fa-diamond">&nbsp;搜索&nbsp;&nbsp;&nbsp;</i>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-10">
+                  <input type="text" class="form-control" data-bind="value:searchWords" placeholder="Input">
+                </div>
+                <div class="col-md-2">
+                  <button type="button" class="btn btn-default" onclick="server_request_mock()">搜索</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  共搜索出&nbsp;<span data-bind="text:searchResultNum"></span> 个结果
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="row">
         <div class="col-sm-12">
           <div class="card card-mini">
             <div class="card-header">
               <i class="fa fa-diamond">&nbsp;MATRIX SEARCH Entity Template &nbsp;&nbsp;&nbsp;</i>
             </div>
-            <div class="card-body" style="padding: 20px 30px 0px 30px;">
-              <div class="row">
+            <div class="card-body" style="padding: 20px 30px 0px 30px;" id="ly_parent">
+              <div class="row" id="ly_container">
                 <div class="col-md-12">
-                  <div id="copy_table_parent_div"></div>
+                  <div id="copy_table_parent_div" class="ly_table">123</div>
                 </div>
               </div>
             </div>
@@ -137,7 +163,13 @@
   <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
   <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
   <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
-  <script src="component_matrix_template.js"></script>
+  <script src="qd1.js"></script>
+
+
+  <script src="../assets/self-owned/js/refine/matrix_ui.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_util.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_components.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_table.js"></script>
 
 
   <script>
@@ -149,11 +181,11 @@
       $('#template-matrix-footer-div').load($.getRootPath() + '/components/footer.html');
 
       setTimeout(function() {
-        $('#navbar_search_li').css('display', '');
-        $('#navbar_title_li').text('[#Your Components Title#]');
+        $('#navbar_search_li').css('display', 'none');
+        $('#navbar_title_li').text('城市数据分析');
       }, 1000)
     });
-    UNIT_TEST_SUITE();
+
     $.subscribe("get_user_detail_chain_finished", env_setup);
   </script>
 

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matrix Template</title>
+  <link rel="shortcut icon" href="../assets/self-owned/ico/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/vendor.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/flat-admin.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue-sky.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/red.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/yellow.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/codemirror/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/github-markdown-css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/matrix_v3.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/bootstrap-fileinput/css/fileinput_ly.css" media="all">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/fuelux/fuelux.min.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/gridstack/gridstack.css" />
+  <link rel="stylesheet" type="text/css" href="../assets/reference/gridstack/gridstack-extra.css" />
+</head>
+
+<body>
+  <div class="app app-blue-sky" id="template-matrix-main-div">
+    <aside class="app-sidebar" id="sidebar"></aside>
+    <div class="app-container" id="main_content_div">
+      <nav class="navbar navbar-default navbar-fixed-top" id="navbar"></nav>
+      <div class="seperate_div_class" style="margin-top:118px"></div>
+
+      <!--LOADER DIV BEGIN-->
+      <div class="loader-container text-center">
+        <div class="icon">
+          <div class="sk-wave">
+            <div class="sk-rect sk-rect1"></div>
+            <div class="sk-rect sk-rect2"></div>
+            <div class="sk-rect sk-rect3"></div>
+            <div class="sk-rect sk-rect4"></div>
+            <div class="sk-rect sk-rect5"></div>
+          </div>
+        </div>
+        <div class="title">Loading</div>
+      </div>
+      <!--LOADER DIV FINISHED-->
+
+      <!--RESPONSE DIV BEGIN-->
+      <div class="row" data-bind="with:response_vm">
+        <div class="col-sm-12" style="margin-bottom:12px" style="display:none" data-bind="visible: resultVisible">
+          <div class="flat-matrix">
+            <div class="alert fresh-color " data-bind="css:styleClass,visible: resultVisible" style="display:none">
+              <button type="button" class="close" data-bind="click:function(){resultVisible(false)}" aria-label="Close"><i class="fa fa-close"></i></button>
+              <strong>
+                  <span data-bind="text:resultTitle"></span>
+                </strong>
+              <span data-bind="text:resultSubTitle"></span>
+              <div data-bind="text:resultContent"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--RESPONSE DIV FINISHED-->
+
+      <!--VALIDATION DIV BEGIN-->
+      <div class="row">
+        <div class="col-sm-12" style="margin-bottom:12px" style="display:none" data-bind="visible: hasError">
+          <div id="validation_div">
+            <div class="flat-matrix">
+              <div class="alert alert-warning alert-dismissible fresh-color" role="alert" style="display:none" data-bind="visible: hasError">
+                <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
+                  <i class="fa fa-close"></i>
+                </button>
+                <strong>Warning:</strong>
+                <div id="errorMessagesDIV" data-bind="foreach:errorMessage">
+                  <div data-bind="text:$data"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--VALIDATION DIV FINISHED-->
+
+      <!--BUSINESS DIV BEGIN-->
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card card-mini">
+            <div class="card-header">
+              <i class="fa fa-diamond">&nbsp;MATRIX Table Example &nbsp;&nbsp;&nbsp;</i>
+            </div>
+            <div class="card-body" style="padding: 20px 30px 0px 30px;" id="ly_parent">
+              <div class="row" id="ly_container">
+                <div class="col-md-12">
+                  <div id="copy_table_parent_div" class="ly_table"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+              <i class="fa fa-diamond">&nbsp;Matrix Table Guide&nbsp;&nbsp;&nbsp;</i>
+            </div>
+            <div class="card-body flat-matrix">
+              <div role="tabpanel">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                  <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true">基本概念</a></li>
+                  <li role="presentation" class=""><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false">推荐建表方式</a></li>
+                  <li role="presentation" class=""><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false">详细教程</a></li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane active" id="home">
+                    Table由Header和Data构成 <br> Header为一维数组，数组中的元素按顺序代表表头名，在教程中，它为["姓名", "年龄"] <br> Data为二维数组，每一个内层数组代表一行数据，在教程中，它为[["Alick", "56"],["Jason", "55"]...]
+
+                    <div class="alert alert-info alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fa fa-close"></i></button>
+                      <strong><i class="fa fa-wrench"></i>&nbsp;信息!</strong> 请牢记：上面的两个数据结构是构造任何的Table基础
+                    </div>
+
+                  </div>
+                  <div role="tabpanel" class="tab-pane " id="profile">
+                    <pre>
+1,准备一个可供Table显示的Div
+                      <code>
+                        &lt;div id="my_first_table_div"&gt;&lt;/div&gt;
+                      </code>
+2,准备一个可供Table显示的数据源
+                      <code>
+                        var ds = {
+                            'type': 'static',
+                            'header': ["姓名", "年龄"],
+                            'result': [
+                              ["Alick", "56"],
+                              ["Jason", "55"],
+                              ["Tom", "28"],
+                              ["Jerry", "16"],
+                              ["Aaron", "35"],
+                              ["Daniel", "53"],
+                              ["Life", "26"],
+                              ["Chapter", "75"],
+                              ["Frank", "28"]
+                            ],
+                            'isDisplayPager':true,
+                            'pageMaxSize':5
+                        };
+                      </code>
+3,执行Matrix创建Table函数
+                      <code>
+                        create_table_template('my_first_table_div',new MatrixTableTemplate(),ds);
+                      </code>
+这样你就创建了一个Matrix Table，是不是很简单？尝试着做你自己的第一个Table吧。
+                    </pre>
+                    <div class="row" id="ly_container">
+                      <div class="col-md-12">
+                        <div id="my_first_table_div" class="ly_table"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="messages">
+                    <div class="alert alert-info alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fa fa-close"></i></button>
+                      <strong>
+                        想使用好Matrix Table，请学习由🍑美女编写的
+                        <i class="fa fa-hand-o-right"></i>&nbsp;
+                      </strong>
+                      <a href="/matrix_2018/tutorials/tutorials_matrix_table.html" target="_blank">Matrix Table 详细教程</a>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--BUSINESS DIV FINISHED-->
+
+
+      <!--TEMPLATE DIV BEGIN-->
+      <div id="template-matrix-dynamic-table-div"></div>
+      <div id="template-matrix-modal-div"></div>
+      <div id="template-matrix-footer-div"></div>
+      <!--TEMPLATE DIV BEGIN-->
+    </div>
+  </div>
+  <!-- Javascript for Matrix Referenced -->
+  <script src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
+  <script src="../assets/reference/flat-admin/assets/js/app.js"></script>
+  <script src="../assets/reference/codemirror/codemirror.js"></script>
+  <script src="../assets/reference/codemirror/mode/javascript/javascript.js"></script>
+  <script src="../assets/reference/codemirror/mode/markdown/markdown.js"></script>
+  <script src="../assets/reference/jquery/jquery.json.js"></script>
+  <script src="../assets/reference/jquery/jquery.blockUI.js"></script>
+  <script src="../assets/reference/knockout.js/knockout-3.3.0.js"></script>
+  <script src="../assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+  <script src="../assets/reference/markdown/markdown.min.js"></script>
+  <script src="../assets/reference/jquery-ui/jquery-ui.js"></script>
+  <script src="../assets/reference/lodash/lodash-4.15.0.js"></script>
+  <script src="../assets/reference/gridstack/gridstack.all.js"></script>
+  <script src="../assets/reference/echarts/echarts-min.js"></script>
+  <script src="../assets/reference/echarts/dataTools.js"></script>
+  <!-- Javascript for Matrix Self Owned -->
+  <script src="../assets/self-owned/js/generic/generic_algorithm.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_cache.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_charting_v4.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_csv.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_cud.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_modal.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_query.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_table.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_util.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
+  <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
+  <script src="js/table.js"></script>
+
+
+  <script src="../assets/self-owned/js/refine/matrix_ui.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_util.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_components.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_table.js"></script>
+
+
+  <script>
+    $(document).ready(function() {
+      $('#sidebar').load($.getRootPath() + '/components/left_side.html');
+      $('#navbar').load($.getRootPath() + '/components/header.html');
+      $('#template-matrix-dynamic-table-div').load($.getRootPath() + '/components/template-matrix-dynamic-table.html');
+      $('#template-matrix-modal-div').load($.getRootPath() + '/components/template-matrix-modal.html');
+      $('#template-matrix-footer-div').load($.getRootPath() + '/components/footer.html');
+
+      setTimeout(function() {
+        $('#navbar_search_li').css('display', 'none');
+        $('#navbar_title_li').text('Matrix Table');
+      }, 1000)
+    });
+
+    $.subscribe("get_user_detail_chain_finished", env_setup);
+  </script>
+
+</body>
+
+</html>

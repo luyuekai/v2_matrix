@@ -397,7 +397,7 @@ function matrix_table_remote_data_handler(json) {
         tableModel.pageMaxSize(ds.pageMaxSize);
     }
     if (ds.header_json) {
-        var header = tableModel.json2header(ds.header_json);      
+        var header = tableModel.json2header(ds.header_json);
 
 
         tableModel.headerViewData(header);
