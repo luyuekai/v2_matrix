@@ -169,18 +169,6 @@
   <script src="../assets/reference/echarts/echarts-min.js"></script>
   <script src="../assets/reference/echarts/dataTools.js"></script>
   <!-- Javascript for Matrix Self Owned -->
-  <script src="../assets/self-owned/js/generic/generic_algorithm.js"></script>
-  <script src="../assets/self-owned/js/generic/generic_cache.js"></script>
-  <script src="../assets/self-owned/js/generic/generic_charting_v4.js"></script>
-  <script src="../assets/self-owned/js/generic/generic_csv.js"></script>
-  <script src="../assets/self-owned/js/generic/generic_cud.js"></script>
-  <script src="../assets/self-owned/js/generic/generic_modal.js"></script>
-  <script src="../assets/self-owned/js/generic/generic_query.js"></script>
-  <script src="../assets/self-owned/js/generic/generic_table.js"></script>
-  <script src="../assets/self-owned/js/generic/generic_util.js"></script>
-  <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
-  <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
-  <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
   <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
 
   <script src="../assets/self-owned/js/refine/matrix_ui.js"></script>
@@ -192,11 +180,7 @@
 
   <script>
     $(document).ready(function() {
-      $('#sidebar').load($.getRootPath() + '/components/left_side.html');
-      $('#navbar').load($.getRootPath() + '/components/header.html');
-      $('#template-matrix-dynamic-table-div').load($.getRootPath() + '/components/template-matrix-dynamic-table.html');
-      $('#template-matrix-modal-div').load($.getRootPath() + '/components/template-matrix-modal.html');
-      $('#template-matrix-footer-div').load($.getRootPath() + '/components/footer.html');
+      init_matrix_dom_env();
       setTimeout(function() {
         $('#navbar_search_li').css('display', 'none');
         $('#navbar_title_li').text('Matrix Components - Progress');

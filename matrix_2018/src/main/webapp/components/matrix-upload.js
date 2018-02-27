@@ -40,7 +40,7 @@ function failedListener_upload() {
 
 function successListener_upload() {
   if (arguments && arguments[1]) {
-    var img_url_path = $.getServerRoot() + "/service_generic_query" + arguments[1].result[0].stringkappa;
+    var img_url_path = Matrix_Util.get_server_path() + "/service_generic_query" + arguments[1].result[0].stringkappa;
     if (vm && vm.businessPOJO() && vm.businessPOJO().upload_vm()) {
       if (vm.businessPOJO().upload_vm().uploadedFileUrls.indexOf(img_url_path) == -1) {
         vm.businessPOJO().upload_vm().uploadedFileUrls.push(img_url_path);

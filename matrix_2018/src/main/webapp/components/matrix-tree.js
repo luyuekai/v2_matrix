@@ -47,7 +47,7 @@ function retrieve_data_mock(openedParentData) {
   var parent_path = openedParentData.path || "";
   var result = [];
   if (ds) {
-    result = ClonePOJO.deepClone(ds);
+    result = Matrix_Util.deepClone(ds);
     if (parent_path) {
       $.each(result, function(index, value) {
         value.path = parent_path + "/" + value.path;

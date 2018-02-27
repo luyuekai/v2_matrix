@@ -454,3 +454,93 @@ function create_table_template(destination_div_id, vm_table, ds_table) {
 
 
 }
+
+function ServerPagingViewModel() {
+
+    var self = this;
+    self.totalCounts = ko.observable();
+    self.pageMaxSize = ko.observable(5);
+    self.currentPageNumber = ko.observable(1);
+    self.currentPageSize = ko.observable();
+    self.searchKeyword = ko.observable();
+    self.filterKeyword = ko.observable();
+    self.serverData = null;
+    self.viewData = ko.observableArray();
+    self.columnNames = ko.observableArray();
+    self.pagingSizeArray = ko.observableArray([5, 10, 20, 100]);
+    self.entityClassName = ko.observable();
+    self.hasServerResponse = ko.observable(false);
+
+    self.pageMaxSize.subscribe(function (newValue) {
+        if (self.retrieveData) {
+            self.toPage(0);
+        }
+    });
+
+    self.currentPageNumber.subscribe(function (newValue) {
+      newValue = Number(newValue);
+        if (!self.retrieveData) {
+            return;
+        }
+        if(!newValue){
+          self.currentPageNumber(1);
+        }
+        var cp = newValue;
+        var tc = self.totalCounts();
+        var pm = self.pageMaxSize();
+        var tp = Math.ceil(tc / pm); // total page
+        if (tp == 0 && cp == 1) {
+            self.retrieveData();
+        } else if (cp < 1) {
+            self.currentPageNumber(1);
+        } else if (cp > tp) {
+            self.currentPageNumber(tp);
+        } else {
+            self.retrieveData();
+        }
+    });
+
+    self.buildData = function (serverData) {
+        self.serverData = serverData;
+        self.hasServerResponse(true);
+        self.viewData(serverData.result);
+        self.totalCounts(self.serverData.totalCounts);
+        self.pageMaxSize(self.serverData.pageMaxSize);
+        self.currentPageNumber(self.serverData.currentPageNumber);
+        self.currentPageSize(self.serverData.currentPageSize);
+    };
+    self.buildSearchData = function (serverData) {
+        var transferData = DataTransferPOJO.serverJsonData2TableData(serverData.result);
+
+        self.serverData = serverData;
+        self.hasServerResponse(true);
+        self.columnNames(transferData.header);
+        self.viewData(transferData.result);
+        self.totalCounts(self.serverData.totalCounts);
+        self.pageMaxSize(self.serverData.pageMaxSize);
+        self.currentPageNumber(self.serverData.currentPageNumber);
+        self.currentPageSize(self.serverData.currentPageSize);
+    };
+    self.searchByKeyword = function () {
+        if (self.retrieveData) {
+            self.toPage(0);
+        }
+    };
+    self.filterByKeyword = function (status) {
+        self.filterKeyword(status);//store the chosen status
+        if (self.retrieveData) {
+            self.toPage(0);
+        }
+    };
+    self.totalPage = function () {
+        var tc = self.totalCounts();
+        var pm = self.pageMaxSize();
+        var tp = Math.ceil(tc / pm); // total page
+        return tp;
+    };
+    self.toPage = function (pageNumber) {
+        self.currentPageNumber(pageNumber);
+//        console.log('navigate to the special page success...');
+    };
+
+}

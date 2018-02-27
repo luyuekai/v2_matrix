@@ -390,7 +390,7 @@ Matrix_Util.buildKeys(inputDataArray)
 - 举例：在console中输入 Matrix\_DOM\_Util.clone\_dom('destination\_div','original\_div') , 会将左侧div复制到右侧</textarea>
                                         <div class="cell_div_chart" data-bind="attr:{'id':chart_div_id}, visible:isChartMode" style="display:none;width: 100%;height:100%;min-height:360px" id="1516158640049_cell_chart"></div>
                                     </div>
-                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_in" id="1516159264828_cell">                                       
+                                    <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_in" id="1516159264828_cell">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="col-sm-12" id="original_div" style="margin-top: 10px">
@@ -447,7 +447,7 @@ Matrix_Util.buildKeys(inputDataArray)
                                                 <div id="destination_div">
                                                 </div>
                                             </div>
-                                        </div>                                            
+                                        </div>
                                     </div>
                                     <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_in" id="1516159264828_cell">
                                         <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode" style=""><h3 id="copy_domoriginal_dom_id">copy_dom(original_dom_id)</h3>
@@ -539,18 +539,7 @@ Matrix_Util.buildKeys(inputDataArray)
         <script src="../assets/reference/echarts/echarts-min.js"></script>
         <script src="../assets/reference/echarts/dataTools.js"></script>
         <!-- Javascript for Matrix Self Owned -->
-        <script src="../assets/self-owned/js/generic/generic_algorithm.js"></script>
-        <script src="../assets/self-owned/js/generic/generic_cache.js"></script>
-        <script src="../assets/self-owned/js/generic/generic_charting_v4.js"></script>
-        <script src="../assets/self-owned/js/generic/generic_csv.js"></script>
-        <script src="../assets/self-owned/js/generic/generic_cud.js"></script>
-        <script src="../assets/self-owned/js/generic/generic_modal.js"></script>
-        <script src="../assets/self-owned/js/generic/generic_query.js"></script>
-        <script src="../assets/self-owned/js/generic/generic_table.js"></script>
-        <script src="../assets/self-owned/js/generic/generic_util.js"></script>
-        <script src="../assets/self-owned/js/generic/generic_validation.js"></script>
-        <script src="../assets/self-owned/js/generic/generic_workbench.js"></script>
-        <script src="../assets/self-owned/js/generic/generic_dynamic.js"></script>
+
         <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
 
 
@@ -562,11 +551,7 @@ Matrix_Util.buildKeys(inputDataArray)
 
         <script>
           $(document).ready(function() {
-            $('#sidebar').load($.getRootPath() + '/components/left_side.html');
-            $('#navbar').load($.getRootPath() + '/components/header.html');
-            $('#template-matrix-dynamic-table-div').load($.getRootPath() + '/components/template-matrix-dynamic-table.html');
-            $('#template-matrix-modal-div').load($.getRootPath() + '/components/template-matrix-modal.html');
-            $('#template-matrix-footer-div').load($.getRootPath() + '/components/footer.html');
+            init_matrix_dom_env();
 
             setTimeout(function() {
               $('#navbar_search_li').css('display', 'none');

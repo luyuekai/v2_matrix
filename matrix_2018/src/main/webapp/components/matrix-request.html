@@ -84,40 +84,37 @@
 
       <!--BUSINESS DIV BEGIN-->
       <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-body flat-matrix" id="blockDIV">
-              <div class="row">
-                <div class="col-sm-12">
-                  <pre>
-我们来讲解一下啊Blocker和Loader，从本质上讲，它们是一致的，都是对DOM界面元素进行遮挡，我们对其进行了小小的封装和场景区分：
-
-当系统涉及和服务器端交互获取数据时，为了阻止用户进行额外的操作来减少异常的出现，如果对整个页面进行遮挡，这时建议使用封装后的Loader，
-请在控制台调用如下代码生成Loader
-<code>
-  Matrix_UI.add_loader('main_content_div')
-</code>
-请在控制台调用如下代码去除Loader
-<code>
-  Matrix_UI.remove_loader('main_content_div')
-</code>
-
-如果对局部页面进行遮挡，这时建议使用封装后的Blocker，
-请在控制台调用如下代码生成Blocker
-<code>
-  Matrix_UI.add_blocker('blockDIV')
-</code>
-请在控制台调用如下代码去除Blocker
-<code>
-  Matrix_UI.remove_blocker('blockDIV')
-</code>
-                  </pre>
-                  <div class="alert alert-info alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fa fa-close"></i></button>
-                    <strong><i class="fa fa-bullhorn"></i>&nbsp;请记住:</strong> 我们将其放入Matrix_UI，是因为如上的操作只涉及客户端DOM操作
-                  </div>
-                </div>
+        <div class="col-sm-12">
+          <div class="card card-mini">
+            <div class="card-header">
+              <div class="card-title">
+                <i class="fa fa-diamond">&nbsp;Server Request&nbsp;&nbsp;&nbsp;</i>
+                <button type="button" class="btn btn-success" onclick='request_success()' >
+                  <span class="fa fa-check" aria-hidden="true" title="重置">&nbsp;Success</span>
+                </button>
+                <button type="button" class="btn btn-warning" onclick='request_warning()'>
+                  <span class="fa fa-close" aria-hidden="true" title="新增">&nbsp;Client Error</span>
+                </button>
+                <button type="button" class="btn btn-danger" onclick='request_error()' >
+                  <span class="fa fa-close" aria-hidden="true" title="新增">&nbsp;Service Error</span>
+                </button>
+                <button type="button" class="btn btn-danger" onclick="request_exception();">
+                  <span class="fa fa-bomb" aria-hidden="true" title="chart">&nbsp;Server Exception</span>
+                </button>
               </div>
+            </div>
+            <div class="card-body" style="padding: 20px 30px" >
+              <pre>
+                Matrix与Server端交互分为四种状态：
+                  1、返回正确的响应结果
+                  2、前端校验异常
+                  3、返回错误的响应结果
+                  4、Server端服务异常
+
+                正确处理这四种状态，是开发企业级应用的基础。
+
+                Matrix框架的Matrix_Util函数封装了所有与服务器端交互的API，更多详情请参阅相关的js教程。
+              </pre>
             </div>
           </div>
         </div>
@@ -157,20 +154,20 @@
   <script src="../assets/self-owned/js/refine/matrix_components.js"></script>
   <script src="../assets/self-owned/js/refine/matrix_table.js"></script>
 
-  <script src="matrix-blocker.js"></script>
+  <script src="matrix-request.js"></script>
+
 
   <script>
     $(document).ready(function() {
       init_matrix_dom_env();
       setTimeout(function() {
         $('#navbar_search_li').css('display', 'none');
-        $('#navbar_title_li').text('Matrix Components - Loader & Blocker');
+        $('#navbar_title_li').text('Matrix Reqeust');
       }, 1000)
     });
 
     $.subscribe("get_user_detail_chain_finished", env_setup);
   </script>
-
 </body>
 
 </html>

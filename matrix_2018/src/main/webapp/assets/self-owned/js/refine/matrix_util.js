@@ -72,8 +72,8 @@ var Matrix_Util = {
    * @return                                         [无返回值，属于异步调用]
    */
   request_remote:function(url,handler,option_param,option_type,option_need_wrap,option_wrap_data,option_respones_error_handler,option_service_error_handler){
-    var listener_response_error = option_respones_error_handler || "SERVER_RESPONSE_ERROR";
-    var listener_service_error = option_service_error_handler || "SERVER_SERVICE_ERROR";
+    var listener_response_error = option_respones_error_handler || DEFAULT_MATRIX_SERVER_RESPONSE_ERROR_HANDLER;
+    var listener_service_error = option_service_error_handler || DEFAULT_MATRIX_SERVER_SERVICE_EXCEPTION_HANDLER;
     var post_contentType = "application/x-www-form-urlencoded;charset=UTF-8";
     var get_contentType = "application/json;charset=UTF-8";
     var default_contentType = post_contentType;
@@ -97,7 +97,9 @@ var Matrix_Util = {
               'addtion': option_wrap_data
             };
           }
-          $.publish(listener_response_error, json);
+          if(listener_response_error){
+            listener_response_error(json);
+          }
         } else {
           if (option_need_wrap) {
             json = {
@@ -116,9 +118,13 @@ var Matrix_Util = {
           var wrapJson = {
             'addtion': option_wrap_data
           };
-          $.publish(listener_service_error, wrapJson);
+          if(listener_service_error){
+            listener_service_error(wrapJson);
+          }
         } else {
-          $.publish(listener_service_error, xhr);
+          if(listener_service_error){
+            listener_service_error(xhr);
+          }
         }
 
       },
@@ -183,6 +189,23 @@ var Matrix_Util = {
       finished = true;
     });
     return result;
+  },
+
+  shallowClone: function(oldObject) {
+    return jQuery.extend({}, oldObject);
+  },
+  deepClone: function(oldObject) {
+    return jQuery.extend(true, {}, oldObject);
+  },
+
+  dispatchGenericResponse:function(responseJSON, listener_response_success, listener_response_error) {
+    listener_response_success = listener_response_success || "SERVER_RESPONSE_SUCCESS";
+    listener_response_error = listener_response_error || "SERVER_RESPONSE_ERROR";
+    if (responseJSON.hasError) {
+      $.publish(listener_response_error, responseJSON);
+    } else {
+      $.publish(listener_response_success, responseJSON);
+    }
   }
 };
 
@@ -380,3 +403,20 @@ var Matrix_Chart_Util = {
 };
 
 $.subscribe("SUCCESS_LISTENER_DYNAMIC_CHART", Matrix_Chart_Util.retrieve_chart_ds_listener);
+
+function DEFAULT_MATRIX_SERVER_RESPONSE_SUCCESS_HANDLER(json){
+  if(json){
+    Matrix_UI.message_success(JSON.stringify(json),"Server Service Success!", "Please read the message below:");
+  }
+}
+
+function DEFAULT_MATRIX_SERVER_RESPONSE_ERROR_HANDLER(json){
+  if(json){
+    Matrix_UI.message_error(JSON.stringify(json),"Server Service Error!", "Please read the message below:");
+  }
+}
+function DEFAULT_MATRIX_SERVER_SERVICE_EXCEPTION_HANDLER(json){
+  if(json){
+    Matrix_UI.message_error("Catch Fatal Exception From Server!", "Fatal Exception!", "Please read the message below:");
+  }
+}

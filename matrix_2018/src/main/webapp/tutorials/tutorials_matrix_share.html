@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matrix Template</title>
+  <link rel="shortcut icon" href="../assets/self-owned/ico/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/vendor.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/flat-admin.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue-sky.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/blue.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/red.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/flat-admin/assets/css/theme/yellow.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/codemirror/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/github-markdown-css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/matrix_v3.css">
+  <link rel="stylesheet" type="text/css" href="../assets/self-owned/css/matrix_ui_refine.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/bootstrap-fileinput/css/fileinput_ly.css" media="all">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/fuelux/fuelux.min.css">
+  <link rel="stylesheet" type="text/css" href="../assets/reference/gridstack/gridstack.css" />
+  <link rel="stylesheet" type="text/css" href="../assets/reference/gridstack/gridstack-extra.css" />
+</head>
+
+<body>
+  <div class="app app-blue-sky" id="template-matrix-main-div">
+    <aside class="app-sidebar" id="sidebar"></aside>
+    <div class="app-container" id="main_content_div">
+      <nav class="navbar navbar-default navbar-fixed-top" id="navbar"></nav>
+      <div class="seperate_div_class" style="margin-top:118px"></div>
+
+      <!--LOADER DIV BEGIN-->
+      <div class="loader-container text-center">
+        <div class="icon">
+          <div class="sk-wave">
+            <div class="sk-rect sk-rect1"></div>
+            <div class="sk-rect sk-rect2"></div>
+            <div class="sk-rect sk-rect3"></div>
+            <div class="sk-rect sk-rect4"></div>
+            <div class="sk-rect sk-rect5"></div>
+          </div>
+        </div>
+        <div class="title">Loading</div>
+      </div>
+      <!--LOADER DIV FINISHED-->
+
+      <!--RESPONSE DIV BEGIN-->
+      <div class="row" data-bind="with:response_vm">
+        <div class="col-sm-12" style="margin-bottom:12px" style="display:none" data-bind="visible: resultVisible">
+          <div class="flat-matrix">
+            <div class="alert fresh-color " data-bind="css:styleClass,visible: resultVisible" style="display:none">
+              <button type="button" class="close" data-bind="click:function(){resultVisible(false)}" aria-label="Close"><i class="fa fa-close"></i></button>
+              <strong>
+                  <span data-bind="text:resultTitle"></span>
+                </strong>
+              <span data-bind="text:resultSubTitle"></span>
+              <div data-bind="text:resultContent"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--RESPONSE DIV FINISHED-->
+
+      <!--VALIDATION DIV BEGIN-->
+      <div class="row">
+        <div class="col-sm-12" style="margin-bottom:12px" style="display:none" data-bind="visible: hasError">
+          <div id="validation_div">
+            <div class="flat-matrix">
+              <div class="alert alert-warning alert-dismissible fresh-color" role="alert" style="display:none" data-bind="visible: hasError">
+                <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
+                  <i class="fa fa-close"></i>
+                </button>
+                <strong>Warning:</strong>
+                <div id="errorMessagesDIV" data-bind="foreach:errorMessage">
+                  <div data-bind="text:$data"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--VALIDATION DIV FINISHED-->
+
+      <!--BUSINESS DIV BEGIN-->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-mini">
+            <div class="card-body" id="report_content_body_div" style="min-height:300px">
+              <div data-bind="foreach:cells">
+                <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_in" id="1496212598977_cell">
+                  <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode"><h1 id="api">通用保存&amp;读取API设计</h1></span>
+                </div>
+                <br>
+                <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_out" id="1496222487678_cell">
+                  <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode"><h2 id="">功能性需求定义/分解</h2>
+      <h3 id="-1">开发人员</h3>
+      <ul>
+      <li>作为开发人员(dev)，我希望Matrix组件能够提供标准的api，将不同类型的页面数据持久化新增到数据库中(新增)</li>
+      <li>作为开发人员(dev)，我希望Matrix组件能够提供标准的api，将持久到数据库中的页面数据恢复并渲染到页面中(读取)</li>
+      <li>作为开发人员(dev)，我希望Matrix组件能够提供标准的api，将持久到数据库中的页面数据恢复并渲染到页面中后，更新其中的数据并再次保存(更新)</li>
+      <li>作为开发人员(dev)，我希望Matrix组件能够提供标准的api，将持久到数据库中的数据设置过期策略</li>
+      <li>作为开发人员(dev)，我希望Matrix组件能够提供标准的api，将持久到数据库中的数据设置共享机制 </li>
+      </ul></span>
+
+                </div>
+                <br>
+                <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_out" id="1496222473062_cell">
+                  <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode"><h2 id="restapi">REST API</h2></span>
+                </div>
+
+                <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_out" id="1496222120774_cell">
+                  <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode"><h3 id="rest">通用保存的REST接口</h3>
+      <ul>
+      <li>请求<ul>
+      <li>方法：POST </li>
+      <li>URL：http://[host:port]/service<em>generic</em>query/api/share/generate/{expire_interval}</li>
+      <li>expire_interval:过期天数，整型int值，比如7，代表7天过期，没有默认值，如果想永不过期，设置为一个较大的数，比如10000</li>
+      <li>Parameter</li></ul></li>
+      </ul>
+      <pre>
+        <code>
+          {
+            "shareJson": {json}
+          }
+        </code>
+     </pre>
+      <ul>
+      <li>成功响应</li>
+      </ul>
+      <pre>
+        <code>
+          {
+            "hasError":false,"errorMessage":null,"statusCode":200,"status":null,"result":["ea9005b9c99d46a103bed2d7d1cba8a5a9ff0dc006ed28181ff2880f8543152c"]
+          }
+        </code>
+      </pre>
+      <p>响应json中的result[0]为对应的token id</p></span>
+
+                </div>
+
+                <div data-bind="css: currentStyle, attr:{'id':div_id}, event: {focus: listener_focus_in,blur: listener_focus_out, dblclick: listener_dbl_click }" tabindex="100" class="compile_mode_focus_out" id="1496222616126_cell">
+                  <span class="cell_div_view markdown-body" data-bind="html:code_compiled, visible:isViewMode"><h3 id="rest">通用读取的REST接口</h3>
+      <ul>
+      <li><p>请求</p>
+      <ul>
+      <li>方法：POST </li>
+      <li>URL：http://[host:port]/service<em>generic</em>query/api/share/fetch/{token_id}</li>
+      <li>token_id:保存在持久化层的唯一业务标示，也就是上文中成功响应的result[0]中包含的数据</li>
+      <li>Parameter:无</li></ul></li>
+      <li><p>成功响应</p></li>
+      </ul>
+      <pre>
+        <code>
+          {
+              "hasError": false,
+              "errorMessage": null,
+              "statusCode": 200,
+              "status": null,
+              "result": [{
+              "id": 79,
+              "json": "{\"cells\":[{\"div_id\":\"1496212598977_cell\",\"edit_div_id\":\"1496212598977_cell_edit\",\"code_source\":\"# 通用保存&amp;读取API设计\",\"code_compiled\":\"&lt;h1 id=\\\"api\\\"&gt;通用保存&amp;amp;读取API设计&lt;/h1&gt;\",\"isActive\":false,\"isViewMode\":true,\"isChartMode\":false,\"chartJson\":null,\"chartBase64Encode\":null,\"currentStyle\":\"compile_mode_focus_out\"},{\"div_id\":\"1496222120774_cell\",\"edit_div_id\":\"1496222120774_cell_edit\",\"code_source\":\"## REST API\\n### 通用保存的REST接口  \\n* 请求\\n    - 方法：POST \\n    - URL：http://[host:port]/service_generic_query/api/share/generate/{expire_interval}\\n    - expire_interval:过期天数，整型int值，比如7，代表7天过期，没有默认值，如果想永不过期，设置为一个较大的数，比如10000\\n    - Parameter\\n\\n```\\n{\\n  \\\"shareJson\\\": {json}\\n}\\n```\\n\\n - 用户认证成功响应\\n\\n```\\n{\\n  \\\"tokenId\\\": \\\"AQIC5wM2LY4SfczY5_jC2MSmDbQPtEPNn2FqPSvSmkFASI.*AAJTSQACMDEAAlNLABI1NzM1MzYyNDAwOTA5MzE1NjI.*\\\",\\n  \\\"statusCode\\\": \\\"200\\\"\\n}\\n```\\n\\n - 用户认证失败响应\\n\\n```\\n{\\n  \\\"statusCode\\\": \\\"401\\\",\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"reason\\\": \\\"Unauthorized\\\",\\n  \\\"message\\\": \\\"Invalid Password!!\\\"\\n}\\n```\",\"code_compiled\":\"&lt;h2 id=\\\"restapi\\\"&gt;REST API&lt;/h2&gt;\\n&lt;h3 id=\\\"rest\\\"&gt;通用保存的REST接口&lt;/h3&gt;\\n&lt;ul&gt;\\n&lt;li&gt;请求&lt;ul&gt;\\n&lt;li&gt;方法：POST &lt;/li&gt;\\n&lt;li&gt;URL：http://[host:port]/service&lt;em&gt;generic&lt;/em&gt;query/api/share/generate/{expire_interval}&lt;/li&gt;\\n&lt;li&gt;expire_interval:过期天数，整型int值，比如7，代表7天过期，没有默认值，如果想永不过期，设置为一个较大的数，比如10000&lt;/li&gt;\\n&lt;li&gt;Parameter&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;\\n&lt;/ul&gt;\\n&lt;pre&gt;&lt;code&gt;{\\n  \\\"shareJson\\\": {json}\\n}\\n&lt;/code&gt;&lt;/pre&gt;\\n&lt;ul&gt;\\n&lt;li&gt;用户认证成功响应&lt;/li&gt;\\n&lt;/ul&gt;\\n&lt;pre&gt;&lt;code&gt;{\\n  \\\"tokenId\\\": \\\"AQIC5wM2LY4SfczY5_jC2MSmDbQPtEPNn2FqPSvSmkFASI.*AAJTSQACMDEAAlNLABI1NzM1MzYyNDAwOTA5MzE1NjI.*\\\",\\n  \\\"statusCode\\\": \\\"200\\\"\\n}\\n&lt;/code&gt;&lt;/pre&gt;\\n&lt;ul&gt;\\n&lt;li&gt;用户认证失败响应&lt;/li&gt;\\n&lt;/ul&gt;\\n&lt;pre&gt;&lt;code&gt;{\\n  \\\"statusCode\\\": \\\"401\\\",\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"reason\\\": \\\"Unauthorized\\\",\\n  \\\"message\\\": \\\"Invalid Password!!\\\"\\n}\\n&lt;/code&gt;&lt;/pre&gt;\",\"isActive\":false,\"isViewMode\":true,\"isChartMode\":false,\"chartJson\":null,\"chartBase64Encode\":null,\"currentStyle\":\"compile_mode_focus_out\"},{\"div_id\":\"1496212720665_cell\",\"edit_div_id\":\"1496212720665_cell_edit\",\"code_source\":\"## 功能性需求定义/分解\\n### 开发人员\\n - 作为开发人员(dev)，我希望Matrix组件能够提供标准的api，将不同类型的页面数据持久化新增到数据库中(新增)\\n - 作为开发人员(dev)，我希望Matrix组件能够提供标准的api，将持久到数据库中的页面数据恢复并渲染到页面中(读取)\\n - 作为开发人员(dev)，我希望Matrix组件能够提供标准的api，将持久到数据库中的页面数据恢复并渲染到页面中后，更新其中的数据并再次保存(更新)\\n - 作为开发人员(dev)，我希望Matrix组件能够提供标准的api，将持久到数据库中的数据设置过期策略\\n - 作为开发人员(dev)，我希望Matrix组件能够提供标准的api，将持久到数据库中的数据设置共享机制 \",\"code_compiled\":\"&lt;h2 id=\\\"\\\"&gt;功能性需求定义/分解&lt;/h2&gt;\\n&lt;h3 id=\\\"-1\\\"&gt;开发人员&lt;/h3&gt;\\n&lt;ul&gt;\\n&lt;li&gt;作为开发人员(dev)，我希望Matrix组件能够提供标准的api，将不同类型的页面数据持久化新增到数据库中(新增)&lt;/li&gt;\\n&lt;li&gt;作为开发人员(dev)，我希望Matrix组件能够提供标准的api，将持久到数据库中的页面数据恢复并渲染到页面中(读取)&lt;/li&gt;\\n&lt;li&gt;作为开发人员(dev)，我希望Matrix组件能够提供标准的api，将持久到数据库中的页面数据恢复并渲染到页面中后，更新其中的数据并再次保存(更新)&lt;/li&gt;\\n&lt;li&gt;作为开发人员(dev)，我希望Matrix组件能够提供标准的api，将持久到数据库中的数据设置过期策略&lt;/li&gt;\\n&lt;li&gt;作为开发人员(dev)，我希望Matrix组件能够提供标准的api，将持久到数据库中的数据设置共享机制 &lt;/li&gt;\\n&lt;/ul&gt;\",\"isActive\":false,\"isViewMode\":true,\"isChartMode\":false,\"chartJson\":null,\"chartBase64Encode\":null,\"currentStyle\":\"compile_mode_focus_out\"}]}",
+              "type": "MATRIX_REPORT_DRAFT",
+              "tag": "SAVE",
+              "username": "matrix",
+              "createtime": 1496222255097,
+              "token": "ef836068a6dbebecbc6ee5c8a2fe5040f9e34058b0f1dec588081de5e7ebef3b",
+              "expiretime": 2360222255097,
+              "valid": true,
+              "deleted": false,
+              "booleanalpha": null,
+              "booleanbeta": null,
+              "booleangamma": null,
+              "numberalpha": null,
+              "numberbeta": null,
+              "numbergamma": null,
+              "stringalpha": "通用保存&amp;读取API设计",
+              "stringbeta": "",
+              "stringgamma": null
+              }]
+          }
+        </code>
+    </pre>
+      <p>响应json中的result[0]为对应的业务json，可以为任何的业务格式内容</p></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--BUSINESS DIV FINISHED-->
+
+
+      <!--TEMPLATE DIV BEGIN-->
+      <div id="template-matrix-dynamic-table-div"></div>
+      <div id="template-matrix-modal-div"></div>
+      <div id="template-matrix-footer-div"></div>
+      <!--TEMPLATE DIV BEGIN-->
+    </div>
+  </div>
+  <!-- Javascript for Matrix Referenced -->
+  <script src="../assets/reference/flat-admin/assets/js/vendor_min.js"></script>
+  <script src="../assets/reference/flat-admin/assets/js/app.js"></script>
+  <script src="../assets/reference/codemirror/codemirror.js"></script>
+  <script src="../assets/reference/codemirror/mode/javascript/javascript.js"></script>
+  <script src="../assets/reference/codemirror/mode/markdown/markdown.js"></script>
+  <script src="../assets/reference/jquery/jquery.json.js"></script>
+  <script src="../assets/reference/jquery/jquery.blockUI.js"></script>
+  <script src="../assets/reference/knockout.js/knockout-3.3.0.js"></script>
+  <script src="../assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+  <script src="../assets/reference/markdown/markdown.min.js"></script>
+  <script src="../assets/reference/jquery-ui/jquery-ui.js"></script>
+  <script src="../assets/reference/lodash/lodash-4.15.0.js"></script>
+  <script src="../assets/reference/gridstack/gridstack.all.js"></script>
+  <script src="../assets/reference/echarts/echarts-min.js"></script>
+  <script src="../assets/reference/echarts/dataTools.js"></script>
+  <!-- Javascript for Matrix Self Owned -->
+
+  <script src="../assets/self-owned/js/generic/generic_vm.js"></script>
+
+  <script src="../assets/self-owned/js/refine/matrix_ui.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_util.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_components.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_table.js"></script>
+
+
+
+  <script>
+    $(document).ready(function() {
+      init_matrix_dom_env();
+      setTimeout(function() {
+        $('#navbar_search_li').css('display', 'none');
+        $('#navbar_title_li').text('Matrix Share');
+      }, 1000)
+    });
+  </script>
+</body>
+
+</html>

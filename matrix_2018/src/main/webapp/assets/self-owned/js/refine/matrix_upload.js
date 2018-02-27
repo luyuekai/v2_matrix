@@ -44,7 +44,7 @@ var initialize_pic_upload_environment = function(file_upload_component_id,vm,suc
   var $upload = $('#' + file_upload_component_id);
   vm.uploadRef = $upload;
   $upload.fileinput({
-    uploadUrl: $.getServerRoot() + "/service_generic_query/GenericUploadService",
+    uploadUrl: Matrix_Util.get_server_path() + "/service_generic_query/GenericUploadService",
     previewFileIcon: '<i class="fa fa-file"></i>',
     uploadExtraData: function() {
       var obj = {
@@ -83,7 +83,7 @@ var initialize_pic_upload_environment = function(file_upload_component_id,vm,suc
       extra = data.extra,
       response = data.response,
       reader = data.reader;
-    $.dispatchGenericResponse(response, successListener, failerListener);
+    Matrix_Util.dispatchGenericResponse(response, successListener, failerListener);
     $upload.fileinput('refresh');
   });
 

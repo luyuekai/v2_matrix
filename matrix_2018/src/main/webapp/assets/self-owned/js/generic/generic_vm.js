@@ -61,9 +61,7 @@ function ResponseViewModel() {
   self.warningResponse = function(content, title, subTitle) {
     self.response("alert-warning", content || "", title || 'Warning', subTitle || "");
   }
-  self.infoResponse = function(content, title, subTitle) {
-    self.response("alert-info", content || "", title || 'Warning', subTitle || "");
-  }
+
   self.response = function(response_level, content, title, subTitle) {
     self.styleClass(response_level);
     self.resultTitle(title);
@@ -111,22 +109,22 @@ var default_retrive_api = function() {
     var data = {
       'queryJson': $.toJSON(requestPOJO)
     };
-    $.serverRequest($.getServerRoot() + '/service_generic_query/api/query', data, "DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER","POST",true,{'TAG':'MATRIX_SEARCH'});
+    Matrix_Util.request_remote(Matrix_Util.get_server_path() + '/service_generic_query/api/query', data, "DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER","POST",true,{'TAG':'MATRIX_SEARCH'});
   }
 }
 
 var default_add_logic = function() {
-  LoaderUtil.add_v3('template-matrix-main-div');
+  Matrix_UI.add_loader('template-matrix-main-div');
   default_add_api(vm.businessPOJO().build_requestPOJO());
 }
 
 var default_update_logic = function() {
-  LoaderUtil.add_v3('template-matrix-main-div');
+  Matrix_UI.add_loader('template-matrix-main-div');
   default_update_api(vm.businessPOJO().build_requestPOJO());
 }
 
 var default_remove_logic = function() {
-  LoaderUtil.add_v3('template-matrix-main-div');
+  Matrix_UI.add_loader('template-matrix-main-div');
   default_update_api(vm.businessPOJO().build_requestPOJO());
 }
 
@@ -135,7 +133,7 @@ var default_add_api = function(requestPOJO) {
     var data = {
       'queryJson': $.toJSON(requestPOJO)
     };
-    $.serverRequest($.getServerRoot() + '/service_generic_query/api/cud/add', data, "DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER","POST",true,{'TAG':'MATRIX_ADD'});
+    Matrix_Util.request_remote(Matrix_Util.get_server_path() + '/service_generic_query/api/cud/add', data, "DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER","POST",true,{'TAG':'MATRIX_ADD'});
   }
 }
 
@@ -144,7 +142,7 @@ var default_update_api = function(requestPOJO) {
     var data = {
       'queryJson': $.toJSON(requestPOJO)
     };
-    $.serverRequest($.getServerRoot() + '/service_generic_query/api/cud/update', data, "DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER","POST",true,{'TAG':'MATRIX_UPDATE'});
+    Matrix_Util.request_remote(Matrix_Util.get_server_path() + '/service_generic_query/api/cud/update', data, "DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER","POST",true,{'TAG':'MATRIX_UPDATE'});
   }
 }
 var default_remove_api = function(requestPOJO) {
@@ -152,11 +150,11 @@ var default_remove_api = function(requestPOJO) {
     var data = {
       'queryJson': $.toJSON(requestPOJO)
     };
-    $.serverRequest($.getServerRoot() + '/service_generic_query/api/cud/remove', data, "DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER","POST",true,{'TAG':'MATRIX_REMOVE'});
+    Matrix_Util.request_remote(Matrix_Util.get_server_path() + '/service_generic_query/api/cud/remove', data, "DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER","POST",true,{'TAG':'MATRIX_REMOVE'});
   }
 }
 function default_retrive_server_error_listener() {
-  LoaderUtil.remove_v3('template-matrix-main-div');
+  Matrix_UI.remove_loader('template-matrix-main-div');
   if (current_vm) {
     current_vm.response_vm().errorResponse("Please contact with the system admin for more information...", "[MATRIX SERVER RESPONSE]", "***SERVER ERROR***");
     setTimeout(function() {
@@ -166,7 +164,7 @@ function default_retrive_server_error_listener() {
 }
 
 function default_retrive_service_failed_listener() {
-  LoaderUtil.remove_v3('template-matrix-main-div');
+  Matrix_UI.remove_loader('template-matrix-main-div');
   if (current_vm && arguments && arguments[1]) {
     var response = arguments[1];
     if (arguments[1].response) {
@@ -181,7 +179,7 @@ function default_retrive_service_failed_listener() {
 }
 
 function default_retrive_service_success_listener() {
-  LoaderUtil.remove_v3('template-matrix-main-div');
+  Matrix_UI.remove_loader('template-matrix-main-div');
   if (current_vm && arguments && arguments[1]) {
     var response = arguments[1];
     var addtion = null;
@@ -222,7 +220,7 @@ function default_retrive_service_success_listener() {
 function default_switch2detail_page($data,page_url,status,type){
   if($data && page_url && status && type){
     UtilPOJO.setCookie(type,JSON.stringify($data),1);
-    window.open($.getRootPath() + page_url+'?status='+status+'&type='+type);
+    window.open(Matrix_Util.get_project_path + page_url+'?status='+status+'&type='+type);
   }
 }
 
@@ -252,17 +250,16 @@ function UNIT_TEST_FOR_CLIENT_VALIDATION() {
 
 function UNIT_TEST_FOR_SERVER_RESPONSE() {
   //scenario for the success response
-  $.serverRequest($.getServerRoot() + '/matrix_components_v3/api/mock/success', null, "DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER", 'GET');
+  Matrix_Util.request_remote(Matrix_Util.get_project_path() + '/api/mock/post/success', DEFAULT_MATRIX_SERVER_RESPONSE_SUCCESS_HANDLER);
   //scenario for the failed response
-  $.serverRequest($.getServerRoot() + '/matrix_components_v3/api/mock/service_error', null, "DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER", 'GET');
+  Matrix_Util.request_remote(Matrix_Util.get_project_path() + '/api/mock/service_error', DEFAULT_MATRIX_SERVER_RESPONSE_SUCCESS_HANDLER,null,'GET');
   //scenario for the server exception response
-  $.serverRequest($.getServerRoot() + '/matrix_components_v3/api/mock/server_error', null, "DEFAULT_RETRIEVE_API_SUCCESS_LISTENER", "DEFAULT_RETRIEVE_API_FAILED_LISTENER", "DEFAULT_RETRIEVE_API_EXCEPTION_LISTENER", 'GET');
-
+  Matrix_Util.request_remote(Matrix_Util.get_project_path() + '/api/mock/server_error', DEFAULT_MATRIX_SERVER_RESPONSE_SUCCESS_HANDLER,null,'GET');
   console.log("***Applause***[MATRIX UNIT_TEST_FOR_SERVER_RESPONSE PASSED!]");
 }
 
 function UNIT_TEST_FOR_MASKER_AND_LOADER() {
-  LoaderUtil.add_v3('template-matrix-main-div');
+  Matrix_UI.add_loader('template-matrix-main-div');
   console.log("***Applause***[MATRIX UNIT_TEST_FOR_MASKER_AND_LOADER PASSED!]");
 }
 
@@ -273,7 +270,7 @@ function UNIT_TEST_ENVIRONMENT_RESET() {
     //reset the server response environment
     vm.response_vm().reset();
     //reset the loader environment
-    LoaderUtil.remove_v3('template-matrix-main-div');
+    Matrix_UI.remove_loader('template-matrix-main-div');
   }, 500)
 }
 
