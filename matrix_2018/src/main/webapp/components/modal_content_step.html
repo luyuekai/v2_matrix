@@ -1,0 +1,227 @@
+<div id="genericModalDiv">
+
+  <!--RESPONSE DIV BEGIN-->
+  <div class="row" data-bind="with:response_vm">
+    <div class="col-sm-12" style="margin-bottom:12px" style="display:none" data-bind="visible: resultVisible">
+      <div class="flat-matrix">
+        <div class="alert fresh-color " data-bind="css:styleClass,visible: resultVisible" style="display:none">
+          <button type="button" class="close" data-bind="click:function(){resultVisible(false)}" aria-label="Close"><i class="fa fa-close"></i></button>
+          <strong>
+              <span data-bind="text:resultTitle"></span>
+            </strong>
+          <span data-bind="text:resultSubTitle"></span>
+          <div data-bind="text:resultContent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--RESPONSE DIV FINISHED-->
+
+  <!--VALIDATION DIV BEGIN-->
+  <div class="row">
+    <div class="col-sm-12" style="margin-bottom:12px" style="display:none" data-bind="visible: hasError">
+      <div id="validation_div">
+        <div class="flat-matrix">
+          <div class="alert alert-warning alert-dismissible fresh-color" role="alert" style="display:none" data-bind="visible: hasError">
+            <button type="button" data-bind="click:function(){hasError(!hasError)}" class="close" aria-label="Close">
+              <i class="fa fa-close"></i>
+            </button>
+            <strong>Warning:</strong>
+            <div id="errorMessagesDIV" data-bind="foreach:errorMessage">
+              <div data-bind="text:$data"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--VALIDATION DIV FINISHED-->
+
+  <div class="business_div_class" data-bind="if:businessPOJO()">
+    <div data-bind="with:businessPOJO">
+      <div class="step-v2-success">
+        <ul class="nav nav-tabs nav-justified" role="tablist">
+          <li role="step" class="active">
+            <a href="#step1-v3-horizantal" id="step1-tab-v3-horizantal" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+              <div class="icon fa fa-key"></div>
+              <div class="heading">
+                <div class="title">Information</div>
+                <div class="description">Fulfill basic information.</div>
+              </div>
+            </a>
+          </li>
+          <li role="step">
+            <a href="#step2-v3-horizantal" role="tab" id="step2-tab-v3-horizantal" data-toggle="tab" aria-controls="profile">
+              <div class="icon fa fa-filter"></div>
+              <div class="heading">
+                <div class="title">Additional</div>
+                <div class="description">Addition Information.</div>
+              </div>
+            </a>
+          </li>
+          <li role="step">
+            <a href="#step3-v3-horizantal" role="tab" id="step3-tab-v3-horizantal" data-toggle="tab" aria-controls="profile">
+              <div class="icon fa fa-flag-checkered"></div>
+              <div class="heading">
+                <div class="title">Confirm</div>
+                <div class="description">Confirmation your informations.</div>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="step1-v3-horizantal">
+            <div class="row">
+              <div class="col-xs-10 col-xs-offset-1">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                      <i class="fa fa-edit" aria-hidden="true"></i>
+                    </span>
+                  <input data-bind="value:key" type="text" class="form-control" placeholder="Key" aria-describedby="basic-addon1" value="">
+                  <span class="input-group-addon">
+                      <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                    </span>
+                </div>
+              </div>
+              <div class="col-xs-10 col-xs-offset-1">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                      <i class="fa fa-edit" aria-hidden="true"></i>
+                    </span>
+                  <input data-bind="value:value" type="text" class="form-control" placeholder="Value" aria-describedby="basic-addon1" value="">
+                  <span class="input-group-addon">
+                      <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                    </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="step2-v3-horizantal">
+            <div class="row">
+              <div class="col-xs-10 col-xs-offset-1">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                      <i class="fa fa-edit" aria-hidden="true"></i>
+                    </span>
+                  <input data-bind="value:project" type="text" class="form-control" placeholder="Project" aria-describedby="basic-addon1" value="">
+                </div>
+              </div>
+              <div class="col-xs-10 col-xs-offset-1">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                      <i class="fa fa-edit" aria-hidden="true"></i>
+                    </span>
+                  <input data-bind="value:product" type="text" class="form-control" placeholder="Product" aria-describedby="basic-addon1" value="">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="step3-v3-horizantal">
+            <div class="row">
+              <div class="col-xs-12">
+                <form class="form-horizontal">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" style="text-align:right">
+                      <span style="font-weight: bold;font-size: 16px;">Key</span>
+                      <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                    </label>
+                    <div class="col-sm-4">
+                      <p class="form-control-static" data-bind="text:key"></p>
+                    </div>
+                    <label class="col-sm-2 control-label" style="text-align:right">
+                      <span style="font-weight: bold;font-size: 16px;">Value</span>
+                      <i class="fa fa-asterisk" style="color: #E74C3C;"></i>
+                    </label>
+                    <div class="col-sm-4">
+                      <p class="form-control-static" data-bind="text:value"></p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" style="text-align:right">
+                      <span style="font-weight: bold;font-size: 16px;">Project</span>
+                    </label>
+                    <div class="col-sm-4">
+                      <p class="form-control-static" data-bind="text:project"></p>
+                    </div>
+                    <label class="col-sm-2 control-label" style="text-align:right">
+                      <span style="font-weight: bold;font-size: 16px;">Product</span>
+                    </label>
+                    <div class="col-sm-4">
+                      <p class="form-control-static" data-bind="text:product"></p>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <hr>
+            <div class="pull-right">
+              <button type="button" class="btn btn-sm btn-default" onclick="Matrix_UI.close_modal()">Close</button>
+              <button id='execute-button' type="button" class="btn btn-sm btn-success" onclick="Matrix_Util.default_process_handler(function_validate,function_execute,modal_vm)">Execute</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+</div>
+
+<script>
+  var modal_vm = Matrix_VM.modal_vm;
+  function env_setup() {
+    vm_env_setup();
+  }
+  // Setup the business model with view model
+  function vm_env_setup() {
+    //Clean Data Bind Node for dynamic table
+    ko.cleanNode($('#genericModalDiv')[0]);
+    // Apply data bind in view model and the whole dom
+    ko.applyBindings(modal_vm, document.getElementById('genericModalDiv'));
+    // Refrence the entire page view model to current view model as cache
+    function BusinessPOJO() {
+      var self = this;
+      self.key = ko.observable('');
+      self.value = ko.observable('');
+      self.project = ko.observable('');
+      self.product = ko.observable('');
+    }
+    var businessPOJO = new BusinessPOJO();
+    modal_vm.businessPOJO(businessPOJO);
+    current_vm = modal_vm;
+  }
+
+  env_setup();
+
+
+
+  var function_validate = function() {
+    var errorMessages = [];
+    //validate logic...
+    ValidationPOJO.validate("KEY", modal_vm.businessPOJO().key(), errorMessages, ['KEY_NOT_NULL']);
+    ValidationPOJO.validate("VALUE", modal_vm.businessPOJO().value(), errorMessages, ['KEY_NOT_NULL']);
+    return errorMessages;
+  }
+
+  // *******YOUR SHOULD CODING IN HERE:*******
+  var function_execute = function() {
+    retrieveData_mock_modal();
+  }
+
+  //--------------------------mock ----------------------------------
+  var mock_count = 0; // used for mock up
+  var retrieveData_mock_modal = function(currentNotebook, currentIndex) {
+    mock_count++;
+    if (mock_count % 3 == 1) {
+      //scenario for the success response
+      Matrix_Util.request_remote(Matrix_Util.get_project_path() + '/api/mock/post/success', DEFAULT_MATRIX_SERVER_RESPONSE_SUCCESS_HANDLER);
+    } else if (mock_count % 3 == 2) {
+      //scenario for the failed response
+      Matrix_Util.request_remote(Matrix_Util.get_project_path() + '/api/mock/service_error', DEFAULT_MATRIX_SERVER_RESPONSE_SUCCESS_HANDLER,null,'GET');
+    } else if (mock_count % 3 == 0) {
+      //scenario for the server exception response
+      Matrix_Util.request_remote(Matrix_Util.get_project_path() + '/api/mock/server_error', DEFAULT_MATRIX_SERVER_RESPONSE_SUCCESS_HANDLER,null,'GET');
+    }
+  }
+</script>

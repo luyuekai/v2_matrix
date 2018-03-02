@@ -2,7 +2,7 @@ var Matrix_Util = {
   /**
    * 获取Server路径 比如 http://localhost:8080
    */
-  get_server_path:function(){
+  get_server_path: function() {
     var strFullPath = window.document.location.href;
     var strPath = window.document.location.pathname;
     var pos = strFullPath.indexOf(strPath);
@@ -12,7 +12,7 @@ var Matrix_Util = {
   /**
    * 获取项目路径 比如 http://localhost:8080/matrix_2018
    */
-  get_project_path:function(){
+  get_project_path: function() {
     var strFullPath = window.document.location.href;
     var strPath = window.document.location.pathname;
     var pos = strFullPath.indexOf(strPath);
@@ -37,13 +37,13 @@ var Matrix_Util = {
    * @param  {[必填项]} handler 返回结果后的处理函数
    * @return {[type]}         无返回值，属于异步调用
    */
-  request_local:function(url,handler){
+  request_local: function(url, handler) {
     $.ajax({
       url: url,
       type: 'GET',
       dataType: 'json',
       success: function(json) {
-        if(handler){
+        if (handler) {
           handler(json);
         }
       },
@@ -71,7 +71,7 @@ var Matrix_Util = {
    * @param  {[选填项]} option_service_error_handler  [服务异常处理函数]
    * @return                                         [无返回值，属于异步调用]
    */
-  request_remote:function(url,handler,option_param,option_type,option_need_wrap,option_wrap_data,option_respones_error_handler,option_service_error_handler){
+  request_remote: function(url, handler, option_param, option_type, option_need_wrap, option_wrap_data, option_respones_error_handler, option_service_error_handler) {
     var listener_response_error = option_respones_error_handler || DEFAULT_MATRIX_SERVER_RESPONSE_ERROR_HANDLER;
     var listener_service_error = option_service_error_handler || DEFAULT_MATRIX_SERVER_SERVICE_EXCEPTION_HANDLER;
     var post_contentType = "application/x-www-form-urlencoded;charset=UTF-8";
@@ -97,7 +97,7 @@ var Matrix_Util = {
               'addtion': option_wrap_data
             };
           }
-          if(listener_response_error){
+          if (listener_response_error) {
             listener_response_error(json);
           }
         } else {
@@ -107,7 +107,7 @@ var Matrix_Util = {
               'addtion': option_wrap_data
             };
           }
-          if(handler){
+          if (handler) {
             handler(json);
           }
         }
@@ -118,11 +118,11 @@ var Matrix_Util = {
           var wrapJson = {
             'addtion': option_wrap_data
           };
-          if(listener_service_error){
+          if (listener_service_error) {
             listener_service_error(wrapJson);
           }
         } else {
-          if(listener_service_error){
+          if (listener_service_error) {
             listener_service_error(xhr);
           }
         }
@@ -137,8 +137,8 @@ var Matrix_Util = {
    * @param  {[type]} json [description]
    * @return {[type]}      [description]
    */
-  print_handler:function(json){
-      console.log(json);
+  print_handler: function(json) {
+    console.log(json);
   },
 
   //original: [{},{},{}]
@@ -191,6 +191,30 @@ var Matrix_Util = {
     return result;
   },
 
+  //original: [{},{},{}]
+  //return : {header:[],result:[[],[],[]]}
+  serverJsonData2TableData: function(inputData) {
+    var resultJsonObject = {};
+    var headers = Matrix_Util.buildKeys(inputData);
+
+    var dataArray = [];
+    $.each(inputData, function(index, value) {
+      var singleRowData = [];
+      $.each(headers, function(i, v) {
+        if (value[v] !== null) {
+          singleRowData.push(value[v]);
+        } else {
+          singleRowData.push("");
+        }
+      });
+      dataArray.push(singleRowData);
+    });
+    resultJsonObject.header = headers;
+    resultJsonObject.result = dataArray;
+
+    return resultJsonObject;
+  },
+
   shallowClone: function(oldObject) {
     return jQuery.extend({}, oldObject);
   },
@@ -198,7 +222,7 @@ var Matrix_Util = {
     return jQuery.extend(true, {}, oldObject);
   },
 
-  dispatchGenericResponse:function(responseJSON, listener_response_success, listener_response_error) {
+  dispatchGenericResponse: function(responseJSON, listener_response_success, listener_response_error) {
     listener_response_success = listener_response_success || "SERVER_RESPONSE_SUCCESS";
     listener_response_error = listener_response_error || "SERVER_RESPONSE_ERROR";
     if (responseJSON.hasError) {
@@ -206,7 +230,32 @@ var Matrix_Util = {
     } else {
       $.publish(listener_response_success, responseJSON);
     }
-  }
+  },
+
+  /**
+   * 通用的业务处理函数，比如新增操作，更新操作，删除操作
+   *
+   * @param  {[type]} function_validate 客户端验证函数
+   * @param  {[type]} function_execute  和服务器端交互函数
+   * @param  {[type]} vm                GenericPageViewModel
+   * @return {[type]}                   [description]
+   */
+  default_process_handler: function(function_validate, function_execute, vm) {
+    if (function_validate && function_execute && vm) {
+      if (!vm.validation(function_validate)) {
+        return;
+      } else {
+        function_execute();
+      }
+    }
+  },
+
+  formatTime: function(input, format) {
+    var date = new Date();
+    date.setTime(input);
+    format = format ? format : "yyyy-MM-dd hh:mm:ss S";
+    return date.Format(format);
+  },
 };
 
 // Matrix DOM Util 通用函数
@@ -220,7 +269,7 @@ var Matrix_Util = {
 //  7，序列化chart option
 //  8，反序列化chart option
 var Matrix_DOM_Util = {
-  DEFAULT_MIN_HEIGHT:160,
+  DEFAULT_MIN_HEIGHT: 160,
   cache: {
 
   },
@@ -238,20 +287,20 @@ var Matrix_DOM_Util = {
   // 支持包含chart的dom
   clone_dom: function(destination_parent_div_id, original_dom_id) {
     var dom = Matrix_DOM_Util.copy_dom(original_dom_id);
-    if($(dom).height < Matrix_DOM_Util.DEFAULT_MIN_HEIGHT){
+    if ($(dom).height < Matrix_DOM_Util.DEFAULT_MIN_HEIGHT) {
       $(dom).height(Matrix_DOM_Util.DEFAULT_MIN_HEIGHT);
     }
     var chart_container_div = $(dom).find('.matrix_chart_container');
     var tmp_chart_id = Matrix_Util.gen_id() + "_chart";
-    if (chart_container_div.length>0) {
+    if (chart_container_div.length > 0) {
       chart_container_div.attr('id', tmp_chart_id);
       chart_container_div.empty();
     }
 
     Matrix_DOM_Util.paste_dom(destination_parent_div_id, dom);
 
-    if (chart_container_div.length>0) {
-      var origin_chart_container_id = $('#'+original_dom_id).find('.matrix_chart_container').attr('id');
+    if (chart_container_div.length > 0) {
+      var origin_chart_container_id = $('#' + original_dom_id).find('.matrix_chart_container').attr('id');
       var cached_chart = Matrix_DOM_Util.cache[origin_chart_container_id];
       if (!cached_chart) {
         alert('chart not cached!');
@@ -404,19 +453,324 @@ var Matrix_Chart_Util = {
 
 $.subscribe("SUCCESS_LISTENER_DYNAMIC_CHART", Matrix_Chart_Util.retrieve_chart_ds_listener);
 
-function DEFAULT_MATRIX_SERVER_RESPONSE_SUCCESS_HANDLER(json){
-  if(json){
-    Matrix_UI.message_success(JSON.stringify(json),"Server Service Success!", "Please read the message below:");
+function DEFAULT_MATRIX_SERVER_RESPONSE_SUCCESS_HANDLER(json) {
+  if (json) {
+    var formattedStr = JSON.stringify(json, null, 2);
+    Matrix_UI.message_success(formattedStr, "Server Service Success!", "Please read the message below:");
   }
 }
 
-function DEFAULT_MATRIX_SERVER_RESPONSE_ERROR_HANDLER(json){
-  if(json){
-    Matrix_UI.message_error(JSON.stringify(json),"Server Service Error!", "Please read the message below:");
+function DEFAULT_MATRIX_SERVER_RESPONSE_ERROR_HANDLER(json) {
+  if (json) {
+    var formattedStr = JSON.stringify(json, null, 2);
+    Matrix_UI.message_error(formattedStr, "Server Service Error!", "Please read the message below:");
   }
 }
-function DEFAULT_MATRIX_SERVER_SERVICE_EXCEPTION_HANDLER(json){
-  if(json){
+
+function DEFAULT_MATRIX_SERVER_SERVICE_EXCEPTION_HANDLER(json) {
+  if (json) {
     Matrix_UI.message_error("Catch Fatal Exception From Server!", "Fatal Exception!", "Please read the message below:");
   }
 }
+
+var GENERIC_ADD = function(requestPOJO) {
+  if (requestPOJO) {
+    var data = {
+      'queryJson': $.toJSON(requestPOJO)
+    };
+    Matrix_Util.request_remote(Matrix_Util.get_server_path() + '/service_generic_query/api/cud/add', DEFAULT_MATRIX_SERVER_RESPONSE_SUCCESS_HANDLER, data);
+  }
+};
+var GENERIC_UPDATE = function(requestPOJO) {
+  if (requestPOJO) {
+    var data = {
+      'queryJson': $.toJSON(requestPOJO)
+    };
+    Matrix_Util.request_remote(Matrix_Util.get_server_path() + '/service_generic_query/api/cud/update', DEFAULT_MATRIX_SERVER_RESPONSE_SUCCESS_HANDLER, data);
+  }
+};
+
+var GENERIC_ADD_TEST = function() {
+  var time = (new Date()).getTime();
+  var time_format = Matrix_Util.formatTime(time, 'yyyy-MM-dd');
+  var requestPOJO = {
+    "className": "v2.service.generic.query.entity.Genericentity",
+    "attributes": {
+      "type": "MATRIX_TUTORIALS_EXAMPLE_ENTITY",
+      "creator": "MATRIX",
+      "numberalpha": time,
+      "stringalpha": time_format,
+      "name": "name_" + Matrix_Util.gen_id(),
+      "description": "description_" + time_format,
+      "enabled": true,
+      "valid": true,
+      "deleted": false,
+    }
+  };
+  GENERIC_ADD(requestPOJO);
+};
+var GENERIC_UPDATE_TEST = function(id) {
+  if(!id) return;
+  var time = (new Date()).getTime();
+  var time_format = Matrix_Util.formatTime(time, 'yyyy-MM-dd');
+  var requestPOJO = {
+    "className": "v2.service.generic.query.entity.Genericentity",
+    "attributes": {
+      "type": "MATRIX_TUTORIALS_EXAMPLE_ENTITY",
+      "id":id,
+      "numberalpha": time,
+      "stringalpha": time_format,
+      "name": "name_" + Matrix_Util.gen_id(),
+      "description": "description_" + time_format,
+      "enabled": true,
+      "valid": true,
+      "deleted": false,
+    }
+  };
+  GENERIC_UPDATE(requestPOJO);
+};
+var GENERIC_LOGIC_DELETE_TEST = function(id) {
+  if(!id) return;
+  var time = (new Date()).getTime();
+  var time_format = Matrix_Util.formatTime(time, 'yyyy-MM-dd');
+  var requestPOJO = {
+    "className": "v2.service.generic.query.entity.Genericentity",
+    "attributes": {
+      "type": "MATRIX_TUTORIALS_EXAMPLE_ENTITY",
+      "id":id,
+      "numberalpha": time,
+      "stringalpha": time_format,
+      "name": "name_" + Matrix_Util.gen_id(),
+      "description": "description_" + time_format,
+      "enabled": true,
+      "valid": true,
+      "deleted": true,
+    }
+  };
+  GENERIC_UPDATE(requestPOJO);
+};
+Date.prototype.Format = function(fmt) {
+  var o = {
+    "M+": this.getMonth() + 1, //月份
+    "d+": this.getDate(), //日
+    "h+": this.getHours(), //小时
+    "m+": this.getMinutes(), //分
+    "s+": this.getSeconds(), //秒
+    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+    "S": this.getMilliseconds() //毫秒
+  };
+  if (/(y+)/.test(fmt))
+    fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+  for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt))
+      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+  return fmt;
+}
+
+
+
+var ValidationPOJO = ValidationPOJO || {};
+ValidationPOJO = {
+  validateNotNull: function(input) {
+    if (ValidationPOJO.validateMustNumber(input)) {
+      return true;
+    } else {
+      var result = false;
+      if (input && input.length > 0) {
+        result = true;
+      } else {
+        result = false;
+      }
+      return result;
+    }
+  },
+  validateNotMax: function(input) {
+    var result = false;
+    if (input && input.length <= 255) {
+      result = true;
+    } else {
+      result = false;
+    }
+    return result;
+  },
+  validateNoMoreThan5000: function(input) {
+    var result = false;
+    if (input && input.length < 5000) {
+      result = true;
+    } else {
+      result = false;
+    }
+    return result;
+  },
+  validateMustNumber: function(input) {
+    try {
+      return jQuery.isNumeric(input);
+      // input = parseFloat(input);
+      // if (typeof input == 'number') {
+      //   return true;
+      // } else {
+      //   return false;
+      // }
+    } catch (ex) {
+      return false;
+    }
+  },
+  validateNOTNegative: function(input) {
+    if (ValidationPOJO.validateMustNumber(input) && input >= 0) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+  validateSpecialChars: function(input) {
+    // console.log("The validate input special chars operation has been invoked!");
+    var regEx = new RegExp(/^(([^\^\.<>%&',;=?$"':#@!~\]\[{}\\/`\|])*)$/);
+    var result = input.match(regEx);
+    if (result == null) {
+      // console.log("The validate input operation result: false---"+input);
+      return false;
+    } else {
+      // console.log("The validate input operation result: true---"+input);
+      return true;
+    }
+  },
+  validateFilePath: function(input) {
+    // console.log("The validate input special chars operation has been invoked!");
+    var regEx = new RegExp(/^(([^\^\.<>%&',;=?$"':#@!~\]\[{}\`\|])*)$/);
+    var result = input.match(regEx);
+    if (result == null) {
+      // console.log("The validate input operation result: false---"+input);
+      return false;
+    } else {
+      // console.log("The validate input operation result: true---"+input);
+      return true;
+    }
+  },
+  validateInputLength: function(input) {
+    //        console.log("The validate input length operation has been invoked!");
+    var result = false;
+    if (input && input.length >= 6 && input.length <= 20) {
+      result = true;
+    } else {
+      result = false;
+    }
+    //        console.log("The validate input length operation result:[" + input + "] is " + result);
+    return result;
+  },
+  validateEmailPattern: function(input) {
+    // console.log("The validate input email pattern operation has been invoked!");
+    var reMail = /^(?:[a-zA-Z0-9]+[_\-\+\.]?)*[a-zA-Z0-9]+@(?:([a-zA-Z0-9]+[_\-]?)*[a-zA-Z0-9]+\.)+([a-zA-Z]{2,})+$/;
+    var regEx = new RegExp(reMail);
+    var result = false;
+    if (regEx.test(input)) {
+      result = true;
+    }
+    // console.log("The validate input email pattern operation result:["+input+"] is "+result);
+    return result;
+  },
+  validatePhonePattern: function(input) {
+    var tel = /(^[0-9]{3,4}\-[0-9]{7,8}$)|(^[0-9]{7,8}$)|(^[0−9]3,4[0-9]{3,8}$)|(^0{0,1}13[0-9]{9}$)|(13\d{9}$)|(15[0135-9]\d{8}$)|(18[267]\d{8}$)/;
+    var regEx = new RegExp(tel);
+    var result = false;
+    if (regEx.test(input)) {
+      result = true;
+    }
+    return result;
+  },
+  KEY_NOT_NULL: 'KEY_NOT_NULL',
+  KEY_ARRAY_NOT_NULL: 'KEY_ARRAY_NOT_NULL',
+  KEY_NOT_MAX: 'KEY_NOT_MAX',
+  KEY_TOO_LONG: 'KEY_TOO_LONG',
+  KEY_SPECIAL: 'KEY_SPECIAL',
+  KEY_EMAIL: 'KEY_EMAIL',
+  KEY_LENGTH_SCOPE: 'KEY_LENGTH_SCOPE',
+  KEY_NOT_NEGATIVE: 'KEY_NOT_NEGATIVE',
+  KEY_MUST_NUMBER: 'KEY_MUST_NUMBER',
+  KEY_MUST_PHONE_NUMBER: 'KEY_MUST_PHONE_NUMBER',
+  KEY_FILE_PATH: 'KEY_FILE_PATH',
+  validate: function(inputName, inputValue, errorMessageRef, validateFunctions, emptyFlag) {
+    if (emptyFlag) {
+
+    } else {
+      if (!inputValue) {
+        // errorMessageRef.push(inputName + " 不能为空");
+        errorMessageRef.push(inputName + " can not be empty");
+        return;
+      }
+    }
+
+    if (inputName && inputValue && errorMessageRef && validateFunctions) {
+      for (i = 0; i < validateFunctions.length; i++) {
+        var key = validateFunctions[i];
+        if (ValidationPOJO.KEY_NOT_NULL == key) {
+          if (!ValidationPOJO.validateNotNull(inputValue)) {
+            // errorMessageRef.push(inputName + " 不能为空");
+            errorMessageRef.push(inputName + " can not be empty");
+          }
+        }
+        if (ValidationPOJO.KEY_ARRAY_NOT_NULL == key) {
+          if (!ValidationPOJO.validateNotNull(inputValue)) {
+            // errorMessageRef.push(inputName + " 不能为空数组");
+            errorMessageRef.push(inputName + " can not be empty array");
+          }
+        }
+        if (ValidationPOJO.KEY_TOO_LONG == key) {
+          if (!ValidationPOJO.validateNoMoreThan5000(inputValue)) {
+            // errorMessageRef.push(inputName + " 超过输入最大限制[5000字符]");
+            errorMessageRef.push(inputName + " exceed max limit");
+          }
+        }
+        if (ValidationPOJO.KEY_NOT_MAX == key) {
+          if (!ValidationPOJO.validateNotMax(inputValue)) {
+            // errorMessageRef.push(inputName + " 超过输入最大限制");
+            errorMessageRef.push(inputName + " exceed max limit");
+          }
+        }
+        if (ValidationPOJO.KEY_SPECIAL == key) {
+          if (!ValidationPOJO.validateSpecialChars(inputValue)) {
+            // errorMessageRef.push(inputName + " 含有特殊字符");
+            errorMessageRef.push(inputName + " contain special character");
+          }
+        }
+        if (ValidationPOJO.KEY_EMAIL == key) {
+          if (!ValidationPOJO.validateEmailPattern(inputValue)) {
+            // errorMessageRef.push(inputName + " 不符合正确的邮箱格式");
+            errorMessageRef.push(inputName + " is not valid email format");
+          }
+        }
+        if (ValidationPOJO.KEY_LENGTH_SCOPE == key) {
+          if (!ValidationPOJO.validateInputLength(inputValue)) {
+            // errorMessageRef.push(inputName + " 长度不满足格式要求");
+            errorMessageRef.push(inputName + " is not in the correct length scope");
+          }
+        }
+        if (ValidationPOJO.KEY_NOT_NEGATIVE == key) {
+          if (!ValidationPOJO.validateNOTNegative(inputValue)) {
+            // errorMessageRef.push(inputName + " 必须为非负数");
+            errorMessageRef.push(inputName + " can not be negetive");
+          }
+        }
+        if (ValidationPOJO.KEY_MUST_NUMBER == key) {
+          if (!ValidationPOJO.validateMustNumber(inputValue)) {
+            // errorMessageRef.push(inputName + " 必须是数字");
+            errorMessageRef.push(inputName + " must be number");
+          }
+        }
+        if (ValidationPOJO.KEY_MUST_PHONE_NUMBER == key) {
+          if (!ValidationPOJO.validatePhonePattern(inputValue)) {
+            // errorMessageRef.push(inputName + " 必须是合法的电话号码");
+            errorMessageRef.push(inputName + " must valid phone number");
+          }
+        }
+        if (ValidationPOJO.KEY_FILE_PATH == key) {
+          if (!ValidationPOJO.validateFilePath(inputValue)) {
+            // errorMessageRef.push(inputName + " 必须是合法的文件路径");
+            errorMessageRef.push(inputName + " can not be illegal file path");
+          }
+        }
+      }
+    } else {
+      return;
+    }
+  }
+};

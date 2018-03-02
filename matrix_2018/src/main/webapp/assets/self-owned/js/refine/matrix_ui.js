@@ -44,7 +44,14 @@ var Matrix_UI = {
       current_vm.response_vm().errorResponse(content, title, subtitle);
     }
   },
-
+   switch_div_display:function(div_id) {
+    var current_state = $('#' + div_id).css('display');
+    if ('none' == current_state) {
+      $('#' + div_id).css('display', '');
+    } else {
+      $('#' + div_id).css('display', 'none');
+    }
+  },
   switch_class_display: function(class_name) {
     var current_state = $('.' + class_name).css('display');
     if ('none' == current_state) {
@@ -69,8 +76,33 @@ var Matrix_UI = {
     if ($('#' + div_id).hasClass(class_name)) {
       $('#' + div_id).removeClass(class_name);
     }
-  }
+  },
 
+
+  popup_modal:function(title,href){
+    $('#popupModalPro').modal({
+      backdrop: 'static',
+      keyboard: false
+    });
+    $('#popupModalLabelPro').html(title);
+    $('#modalContentDIVPro').load(Matrix_Util.get_project_path() + href);
+    if(Matrix_VM.modal_vm){
+      current_vm = Matrix_VM.modal_vm;
+    }
+  },
+  close_modal: function(modalName) {
+    if(Matrix_VM.page_vm){
+      current_vm = Matrix_VM.page_vm;
+    }
+    modalName = modalName||"popupModalPro";
+    $('#'+modalName).modal('hide');
+  },
+
+  clean_ui:function(){
+    if(current_vm && current_vm.response_vm()){
+      current_vm.response_vm().reset();
+    }
+  }
 };
 
 function init_ui(isDashboardMode, isDarkTheme) {
@@ -127,11 +159,11 @@ function normalMode() {
 }
 
 function init_matrix_dom_env() {
-  $('#sidebar').load(Matrix_Util.get_project_path() + '/components/left_side.html');
-  $('#navbar').load(Matrix_Util.get_project_path() + '/components/header.html');
-  $('#template-matrix-dynamic-table-div').load(Matrix_Util.get_project_path() + '/components/template-matrix-dynamic-table.html');
-  $('#template-matrix-modal-div').load(Matrix_Util.get_project_path() + '/components/template-matrix-modal.html');
-  $('#template-matrix-footer-div').load(Matrix_Util.get_project_path() + '/components/footer.html');
+  $('#sidebar').load(Matrix_Util.get_project_path() + '/skeleton/left_side.html');
+  $('#navbar').load(Matrix_Util.get_project_path() + '/skeleton/header.html');
+  $('#template-matrix-dynamic-table-div').load(Matrix_Util.get_project_path() + '/skeleton/template-matrix-dynamic-table.html');
+  $('#template-matrix-modal-div').load(Matrix_Util.get_project_path() + '/skeleton/template-matrix-modal.html');
+  $('#template-matrix-footer-div').load(Matrix_Util.get_project_path() + '/skeleton/footer.html');
 }
 
 function init_matrix_tree_env(data_source_listener, click_event_listner) {

@@ -57,7 +57,9 @@ function ResponseViewModel() {
   self.correctResponse = function(content, title, subTitle) {
     self.response("alert-success", content || "", title || 'Success', subTitle || "");
   };
-
+  self.infoResponse = function(content, title, subTitle) {
+    self.response("alert-info", content || "", title || 'Success', subTitle || "");
+  };
   self.warningResponse = function(content, title, subTitle) {
     self.response("alert-warning", content || "", title || 'Warning', subTitle || "");
   }

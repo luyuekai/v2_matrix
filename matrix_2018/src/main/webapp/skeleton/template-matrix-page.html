@@ -83,65 +83,7 @@
       <!--VALIDATION DIV FINISHED-->
 
       <!--BUSINESS DIV BEGIN-->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card" data-bind="with:businessPOJO">
-            <div class="card-header">
-              <div class="card-title">
-                <i class="fa fa-diamond">&nbsp;Progress Bar&nbsp;&nbsp;&nbsp;</i>
-                <button type="button" onclick="resetProgress()" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;"><i class="fa fa-repeat">&nbsp;reset</i></button>
-              </div>
 
-            </div>
-            <div class="card-body flat-matrix">
-              <div class="row">
-                <div class="col-sm-12" >
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-success" data-bind="style: {width: progress()+'%'}">
-                      <span data-bind="text: (function(){return progress().toString().substr(0, 5)+'%'})()"></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-12">
-                  <div>
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                        <span class="sr-only">40% Complete (success)</span>
-                      </div>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                        <span class="sr-only">20% Complete</span>
-                      </div>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                        <span class="sr-only">60% Complete (warning)</span>
-                      </div>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-danger  progress-bar-striped active" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                        <span class="sr-only">80% Complete (danger)</span>
-                      </div>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-success" style="width: 35%">
-                        <span class="sr-only">35% Complete (success)</span>
-                      </div>
-                      <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%">
-                        <span class="sr-only">20% Complete (warning)</span>
-                      </div>
-                      <div class="progress-bar progress-bar-danger" style="width: 10%">
-                        <span class="sr-only">10% Complete (danger)</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <!--BUSINESS DIV FINISHED-->
 
 
@@ -176,20 +118,22 @@
   <script src="../assets/self-owned/js/refine/matrix_components.js"></script>
   <script src="../assets/self-owned/js/refine/matrix_table.js"></script>
   <script src="../assets/self-owned/js/refine/matrix_vm.js"></script>
-  <script src="matrix-progress.js"></script>
+
+  <script src="template-matrix-page.js"></script>
+
 
   <script>
     $(document).ready(function() {
       init_matrix_dom_env();
+      UNIT_TEST_SUITE();
       setTimeout(function() {
         $('#navbar_search_li').css('display', 'none');
-        $('#navbar_title_li').text('Matrix Components - Progress');
+        $('#navbar_title_li').text('Matrix Page');
       }, 1000)
     });
 
     $.subscribe("get_user_detail_chain_finished", env_setup);
   </script>
-
 </body>
 
 </html>

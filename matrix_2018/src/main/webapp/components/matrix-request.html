@@ -89,16 +89,16 @@
             <div class="card-header">
               <div class="card-title">
                 <i class="fa fa-diamond">&nbsp;Server Request&nbsp;&nbsp;&nbsp;</i>
-                <button type="button" class="btn btn-success" onclick='request_success()' >
+                <button type="button" class="btn btn-success" onclick="Matrix_Util.request_remote(Matrix_Util.get_project_path() + '/api/mock/post/success', DEFAULT_MATRIX_SERVER_RESPONSE_SUCCESS_HANDLER);">
                   <span class="fa fa-check" aria-hidden="true" title="重置">&nbsp;Success</span>
                 </button>
-                <button type="button" class="btn btn-warning" onclick='request_warning()'>
+                <button type="button" class="btn btn-warning" onclick='Matrix_UI.message_warning("This is Mock Client Error!", "Be Careful!", "Please read the message below:");'>
                   <span class="fa fa-close" aria-hidden="true" title="新增">&nbsp;Client Error</span>
                 </button>
-                <button type="button" class="btn btn-danger" onclick='request_error()' >
+                <button type="button" class="btn btn-danger" onclick="Matrix_Util.request_remote(Matrix_Util.get_project_path() + '/api/mock/service_error', DEFAULT_MATRIX_SERVER_RESPONSE_SUCCESS_HANDLER,null,'GET');" >
                   <span class="fa fa-close" aria-hidden="true" title="新增">&nbsp;Service Error</span>
                 </button>
-                <button type="button" class="btn btn-danger" onclick="request_exception();">
+                <button type="button" class="btn btn-danger" onclick="Matrix_Util.request_remote(Matrix_Util.get_project_path() + '/api/mock/server_error', DEFAULT_MATRIX_SERVER_RESPONSE_SUCCESS_HANDLER,null,'GET');">
                   <span class="fa fa-bomb" aria-hidden="true" title="chart">&nbsp;Server Exception</span>
                 </button>
               </div>
@@ -115,6 +115,123 @@
 
                 Matrix框架的Matrix_Util函数封装了所有与服务器端交互的API，更多详情请参阅相关的js教程。
               </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" data-bind="if:businessPOJO">
+        <div class="col-sm-12">
+          <div class="card card-mini">
+            <div class="card-header" style="padding-bottom:0px">
+              <div class="card-title">
+                <i class="fa fa-diamond">&nbsp;Server Request Entity&nbsp;&nbsp;&nbsp;</i>
+                <button onclick="Matrix_UI.switch_div_display('common_table_div');
+                      Matrix_UI.switch_div_display('special_table_div');
+                      vm.businessPOJO().spvm.retrieveData()" type="button" class="btn btn-default" style="padding: 6px 12px;margin-bottom: 0px;">
+                  <span class="fa fa-barcode" aria-hidden="true"></span> &nbsp;Switch Table
+                </button>
+                <span class="pull-right" style="margin-right:18px;">
+                  <form class="form-inline">
+                    <nav>
+                      <span class="pull-left">
+                        <input data-bind="value:businessPOJO().entityName" type="text" class="form-control" onkeydown="if(event.keyCode==13)return false;" placeholder="Entity Name" style="margin-left: 18px;padding-bottom: 8px;">
+                        <button id="search_button" onclick="vm.businessPOJO().spvm.retrieveData()" type="button" class="btn btn-default" style="margin-bottom:15px;padding: 10px 15px;margin-left: -4px;"><i class="fa fa-search"></i></button>
+                      </span>
+                    </nav>
+                  </form>
+                </span>
+              </div>
+            </div>
+            <div class="card-body" style="padding: 20px 30px">
+              <div>
+                <div data-bind="with:businessPOJO().spvm">
+                  <div class="panel-body" data-bind="visible: hasServerResponse()">
+                  <!--<div class="panel-body" >-->
+
+                    <div class="row" id='common_table_div' style="display:none">
+                      <div class="col-md-12" style="overflow: auto">
+                        <table class="table table-striped table-hover" cellspacing="0">
+                          <thead>
+                            <tr>
+                              <!-- ko foreach: columnNames -->
+                              <th>
+                                <span data-bind="text: $data"></span>
+                              </th>
+                              <!-- /ko -->
+                            </tr>
+                          </thead>
+                          <tbody data-bind="foreach: viewData">
+                            <tr data-bind="foreach: $data">
+                              <td data-bind="text: $data"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="row" id='special_table_div'>
+                      <div class="col-md-12" style="overflow: auto">
+                        <table class="table table-striped  table-hover" cellspacing="0" width="100%">
+                          <thead>
+                            <tr>
+                              <th>id</th>
+                              <th>name</th>
+                              <th>description</th>
+                              <th>enabled</th>
+                              <th>action</th>
+                            </tr>
+                          </thead>
+                          <tbody data-bind="foreach: viewData">
+                            <tr>
+                              <td>
+                                <span data-bind="text:$data[0]" />
+                              </td>
+                              <td>
+                                <span data-bind="text:$data[14]" />
+                              </td>
+                              <td>
+                                <span data-bind="text:$data[9]" />
+                              </td>
+                              <td>
+                                <span data-bind="text:$data[10]?'Y':'N'" />
+                              </td>
+                              <td>
+                                <button type="button" class="btn btn-link " title="detail">
+                                  <div class="title"><i class="fa fa-barcode fa-1x"></i></div>
+                                </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="matrix-pager-v3">
+                      <form class="form-inline">
+                        <nav>
+                          <span class="pull-left">
+                            <label class="control-label" style="margin-bottom: 12px;">Total Counts:<span data-bind="text:totalCounts()?totalCounts():0"></span></label>
+                            <input data-bind="value:searchKeyword" type="text" class="form-control" placeholder="Search..." style="margin-left: 18px;">
+                            <button data-bind="click:function(){searchByKeyword()}" type="submit" class="btn btn-default" style="margin-bottom:15px;padding: 10px 15px;margin-left: -4px;"><i class="fa fa-search"></i></button>
+                          </span>
+                          <span class="pull-right">
+                            <button data-bind="click:function(){toPage(1)}" type="button" class="btn btn-default " style="padding: 10px 12px;"><i class="fa fa-angle-double-left"></i> &nbsp;First</button>
+                            <button data-bind="click:function(){toPage(currentPageNumber()-1)}" type="button" class="btn btn-default " style="padding: 10px 12px;"><i class="fa fa-angle-left"></i> &nbsp;Previous</button>
+                            <input data-bind="value:currentPageNumber" type="text" class="form-control" placeholder="Page" style="width:60px;margin-bottom:5px;padding:10px;text-align: center;">
+                            <button data-bind="visible:false,click:function(){}" type="submit" class="btn"><span class="fui-search"></span></button>
+                            <button data-bind="click:function(){toPage(currentPageNumber()+1)}" type="button" class="btn btn-default " style="padding: 10px 12px;">Next &nbsp;<i class="fa fa-angle-right"></i></button>
+                            <button data-bind="click:function(){toPage(totalPage())}" type="button" class="btn btn-default " style="padding: 10px 12px;">Last &nbsp;<i class="fa fa-angle-double-right"></i></button>
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span data-bind="text:pageMaxSize()"></span> <span class="caret"></span></button>
+                              <ul class="dropdown-menu" role="menu" data-bind="foreach: pagingSizeArray">
+                                <li><a data-bind="click:function(){$parent.pageMaxSize($data)}" href="#"><span data-bind="text:$data"></span></a></li>
+                              </ul>
+                            </div>
+                          </span>
+                        </nav>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -153,7 +270,7 @@
   <script src="../assets/self-owned/js/refine/matrix_util.js"></script>
   <script src="../assets/self-owned/js/refine/matrix_components.js"></script>
   <script src="../assets/self-owned/js/refine/matrix_table.js"></script>
-
+  <script src="../assets/self-owned/js/refine/matrix_vm.js"></script>
   <script src="matrix-request.js"></script>
 
 
@@ -161,7 +278,7 @@
     $(document).ready(function() {
       init_matrix_dom_env();
       setTimeout(function() {
-        $('#navbar_search_li').css('display', 'none');
+        $('#navbar_search_li').css('display', '');
         $('#navbar_title_li').text('Matrix Reqeust');
       }, 1000)
     });

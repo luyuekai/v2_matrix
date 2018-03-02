@@ -117,17 +117,17 @@
   <script src="../assets/self-owned/js/refine/matrix_util.js"></script>
   <script src="../assets/self-owned/js/refine/matrix_components.js"></script>
   <script src="../assets/self-owned/js/refine/matrix_table.js"></script>
+  <script src="../assets/self-owned/js/refine/matrix_vm.js"></script>
 
-  <script src="template-matrix-page.js"></script>
+  <script src="matrix-cud.js"></script>
 
 
   <script>
     $(document).ready(function() {
       init_matrix_dom_env();
-      UNIT_TEST_SUITE();
       setTimeout(function() {
         $('#navbar_search_li').css('display', 'none');
-        $('#navbar_title_li').text('Matrix Page');
+        $('#navbar_title_li').text('Matrix Create & Update & Delete');
       }, 1000)
     });
 

@@ -1,4 +1,4 @@
-var vm = new GenericPageViewModel();
+var vm = Matrix_VM.page_vm;
 
 function env_setup() {
   vm_env_setup();

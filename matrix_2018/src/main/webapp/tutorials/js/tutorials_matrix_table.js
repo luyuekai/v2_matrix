@@ -1,9 +1,9 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var vm = new GenericPageViewModel();
+var vm = Matrix_VM.page_vm;
 function env_setup() {
     vm_env_setup();
     init_matrix_table_env();

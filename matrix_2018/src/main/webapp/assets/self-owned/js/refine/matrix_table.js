@@ -510,7 +510,7 @@ function ServerPagingViewModel() {
         self.currentPageSize(self.serverData.currentPageSize);
     };
     self.buildSearchData = function (serverData) {
-        var transferData = DataTransferPOJO.serverJsonData2TableData(serverData.result);
+        var transferData = Matrix_Util.serverJsonData2TableData(serverData.result);
 
         self.serverData = serverData;
         self.hasServerResponse(true);
@@ -541,6 +541,10 @@ function ServerPagingViewModel() {
     self.toPage = function (pageNumber) {
         self.currentPageNumber(pageNumber);
 //        console.log('navigate to the special page success...');
+    };
+
+    self.retrieveData = function(){
+      alert('This function should be implememnt for retrieve server data!')
     };
 
 }
