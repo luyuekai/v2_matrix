@@ -1,0 +1,121 @@
+.matrix-card.red {
+ background-color: #E74C3C; // #FA2A00;
+ color: #FFF;
+}
+.matrix-card.yellow {
+ background-color: #E67E22; //#ffb400;
+ color: #FFF;
+}
+.matrix-card.green {
+ background-color: #1ABC9C;
+ color: #FFF;
+}
+.matrix-card.blue {
+ background-color: #22A7F0;
+ color: #FFF;
+}
+.matrix-card.dark {
+ background-color: #333433;
+ color: #FFF;
+}
+.matrix-card.white {
+ background-color: #FFF;
+ color: #666;
+}
+.matrix-card.red,  .matrix-card.yellow,  .matrix-card.green,  .matrix-card.blue,  .matrix-card.dark {
+ border: 0;
+}
+.matrix-card.red .matrix-card-header,  .matrix-card.yellow .matrix-card-header,  .matrix-card.green .matrix-card-header,  .matrix-card.blue .matrix-card-header,  .matrix-card.dark .matrix-card-header {
+ border-bottom: 0;
+}
+.matrix-card.red .matrix-card-header .title,  .matrix-card.yellow .matrix-card-header .title,  .matrix-card.green .matrix-card-header .title,  .matrix-card.blue .matrix-card-header .title,  .matrix-card.dark .matrix-card-header .title {
+ color: #FFF;
+}
+.matrix-card {
+ box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+ border: 1px solid #E4E4E4;
+}
+.matrix-card .card-body {
+ padding: 18px;
+}
+.matrix-card .matrix-card-header {
+ border-bottom: 1px solid #E4E4E4;
+}
+.matrix-card .matrix-card-header .title {
+ color: #353d47;
+}
+.matrix-card .matrix-card-body .sub-title {
+ border-bottom: 1px solid #EAEAEA;
+}
+.matrix-card .matrix-card-header.no-border {
+ border-bottom: 0;
+}
+.matrix-card.summary-inline .card-body .content {
+  float: right;
+}
+.matrix-card.summary-inline .card-body .content .title {
+  font-family: 'Lato', sans-serif;
+  margin-top: -0.3em;
+  font-size: 3.5em;
+  text-align: right;
+}
+.matrix-card.summary-inline .card-body .content .sub-title {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9em;
+  text-align: right;
+  margin-top: -10px;
+  margin-bottom: 0;
+  padding: 0;
+  border-bottom: 0;
+}
+.matrix-card .matrix-card-jumbotron {
+ background-color: #EAEAEA;
+}
+.matrix-card.primary .matrix-card-jumbotron {
+ background-color: #353d47;
+ color: #FFF;
+}
+.matrix-card.profile .matrix-card-footer {
+ border-top: 1px solid #F9F9F9;
+}
+.matrix-card.summary-inline.red:hover {
+ background-color: #7c1a06;
+}
+.matrix-card.summary-inline.yellow:hover {
+ background-color: #85630f;
+}
+.matrix-card.summary-inline.green:hover {
+ background-color: #006551;
+}
+.matrix-card.summary-inline.blue:hover {
+ background-color: #353d47;
+}
+.matrix-card.summary-inline.dark:hover {
+ background-color: #09486b;
+}
+.matrix-card.matrix-card-success .matrix-card-header {
+ background-color: #1ABC9C;
+}
+.matrix-card.matrix-card-success .matrix-card-header .title {
+ color: #FFF;
+}
+.matrix-card.matrix-card-info .matrix-card-header {
+ background-color: #22A7F0;
+}
+.matrix-card.matrix-card-info .matrix-card-header .title {
+ color: #FFF;
+}
+.matrix-card.matrix-card-warning .matrix-card-header {
+ background-color: #E67E22;
+ ;
+}
+.matrix-card.matrix-card-warning .matrix-card-header .title {
+ color: #FFF;
+}
+.matrix-card.matrix-card-danger .matrix-card-header {
+ background-color: #E74C3C;
+ ;
+}
+.matrix-card.matrix-card-danger .matrix-card-header .title {
+ color: #FFF;
+}

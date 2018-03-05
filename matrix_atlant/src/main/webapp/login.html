@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matrix</title>
+
+  <link rel="shortcut icon" href="assets/self-owned/ico/favicon.ico">
+
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="assets/reference/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/reference/form-element.css/form-elements.css">
+
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/login.css">
+  <link rel="stylesheet" type="text/css" href="assets/self-owned/css/matrix.css">
+
+</head>
+
+<body>
+
+  <!-- Top content -->
+  <div class="top-content">
+
+    <div class="inner-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2 text">
+            <h1>
+              <strong><b><span style="color: #3498db;">MATRIX</span></b> Security Portal</strong>
+            </h1>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-3 form-box">
+            <div class="form-top">
+              <div class="form-top-left">
+                <h3><span style="color: #3498db;">System Login</span></h3>
+                <p>Please input the credential and principle:</p>
+              </div>
+              <div class="form-top-right">
+                <i class="fa fa-key"></i>
+              </div>
+            </div>
+            <div class="form-bottom">
+              <div class="flat-matrix">
+                <div id="loginFailedInfoDIV" class="alert alert-danger alert-dismissible fresh-color" role="alert" style="margin-top: 16px;">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fa fa-close"></i></button>
+                  <strong><i class="fa fa-warning fa-6x"></i>&nbsp;Warning:</strong> credential or principle did not correct, please retry.
+                </div>
+              </div>
+              <form role="form" action="/matrix_atlant/login.html" method="post" class="login-form">
+                <div class="form-group">
+                  <label class="sr-only" for="username">Username</label>
+                  <input type="text" name="username" placeholder="username" class="form-username form-control" id="username">
+                </div>
+                <div class="form-group">
+                  <label class="sr-only" for="password">Password</label>
+                  <input type="password" name="password" placeholder="password" class="form-password form-control" id="password">
+                </div>
+                <button id="login_button" type="submit" class="btn" style="background: #3498db;">Login</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <script src="assets/reference/jquery/jquery-1.11.1.min.js"></script>
+  <script src="assets/reference/jquery/jquery.backstretch.min.js"></script>
+  <script src="assets/reference/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/reference/jquery-tiny-pubsub/tiny-pubsub.js"></script>
+
+  <script src="assets/self-owned/js/login.js"></script>
+  <script src="assets/self-owned/js/refine/matrix_util.js"></script>
+  <script src="assets/self-owned/js/generic/generic_prototype.js"></script>
+
+
+  <script>
+    $(document).ready(function() {
+      if (Matrix_Util.hasUrlParam('error')) {
+        $('#loginFailedInfoDIV').css('display', '');
+      } else {
+        $('#loginFailedInfoDIV').css('display', 'none');
+      }
+    });
+
+    function auto_login(){
+      $('#username').val('matrix');
+      $('#password').val('matrix');
+      $('#login_button').click();
+    }
+  //  auto_login();
+  </script>
+</body>
+
+</html>
